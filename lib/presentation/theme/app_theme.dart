@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:insurance_app/presentation/theme/font_manager.dart';
 
 import 'app_colors.dart';
 
 ThemeData appThemeData() => ThemeData(
+      fontFamily: FontConstants.fontFamily,
       colorScheme: ThemeData()
           .colorScheme
           .copyWith(primary: AppColors.primary, secondary: AppColors.secondary),
@@ -10,9 +12,10 @@ ThemeData appThemeData() => ThemeData(
 
 class AppValues {
   // Decoration values:
+  static const double extraSmall = 4.0;
   static const double small = 8.0;
   static const double medium = 16.0;
-  static const double large = 16.0;
+  static const double large = 32.0;
 
   // Decoration values - Default shadow theme:
   static const double shadowBlurRadius = 5;
@@ -35,6 +38,7 @@ class AppSizes {
   static const double s12 = 12;
   static const double s14 = 14;
   static const double s16 = 16;
+  static const double s18 = 18;
   static const double s24 = 24;
   static const double s26 = 26;
   static const double s28 = 28;
@@ -42,6 +46,7 @@ class AppSizes {
   static const double s40 = 40;
   static const double s50 = 50;
   static const double s60 = 60;
+  static const double s62 = 62;
   static const double s64 = 64;
   static const double s72 = 72;
   static const double s90 = 90;
@@ -53,4 +58,5 @@ class AppSizes {
   static const double s190 = 190;
   static const double s200 = 200;
   static const double s240 = 240;
+  static const double s500 = 500;
 }

@@ -25,6 +25,7 @@ class _MyAppState extends State<MyApp> {
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: appThemeData(),
+      initialRoute: Routes.onboardingRoute,
       onGenerateRoute: RouteGenerator().generateRoute,
     );
   }

@@ -1,3 +1,12 @@
 {
-    "test":"Test"
+    "no_route_found": "No route found",
+    "onboarding_one_header": "header one",
+    "onboarding_one_description": "description one",
+    "onboarding_two_header": "header two",
+    "onboarding_two_description": "description two",
+    "onboarding_three_header": "header three",
+    "onboarding_three_description": "description three",
+    "next": "Next",
+    "skip": "Skip",
+    "done": "Done"
 }

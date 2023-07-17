@@ -1,15 +1,14 @@
 const String _imagePath = 'assets/images';
 
 class ImageAssets {
-  static const String gecolLogo = '$_imagePath/GECOL_ICON.png';
-  static const String backgroundImage = '$_imagePath/background_image.jpg';
+  static const String onboardingOne = '$_imagePath/onboarding-one.png';
+  static const String onboardingTwo = '$_imagePath/onboarding-two.png';
+  static const String onboardingThree = '$_imagePath/onboarding-three.png';
 }
 
 const String _svgPath = 'assets/svgs';
 
 class SvgAssets {
-  static const String installmentBankPaymentRequest =
-      '$_svgPath/installment_bank_payment_request.svg';
-  static const String inquiryAboutSubscription =
-      '$_svgPath/inquiry_about_subscription.svg';
+  static const String chevronLeft = '$_svgPath/chevron-left.svg';
+  static const String checkMark = '$_svgPath/check-mark.svg';
 }

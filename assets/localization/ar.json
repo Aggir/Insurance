@@ -1,3 +1,12 @@
 {
-    "test":"تجربة"
+    "no_route_found": "لم يتم العثور على المسار",
+    "onboarding_one_header": "ميزة عن التطبيق",
+    "onboarding_one_description": "هذا النص يمثل شرح للميزة. هذا النص يمثل شرح للميزة. هذا النص يمثل شرح للميزة. ",
+    "onboarding_two_header": "ميزة ثانية عن التطبيق",
+    "onboarding_two_description": "هذا النص يمثل شرح للميزة. هذا النص يمثل شرح للميزة.",
+    "onboarding_three_header": "ميزة عن التطبيق",
+    "onboarding_three_description": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة لقد تم توليد هذا النص من مولد النص العربى.",
+    "next": "التالي",
+    "skip": "تخطي",
+    "done": "تم"
 }

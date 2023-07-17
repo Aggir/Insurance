@@ -11,7 +11,8 @@ void main() async {
       supportedLocales: appLocales,
       path: assetsPathLocalization,
       fallbackLocale: defaultLocale,
-      saveLocale: true,
+      startLocale: defaultLocale,
+      // saveLocale: true,
       child: MyApp(),
     ),
   );
