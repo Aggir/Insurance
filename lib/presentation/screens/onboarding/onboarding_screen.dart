@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,7 +10,6 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
 import '../../../app/assets_manager.dart';
 import '../../theme/app_colors.dart';
-import 'components/dot_indicator.dart';
 import 'components/onboarding_page_content.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -20,28 +20,28 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final PageController _controller = PageController();
-  int _pageIndex = 0;
+  final PageController _controller = PageController(initialPage: 0);
+  double _pageIndex = 0;
 
-  final List<Widget> _pages = [
-    OnboardingPageContent(
-      imgBackgroundColor: AppColors.paleYellow,
-      imgPath: ImageAssets.onboardingOne,
-      header: AppStrings.onboardingOneHeader,
-      description: AppStrings.onboardingOneDescription,
-    ),
-    OnboardingPageContent(
-      imgBackgroundColor: AppColors.paleYellow,
-      imgPath: ImageAssets.onboardingTwo,
-      header: AppStrings.onboardingTwoHeader,
-      description: AppStrings.onboardingTwoDescription,
-    ),
-    OnboardingPageContent(
-      imgBackgroundColor: AppColors.lightMintGreen,
-      imgPath: ImageAssets.onboardingThree,
-      header: AppStrings.onboardingThreeHeader,
-      description: AppStrings.onboardingThreeDescription,
-    ),
+  final List<Map<String, dynamic>> _pages = [
+    {
+      'imgBackgroundColor': AppColors.paleYellow,
+      'imgPath': ImageAssets.onboardingOne,
+      'header': AppStrings.onboardingOneHeader,
+      'description': AppStrings.onboardingOneDescription,
+    },
+    {
+      'imgBackgroundColor': AppColors.paleYellow,
+      'imgPath': ImageAssets.onboardingTwo,
+      'header': AppStrings.onboardingTwoHeader,
+      'description': AppStrings.onboardingTwoDescription,
+    },
+    {
+      'imgBackgroundColor': AppColors.lightMintGreen,
+      'imgPath': ImageAssets.onboardingThree,
+      'header': AppStrings.onboardingThreeHeader,
+      'description': AppStrings.onboardingThreeDescription,
+    },
   ];
 
   void _skipFunction() {
@@ -54,7 +54,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void _nextFunction() {
     _controller.animateToPage(
-      _pageIndex + 1,
+      (_pageIndex + 1).round(),
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
@@ -64,7 +64,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     context.go(Routes.loginRoute);
   }
 
-  bool get _isTheLastPage => _pageIndex == _pages.length - 1;
+  @override
+  void initState() {
+    _controller.addListener(() {
+      setState(() {
+        _pageIndex = _controller.page ?? 0;
+      });
+    });
+    super.initState();
+  }
+
+  bool get _isTheLastPage => _pageIndex.ceil() == _pages.length - 1;
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +85,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: PageView(
+                child: PageView.builder(
                   controller: _controller,
-                  children: _pages,
-                  onPageChanged: (value) {
-                    setState(() {
-                      _pageIndex = value;
-                    });
-                  },
+                  itemBuilder: (context, index) => OnboardingPageContent(
+                    imgPath: _pages[index]['imgPath'],
+                    imgBackgroundColor: _pages[index]['imgBackgroundColor'],
+                    header: _pages[index]['header'],
+                    description: _pages[index]['description'],
+                  ),
+                  itemCount: _pages.length,
                 ),
               ),
               Padding(
@@ -90,12 +101,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     AppValues.medium, 0, AppValues.medium, AppValues.large),
                 child: Row(
                   children: [
-                    ...List.generate(
-                      _pages.length,
-                      (index) => Padding(
-                        padding: const EdgeInsets.all(AppValues.extraSmall),
-                        child: DotIndicator(
-                          isActive: _pageIndex == index,
+                    DotsIndicator(
+                      dotsCount: _pages.length,
+                      position: _pageIndex,
+                      decorator: DotsDecorator(
+                        color: AppColors.primary.withOpacity(0.3),
+                        size: const Size(AppSizes.s6, AppSizes.s12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        activeColor: AppColors.primary,
+                        activeSize: const Size(AppSizes.s6, AppSizes.s18),
+                        activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40),
                         ),
                       ),
                     ),
