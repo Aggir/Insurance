@@ -18,15 +18,14 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: Constants.appName,
       debugShowCheckedModeBanner: false,
       theme: appThemeData(),
-      initialRoute: Routes.onboardingRoute,
-      onGenerateRoute: RouteGenerator().generateRoute,
+      routerConfig: AppRouter.appRouter,
     );
   }
 }
