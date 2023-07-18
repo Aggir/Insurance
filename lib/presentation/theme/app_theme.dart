@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
 
 import 'app_colors.dart';
@@ -11,23 +12,26 @@ ThemeData appThemeData() => ThemeData(
     );
 
 class AppValues {
-  // Decoration values:
+  // Padding and Margin
   static const double extraSmall = 4.0;
   static const double small = 8.0;
   static const double medium = 16.0;
   static const double large = 32.0;
+  static const double extraLarge = 48.0;
 
-  // Decoration values - Default shadow theme:
+  // Default Shadow
   static const double shadowBlurRadius = 5;
   static const Offset shadowOffset = Offset(1, 1);
   static final BoxShadow boxShadow = BoxShadow(
       blurRadius: shadowBlurRadius,
       color: AppColors.blackShadow,
       offset: shadowOffset);
-  // Animations:
-  static const int pageTransitionAnimation = 500; // in milliseconds
-  static const int calendarTransitionAnimation = 300; // in milliseconds
-  static const int expandButtonAnimation = 300; // in milliseconds
+  // Radius
+  static const double primaryButtonRadius = 10;
+  static const double textFieldRadius = 10;
+  static const double loginPageContainerRadius = 15;
+  // Sizes
+  static const Size buttonMinSize = Size(25, 50);
 }
 
 class AppSizes {

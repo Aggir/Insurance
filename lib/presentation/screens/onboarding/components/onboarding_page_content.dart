@@ -39,12 +39,12 @@ class OnboardingPageContent extends StatelessWidget {
             children: [
               Text(
                 header,
-                style: onboardingHeaderStyle(),
+                style: darkGrayBodyStyle(),
               ).tr(),
               _contentDivider(),
               Text(
                 description,
-                style: onboardingDescriptionStyle(),
+                style: headlineStyle(),
               ).tr(),
             ],
           ),

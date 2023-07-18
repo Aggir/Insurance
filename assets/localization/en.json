@@ -1,12 +1,18 @@
 {
     "no_route_found": "No route found",
-    "onboarding_one_header": "header one",
-    "onboarding_one_description": "description one",
-    "onboarding_two_header": "header two",
-    "onboarding_two_description": "description two",
-    "onboarding_three_header": "header three",
-    "onboarding_three_description": "description three",
-    "next": "Next",
+    "onboarding_one_header": "App Feature",
+    "onboarding_one_description": "This text represents a description of the feature. This text represents a description of the feature. This text represents a description of the feature.",
+    "onboarding_two_header": "Another App Feature",
+    "onboarding_two_description": "This text represents a description of the feature. This text represents a description of the feature.",
+    "onboarding_three_header": "App Feature",
+    "onboarding_three_description": "This text is an example of text that can be replaced in the same space. This text has been generated from the Arabic text generator.",
     "skip": "Skip",
-    "done": "Done"
+    "login": "Login",
+    "login_screen_description": "Welcome back!",
+    "email_address": "Email Address",
+    "password": "Password",
+    "forgot_password_question": "Forgot Password?",
+    "you_do_not_have_an_account": "Don't have an account?",
+    "create_account": "Create Account",
+    "this_field_is_required":"*This field is required."
 }

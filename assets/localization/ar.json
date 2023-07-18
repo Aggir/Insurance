@@ -6,7 +6,13 @@
     "onboarding_two_description": "هذا النص يمثل شرح للميزة. هذا النص يمثل شرح للميزة.",
     "onboarding_three_header": "ميزة عن التطبيق",
     "onboarding_three_description": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة لقد تم توليد هذا النص من مولد النص العربى.",
-    "next": "التالي",
     "skip": "تخطي",
-    "done": "تم"
+    "login": "تسجيل دخول",
+    "login_screen_description": "سعداء برؤيتك مجددا معنا",
+    "email_address": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgot_password_question": "نسيت كلمة المرور؟",
+    "you_do_not_have_an_account": "ليس لديك حساب؟",
+    "create_account": "إنشاء حساب",
+    "this_field_is_required":"*هذا الحقل مطلوب."
 }

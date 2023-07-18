@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
@@ -59,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _doneFunction() {
-    //Todo: Navigate to another screen
+    context.go(Routes.loginRoute);
   }
 
   bool get _isTheLastPage => _pageIndex == _pages.length - 1;
