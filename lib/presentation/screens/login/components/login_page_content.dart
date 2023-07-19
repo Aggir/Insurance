@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/widgets/card_page_container.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';
@@ -15,44 +18,26 @@ class LoginPageContent extends StatelessWidget {
 
   void _loginButtonFunction(BuildContext context) {}
 
-  void _createAccountButtonFunction(BuildContext context) {}
+  void _createAccountButtonFunction(BuildContext context) {
+    context.go(Routes.signupRoute);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SafeArea(
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(
-                AppValues.loginPageContainerRadius,
-              ),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-                top: AppValues.extraLarge,
-                left: AppValues.large,
-                right: AppValues.large,
-                bottom: AppValues.large + AppValues.large / 3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _headlineTextWidget(),
-                _mediumSpacer(),
-                _bodyTextWidget(),
-                _largeSpacer(),
-                _loginForm(context),
-                _largeSpacer(),
-                _loginButton(context),
-                _mediumSpacer(),
-                _createAccountRow(context),
-              ],
-            ),
-          ),
-        ),
+    return CardPageContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _headlineTextWidget(),
+          _mediumSpacer(),
+          _bodyTextWidget(),
+          _largeSpacer(),
+          _loginForm(context),
+          _largeSpacer(),
+          _loginButton(context),
+          _mediumSpacer(),
+          _createAccountRow(context),
+        ],
       ),
     );
   }

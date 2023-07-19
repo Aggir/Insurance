@@ -27,3 +27,11 @@ TextStyle textButtonStyle() {
 TextStyle pressableTextStyle() {
   return getBoldStyle(fontSize: FontSize.s14, color: AppColors.primary);
 }
+
+TextStyle smallGrayBodyStyle() {
+  return getRegularStyle(fontSize: FontSize.s12, color: AppColors.gray);
+}
+
+TextStyle headlineSmallStyle() {
+  return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
+}

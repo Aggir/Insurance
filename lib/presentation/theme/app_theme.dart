@@ -6,6 +6,7 @@ import 'app_colors.dart';
 
 ThemeData appThemeData() => ThemeData(
       fontFamily: FontConstants.fontFamily,
+      scaffoldBackgroundColor: AppColors.white,
       colorScheme: ThemeData()
           .colorScheme
           .copyWith(primary: AppColors.primary, secondary: AppColors.secondary),
@@ -20,18 +21,20 @@ class AppValues {
   static const double extraLarge = 48.0;
 
   // Default Shadow
-  static const double shadowBlurRadius = 5;
-  static const Offset shadowOffset = Offset(1, 1);
+  static const double shadowBlurRadius = 4;
+  static const Offset shadowOffset = Offset(0, 1);
   static final BoxShadow boxShadow = BoxShadow(
       blurRadius: shadowBlurRadius,
       color: AppColors.blackShadow,
       offset: shadowOffset);
   // Radius
   static const double primaryButtonRadius = 10;
-  static const double textFieldRadius = 10;
-  static const double loginPageContainerRadius = 15;
+  static const double inputRadius = 10;
+  static const double cardPageContainerRadius = 15;
   // Sizes
   static const Size buttonMinSize = Size(25, 50);
+  // Dimensions
+  static const double textFieldHeight = 50;
 }
 
 class AppSizes {
@@ -48,13 +51,17 @@ class AppSizes {
   static const double s28 = 28;
   static const double s30 = 30;
   static const double s40 = 40;
+  static const double s48 = 48;
   static const double s50 = 50;
   static const double s60 = 60;
   static const double s62 = 62;
   static const double s64 = 64;
   static const double s72 = 72;
+  static const double s84 = 84;
+  static const double s86 = 86;
   static const double s90 = 90;
   static const double s100 = 100;
+  static const double s110 = 110;
   static const double s120 = 120;
   static const double s130 = 130;
   static const double s150 = 150;

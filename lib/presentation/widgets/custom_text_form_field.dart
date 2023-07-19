@@ -23,6 +23,10 @@ class CustomTextFormField extends StatefulWidget {
     this.hintText,
     this.suffixIcon,
     this.isPassword = false,
+    this.focusedStyleEnabled = true,
+    this.onTap,
+    this.inputDecoration,
+    this.focusNode,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -35,6 +39,10 @@ class CustomTextFormField extends StatefulWidget {
   final String? hintText;
   final Widget? suffixIcon;
   final bool isPassword;
+  final void Function()? onTap;
+  final bool focusedStyleEnabled;
+  final InputDecoration? inputDecoration;
+  final FocusNode? focusNode;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -94,12 +102,18 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget build(BuildContext context) {
     final inputDecoration = InputDecoration(
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.textFieldRadius),
+        borderRadius: BorderRadius.circular(AppValues.inputRadius),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.textFieldRadius),
+        borderRadius: BorderRadius.circular(AppValues.inputRadius),
         borderSide: BorderSide(color: AppColors.lightGray),
       ),
+      focusedBorder: widget.focusedStyleEnabled
+          ? null
+          : OutlineInputBorder(
+              borderRadius: BorderRadius.circular(AppValues.inputRadius),
+              borderSide: BorderSide(color: AppColors.lightGray),
+            ),
       contentPadding: const EdgeInsets.symmetric(
           vertical: AppValues.small, horizontal: AppValues.small),
       counterText: '',
@@ -108,19 +122,24 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       hintStyle: grayBodyStyle(),
     );
 
-    return TextFormField(
-      controller: widget.controller,
-      keyboardType: widget.keyboardType,
-      maxLength: widget.maxLength,
-      obscureText: widget.isPassword ? !_visible : false,
-      enabled: widget.enabled,
-      readOnly: widget.readOnly,
-      initialValue: widget.initialValue,
-      style: bodyStyle(),
-      inputFormatters: getFormatters(),
-      validator: widget.validator ??
-          (widget.defaultValidator ? _defaultValidator : null),
-      decoration: inputDecoration,
+    return SizedBox(
+      height: AppValues.textFieldHeight,
+      child: TextFormField(
+        focusNode: widget.focusNode,
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        maxLength: widget.maxLength,
+        obscureText: widget.isPassword ? !_visible : false,
+        enabled: widget.enabled,
+        readOnly: widget.readOnly,
+        initialValue: widget.initialValue,
+        onTap: widget.onTap,
+        style: bodyStyle(),
+        inputFormatters: getFormatters(),
+        validator: widget.validator ??
+            (widget.defaultValidator ? _defaultValidator : null),
+        decoration: widget.inputDecoration ?? inputDecoration,
+      ),
     );
   }
 
