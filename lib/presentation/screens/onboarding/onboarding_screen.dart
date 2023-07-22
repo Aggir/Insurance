@@ -74,10 +74,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     super.initState();
   }
 
-  bool get _isTheLastPage => _pageIndex.ceil() == _pages.length - 1;
+  bool get _isSwipingToTheLastPage => _pageIndex.ceil() == _pages.length - 1;
+  bool get _halfSwipeToTheLastPage => (_pageIndex - (_pages.length - 2)) >= 0.5;
+  bool get _isTheLastPage => _pageIndex == _pages.length - 1;
 
   @override
   Widget build(BuildContext context) {
+    print(_isSwipingToTheLastPage ? (_pageIndex - (_pages.length - 2)) : 1);
     return Scaffold(
       body: Stack(
         children: [
@@ -118,25 +121,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ),
                     const Spacer(),
-                    SizedBox(
-                      height: AppSizes.s62,
-                      width: AppSizes.s62,
-                      child: ElevatedButton(
-                        onPressed:
-                            _isTheLastPage ? _doneFunction : _nextFunction,
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          backgroundColor: _isTheLastPage
-                              ? AppColors.secondary
-                              : AppColors.primary,
-                        ),
-                        child: SvgPicture.asset(
-                          _isTheLastPage
-                              ? SvgAssets.checkMark
-                              : SvgAssets.chevronLeft,
+                    if (!_halfSwipeToTheLastPage)
+                      Opacity(
+                        opacity: _isSwipingToTheLastPage
+                            ? 1 - (_pageIndex - (_pages.length - 2)) * 2
+                            : 1,
+                        child: SizedBox(
+                          height: AppSizes.s62,
+                          width: AppSizes.s62,
+                          child: ElevatedButton(
+                            onPressed: _nextFunction,
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              backgroundColor: AppColors.primary,
+                            ),
+                            child: SvgPicture.asset(SvgAssets.chevronLeft),
+                          ),
                         ),
                       ),
-                    ),
+                    if (_halfSwipeToTheLastPage)
+                      Opacity(
+                        opacity: _isSwipingToTheLastPage
+                            ? (_pageIndex - (_pages.length - 2))
+                            : 1,
+                        child: SizedBox(
+                          height: AppSizes.s62,
+                          width: AppSizes.s62,
+                          child: ElevatedButton(
+                            onPressed: _doneFunction,
+                            style: ElevatedButton.styleFrom(
+                                shape: const CircleBorder(),
+                                backgroundColor: AppColors.secondary),
+                            child: SvgPicture.asset(SvgAssets.checkMark),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -150,11 +169,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButton(
-                      onPressed: _skipFunction,
-                      child: Text(
-                        AppStrings.skip.tr(),
-                        style: textButtonStyle(),
+                    Opacity(
+                      opacity: _isSwipingToTheLastPage
+                          ? 1 - (_pageIndex - (_pages.length - 2))
+                          : 1,
+                      child: TextButton(
+                        onPressed: _skipFunction,
+                        child: Text(
+                          AppStrings.skip.tr(),
+                          style: textButtonStyle(),
+                        ),
                       ),
                     )
                   ],

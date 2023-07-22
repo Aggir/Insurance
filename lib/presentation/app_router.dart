@@ -35,7 +35,7 @@ class Routes {
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.signupRoute,
+    initialLocation: Routes.onboardingRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
