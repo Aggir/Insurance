@@ -112,7 +112,7 @@ class _SignUpNationalIdNumberPageState
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.identityVerificationHeader,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 

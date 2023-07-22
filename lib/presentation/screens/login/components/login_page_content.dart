@@ -45,7 +45,7 @@ class LoginPageContent extends StatelessWidget {
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.login,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 

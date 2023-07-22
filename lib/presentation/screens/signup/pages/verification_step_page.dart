@@ -152,7 +152,7 @@ class _SignUpVerificationStepPageState
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.identityVerificationHeader,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 

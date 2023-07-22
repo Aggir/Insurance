@@ -103,7 +103,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                   ),
                   child: CountryCodePicker(
                     initialSelection: 'ly',
-                    textStyle: headlineStyle().copyWith(fontSize: 14),
+                    textStyle: largeHeadlineStyle().copyWith(fontSize: 14),
                   ),
                 )
               ]),

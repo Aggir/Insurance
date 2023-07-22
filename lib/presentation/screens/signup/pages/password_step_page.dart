@@ -93,7 +93,7 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.password,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 

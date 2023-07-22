@@ -4,8 +4,12 @@ import 'package:insurance_app/presentation/theme/styles_manager.dart';
 import 'app_colors.dart';
 import 'font_manager.dart';
 
-TextStyle headlineStyle() {
+TextStyle largeHeadlineStyle() {
   return getBoldStyle(fontSize: FontSize.s20, color: AppColors.blackText);
+}
+
+TextStyle mediumHeadlineStyle() {
+  return getBoldStyle(fontSize: FontSize.s18, color: AppColors.blackText);
 }
 
 TextStyle bodyStyle() {
@@ -36,7 +40,7 @@ TextStyle smallDarkGrayBodyStyle() {
   return getRegularStyle(fontSize: FontSize.s12, color: AppColors.darkGray);
 }
 
-TextStyle headlineSmallStyle() {
+TextStyle smallHeadlineStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
 }
 

@@ -72,7 +72,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.signupScreenHeader,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 
@@ -118,7 +118,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
                 Text(
                   text,
                   style: isSelected
-                      ? headlineSmallStyle()
+                      ? smallHeadlineStyle()
                           .copyWith(color: AppColors.blackText)
                       : darkGrayBodyStyle(),
                 )

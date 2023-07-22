@@ -128,7 +128,7 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
   Widget _headlineTextWidget() {
     return Text(
       AppStrings.signupScreenHeader,
-      style: headlineStyle(),
+      style: largeHeadlineStyle(),
     ).tr();
   }
 

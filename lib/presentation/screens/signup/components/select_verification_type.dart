@@ -82,7 +82,7 @@ class _SelectVerificationTypeState extends State<SelectVerificationType> {
                 Text(
                   text,
                   style: isSelected
-                      ? headlineSmallStyle()
+                      ? smallHeadlineStyle()
                           .copyWith(color: AppColors.blackText)
                       : darkGrayBodyStyle(),
                 )

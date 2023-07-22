@@ -47,5 +47,20 @@
     "issuing_place": "",
     "upload_national_id_picture":"",
     "national_id_picture":"",
-    "national_id_number":""
+    "national_id_number":"",
+    "terms_and_conditions": "",
+    "last_update": "",
+    "condition_one_header": "",
+    "condition_one_description": "",
+    "condition_two_header": "",
+    "condition_two_description": "",
+    "condition_three_header": "",
+    "condition_three_description": "",
+    "condition_four_header": "",
+    "condition_four_description": "",
+    "condition_five_header": "",
+    "condition_five_description": "",
+    "condition_six_header": "",
+    "condition_six_description": "",
+    "accept_terms_and_conditions":""
 }

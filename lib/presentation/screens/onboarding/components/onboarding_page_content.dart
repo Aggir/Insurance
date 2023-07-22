@@ -44,7 +44,7 @@ class OnboardingPageContent extends StatelessWidget {
               _contentDivider(),
               Text(
                 description,
-                style: headlineStyle(),
+                style: largeHeadlineStyle(),
               ).tr(),
             ],
           ),

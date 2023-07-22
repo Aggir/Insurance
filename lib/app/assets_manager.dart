@@ -9,6 +9,8 @@ class ImageAssets {
   static const String identityVerificationPassport =
       '$_imagePath/identity-verification-passport.png';
   static const String libya = '$_imagePath/libya.png';
+  static const String termsAndConditions =
+      '$_imagePath/terms-and-conditions.png';
 }
 
 const String _svgPath = 'assets/svgs';

@@ -55,4 +55,20 @@ class AppStrings {
   static const uploadNationalIdPicture = "upload_national_id_picture";
   static const nationalIdPicture = "national_id_picture";
   static const nationalIdNumber = "national_id_number";
+
+  static const termsAndConditions = 'terms_and_conditions';
+  static const lastUpdate = 'last_update';
+  static const conditionOneHeader = 'condition_one_header';
+  static const conditionOneDescription = 'condition_one_description';
+  static const conditionTwoHeader = 'condition_two_header';
+  static const conditionTwoDescription = 'condition_two_description';
+  static const conditionThreeHeader = 'condition_three_header';
+  static const conditionThreeDescription = 'condition_three_description';
+  static const conditionFourHeader = 'condition_four_header';
+  static const conditionFourDescription = 'condition_four_description';
+  static const conditionFiveHeader = 'condition_five_header';
+  static const conditionFiveDescription = 'condition_five_description';
+  static const conditionSixHeader = 'condition_six_header';
+  static const conditionSixDescription = 'condition_six_description';
+  static const acceptTermsAndConditions = 'accept_terms_and_conditions';
 }

@@ -9,6 +9,7 @@ import 'package:insurance_app/presentation/screens/signup/pages/select_verificat
 import 'package:insurance_app/presentation/screens/signup/pages/user_info_step_page.dart';
 import 'package:insurance_app/presentation/screens/signup/pages/verification_step_page.dart';
 import 'package:insurance_app/presentation/screens/signup/signup_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 
 import 'blocs/signup/signup_cubit.dart';
 
@@ -22,6 +23,7 @@ class NavigatorKeys {
 class Routes {
   static const String homeRoute = "/";
   static const String onboardingRoute = "/onboarding";
+  static const String termsAndConditionsRoute = "/terms-and-conditions";
   static const String loginRoute = "/login";
   static const String signupRoute = '/signup-user-info-step';
   static const String signupPasswordStepRoute = "/signup-password-step";
@@ -41,6 +43,12 @@ class AppRouter {
         path: Routes.onboardingRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const OnboardingScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.termsAndConditionsRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const TermsAndConditionsScreen();
         },
       ),
       GoRoute(

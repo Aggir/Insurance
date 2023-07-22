@@ -17,6 +17,13 @@ class CustomSpacers {
     );
   }
 
+  static Widget small() {
+    return const SizedBox(
+      height: AppValues.small,
+      width: AppValues.small,
+    );
+  }
+
   static Widget extraSmall() {
     return const SizedBox(
       height: AppValues.small / 2,

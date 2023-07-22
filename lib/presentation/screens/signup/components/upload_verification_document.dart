@@ -60,7 +60,7 @@ class UploadDocument extends StatelessWidget {
             ),
             const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
             Text(uploadStateText ?? AppStrings.uploadPassportPicture.tr(),
-                style: headlineSmallStyle()),
+                style: smallHeadlineStyle()),
             const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
             Text(
               AppStrings.passportPictureSupportedExtensions.tr(),
@@ -90,7 +90,7 @@ class UploadDocument extends StatelessWidget {
           children: [
             Text(
               loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
-              style: headlineSmallStyle(),
+              style: smallHeadlineStyle(),
             ),
             Text(
               'File_name.pdf',
@@ -127,7 +127,7 @@ class UploadDocument extends StatelessWidget {
           children: [
             Text(
               loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
-              style: headlineSmallStyle(),
+              style: smallHeadlineStyle(),
             ),
             Text(
               'File_name.pdf',

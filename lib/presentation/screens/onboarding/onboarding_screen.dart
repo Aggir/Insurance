@@ -61,7 +61,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _doneFunction() {
-    context.go(Routes.loginRoute);
+    context.go(Routes.termsAndConditionsRoute);
   }
 
   @override
