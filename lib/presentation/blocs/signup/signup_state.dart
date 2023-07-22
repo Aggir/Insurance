@@ -6,6 +6,7 @@ class SignUpState extends Equatable {
   final String? password;
   final bool isLibyan;
   final UploadFileStatus verificationDocumentStatus;
+  // Todo: Change `verificationType` from String to enum.
   final String verificationType;
   final UploadFileStatus nationalNumberStatus;
   const SignUpState({

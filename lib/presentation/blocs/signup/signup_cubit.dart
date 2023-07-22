@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:insurance_app/app/app_strings.dart';
 
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
@@ -63,7 +65,14 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   bool verifyPasswordForm() {
     if (passwordForm.currentState!.validate()) {
-      emit(state.copyWith(password: passwordController.text));
+      if (state.isLibyan) {
+        emit(state.copyWith(password: passwordController.text));
+      } else {
+        emit(state.copyWith(
+          password: passwordController.text,
+          verificationType: AppStrings.passport.tr(),
+        ));
+      }
       return true;
     }
     return false;
