@@ -76,15 +76,23 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.signupSelectVerificationMethodStepRoute,
-        builder: (context, state) => const SignUpSelectVerificationMethodStep(),
+        // builder: (context, state) => const SignUpSelectVerificationMethodStep(),
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SignUpSelectVerificationMethodStep(),
+        ),
       ),
       GoRoute(
         path: Routes.signupVerificationStepRoute,
-        builder: (context, state) => const SignUpVerificationStepPage(),
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SignUpVerificationStepPage(),
+        ),
       ),
       GoRoute(
         path: Routes.signupNationalIdNumberStepRoute,
-        builder: (context, state) => const SignUpNationalIdNumberPage(),
+        // builder: (context, state) => const SignUpNationalIdNumberPage(),
+        pageBuilder: (context, state) => const MaterialPage(
+          child: SignUpNationalIdNumberPage(),
+        ),
       ),
     ]),
   ];
