@@ -19,6 +19,9 @@ class CustomFormFieldDatePicker extends StatelessWidget {
     this.suffixIcon,
     this.showCalendarSuffixIcon = true,
     this.focusedStyleEnabled = false,
+    this.initialDate,
+    this.firstDate,
+    this.lastDate,
   });
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
@@ -30,13 +33,16 @@ class CustomFormFieldDatePicker extends StatelessWidget {
   final Widget? suffixIcon;
   final bool showCalendarSuffixIcon;
   final bool focusedStyleEnabled;
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
 
   _showDatePicker(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2000),
-        lastDate: DateTime.now());
+        initialDate: initialDate ?? DateTime.now(),
+        firstDate: firstDate ?? DateTime(DateTime.now().year - 100),
+        lastDate: lastDate ?? DateTime.now());
     if (pickedDate != null) {
       String formattedDate = DateFormat('dd-M-yyyy').format(pickedDate);
 

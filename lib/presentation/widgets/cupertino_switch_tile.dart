@@ -9,14 +9,16 @@ class CupertinoSwitchTile extends StatelessWidget {
   const CupertinoSwitchTile({
     required this.onTap,
     required this.text,
+    this.value = false,
     super.key,
   });
-  final void Function(BuildContext context) onTap;
+  final void Function() onTap;
   final String text;
+  final bool value;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => onTap(context),
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: AppValues.small),
         child: Row(
@@ -27,9 +29,9 @@ class CupertinoSwitchTile extends StatelessWidget {
               style: darkGrayBodyStyle(),
             ),
             CupertinoSwitch(
-              onChanged: (_) => onTap(context),
-              value: true,
-              activeColor: AppColors.green,
+              onChanged: (_) => onTap(),
+              value: value,
+              activeColor: AppColors.secondary,
             ),
           ],
         ),

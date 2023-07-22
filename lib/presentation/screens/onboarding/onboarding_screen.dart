@@ -25,19 +25,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, dynamic>> _pages = [
     {
-      'imgBackgroundColor': AppColors.paleYellow,
+      'imgBackgroundColor': AppColors.primaryLightest,
       'imgPath': ImageAssets.onboardingOne,
       'header': AppStrings.onboardingOneHeader,
       'description': AppStrings.onboardingOneDescription,
     },
     {
-      'imgBackgroundColor': AppColors.paleYellow,
+      'imgBackgroundColor': AppColors.primaryLightest,
       'imgPath': ImageAssets.onboardingTwo,
       'header': AppStrings.onboardingTwoHeader,
       'description': AppStrings.onboardingTwoDescription,
     },
     {
-      'imgBackgroundColor': AppColors.lightMintGreen,
+      'imgBackgroundColor': AppColors.secondaryLight,
       'imgPath': ImageAssets.onboardingThree,
       'header': AppStrings.onboardingThreeHeader,
       'description': AppStrings.onboardingThreeDescription,
@@ -127,7 +127,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         style: ElevatedButton.styleFrom(
                           shape: const CircleBorder(),
                           backgroundColor: _isTheLastPage
-                              ? AppColors.green
+                              ? AppColors.secondary
                               : AppColors.primary,
                         ),
                         child: SvgPicture.asset(

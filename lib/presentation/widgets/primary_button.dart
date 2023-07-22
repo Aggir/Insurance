@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insurance_app/presentation/theme/app_colors.dart';
 
 import '../theme/app_theme.dart';
 
@@ -13,6 +14,8 @@ class PrimaryButton extends StatelessWidget {
   final Widget child;
   static final _style = ElevatedButton.styleFrom(
     minimumSize: AppValues.buttonMinSize,
+    disabledBackgroundColor: AppColors.primary.withOpacity(0.3),
+    disabledForegroundColor: AppColors.whiteText,
     padding: const EdgeInsets.all(AppValues.small + (AppValues.small / 2)),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius),

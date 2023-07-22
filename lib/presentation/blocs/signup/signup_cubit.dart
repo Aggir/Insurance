@@ -1,0 +1,161 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+
+import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/domain/entities/signup_user_info.dart';
+import 'package:meta/meta.dart';
+
+part 'signup_state.dart';
+
+class SignUpCubit extends Cubit<SignUpState> {
+  SignUpCubit() : super(const SignUpState());
+
+  final GlobalKey<FormState> userInfoForm = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController middleNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController birthDateController = TextEditingController();
+
+  final GlobalKey<FormState> passwordForm = GlobalKey<FormState>();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  final GlobalKey<FormState> verificationForm = GlobalKey<FormState>();
+  final TextEditingController documentNumberController =
+      TextEditingController();
+  final TextEditingController documentIssuingPlaceController =
+      TextEditingController();
+  final TextEditingController documentDateOfIssueController =
+      TextEditingController();
+  final TextEditingController documentDateOfExpiryController =
+      TextEditingController();
+
+  final GlobalKey<FormState> nationalIdNumberForm = GlobalKey<FormState>();
+  final TextEditingController nationalIdNumberController =
+      TextEditingController();
+
+  toggleIsLibyan() {
+    emit(state.copyWith(isLibyan: !state.isLibyan));
+  }
+
+  bool verifyUserInfoForm() {
+    if (userInfoForm.currentState!.validate()) {
+      emit(
+        state.copyWith(
+          userInfo: SignUpUserInfo(
+            firstName: firstNameController.text,
+            middleName: middleNameController.text,
+            lastName: lastNameController.text,
+            email: emailController.text,
+            phoneNumber: phoneNumberController.text,
+            birthDate: birthDateController.text,
+          ),
+        ),
+      );
+      return true;
+    }
+    return false;
+  }
+
+  bool verifyPasswordForm() {
+    if (passwordForm.currentState!.validate()) {
+      emit(state.copyWith(password: passwordController.text));
+      return true;
+    }
+    return false;
+  }
+
+  setVerificationType(String type) {
+    emit(state.copyWith(verificationType: type));
+  }
+
+  // Todo: add filePicker
+  uploadDocumentPicture() async {
+    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.loading));
+    await Future.delayed(const Duration(seconds: 3));
+    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.success));
+  }
+
+  removeDocumentPicture() {
+    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.none));
+  }
+
+  // Todo: add filePicker
+  uploadNationalIdPicture() async {
+    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.loading));
+    await Future.delayed(const Duration(seconds: 3));
+    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.success));
+  }
+
+  removeNationalIdPicture() {
+    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.none));
+  }
+
+  signUp() {}
+
+  backFromUserInfoPage() {
+    _clearContent();
+    emit(const SignUpState());
+  }
+
+  backFromPasswordPage() {
+    passwordController.clear();
+    confirmPasswordController.clear();
+    emit(state.copyWith(password: ''));
+  }
+
+  backFromSelectDocumentTypePage() {
+    emit(state.copyWith(verificationType: ''));
+  }
+
+  backFromVerificationStepPage() {
+    documentNumberController.clear();
+    documentIssuingPlaceController.clear();
+    documentDateOfIssueController.clear();
+    documentDateOfExpiryController.clear();
+    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.none));
+  }
+
+  backFromNationalIdNumberPage() {
+    nationalIdNumberController.clear();
+    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.none));
+  }
+
+  _clearContent() {
+    firstNameController.clear();
+    middleNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
+    phoneNumberController.clear();
+    birthDateController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
+    documentNumberController.clear();
+    documentIssuingPlaceController.clear();
+    documentDateOfIssueController.clear();
+    documentDateOfExpiryController.clear();
+    nationalIdNumberController.clear();
+  }
+
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    middleNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    phoneNumberController.dispose();
+    birthDateController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    documentNumberController.dispose();
+    documentIssuingPlaceController.dispose();
+    documentDateOfIssueController.dispose();
+    documentDateOfExpiryController.dispose();
+    nationalIdNumberController.dispose();
+    return super.close();
+  }
+}

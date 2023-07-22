@@ -1,13 +1,15 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
+import '../../app/app_strings.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 import '../theme/text_style_manager.dart';
 import 'custom_text_form_field.dart';
 
-class CustomPhoneFormField extends StatelessWidget {
+class CustomPhoneFormField extends StatefulWidget {
   const CustomPhoneFormField({
     super.key,
     this.validator,
@@ -20,6 +22,7 @@ class CustomPhoneFormField extends StatelessWidget {
     this.suffixIcon,
     this.showCalendarSuffixIcon = true,
     this.focusedStyleEnabled = false,
+    this.label,
   });
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
@@ -31,65 +34,129 @@ class CustomPhoneFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final bool showCalendarSuffixIcon;
   final bool focusedStyleEnabled;
+  final String? label;
+
+  @override
+  State<CustomPhoneFormField> createState() => _CustomPhoneFormFieldState();
+}
+
+class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
+  final FocusNode _focusNode = FocusNode();
+
+  bool _showError = false;
+  String _errorMessage = '';
+
+  final flagContainerWidth = AppSizes.s120;
 
   @override
   Widget build(BuildContext context) {
-    const flagContainerWidth = AppSizes.s120;
-    // print();
     final inputDecoration = InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.inputRadius),
+      errorStyle: const TextStyle(height: 0),
+      border: const OutlineInputBorder(
+        borderRadius: BorderRadius.horizontal(
+          right: Radius.circular(AppValues.inputRadius),
+          left: Radius.zero,
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: const BorderRadius.horizontal(
             right: Radius.circular(AppValues.inputRadius)),
-        borderSide: BorderSide(color: AppColors.lightGray),
+        borderSide: BorderSide(color: AppColors.grayLight),
       ),
       counterText: '',
-      hintText: hintText ?? '',
+      hintText: widget.hintText ?? '',
       hintStyle: grayBodyStyle(),
     );
-    return Directionality(
-      textDirection: ui.TextDirection.ltr,
-      child: Row(
-        children: [
-          Stack(children: [
-            Container(
-              height: AppValues.textFieldHeight,
-              width: flagContainerWidth,
-              decoration: BoxDecoration(
-                color: AppColors.lightPastelBlue,
-                border: Border(
-                  top: BorderSide(color: AppColors.lightGray),
-                  left: BorderSide(color: AppColors.lightGray),
-                  bottom: BorderSide(color: AppColors.lightGray),
-                  right: BorderSide(color: AppColors.lightGray),
-                ),
-                borderRadius: const BorderRadius.horizontal(
-                  left: Radius.circular(AppValues.inputRadius),
-                ),
-              ),
-              child: CountryCodePicker(
-                initialSelection: 'ly',
-                textStyle: headlineStyle().copyWith(fontSize: 14),
-              ),
-            ),
-            Container(
-              height: AppValues.textFieldHeight,
-              width: flagContainerWidth,
-              decoration: BoxDecoration(
-                border: Border(right: BorderSide(color: AppColors.white)),
-              ),
-            )
-          ]),
-          Flexible(
-            child: CustomTextFormField(
-              inputDecoration: inputDecoration,
-              keyboardType: TextInputType.phone,
-            ),
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (widget.label != null)
+          AnimatedContainer(
+            height: _focusNode.hasFocus ? 30 : 0,
+            duration: const Duration(milliseconds: 150),
+            child: _getLabelWidget(),
           ),
-        ],
-      ),
+        Directionality(
+          textDirection: ui.TextDirection.ltr,
+          child: Row(
+            children: [
+              Stack(children: [
+                Container(
+                  height: AppValues.textFieldHeight,
+                  width: flagContainerWidth,
+                  decoration: BoxDecoration(
+                    color: AppColors.lightest,
+                    border: Border.all(
+                        color: _showError ? Colors.red : AppColors.grayLight),
+                    borderRadius: const BorderRadius.horizontal(
+                      left: Radius.circular(AppValues.inputRadius),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: AppValues.textFieldHeight,
+                  width: flagContainerWidth,
+                  decoration: BoxDecoration(
+                    border:
+                        Border(right: BorderSide(color: AppColors.lightest)),
+                  ),
+                  child: CountryCodePicker(
+                    initialSelection: 'ly',
+                    textStyle: headlineStyle().copyWith(fontSize: 14),
+                  ),
+                )
+              ]),
+              Flexible(
+                child: CustomTextFormField(
+                  focusNode: _focusNode,
+                  inputDecoration: inputDecoration,
+                  controller: widget.controller,
+                  keyboardType: TextInputType.phone,
+                  hideErrorMessage: true,
+                  validator: _validator,
+                ),
+              ),
+            ],
+          ),
+        ),
+        if (_showError)
+          Padding(
+            padding: const EdgeInsets.only(top: AppValues.extraSmall),
+            child: Text(
+              _errorMessage,
+              style: textFieldErrorMessageStyle(),
+            ),
+          )
+      ],
     );
+  }
+
+  String? _validator(String? value) {
+    if (value == null || value.isEmpty) {
+      setState(() {
+        _showError = true;
+        _errorMessage = AppStrings.thisFieldIsRequired.tr();
+      });
+
+      return '';
+    } else {
+      setState(() {
+        _showError = false;
+        _errorMessage = '';
+      });
+      return null;
+    }
+  }
+
+  Widget _getLabelWidget() {
+    if (_focusNode.hasFocus) {
+      return Text(
+        widget.label!,
+        style: smallDarkGrayBodyStyle(),
+      );
+    } else {
+      return Container();
+    }
   }
 }

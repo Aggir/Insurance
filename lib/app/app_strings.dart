@@ -31,6 +31,8 @@ class AppStrings {
   static const from = "from";
   static const passwordRecommendations = "password_recommendations";
   static const confirmPassword = "confirm_password";
+  static const passwordAndConfirmPasswordDoNotMatch =
+      "password_and_confirm_password_do_not_match";
   static const iamLibyan = "iam_libyan";
   static const identityVerificationHeader = "identity_verification_header";
   static const identityVerificationDescription =
@@ -40,4 +42,17 @@ class AppStrings {
   static const passportPictureSupportedExtensions =
       "passport_picture_supported_extensions";
   static const passportPicture = "passport_picture";
+  static const passport = "passport";
+  static const selectIdentityVerificationType =
+      "select_identity_verification_type";
+  static const idCard = "id_card";
+  static const uploadIdCardPicture = "upload_id_card_picture";
+  static const idCardPicture = "id_card_picture";
+  static const idCardNumber = "id_card_number";
+  static const dateOfIssue = "date_of_issue";
+  static const dateOfExpiry = "date_of_expiry";
+  static const issuingPlace = "issuing_place";
+  static const uploadNationalIdPicture = "upload_national_id_picture";
+  static const nationalIdPicture = "national_id_picture";
+  static const nationalIdNumber = "national_id_number";
 }

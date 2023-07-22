@@ -17,7 +17,7 @@ class LoginScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height,
               width: double.infinity,
               decoration: BoxDecoration(
-                color: AppColors.paleYellow,
+                color: AppColors.primaryLightest,
                 image: const DecorationImage(
                   alignment: Alignment.topCenter,
                   // fit: BoxFit.fill,

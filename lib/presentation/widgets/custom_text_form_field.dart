@@ -2,13 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
-import '../../app/app_strings.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 
+/// If you gonna add a custom `validator` you need to add `isErrorVisible` and `errorMessage` too
 class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
@@ -27,6 +28,7 @@ class CustomTextFormField extends StatefulWidget {
     this.onTap,
     this.inputDecoration,
     this.focusNode,
+    this.hideErrorMessage = false,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -43,12 +45,15 @@ class CustomTextFormField extends StatefulWidget {
   final bool focusedStyleEnabled;
   final InputDecoration? inputDecoration;
   final FocusNode? focusNode;
+  final bool hideErrorMessage;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _visible = false;
+  bool _showError = false;
+  String _errorMessage = '';
 
   Widget _suffixIconContainer({required Widget child}) {
     return Padding(
@@ -101,18 +106,19 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     final inputDecoration = InputDecoration(
+      errorStyle: const TextStyle(height: 0),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppValues.inputRadius),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(AppValues.inputRadius),
-        borderSide: BorderSide(color: AppColors.lightGray),
+        borderSide: BorderSide(color: AppColors.grayLight),
       ),
       focusedBorder: widget.focusedStyleEnabled
           ? null
           : OutlineInputBorder(
               borderRadius: BorderRadius.circular(AppValues.inputRadius),
-              borderSide: BorderSide(color: AppColors.lightGray),
+              borderSide: BorderSide(color: AppColors.grayLight),
             ),
       contentPadding: const EdgeInsets.symmetric(
           vertical: AppValues.small, horizontal: AppValues.small),
@@ -122,32 +128,82 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       hintStyle: grayBodyStyle(),
     );
 
-    return SizedBox(
-      height: AppValues.textFieldHeight,
-      child: TextFormField(
-        focusNode: widget.focusNode,
-        controller: widget.controller,
-        keyboardType: widget.keyboardType,
-        maxLength: widget.maxLength,
-        obscureText: widget.isPassword ? !_visible : false,
-        enabled: widget.enabled,
-        readOnly: widget.readOnly,
-        initialValue: widget.initialValue,
-        onTap: widget.onTap,
-        style: bodyStyle(),
-        inputFormatters: getFormatters(),
-        validator: widget.validator ??
-            (widget.defaultValidator ? _defaultValidator : null),
-        decoration: widget.inputDecoration ?? inputDecoration,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: AppValues.textFieldHeight,
+          child: TextFormField(
+            focusNode: widget.focusNode,
+            controller: widget.controller,
+            keyboardType: widget.keyboardType,
+            maxLength: widget.maxLength,
+            obscureText: widget.isPassword ? !_visible : false,
+            enabled: widget.enabled,
+            readOnly: widget.readOnly,
+            initialValue: widget.initialValue,
+            onTap: widget.onTap,
+            style: bodyStyle(),
+            inputFormatters: getFormatters(),
+            validator: (value) => (widget.defaultValidator
+                ? _defaultValidator(value, widget.validator)
+                : null),
+            decoration: widget.inputDecoration ?? inputDecoration,
+          ),
+        ),
+        if (_showError)
+          Padding(
+            padding: const EdgeInsets.only(top: AppValues.extraSmall),
+            child: Text(
+              _errorMessage,
+              style: textFieldErrorMessageStyle(),
+            ),
+          )
+      ],
     );
   }
 
-  String? _defaultValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return AppStrings.thisFieldIsRequired.tr();
+  String? _defaultValidator(
+      String? value, String? Function(String? value)? validator) {
+    // check if there is a custom Validator
+    if (validator != null) {
+      String? errorMessage = validator(value);
+      if (errorMessage != null) {
+        if (!widget.hideErrorMessage) {
+          setState(() {
+            _showError = true;
+            _errorMessage = errorMessage;
+          });
+        }
+        return '';
+      } else {
+        if (!widget.hideErrorMessage) {
+          setState(() {
+            _showError = false;
+            _errorMessage = '';
+          });
+        }
+        return null;
+      }
     } else {
-      return null;
+      // use the default validator
+      if (value == null || value.isEmpty) {
+        if (!widget.hideErrorMessage) {
+          setState(() {
+            _showError = true;
+            _errorMessage = AppStrings.thisFieldIsRequired.tr();
+          });
+        }
+        return '';
+      } else {
+        if (!widget.hideErrorMessage) {
+          setState(() {
+            _showError = false;
+            _errorMessage = '';
+          });
+        }
+        return null;
+      }
     }
   }
 

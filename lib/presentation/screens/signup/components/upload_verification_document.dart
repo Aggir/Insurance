@@ -1,42 +1,59 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
+import '../../../blocs/signup/signup_cubit.dart';
 import '../../../theme/text_style_manager.dart';
 
-class UploadVerificationDocument extends StatelessWidget {
-  const UploadVerificationDocument({
-    this.isPassport = true,
-    this.onTap,
+class UploadDocument extends StatelessWidget {
+  const UploadDocument({
+    required this.uploadFileStatus,
+    this.uploadStateText,
+    this.removeFunction,
+    this.uploadFunction,
+    this.loadingAndSuccessStateText,
+    this.uploadedDocumentSvgPath,
     super.key,
   });
-  final bool isPassport;
-  final void Function()? onTap;
+  final UploadFileStatus uploadFileStatus;
+  final void Function()? uploadFunction;
+  final void Function()? removeFunction;
+  final String? uploadStateText;
+  final String? loadingAndSuccessStateText;
+  final String? uploadedDocumentSvgPath;
 
   @override
   Widget build(BuildContext context) {
-    return _uploadedDocumentState();
+    if (uploadFileStatus.isLoading) {
+      return _uploadDocumentOnprogressState(context);
+    } else if (uploadFileStatus.isSuccess) {
+      return _uploadedDocumentState(context);
+    } else {
+      return _selectDocumentState(context);
+    }
   }
 
-  Widget _selectDocumentState() {
+  Widget _selectDocumentState(BuildContext context) {
     return Material(
-      color: AppColors.lightPastelBlue,
+      color: AppColors.lightest,
       borderRadius: BorderRadius.circular(AppValues.inputRadius),
       clipBehavior: Clip.antiAlias,
       child: Container(
         height: AppSizes.s180,
         width: double.infinity,
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.lightGray),
+          border: Border.all(color: AppColors.grayLight),
           borderRadius: BorderRadius.circular(AppValues.inputRadius),
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: onTap,
+          onTap: uploadFunction,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             SvgPicture.asset(
               SvgAssets.uploadDocument,
@@ -44,7 +61,7 @@ class UploadVerificationDocument extends StatelessWidget {
               width: AppSizes.s40,
             ),
             const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
-            Text(isPassport ? AppStrings.uploadPassportPicture : "ADD",
+            Text(uploadStateText ?? AppStrings.uploadPassportPicture.tr(),
                 style: headlineSmallStyle()),
             const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
             Text(
@@ -57,7 +74,7 @@ class UploadVerificationDocument extends StatelessWidget {
     );
   }
 
-  Widget _uploadDocumentOnprogressState() {
+  Widget _uploadDocumentOnprogressState(BuildContext context) {
     return _selectedDocumentContainer(
       children: [
         SvgPicture.asset(
@@ -74,13 +91,13 @@ class UploadVerificationDocument extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              isPassport ? AppStrings.passportPicture : " ee",
+              loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
               style: headlineSmallStyle(),
-            ).tr(),
+            ),
             Text(
               'File_name.pdf',
               style: smallGrayBodyStyle(),
-            ).tr(),
+            ),
             SizedBox(
               width: AppSizes.s200,
               child: LinearProgressIndicator(
@@ -94,11 +111,11 @@ class UploadVerificationDocument extends StatelessWidget {
     );
   }
 
-  Widget _uploadedDocumentState() {
+  Widget _uploadedDocumentState(BuildContext context) {
     return _selectedDocumentContainer(
       children: [
         SvgPicture.asset(
-          SvgAssets.uploadedDocument,
+          uploadedDocumentSvgPath ?? SvgAssets.uploadedDocument,
           height: AppSizes.s60,
           width: AppSizes.s60,
         ),
@@ -111,13 +128,13 @@ class UploadVerificationDocument extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              isPassport ? AppStrings.passportPicture : " ee",
+              loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
               style: headlineSmallStyle(),
-            ).tr(),
+            ),
             Text(
               'File_name.pdf',
               style: smallGrayBodyStyle(),
-            ).tr(),
+            ),
           ],
         ),
         const Spacer(),
@@ -126,7 +143,7 @@ class UploadVerificationDocument extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           clipBehavior: Clip.antiAlias,
           child: IconButton(
-            onPressed: () {},
+            onPressed: removeFunction,
             icon: Icon(Icons.close, color: AppColors.gray),
           ),
         )
@@ -140,7 +157,7 @@ class UploadVerificationDocument extends StatelessWidget {
       padding: const EdgeInsets.all(AppValues.medium),
       decoration: BoxDecoration(
         color: AppColors.white,
-        border: Border.all(color: AppColors.lightGray),
+        border: Border.all(color: AppColors.grayLight),
         borderRadius: BorderRadius.circular(AppValues.inputRadius),
         boxShadow: [AppValues.boxShadow],
       ),

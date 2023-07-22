@@ -8,6 +8,7 @@ class ImageAssets {
   static const String signupBackground = '$_imagePath/signup-background.png';
   static const String identityVerificationPassport =
       '$_imagePath/identity-verification-passport.png';
+  static const String libya = '$_imagePath/libya.png';
 }
 
 const String _svgPath = 'assets/svgs';
@@ -24,4 +25,8 @@ class SvgAssets {
       '$_svgPath/identity-verification-passport.svg';
   static const String uploadDocument = '$_svgPath/upload-document.svg';
   static const String uploadedDocument = '$_svgPath/uploaded-document.svg';
+  static const String idCard = '$_svgPath/id-card.svg';
+  static const String passport = '$_svgPath/passport.svg';
+  static const String nationalId = '$_svgPath/national-id.svg';
+  static const String libya = '$_svgPath/libya.svg';
 }

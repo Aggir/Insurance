@@ -32,6 +32,14 @@ TextStyle smallGrayBodyStyle() {
   return getRegularStyle(fontSize: FontSize.s12, color: AppColors.gray);
 }
 
+TextStyle smallDarkGrayBodyStyle() {
+  return getRegularStyle(fontSize: FontSize.s12, color: AppColors.darkGray);
+}
+
 TextStyle headlineSmallStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
+}
+
+TextStyle textFieldErrorMessageStyle() {
+  return getRegularStyle(color: AppColors.danger, fontSize: FontSize.s10);
 }
