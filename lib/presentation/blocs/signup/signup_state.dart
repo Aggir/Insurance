@@ -5,17 +5,21 @@ class SignUpState extends Equatable {
   final SignUpUserInfo? userInfo;
   final String? password;
   final bool isLibyan;
-  final UploadFileStatus verificationDocumentStatus;
   // Todo: Change `verificationType` from String to enum.
   final String verificationType;
+  final UploadFileStatus verificationDocumentStatus;
+  final SignUpDocumentInfo? verificationDocumentInfo;
   final UploadFileStatus nationalNumberStatus;
+  final SignUpDocumentInfo? nationalIdInfo;
   const SignUpState({
     this.userInfo,
     this.password,
     this.isLibyan = true,
-    this.verificationDocumentStatus = UploadFileStatus.none,
     this.verificationType = '',
+    this.verificationDocumentStatus = UploadFileStatus.none,
+    this.verificationDocumentInfo,
     this.nationalNumberStatus = UploadFileStatus.none,
+    this.nationalIdInfo,
   });
 
   @override
@@ -23,26 +27,39 @@ class SignUpState extends Equatable {
         userInfo,
         password,
         isLibyan,
-        verificationDocumentStatus,
         verificationType,
+        verificationDocumentStatus,
+        verificationDocumentInfo,
         nationalNumberStatus,
+        nationalIdInfo,
       ];
 
-  SignUpState copyWith(
-      {SignUpUserInfo? userInfo,
-      String? password,
-      bool? isLibyan,
-      UploadFileStatus? verificationDocumentStatus,
-      String? verificationType,
-      UploadFileStatus? nationalNumberStatus}) {
+  SignUpState copyWith({
+    SignUpUserInfo? userInfo,
+    String? password,
+    bool? isLibyan,
+    String? verificationType,
+    UploadFileStatus? verificationDocumentStatus,
+    SignUpDocumentInfo? verificationDocumentInfo,
+    UploadFileStatus? nationalNumberStatus,
+    SignUpDocumentInfo? nationalIdInfo,
+  }) {
     return SignUpState(
       userInfo: userInfo ?? this.userInfo,
       password: password ?? this.password,
       isLibyan: isLibyan ?? this.isLibyan,
+      verificationType: verificationType ?? this.verificationType,
       verificationDocumentStatus:
           verificationDocumentStatus ?? this.verificationDocumentStatus,
-      verificationType: verificationType ?? this.verificationType,
+      verificationDocumentInfo:
+          verificationDocumentInfo ?? this.verificationDocumentInfo,
       nationalNumberStatus: nationalNumberStatus ?? this.nationalNumberStatus,
+      nationalIdInfo: nationalIdInfo ?? this.nationalIdInfo,
     );
+  }
+
+  @override
+  String toString() {
+    return 'SignUpState(userInfo: $userInfo, password: $password, isLibyan: $isLibyan, verificationType: $verificationType, verificationDocumentStatus: $verificationDocumentStatus, verificationDocumentInfo: $verificationDocumentInfo, nationalNumberStatus: $nationalNumberStatus, nationalIdInfo: $nationalIdInfo)';
   }
 }

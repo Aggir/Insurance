@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:insurance_app/app/app_strings.dart';
 
 import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/domain/entities/signup_document_info.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:meta/meta.dart';
 
@@ -44,7 +45,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(isLibyan: !state.isLibyan));
   }
 
-  bool verifyUserInfoForm() {
+  bool confirmUserInfoForm() {
     if (userInfoForm.currentState!.validate()) {
       emit(
         state.copyWith(
@@ -63,7 +64,7 @@ class SignUpCubit extends Cubit<SignUpState> {
     return false;
   }
 
-  bool verifyPasswordForm() {
+  bool confirmPasswordForm() {
     if (passwordForm.currentState!.validate()) {
       if (state.isLibyan) {
         emit(state.copyWith(password: passwordController.text));
@@ -93,6 +94,29 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.none));
   }
 
+  bool confirmVerificationForm() {
+    if (verificationForm.currentState!.validate()) {
+      if (state.isLibyan) {
+        emit(state.copyWith(
+            verificationDocumentInfo: SignUpDocumentInfo(
+          type: state.verificationType,
+          documentNumber: documentNumberController.text,
+          issuingPlace: documentIssuingPlaceController.text,
+          dateOfIssue: documentDateOfIssueController.text,
+          dateOfExpiry: documentDateOfExpiryController.text,
+        )));
+      } else {
+        emit(state.copyWith(
+            verificationDocumentInfo: SignUpDocumentInfo(
+          type: state.verificationType,
+          documentNumber: documentNumberController.text,
+        )));
+      }
+      return true;
+    }
+    return false;
+  }
+
   // Todo: add filePicker
   uploadNationalIdPicture() async {
     emit(state.copyWith(nationalNumberStatus: UploadFileStatus.loading));
@@ -104,7 +128,21 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(nationalNumberStatus: UploadFileStatus.none));
   }
 
-  signUp() {}
+  bool confirmNationalIdNumberForm() {
+    if (nationalIdNumberForm.currentState!.validate() && state.isLibyan) {
+      emit(state.copyWith(
+          nationalIdInfo: SignUpDocumentInfo(
+        type: AppStrings.nationalIdNumber.tr(),
+        documentNumber: nationalIdNumberController.text,
+      )));
+      return true;
+    }
+    return false;
+  }
+
+  signUp() {
+    print(state);
+  }
 
   backFromUserInfoPage() {
     _clearContent();

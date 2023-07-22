@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class SignUpDocumentInfo extends Equatable {
   final String type;
+  // todo: add uploaded document file
   final String documentNumber;
   final String? issuingPlace;
   final String? dateOfIssue;
@@ -38,4 +39,9 @@ class SignUpDocumentInfo extends Equatable {
         dateOfIssue,
         dateOfExpiry,
       ];
+
+  @override
+  String toString() {
+    return 'SignUpDocumentInfo(type: $type, documentNumber: $documentNumber, issuingPlace: $issuingPlace, dateOfIssue: $dateOfIssue, dateOfExpiry: $dateOfExpiry)';
+  }
 }

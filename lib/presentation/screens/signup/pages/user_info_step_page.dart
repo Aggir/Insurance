@@ -47,7 +47,7 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
 
   void _nextButtonFunction(BuildContext context) {
     FocusScope.of(context).unfocus();
-    if (BlocProvider.of<SignUpCubit>(context).verifyUserInfoForm()) {
+    if (BlocProvider.of<SignUpCubit>(context).confirmUserInfoForm()) {
       context.go(Routes.signupPasswordStepRoute);
     }
   }

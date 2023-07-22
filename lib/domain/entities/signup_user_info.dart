@@ -43,4 +43,9 @@ class SignUpUserInfo extends Equatable {
         phoneNumber,
         birthDate,
       ];
+
+  @override
+  String toString() {
+    return 'SignUpUserInfo(firstName: $firstName, middleName: $middleName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, birthDate: $birthDate)';
+  }
 }

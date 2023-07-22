@@ -42,7 +42,7 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
   }
 
   void _nextButtonFunction(BuildContext context, SignUpState state) {
-    if (BlocProvider.of<SignUpCubit>(context).verifyPasswordForm()) {
+    if (BlocProvider.of<SignUpCubit>(context).confirmPasswordForm()) {
       FocusScope.of(context).unfocus();
       context.go(state.isLibyan
           ? Routes.signupSelectVerificationMethodStepRoute

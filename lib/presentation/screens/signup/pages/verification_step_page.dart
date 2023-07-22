@@ -32,10 +32,13 @@ class _SignUpVerificationStepPageState
     extends State<SignUpVerificationStepPage> {
   void _mainButtonFunction(BuildContext context, SignUpState state) {
     FocusScope.of(context).unfocus();
-    if (state.isLibyan) {
-      context.go(Routes.signupNationalIdNumberStepRoute);
-    } else {
-      BlocProvider.of<SignUpCubit>(context).signUp();
+    final cubit = BlocProvider.of<SignUpCubit>(context);
+    if (cubit.confirmVerificationForm()) {
+      if (state.isLibyan) {
+        context.go(Routes.signupNationalIdNumberStepRoute);
+      } else {
+        cubit.signUp();
+      }
     }
   }
 

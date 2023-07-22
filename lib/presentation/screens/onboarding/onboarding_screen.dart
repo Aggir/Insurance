@@ -80,7 +80,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(_isSwipingToTheLastPage ? (_pageIndex - (_pages.length - 2)) : 1);
     return Scaffold(
       body: Stack(
         children: [

@@ -29,6 +29,10 @@ class _SignUpNationalIdNumberPageState
     extends State<SignUpNationalIdNumberPage> {
   void _createAccountButtonFunction(BuildContext context) {
     FocusScope.of(context).unfocus();
+    final cubit = BlocProvider.of<SignUpCubit>(context);
+    if (cubit.confirmNationalIdNumberForm()) {
+      cubit.signUp();
+    }
   }
 
   bool formIsNotEmpty = false;
