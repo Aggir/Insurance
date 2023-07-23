@@ -1,34 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import '../../blocs/signup/signup_cubit.dart';
-import '../../theme/app_colors.dart';
 import '../../widgets/custom_back_button.dart';
-import 'components/custom_indicator.dart';
+import '../../widgets/steps_app_bar_widget.dart';
 
-class SignUpStepsPage extends StatefulWidget {
-  const SignUpStepsPage(this.child, this.location, {super.key});
+class SignUpStepsScreen extends StatefulWidget {
+  const SignUpStepsScreen(this.child, this.location, {super.key});
   final StatefulNavigationShell child;
   final String location;
 
   @override
-  State<SignUpStepsPage> createState() => _SignUpStepsPageState();
+  State<SignUpStepsScreen> createState() => _SignUpStepsScreenState();
 }
 
-class _SignUpStepsPageState extends State<SignUpStepsPage> {
+class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SignUpCubit>(context);
     return Scaffold(
       appBar: widget.child.currentIndex == 0
           ? null
-          : AppBar(
-              backgroundColor: AppColors.transparent,
-              systemOverlayStyle: SystemUiOverlayStyle.dark,
-              elevation: 0,
-              leading: BlocBuilder<SignUpCubit, SignUpState>(
+          : stepsAppBarWidget(
+              currentIndex: widget.child.currentIndex,
+              pageCount: AppRouter.signupSteps,
+              backButton: BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   void goBack() {
                     if (widget.child.currentIndex == 2) {
@@ -64,12 +61,6 @@ class _SignUpStepsPageState extends State<SignUpStepsPage> {
                   );
                 },
               ),
-              actions: [
-                CustomIndicator(
-                  currentPage: widget.child.currentIndex.toDouble(),
-                  pageCount: AppRouter.signupSteps,
-                ),
-              ],
             ),
       body: widget.child,
     );

@@ -11,6 +11,10 @@ class ImageAssets {
   static const String libya = '$_imagePath/libya.png';
   static const String termsAndConditions =
       '$_imagePath/terms-and-conditions.png';
+  static const String forgotPasswordBackground =
+      '$_imagePath/forgot-password-background.png';
+  static const String verifyOtp = '$_imagePath/verify-otp-screen.png';
+  static const String newPassword = '$_imagePath/new-password.png';
 }
 
 const String _svgPath = 'assets/svgs';

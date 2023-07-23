@@ -64,63 +64,45 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: const NeverScrollableScrollPhysics(),
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.primaryLightest,
-                image: const DecorationImage(
-                  alignment: Alignment.topCenter,
-                  image: AssetImage(ImageAssets.signupBackground),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: const NeverScrollableScrollPhysics(),
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLightest,
+                  image: const DecorationImage(
+                    alignment: Alignment.topCenter,
+                    image: AssetImage(ImageAssets.signupBackground),
+                  ),
                 ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Stack(
-              children: [
-                SingleChildScrollView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryLightest,
-                      image: const DecorationImage(
-                        alignment: Alignment.topCenter,
-                        image: AssetImage(ImageAssets.signupBackground),
-                      ),
-                    ),
-                  ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: CardPageContainer(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _headlineTextWidget(),
+                    CustomSpacers.medium(),
+                    _bodyTextWidget(),
+                    CustomSpacers.large(),
+                    _loginForm(context),
+                    CustomSpacers.large(),
+                    _nextButton(context),
+                    CustomSpacers.medium(),
+                    const SignUpFooterRow(),
+                  ],
                 ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CardPageContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _headlineTextWidget(),
-                        CustomSpacers.medium(),
-                        _bodyTextWidget(),
-                        CustomSpacers.large(),
-                        _loginForm(context),
-                        CustomSpacers.large(),
-                        _nextButton(context),
-                        CustomSpacers.medium(),
-                        const SignUpFooterRow(),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -7,18 +7,18 @@ class SignUpState extends Equatable {
   final bool isLibyan;
   // Todo: Change `verificationType` from String to enum.
   final String verificationType;
-  final UploadFileStatus verificationDocumentStatus;
+  final Status verificationDocumentStatus;
   final SignUpDocumentInfo? verificationDocumentInfo;
-  final UploadFileStatus nationalNumberStatus;
+  final Status nationalNumberStatus;
   final SignUpDocumentInfo? nationalIdInfo;
   const SignUpState({
     this.userInfo,
     this.password,
     this.isLibyan = true,
     this.verificationType = '',
-    this.verificationDocumentStatus = UploadFileStatus.none,
+    this.verificationDocumentStatus = Status.initial,
     this.verificationDocumentInfo,
-    this.nationalNumberStatus = UploadFileStatus.none,
+    this.nationalNumberStatus = Status.initial,
     this.nationalIdInfo,
   });
 
@@ -39,9 +39,9 @@ class SignUpState extends Equatable {
     String? password,
     bool? isLibyan,
     String? verificationType,
-    UploadFileStatus? verificationDocumentStatus,
+    Status? verificationDocumentStatus,
     SignUpDocumentInfo? verificationDocumentInfo,
-    UploadFileStatus? nationalNumberStatus,
+    Status? nationalNumberStatus,
     SignUpDocumentInfo? nationalIdInfo,
   }) {
     return SignUpState(

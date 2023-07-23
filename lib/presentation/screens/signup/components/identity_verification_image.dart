@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 import '../../../../app/assets_manager.dart';
 
@@ -14,20 +15,20 @@ class IdentityVerificationImage extends StatelessWidget {
         Center(
           child: SvgPicture.asset(
             SvgAssets.identityVerificationPassport,
-            height: 104,
-            width: 104,
+            height: AppSizes.s104,
+            width: AppSizes.s104,
           ),
         ),
         Center(
           child: SizedBox(
-            height: 104,
-            width: 104,
+            height: AppSizes.s104,
+            width: AppSizes.s104,
             child: Align(
               alignment: Alignment.center,
               child: Image.asset(
                 imagePath,
-                width: 86,
-                height: 86,
+                width: AppSizes.s86,
+                height: AppSizes.s86,
               ),
             ),
           ),

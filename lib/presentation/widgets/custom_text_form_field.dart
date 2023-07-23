@@ -29,6 +29,7 @@ class CustomTextFormField extends StatefulWidget {
     this.inputDecoration,
     this.focusNode,
     this.hideErrorMessage = false,
+    this.label,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -46,6 +47,7 @@ class CustomTextFormField extends StatefulWidget {
   final InputDecoration? inputDecoration;
   final FocusNode? focusNode;
   final bool hideErrorMessage;
+  final String? label;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -54,6 +56,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   bool _visible = false;
   bool _showError = false;
   String _errorMessage = '';
+  final FocusNode _focusNode = FocusNode();
 
   Widget _suffixIconContainer({required Widget child}) {
     return Padding(
@@ -131,10 +134,23 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (widget.label != null)
+          AnimatedContainer(
+            height: (_focusNode.hasFocus &&
+                    widget.controller != null &&
+                    widget.controller!.text.isNotEmpty)
+                ? 30
+                : 0,
+            duration: const Duration(milliseconds: 150),
+            child: Text(
+              widget.label!,
+              style: smallDarkGrayBodyStyle(),
+            ),
+          ),
         SizedBox(
           height: AppValues.textFieldHeight,
           child: TextFormField(
-            focusNode: widget.focusNode,
+            focusNode: widget.focusNode ?? _focusNode,
             controller: widget.controller,
             keyboardType: widget.keyboardType,
             maxLength: widget.maxLength,

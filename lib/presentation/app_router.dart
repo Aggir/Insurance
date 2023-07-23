@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
-import 'package:insurance_app/presentation/screens/signup/pages/national_id_number_page.dart';
-import 'package:insurance_app/presentation/screens/signup/pages/password_step_page.dart';
-import 'package:insurance_app/presentation/screens/signup/pages/select_verification_method_page.dart';
-import 'package:insurance_app/presentation/screens/signup/pages/user_info_step_page.dart';
-import 'package:insurance_app/presentation/screens/signup/pages/verification_step_page.dart';
-import 'package:insurance_app/presentation/screens/signup/signup_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 
 import 'blocs/signup/signup_cubit.dart';
@@ -16,8 +13,6 @@ import 'blocs/signup/signup_cubit.dart';
 class NavigatorKeys {
   static GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey(debugLabel: 'root');
-  static GlobalKey<NavigatorState> signupShellNavigatorKey =
-      GlobalKey(debugLabel: 'signup-shell');
 }
 
 class Routes {
@@ -25,6 +20,7 @@ class Routes {
   static const String onboardingRoute = "/onboarding";
   static const String termsAndConditionsRoute = "/terms-and-conditions";
   static const String loginRoute = "/login";
+
   static const String signupRoute = '/signup-user-info-step';
   static const String signupPasswordStepRoute = "/signup-password-step";
   static const String signupSelectVerificationMethodStepRoute =
@@ -32,6 +28,12 @@ class Routes {
   static const String signupVerificationStepRoute = "/signup-verification-step";
   static const String signupNationalIdNumberStepRoute =
       "/signup-national-id_number-step";
+
+  static const String forgotPasswordRoute = '/forgot-password-send-otp';
+  static const String forgotPasswordVerifyOtpStepRoute =
+      '/forgot-password-verify-otp';
+  static const String forgotPasswordResetPasswordStepRoute =
+      '/forgot-password-reset-password';
 }
 
 class AppRouter {
@@ -57,14 +59,28 @@ class AppRouter {
           return const LoginScreen();
         },
       ),
+      GoRoute(
+        path: Routes.loginRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const LoginScreen();
+        },
+      ),
       StatefulShellRoute.indexedStack(
           builder: (context, state, child) {
             return BlocProvider(
               create: (context) => SignUpCubit(),
-              child: SignUpStepsPage(child, state.location),
+              child: SignUpStepsScreen(child, state.location),
             );
           },
           branches: _signupBranches),
+      StatefulShellRoute.indexedStack(
+          builder: (context, state, child) {
+            return BlocProvider(
+              create: (context) => ForgotPasswordCubit(),
+              child: ForgotPasswordStepsScreen(child, state.location),
+            );
+          },
+          branches: _forgotPasswordBranches),
     ],
   );
 
@@ -105,5 +121,27 @@ class AppRouter {
     ]),
   ];
 
+  static final List<StatefulShellBranch> _forgotPasswordBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.forgotPasswordRoute,
+        builder: (context, state) => const ForgotPasswordSendOtpPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.forgotPasswordVerifyOtpStepRoute,
+        builder: (context, state) => const ForgotPasswordVerifyOtpPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.forgotPasswordResetPasswordStepRoute,
+        builder: (context, state) => const ForgotPasswordRestPasswordPage(),
+      ),
+    ]),
+  ];
+
   static int get signupSteps => _signupBranches.length;
+  static int get forgotPasswordSteps => _signupBranches.length;
 }

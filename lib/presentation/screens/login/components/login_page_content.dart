@@ -14,7 +14,9 @@ import '../../../widgets/custom_text_form_field.dart';
 class LoginPageContent extends StatelessWidget {
   const LoginPageContent({super.key});
 
-  void _forgotPasswordButtonFunction(BuildContext context) {}
+  void _forgotPasswordButtonFunction(BuildContext context) {
+    context.go(Routes.forgotPasswordRoute);
+  }
 
   void _loginButtonFunction(BuildContext context) {}
 

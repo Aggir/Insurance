@@ -19,7 +19,7 @@ class UploadDocument extends StatelessWidget {
     this.uploadedDocumentSvgPath,
     super.key,
   });
-  final UploadFileStatus uploadFileStatus;
+  final Status uploadFileStatus;
   final void Function()? uploadFunction;
   final void Function()? removeFunction;
   final String? uploadStateText;
