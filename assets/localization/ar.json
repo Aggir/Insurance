@@ -9,7 +9,7 @@
     "skip": "تخطي",
     "login": "تسجيل دخول",
     "login_screen_description": "سعداء برؤيتك مجددا معنا",
-    "email_address": "البريد الإلكتروني",
+    "phone_number_or_email_address": "رقم الهاتف أو البريد الالكتروني",
     "password": "كلمة المرور",
     "forgot_password_question": "نسيت كلمة المرور؟",
     "you_do_not_have_an_account": "ليس لديك حساب؟",
@@ -20,6 +20,7 @@
     "first_name": "الاسم الأول",
     "middle_name": "اسم الأب",
     "last_name": "اللقب",
+    "email_address": "البريد الإلكتروني",
     "phone_number": "رقم الهاتف",
     "phone_number_example": "9XXXXXXXX",
     "birth_date": "تاريخ الميلاد",
@@ -62,5 +63,15 @@
     "condition_five_description": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.",
     "condition_six_header": "عنوان الشرط هنا",
     "condition_six_description": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.",
-    "accept_terms_and_conditions":"أوافق على الشروط والأحكام"
+    "accept_terms_and_conditions": "أوافق على الشروط والأحكام",
+    "forgot_password": "نسيت كلمة المرور",
+    "forgot_password_screen_description": "تساعد هذه الخطوة على التأكد من انك صاحب الحساب",
+    "remembered_your_account_question": "تذكرت حسابك؟",
+    "enter_verification_number": "ادخل رمز التحقق",
+    "enter_verification_number_description": "قم بإدخال رمز التحقق الذي قمنا بإرساله على ",
+    "left": "متبقي: ",
+    "minute": "دقيقة",
+    "resend": "إعادة الإرسال",
+    "new_password": "كلمة المرور الجديدة",
+    "change_password": "تغيير كلمة المرور"
 }

@@ -10,15 +10,18 @@ class PressableText extends StatelessWidget {
     this.fontSize,
     this.fontWeight,
     this.textColor,
+    this.disabledTextColor,
     super.key,
   });
   final String text;
-  final void Function() onTap;
+  final void Function()? onTap;
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? textColor;
+  final Color? disabledTextColor;
   @override
   Widget build(BuildContext context) {
+    bool isActive = onTap != null;
     return Material(
       color: AppColors.transparent,
       child: InkWell(
@@ -26,7 +29,12 @@ class PressableText extends StatelessWidget {
         child: Text(
           text,
           style: pressableTextStyle().copyWith(
-              fontSize: fontSize, fontWeight: fontWeight, color: textColor),
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            color: isActive
+                ? textColor ?? AppColors.primary
+                : disabledTextColor ?? AppColors.primary.withOpacity(0.3),
+          ),
         ),
       ),
     );

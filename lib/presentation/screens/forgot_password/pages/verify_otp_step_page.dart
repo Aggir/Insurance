@@ -1,0 +1,202 @@
+import 'dart:async';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/presentation/app_router.dart';
+import 'package:pinput/pinput.dart';
+import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/theme/app_colors.dart';
+import 'package:insurance_app/presentation/theme/app_theme.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
+
+import '../../../theme/text_style_manager.dart';
+import '../../../widgets/page_content_padding.dart';
+
+class ForgotPasswordVerifyOtpPage extends StatefulWidget {
+  const ForgotPasswordVerifyOtpPage({super.key});
+
+  @override
+  State<ForgotPasswordVerifyOtpPage> createState() =>
+      _ForgotPasswordVerifyOtpPageState();
+}
+
+class _ForgotPasswordVerifyOtpPageState
+    extends State<ForgotPasswordVerifyOtpPage> {
+  _otpOnComplete(ForgotPasswordCubit cubit) {
+    cubit.confirmVerifyOtpForm();
+  }
+
+  bool isResendButtonActive = false;
+  _resendOtp() {
+    BlocProvider.of<ForgotPasswordCubit>(context).startTimer();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height:
+            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        child: PageContentPadding(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // CustomSpacers.large(),
+              Container(
+                height: AppSizes.s104,
+                width: AppSizes.s104,
+                decoration: BoxDecoration(
+                    color: AppColors.primaryLight,
+                    borderRadius: BorderRadius.circular(100),
+                    image: const DecorationImage(
+                        image: AssetImage(ImageAssets.verifyOtp))),
+              ),
+              CustomSpacers.medium(),
+              CustomSpacers.small(),
+              _headlineTextWidget(),
+              CustomSpacers.medium(),
+              _bodyTextWidget(),
+              CustomSpacers.large(),
+              _otpForm(context),
+              CustomSpacers.large(),
+              _resendFooterRow(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _headlineTextWidget() {
+    return Text(
+      AppStrings.enterVerificationNumber,
+      style: largeHeadlineStyle(),
+    ).tr();
+  }
+
+  Widget _bodyTextWidget() {
+    return BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+      builder: (context, state) {
+        return Text.rich(
+          textAlign: TextAlign.center,
+          style: const TextStyle(height: 1.5),
+          TextSpan(
+              text: AppStrings.enterVerificationNumberDescription.tr(),
+              style: darkGrayBodyStyle(),
+              children: [
+                TextSpan(
+                    text: state.emailOrPhoneNumber ?? '',
+                    style: smallHeadlineStyle()
+                        .copyWith(color: AppColors.blackText))
+              ]),
+        );
+      },
+    );
+  }
+
+  Widget _otpForm(BuildContext context) {
+    final cubit = BlocProvider.of<ForgotPasswordCubit>(context);
+    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+      listener: (context, state) {
+        if (state.verifyOtpStatus.isFailure) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.verifyOtpError!)));
+        } else if (state.verifyOtpStatus.isSuccess) {
+          GoRouter.of(context).go(Routes.forgotPasswordResetPasswordStepRoute);
+        }
+      },
+      builder: (context, state) {
+        return Form(
+          key: cubit.verifyOtpForm,
+          child: Directionality(
+            textDirection: ui.TextDirection.ltr,
+            child: Pinput(
+              length: 4,
+              controller: cubit.otpController,
+              onCompleted: (value) => _otpOnComplete(cubit),
+              defaultPinTheme: PinTheme(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  border: Border.all(color: AppColors.grayLight),
+                  borderRadius:
+                      BorderRadius.circular(AppValues.cardPageContainerRadius),
+                ),
+                height: AppSizes.s72,
+                width: AppSizes.s72,
+              ),
+              focusedPinTheme: PinTheme(
+                decoration: BoxDecoration(
+                  color: AppColors.lightest,
+                  border: Border.all(color: AppColors.grayLight),
+                  borderRadius:
+                      BorderRadius.circular(AppValues.cardPageContainerRadius),
+                ),
+                height: AppSizes.s72,
+                width: AppSizes.s72,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _resendFooterRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          AppStrings.left.tr(),
+          style: grayBodyStyle(),
+        ),
+        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+          builder: (context, state) {
+            return Text(
+              '${_formatDuration(Duration(seconds: state.resendCounterInSeconds))} ',
+              style: smallHeadlineStyle().copyWith(color: AppColors.secondary),
+            );
+          },
+        ),
+        Text(
+          AppStrings.minute.tr(),
+          style: grayBodyStyle(),
+        ),
+        CustomSpacers.small(),
+        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+          builder: (context, state) {
+            return TextButton(
+              onPressed: state.isResendButtonActive ? _resendOtp : null,
+              style: TextButton.styleFrom(
+                  disabledForegroundColor: AppColors.primary.withOpacity(0.3)),
+              child: Text(AppStrings.resend.tr()),
+            );
+          },
+        )
+      ],
+    );
+  }
+}
+
+String _formatDuration(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, "0");
+  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+  return "$twoDigitMinutes:$twoDigitSeconds";
+}

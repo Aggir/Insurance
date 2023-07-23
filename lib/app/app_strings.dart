@@ -11,7 +11,7 @@ class AppStrings {
 
   static const login = "login";
   static const loginScreenDescription = "login_screen_description";
-  static const emailAddress = "email_address";
+  static const phoneNumberOrEmailAddress = "phone_number_or_email_address";
   static const password = "password";
   static const forgotPasswordQuestion = "forgot_password_question";
   static const youDoNotHaveAnAccount = "you_do_not_have_an_account";
@@ -23,6 +23,7 @@ class AppStrings {
   static const firstName = "first_name";
   static const middleName = "middle_name";
   static const lastName = "last_name";
+  static const emailAddress = "email_address";
   static const phoneNumber = "phone_number";
   static const phoneNumberExample = "phone_number_example";
   static const birthDate = "birth_date";
@@ -71,4 +72,18 @@ class AppStrings {
   static const conditionSixHeader = 'condition_six_header';
   static const conditionSixDescription = 'condition_six_description';
   static const acceptTermsAndConditions = 'accept_terms_and_conditions';
+
+  static const forgotPassword = 'forgot_password';
+  static const forgotPasswordScreenDescription =
+      'forgot_password_screen_description';
+  static const rememberedYourAccountQuestion =
+      'remembered_your_account_question';
+  static const enterVerificationNumber = 'enter_verification_number';
+  static const enterVerificationNumberDescription =
+      'enter_verification_number_description';
+  static const left = 'left';
+  static const minute = 'minute';
+  static const resend = 'resend';
+  static const newPassword = 'new_password';
+  static const changePassword = 'change_password';
 }

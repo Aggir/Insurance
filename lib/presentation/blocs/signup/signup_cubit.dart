@@ -85,13 +85,13 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   // Todo: add filePicker
   uploadDocumentPicture() async {
-    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.loading));
+    emit(state.copyWith(verificationDocumentStatus: Status.loading));
     await Future.delayed(const Duration(seconds: 3));
-    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.success));
+    emit(state.copyWith(verificationDocumentStatus: Status.success));
   }
 
   removeDocumentPicture() {
-    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.none));
+    emit(state.copyWith(verificationDocumentStatus: Status.initial));
   }
 
   bool confirmVerificationForm() {
@@ -119,13 +119,13 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   // Todo: add filePicker
   uploadNationalIdPicture() async {
-    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.loading));
+    emit(state.copyWith(nationalNumberStatus: Status.loading));
     await Future.delayed(const Duration(seconds: 3));
-    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.success));
+    emit(state.copyWith(nationalNumberStatus: Status.success));
   }
 
   removeNationalIdPicture() {
-    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.none));
+    emit(state.copyWith(nationalNumberStatus: Status.initial));
   }
 
   bool confirmNationalIdNumberForm() {
@@ -164,12 +164,12 @@ class SignUpCubit extends Cubit<SignUpState> {
     documentIssuingPlaceController.clear();
     documentDateOfIssueController.clear();
     documentDateOfExpiryController.clear();
-    emit(state.copyWith(verificationDocumentStatus: UploadFileStatus.none));
+    emit(state.copyWith(verificationDocumentStatus: Status.initial));
   }
 
   backFromNationalIdNumberPage() {
     nationalIdNumberController.clear();
-    emit(state.copyWith(nationalNumberStatus: UploadFileStatus.none));
+    emit(state.copyWith(nationalNumberStatus: Status.initial));
   }
 
   _clearContent() {

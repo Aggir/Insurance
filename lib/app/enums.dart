@@ -1,15 +1,15 @@
-enum UploadFileStatus {
-  none,
+enum Status {
+  initial,
   loading,
   success,
   failure,
 }
 
-extension UploadFileStatusExtension on UploadFileStatus {
-  bool get isNone => this == UploadFileStatus.none;
-  bool get isLoading => this == UploadFileStatus.loading;
-  bool get isSuccess => this == UploadFileStatus.success;
-  bool get isFailure => this == UploadFileStatus.failure;
+extension StatusExtension on Status {
+  bool get isInitial => this == Status.initial;
+  bool get isLoading => this == Status.loading;
+  bool get isSuccess => this == Status.success;
+  bool get isFailure => this == Status.failure;
 }
 
 enum SignUpVerificationTypes {
