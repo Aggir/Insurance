@@ -23,23 +23,27 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   Timer? resendOtpTimer;
   void startTimer() {
+    const timer = 10;
     emit(state.copyWith(
-      resendCounterInSeconds: 10,
+      resendCounterInSeconds: timer,
       isResendButtonActive: false,
     ));
     resendOtpTimer?.cancel();
     const oneSec = Duration(seconds: 1);
+    int currentTimerCount = timer;
     resendOtpTimer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (state.resendCounterInSeconds == 0) {
           resendOtpTimer?.cancel();
         } else {
-          emit(state.copyWith(
-            resendCounterInSeconds: state.resendCounterInSeconds - 1,
-            isResendButtonActive:
-                state.resendCounterInSeconds - 1 == 0 ? true : false,
-          ));
+          currentTimerCount--;
+          if (!state.verifyOtpStatus.isLoading) {
+            emit(state.copyWith(
+              resendCounterInSeconds: currentTimerCount,
+              isResendButtonActive: currentTimerCount == 0 ? true : false,
+            ));
+          }
         }
       },
     );

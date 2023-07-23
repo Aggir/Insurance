@@ -17,6 +17,12 @@ class ImageAssets {
   static const String newPassword = '$_imagePath/new-password.png';
 }
 
+const String _gifPath = 'assets/gifs';
+
+class GifAssets {
+  static const String loading = '$_gifPath/loading.gif';
+}
+
 const String _svgPath = 'assets/svgs';
 
 class SvgAssets {

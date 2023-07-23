@@ -14,8 +14,12 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
   final String termsAndConditionsUpdateDate = '2023 - 7 - 12';
 
-  void _acceptButtonFunction(BuildContext context) {
-    context.go(Routes.loginRoute);
+  void _acceptButtonFunction(BuildContext context) async {
+    context.push(Routes.loadingRoute);
+    Future.delayed(const Duration(seconds: 2), () {
+      context.pop();
+      context.go(Routes.loginRoute);
+    });
   }
 
   @override

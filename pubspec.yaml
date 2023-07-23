@@ -32,6 +32,7 @@ flutter:
     - assets/images/
     - assets/localization/
     - assets/svgs/
+    - assets/gifs/
   fonts:
     - family: Almarai
       fonts:
