@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -16,6 +14,7 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../theme/text_style_manager.dart';
+import '../../../widgets/loading_dialog.dart';
 import '../../../widgets/page_content_padding.dart';
 
 class ForgotPasswordVerifyOtpPage extends StatefulWidget {
@@ -62,10 +61,14 @@ class _ForgotPasswordVerifyOtpPageState
                 height: AppSizes.s104,
                 width: AppSizes.s104,
                 decoration: BoxDecoration(
-                    color: AppColors.primaryLight,
-                    borderRadius: BorderRadius.circular(100),
-                    image: const DecorationImage(
-                        image: AssetImage(ImageAssets.verifyOtp))),
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(100),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      ImageAssets.verifyOtp,
+                    ),
+                  ),
+                ),
               ),
               CustomSpacers.medium(),
               CustomSpacers.small(),
@@ -112,18 +115,24 @@ class _ForgotPasswordVerifyOtpPageState
 
   Widget _otpForm(BuildContext context) {
     final cubit = BlocProvider.of<ForgotPasswordCubit>(context);
-    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
-      listener: (context, state) {
-        if (state.verifyOtpStatus.isFailure) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.verifyOtpError!)));
-        } else if (state.verifyOtpStatus.isSuccess) {
-          GoRouter.of(context).go(Routes.forgotPasswordResetPasswordStepRoute);
-        }
-      },
-      builder: (context, state) {
-        return Form(
+    return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+        listenWhen: (previous, current) =>
+            current.verifyOtpStatus != previous.verifyOtpStatus,
+        listener: (context, state) {
+          if (state.verifyOtpStatus.isLoading) {
+            DialogService.load(context);
+          } else if (state.verifyOtpStatus.isSuccess) {
+            DialogService.dispose();
+            GoRouter.of(context)
+                .go(Routes.forgotPasswordResetPasswordStepRoute);
+          } else if (state.verifyOtpStatus.isFailure) {
+            DialogService.dispose();
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.verifyOtpError!)));
+          }
+        },
+        child: Form(
           key: cubit.verifyOtpForm,
           child: Directionality(
             textDirection: ui.TextDirection.ltr,
@@ -153,9 +162,7 @@ class _ForgotPasswordVerifyOtpPageState
               ),
             ),
           ),
-        );
-      },
-    );
+        ));
   }
 
   _resendFooterRow() {

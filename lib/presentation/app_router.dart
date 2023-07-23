@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
+import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
@@ -34,6 +35,9 @@ class Routes {
       '/forgot-password-verify-otp';
   static const String forgotPasswordResetPasswordStepRoute =
       '/forgot-password-reset-password';
+
+  static const String loadingRoute = '/loading';
+  static const String loadingDialogRoute = '/loading-dialog';
 }
 
 class AppRouter {
@@ -54,9 +58,9 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.loginRoute,
+        path: Routes.loadingRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return const LoginScreen();
+          return const LoadingScreen();
         },
       ),
       GoRoute(
