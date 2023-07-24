@@ -94,7 +94,13 @@
     "health_insurance": "",
     "soon": "",
     "create_vehicle_file_first": "",
-    "you_do_not_have_vehicles":"",
-    "you_did_not_add_any_vehicle":"",
-    "add_vehicle":""
+    "you_do_not_have_vehicles": "",
+    "you_did_not_add_any_vehicle": "",
+    "add_vehicle": "",
+    "under_the_procedure": "",
+    "outgoing": "",
+    "unpaid": "",
+    "expired": "",
+    "there_are_no_insurances": "",
+    "you_do_not_have_any_insurances": ""
 }

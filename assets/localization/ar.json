@@ -96,5 +96,11 @@
     "create_vehicle_file_first": "قم بإنشاء  ملف مركبتك اولا! ",
     "you_do_not_have_vehicles":"لا يوجد لديك مركبات",
     "you_did_not_add_any_vehicle":"لم تقم بإضافة أي مركبات لحسابك، يرجى إضافة مركبة لتتمكن من إنشاء التأمين لها.",
-    "add_vehicle":"إضافة مركبة"
+    "add_vehicle":"إضافة مركبة",
+    "under_the_procedure":"تحت الإجراء",
+    "outgoing":"الصادرة",
+    "unpaid":"غير مدفوعة",
+    "expired":"منتهية",
+    "there_are_no_insurances":"لا توجد تامينات ",
+    "you_do_not_have_any_insurances":"لا يوجد لديك أي تأمينات "
 }

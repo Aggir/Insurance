@@ -113,4 +113,11 @@ class AppStrings {
   static const youDoNotHaveVehicles = 'you_do_not_have_vehicles';
   static const youDidNotAddAnyVehicle = 'you_did_not_add_any_vehicle';
   static const addVehicle = 'add_vehicle';
+
+  static const underTheProcedure = 'under_the_procedure';
+  static const outgoing = 'outgoing';
+  static const unpaid = 'unpaid';
+  static const expired = 'expired';
+  static const thereAreNoInsurances = 'there_are_no_insurances';
+  static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
 }

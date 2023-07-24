@@ -48,6 +48,10 @@ TextStyle smallHeadlineStyle() {
   return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s14);
 }
 
+TextStyle extraSmallHeadlineStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s12);
+}
+
 TextStyle smallDarkGrayHeadlineStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
 }

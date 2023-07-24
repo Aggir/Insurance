@@ -64,4 +64,6 @@ class SvgAssets {
   static const String shield = '$_svgPath/shield.svg';
   static const String shieldFilled = '$_svgPath/shield-filled.svg';
   static const String bell = '$_svgPath/bell.svg';
+  static const String insuranceEmptyState =
+      '$_svgPath/insurances-empty-state.svg';
 }
