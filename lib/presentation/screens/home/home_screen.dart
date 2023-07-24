@@ -1,0 +1,85 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/theme/app_colors.dart';
+import 'package:insurance_app/presentation/theme/app_theme.dart';
+import 'package:insurance_app/presentation/theme/font_manager.dart';
+import 'package:insurance_app/presentation/theme/styles_manager.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen(this.child, this.location, {super.key});
+  final StatefulNavigationShell child;
+  final String location;
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List<Map<String, String>> _navBarItems = [
+    {
+      'label': AppStrings.home.tr(),
+      'filledSvgPath': SvgAssets.homeFilled,
+      "svgPath": SvgAssets.home,
+    },
+    {
+      'label': AppStrings.myVehicles.tr(),
+      'filledSvgPath': SvgAssets.carFilled,
+      "svgPath": SvgAssets.car,
+    },
+    {
+      'label': AppStrings.myInsurances.tr(),
+      'filledSvgPath': SvgAssets.shieldFilled,
+      "svgPath": SvgAssets.shield,
+    },
+    {
+      'label': AppStrings.more.tr(),
+      'filledSvgPath': SvgAssets.moreFilled,
+      "svgPath": SvgAssets.more,
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: widget.child,
+      bottomNavigationBar: SizedBox(
+        height: AppSizes.s72,
+        child: BottomNavigationBar(
+          backgroundColor: AppColors.white,
+          currentIndex: widget.child.currentIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: AppColors.blackText,
+          unselectedItemColor: AppColors.gray,
+          selectedLabelStyle:
+              getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s10),
+          unselectedLabelStyle:
+              getRegularStyle(color: AppColors.gray, fontSize: FontSize.s10),
+          onTap: (value) {
+            widget.child.goBranch(value);
+          },
+          items: _navBarItems
+              .map((item) => navBarItem(
+                    label: item['label']!,
+                    filledSvgPath: item['filledSvgPath']!,
+                    svgPath: item['svgPath']!,
+                  ))
+              .toList(),
+        ),
+      ),
+    );
+  }
+
+  BottomNavigationBarItem navBarItem(
+      {required String label,
+      required String filledSvgPath,
+      required String svgPath}) {
+    return BottomNavigationBarItem(
+      icon: SvgPicture.asset(svgPath),
+      tooltip: label,
+      activeIcon: SvgPicture.asset(filledSvgPath),
+      label: label,
+    );
+  }
+}

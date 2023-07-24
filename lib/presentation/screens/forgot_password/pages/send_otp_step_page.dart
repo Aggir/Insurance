@@ -126,6 +126,8 @@ class _ForgotPasswordSendOtpPageState extends State<ForgotPasswordSendOtpPage> {
 
   Widget _nextButton(BuildContext context) {
     return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+      listenWhen: (previous, current) =>
+          previous.sendOtpStatus != current.sendOtpStatus,
       listener: (context, state) {
         if (state.sendOtpStatus.isFailure) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();

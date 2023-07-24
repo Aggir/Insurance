@@ -15,6 +15,13 @@ class ImageAssets {
       '$_imagePath/forgot-password-background.png';
   static const String verifyOtp = '$_imagePath/verify-otp-screen.png';
   static const String newPassword = '$_imagePath/new-password.png';
+  static const String adOne = '$_imagePath/ad-one.png';
+  static const String adTwo = '$_imagePath/ad-two.png';
+  static const String adThree = '$_imagePath/ad-three.png';
+  static const String newVehicleFile = '$_imagePath/new-vehicle-file.png';
+  static const String vehicleInsurance = '$_imagePath/vehicle-insurance.png';
+  static const String profilePicture = '$_imagePath/profile-picture.png';
+  static const String firstLogin = '$_imagePath/first-login.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -41,4 +48,19 @@ class SvgAssets {
   static const String passport = '$_svgPath/passport.svg';
   static const String nationalId = '$_svgPath/national-id.svg';
   static const String libya = '$_svgPath/libya.svg';
+  static const String airplane = '$_svgPath/airplane.svg';
+  static const String briefcase = '$_svgPath/briefcase.svg';
+  static const String car = '$_svgPath/car.svg';
+  static const String carFilled = '$_svgPath/car-filled.svg';
+  static const String creditCard = '$_svgPath/credit-card.svg';
+  static const String flame = '$_svgPath/flame.svg';
+  static const String home = '$_svgPath/home.svg';
+  static const String homeFilled = '$_svgPath/home-filled.svg';
+  static const String more = '$_svgPath/more.svg';
+  static const String moreFilled = '$_svgPath/more-filled.svg';
+  static const String personSquareStack = '$_svgPath/person-square-stack.svg';
+  static const String pills = '$_svgPath/pills.svg';
+  static const String shield = '$_svgPath/shield.svg';
+  static const String shieldFilled = '$_svgPath/shield-filled.svg';
+  static const String bell = '$_svgPath/bell.svg';
 }

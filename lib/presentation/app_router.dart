@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
+import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
@@ -18,8 +19,14 @@ class NavigatorKeys {
 
 class Routes {
   static const String homeRoute = "/";
+  static const String myVehiclesRoute = "/my-vehicles";
+  static const String myInsurancesRoute = "/my-insurances";
+  static const String moreRoute = "/more";
+
   static const String onboardingRoute = "/onboarding";
+
   static const String termsAndConditionsRoute = "/terms-and-conditions";
+
   static const String loginRoute = "/login";
 
   static const String signupRoute = '/signup-user-info-step';
@@ -37,13 +44,12 @@ class Routes {
       '/forgot-password-reset-password';
 
   static const String loadingRoute = '/loading';
-  static const String loadingDialogRoute = '/loading-dialog';
 }
 
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.onboardingRoute,
+    initialLocation: Routes.loginRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -85,6 +91,11 @@ class AppRouter {
             );
           },
           branches: _forgotPasswordBranches),
+      StatefulShellRoute.indexedStack(
+          builder: (context, state, child) {
+            return HomeScreen(child, state.location);
+          },
+          branches: _homeBranches),
     ],
   );
 
@@ -146,6 +157,33 @@ class AppRouter {
     ]),
   ];
 
+  static final List<StatefulShellBranch> _homeBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.homeRoute,
+        builder: (context, state) => const HomePage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.myVehiclesRoute,
+        builder: (context, state) => const MyVehiclesPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.myInsurancesRoute,
+        builder: (context, state) => const MyInsurancesPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.moreRoute,
+        builder: (context, state) => const MorePage(),
+      ),
+    ]),
+  ];
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
+  static int get homeBranchesCount => _homeBranches.length;
 }

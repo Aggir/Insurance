@@ -18,7 +18,9 @@ class LoginPageContent extends StatelessWidget {
     context.go(Routes.forgotPasswordRoute);
   }
 
-  void _loginButtonFunction(BuildContext context) {}
+  void _loginButtonFunction(BuildContext context) {
+    context.go(Routes.homeRoute);
+  }
 
   void _createAccountButtonFunction(BuildContext context) {
     context.go(Routes.signupRoute);

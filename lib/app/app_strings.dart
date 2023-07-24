@@ -86,4 +86,27 @@ class AppStrings {
   static const resend = 'resend';
   static const newPassword = 'new_password';
   static const changePassword = 'change_password';
+
+  static const youHaveCreatedYourAccountSuccessfully =
+      'you_have_created_your_account_successfully';
+  static const toIssueCarInsuranceCreateYourVehicleFileFirst =
+      'to_issue_car_insurance_create_your_vehicle_file_first';
+  static const createMyVehicleFile = 'create_my_vehicle_file';
+  static const iWillCreateItLater = 'i_will_create_it_later';
+  static const home = 'home';
+  static const myVehicles = 'my_vehicles';
+  static const myInsurances = 'my_insurances';
+  static const more = 'more';
+  static const welcome = 'welcome';
+  static const insuranceServices = 'insurance_services';
+  static const carsInsurance = 'cars_insurance';
+  static const company = 'company';
+  static const propertiesInsurance = 'properties_insurance';
+  static const travelersInsurance = 'travelers_insurance';
+  static const fireInsurance = 'fire_insurance';
+  static const cardInsurance = 'card_insurance';
+  static const familyInsurance = 'family_insurance';
+  static const healthInsurance = 'health_insurance';
+  static const soon = 'soon';
+  static const createVehicleFileFirst = 'create_vehicle_file_first';
 }

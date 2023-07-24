@@ -10,6 +10,20 @@ class CustomSpacers {
     );
   }
 
+  static Widget extraLarge() {
+    return const SizedBox(
+      height: AppValues.large + AppValues.medium,
+      width: AppValues.large + AppValues.medium,
+    );
+  }
+
+  static Widget mediumLarge() {
+    return const SizedBox(
+      height: AppValues.medium + AppValues.small,
+      width: AppValues.medium + AppValues.small,
+    );
+  }
+
   static Widget medium() {
     return const SizedBox(
       height: AppValues.medium,

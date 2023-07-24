@@ -105,8 +105,7 @@ class _ForgotPasswordVerifyOtpPageState
               children: [
                 TextSpan(
                     text: state.emailOrPhoneNumber ?? '',
-                    style: smallHeadlineStyle()
-                        .copyWith(color: AppColors.blackText))
+                    style: smallHeadlineStyle())
               ]),
         );
       },
@@ -177,7 +176,8 @@ class _ForgotPasswordVerifyOtpPageState
           builder: (context, state) {
             return Text(
               '${_formatDuration(Duration(seconds: state.resendCounterInSeconds))} ',
-              style: smallHeadlineStyle().copyWith(color: AppColors.secondary),
+              style: smallDarkGrayHeadlineStyle()
+                  .copyWith(color: AppColors.secondary),
             );
           },
         ),

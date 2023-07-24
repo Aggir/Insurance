@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
@@ -138,7 +140,14 @@ class _ForgotPasswordRestPasswordPageState
   }
 
   Widget _changePasswordButton() {
-    return BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+      listenWhen: (previous, current) =>
+          previous.resetPasswordStatus != current.resetPasswordStatus,
+      listener: (context, state) {
+        if (state.resetPasswordStatus.isSuccess) {
+          context.go(Routes.homeRoute);
+        }
+      },
       builder: (context, state) {
         return PrimaryButton.fullWidth(
           onPressed: state.sendOtpStatus.isLoading
