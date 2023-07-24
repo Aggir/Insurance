@@ -73,5 +73,10 @@
     "minute": "دقيقة",
     "resend": "إعادة الإرسال",
     "new_password": "كلمة المرور الجديدة",
-    "change_password": "تغيير كلمة المرور"
+    "change_password": "تغيير كلمة المرور",
+    
+    "check_internet_connection": "تأكد من اتصالك بالإنترنت",
+    "check_internet_connection_description": "خللًا ما قد أصاب اتصالك بالإنترنت، يرجى التأكد من اتصالك بالشبكة وإعادة المحاولة مرة أخرى.",
+    "try_again": "حاول مجددًّا"
+
 }

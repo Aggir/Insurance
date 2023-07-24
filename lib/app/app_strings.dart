@@ -86,4 +86,9 @@ class AppStrings {
   static const resend = 'resend';
   static const newPassword = 'new_password';
   static const changePassword = 'change_password';
+
+  static const checkInternetConnection = 'check_internet_connection';
+  static const checkInternetConnectionDescription =
+      'check_internet_connection_description';
+  static const tryAgain = 'try_again';
 }
