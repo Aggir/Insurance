@@ -23,6 +23,7 @@ class ImageAssets {
   static const String profilePicture = '$_imagePath/profile-picture.png';
   static const String firstLogin = '$_imagePath/first-login.png';
   static const String myVehicles = '$_imagePath/my-vehicles.png';
+  static const String noConnection = '$_imagePath/no-connection.png';
 }
 
 const String _gifPath = 'assets/gifs';

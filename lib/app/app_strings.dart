@@ -120,4 +120,9 @@ class AppStrings {
   static const expired = 'expired';
   static const thereAreNoInsurances = 'there_are_no_insurances';
   static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
+
+  static const checkInternetConnection = 'check_internet_connection';
+  static const checkInternetConnectionDescription =
+      'check_internet_connection_description';
+  static const tryAgain = 'try_again';
 }

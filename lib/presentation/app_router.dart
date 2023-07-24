@@ -6,6 +6,7 @@ import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
+import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
@@ -44,9 +45,11 @@ class Routes {
       '/forgot-password-reset-password';
 
   static const String loadingRoute = '/loading';
+  static const String noConnectionRoute = "/no-connection";
 }
 
 class AppRouter {
+  // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
     initialLocation: Routes.loginRoute,
@@ -73,6 +76,12 @@ class AppRouter {
         path: Routes.loginRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const LoginScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.noConnectionRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const NoConnectionScreen();
         },
       ),
       StatefulShellRoute.indexedStack(
