@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import '../../../theme/app_theme.dart';
+import '../../../widgets/custom_spacers.dart';
 
 class OnboardingPageContent extends StatelessWidget {
   const OnboardingPageContent({
@@ -24,15 +26,15 @@ class OnboardingPageContent extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.only(bottom: AppValues.medium),
-          height: AppSizes.s500,
+          padding: const EdgeInsets.only(bottom: AppValues.medium).r,
+          height: AppSizes.s500.r,
           width: double.infinity,
           color: imgBackgroundColor,
           child: Image.asset(imgPath),
         ),
-        _onboardingDivider(),
+        CustomSpacers.large(),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppValues.medium),
+          padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -41,7 +43,7 @@ class OnboardingPageContent extends StatelessWidget {
                 header,
                 style: darkGrayBodyStyle(),
               ).tr(),
-              _contentDivider(),
+              CustomSpacers.medium(),
               Text(
                 description,
                 style: largeHeadlineStyle(),
@@ -51,13 +53,5 @@ class OnboardingPageContent extends StatelessWidget {
         )
       ],
     );
-  }
-
-  Widget _onboardingDivider() {
-    return const SizedBox(height: AppValues.large, width: AppValues.large);
-  }
-
-  Widget _contentDivider() {
-    return const SizedBox(height: AppValues.medium, width: AppValues.medium);
   }
 }

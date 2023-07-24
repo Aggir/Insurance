@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 
 import '../theme/app_theme.dart';
@@ -16,9 +17,9 @@ class PrimaryButton extends StatelessWidget {
     minimumSize: AppValues.buttonMinSize,
     disabledBackgroundColor: AppColors.primary.withOpacity(0.3),
     disabledForegroundColor: AppColors.whiteText,
-    padding: const EdgeInsets.all(AppValues.small + (AppValues.small / 2)),
+    padding: const EdgeInsets.all(AppValues.mediumSmall).r,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius),
+      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius.r),
     ),
   );
   @override

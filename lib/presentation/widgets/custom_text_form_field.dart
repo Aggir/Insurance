@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -60,14 +61,14 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   Widget _suffixIconContainer({required Widget child}) {
     return Padding(
-      padding: const EdgeInsets.all(AppValues.small),
+      padding: const EdgeInsets.all(AppValues.small).r,
       child: child,
     );
   }
 
   Widget _visibilityIconButton(String svgPath) {
     return Padding(
-      padding: const EdgeInsets.all(AppValues.small / 2),
+      padding: const EdgeInsets.all(AppValues.extraSmall).r,
       child: Material(
         borderRadius: BorderRadius.circular(100),
         clipBehavior: Clip.antiAlias,
@@ -75,13 +76,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         child: InkWell(
           onTap: _toggleVisible,
           child: Padding(
-            padding: const EdgeInsets.all(AppValues.small / 2),
+            padding: const EdgeInsets.all(AppValues.extraSmall).r,
             child: FittedBox(
               fit: BoxFit.scaleDown,
               child: SvgPicture.asset(
                 svgPath,
-                height: AppSizes.s28,
-                width: AppSizes.s28,
+                height: AppSizes.s28.r,
+                width: AppSizes.s28.r,
               ),
             ),
           ),
@@ -111,20 +112,21 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     final inputDecoration = InputDecoration(
       errorStyle: const TextStyle(height: 0),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.inputRadius),
+        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.inputRadius),
+        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
         borderSide: BorderSide(color: AppColors.grayLight),
       ),
       focusedBorder: widget.focusedStyleEnabled
           ? null
           : OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppValues.inputRadius),
+              borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
               borderSide: BorderSide(color: AppColors.grayLight),
             ),
       contentPadding: const EdgeInsets.symmetric(
-          vertical: AppValues.small, horizontal: AppValues.small),
+              vertical: AppValues.small, horizontal: AppValues.small)
+          .r,
       counterText: '',
       suffixIcon: _suffixIcon,
       hintText: widget.hintText ?? '',
@@ -148,7 +150,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             ),
           ),
         SizedBox(
-          height: AppValues.textFieldHeight,
+          height: AppValues.textFieldHeight.r,
           child: TextFormField(
             focusNode: widget.focusNode ?? _focusNode,
             controller: widget.controller,
@@ -169,7 +171,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         if (_showError)
           Padding(
-            padding: const EdgeInsets.only(top: AppValues.extraSmall),
+            padding: const EdgeInsets.only(top: AppValues.extraSmall).r,
             child: Text(
               _errorMessage,
               style: textFieldErrorMessageStyle(),

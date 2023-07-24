@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
 
 import 'app_colors.dart';
@@ -39,7 +40,7 @@ class AppValues {
   static const double inputRadius = 10;
   static const double cardPageContainerRadius = 15;
   // Sizes
-  static const Size buttonMinSize = Size(25, 50);
+  static Size buttonMinSize = Size(25.r, 50.r);
   // Dimensions
   static const double textFieldHeight = 50;
 }
@@ -83,10 +84,10 @@ class AppSizes {
   static const double s200 = 200;
   static const double s240 = 240;
   static const double s250 = 250;
-  static const double s360 = 360;
   static const double s320 = 320;
   static const double s330 = 330;
   static const double s350 = 350;
+  static const double s360 = 360;
   static const double s400 = 400;
   static const double s500 = 500;
 }

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -50,16 +51,17 @@ class _ForgotPasswordVerifyOtpPageState
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
-        height:
-            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        height: MediaQuery.of(context).size.height -
+            kToolbarHeight -
+            AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // CustomSpacers.large(),
               Container(
-                height: AppSizes.s104,
-                width: AppSizes.s104,
+                height: AppSizes.s104.r,
+                width: AppSizes.s104.r,
                 decoration: BoxDecoration(
                   color: AppColors.primaryLight,
                   borderRadius: BorderRadius.circular(100),
@@ -143,21 +145,21 @@ class _ForgotPasswordVerifyOtpPageState
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius:
-                      BorderRadius.circular(AppValues.cardPageContainerRadius),
+                  borderRadius: BorderRadius.circular(
+                      AppValues.cardPageContainerRadius.r),
                 ),
-                height: AppSizes.s72,
-                width: AppSizes.s72,
+                height: AppSizes.s72.r,
+                width: AppSizes.s72.r,
               ),
               focusedPinTheme: PinTheme(
                 decoration: BoxDecoration(
                   color: AppColors.lightest,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius:
-                      BorderRadius.circular(AppValues.cardPageContainerRadius),
+                  borderRadius: BorderRadius.circular(
+                      AppValues.cardPageContainerRadius.r),
                 ),
-                height: AppSizes.s72,
-                width: AppSizes.s72,
+                height: AppSizes.s72.r,
+                width: AppSizes.s72.r,
               ),
             ),
           ),

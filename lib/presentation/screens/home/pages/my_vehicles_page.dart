@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -33,15 +34,15 @@ class MyVehiclesPage extends StatelessWidget {
 
   Widget emptyListState(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppValues.large),
+      padding: const EdgeInsets.all(AppValues.large).r,
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
               ImageAssets.myVehicles,
-              height: AppSizes.s200,
-              width: AppSizes.s200,
+              height: AppSizes.s200.r,
+              width: AppSizes.s200.r,
             ),
             CustomSpacers.large(),
             Text(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
 
 import '../theme/app_colors.dart';
@@ -17,9 +18,9 @@ class CardPageContainer extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: const BorderRadius.vertical(
+            borderRadius: BorderRadius.vertical(
               top: Radius.circular(
-                AppValues.cardPageContainerRadius,
+                AppValues.cardPageContainerRadius.r,
               ),
             ),
           ),

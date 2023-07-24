@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_segment/flutter_advanced_segment.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -55,13 +56,14 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
               style: smallHeadlineStyle(),
             ),
             bottom: PreferredSize(
-                preferredSize: const Size(double.infinity, AppSizes.s64),
+                preferredSize: Size(double.infinity, AppSizes.s64.r),
                 child: Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          vertical: AppValues.small,
-                          horizontal: AppValues.small),
+                              vertical: AppValues.small,
+                              horizontal: AppValues.small)
+                          .r,
                       child: AdvancedSegment(
                         controller: _currentIndex,
                         segments: _tabsMap,
@@ -69,7 +71,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                         sliderColor: AppColors.grayLight,
                         sliderDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                            AppValues.primaryButtonRadius,
+                            AppValues.primaryButtonRadius.r,
                           ),
                           color: AppColors.lightest,
                           border: Border.all(color: AppColors.lightGray),
@@ -133,11 +135,11 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   Widget _emptyState(String text) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(AppValues.large),
+        padding: const EdgeInsets.all(AppValues.large).r,
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           SvgPicture.asset(
             SvgAssets.insuranceEmptyState,
-            height: AppSizes.s160,
+            height: AppSizes.s160.r,
           ),
           CustomSpacers.large(),
           Text(

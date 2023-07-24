@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 class ADsSlider extends StatelessWidget {
@@ -14,7 +15,7 @@ class ADsSlider extends StatelessWidget {
         autoPlay: true,
         // initialPage: (adsUrls.length / 2).floor(),
         viewportFraction: 1,
-        height: AppSizes.s130,
+        height: AppSizes.s130.r,
         clipBehavior: Clip.antiAlias,
       ),
     );
@@ -22,10 +23,10 @@ class ADsSlider extends StatelessWidget {
 
   Widget adWidget(String imgUrl) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppValues.medium),
+      padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
       child: ClipRRect(
           borderRadius:
-              BorderRadius.circular(AppValues.cardPageContainerRadius),
+              BorderRadius.circular(AppValues.cardPageContainerRadius.r),
           child: Image.asset(imgUrl)),
     );
   }

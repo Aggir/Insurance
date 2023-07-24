@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -17,11 +18,11 @@ class NoConnectionScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-            padding: const EdgeInsets.all(AppValues.extraLarge),
+            padding: const EdgeInsets.all(AppValues.extraLarge).r,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(ImageAssets.noConnection, width: AppSizes.s330),
+                Image.asset(ImageAssets.noConnection, width: AppSizes.s330.r),
                 CustomSpacers.large(),
                 Column(children: [
                   Text(AppStrings.checkInternetConnection.tr(),

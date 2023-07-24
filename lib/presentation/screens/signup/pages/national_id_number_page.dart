@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -73,8 +74,9 @@ class _SignUpNationalIdNumberPageState
       color: AppColors.white,
       child: SingleChildScrollView(
           child: SizedBox(
-        height:
-            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        height: MediaQuery.of(context).size.height -
+            kToolbarHeight -
+            AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(
             children: [

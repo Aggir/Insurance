@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
@@ -45,11 +46,12 @@ class LoadDialog extends IDialog {
     return AlertDialog(
       content: Image.asset(
         GifAssets.loading,
-        height: AppSizes.s150,
-        width: AppSizes.s150,
+        height: AppSizes.s150.r,
+        width: AppSizes.s150.r,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppValues.cardPageContainerRadius),
+        borderRadius:
+            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import '../app/constants.dart';
 import 'app_router.dart';
@@ -27,14 +28,18 @@ class _MyAppState extends State<MyApp> {
         statusBarColor: AppColors.transparent,
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark));
-    return MaterialApp.router(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      title: Constants.appName,
-      debugShowCheckedModeBanner: false,
-      theme: appThemeData(),
-      routerConfig: AppRouter.appRouter,
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      builder: (context, child) => MaterialApp.router(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+        title: Constants.appName,
+        debugShowCheckedModeBanner: false,
+        theme: appThemeData(),
+        routerConfig: AppRouter.appRouter,
+      ),
     );
   }
 }

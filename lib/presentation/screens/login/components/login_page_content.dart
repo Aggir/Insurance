@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/widgets/card_page_container.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../theme/app_colors.dart';
-import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_text_form_field.dart';
 
@@ -33,13 +33,13 @@ class LoginPageContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _headlineTextWidget(),
-          _mediumSpacer(),
+          CustomSpacers.medium(),
           _bodyTextWidget(),
-          _largeSpacer(),
+          CustomSpacers.large(),
           _loginForm(context),
-          _largeSpacer(),
+          CustomSpacers.large(),
           _loginButton(context),
-          _mediumSpacer(),
+          CustomSpacers.medium(),
           _createAccountRow(context),
         ],
       ),
@@ -66,7 +66,7 @@ class LoginPageContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           CustomTextFormField(hintText: AppStrings.emailAddress.tr()),
-          _mediumSpacer(),
+          CustomSpacers.medium(),
           CustomTextFormField(
             hintText: AppStrings.password.tr(),
             isPassword: true,
@@ -109,20 +109,6 @@ class LoginPageContent extends StatelessWidget {
           onPressed: () => _createAccountButtonFunction(context),
         ),
       ],
-    );
-  }
-
-  Widget _largeSpacer() {
-    return const SizedBox(
-      height: AppValues.large,
-      width: AppValues.large,
-    );
-  }
-
-  Widget _mediumSpacer() {
-    return const SizedBox(
-      height: AppValues.medium,
-      width: AppValues.medium,
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -56,12 +57,13 @@ class _HomePageState extends State<HomePage> {
         appBar: _customAppBar(context),
         body: ListView(
           shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(vertical: AppValues.medium),
+          padding: const EdgeInsets.symmetric(vertical: AppValues.medium).r,
           physics: const ScrollPhysics(),
           children: [
             ADsSlider(adsUrls),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppValues.medium),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
               child: Column(
                 children: [
                   CustomSpacers.mediumLarge(),
@@ -85,10 +87,13 @@ class _HomePageState extends State<HomePage> {
 
   PreferredSize _customAppBar(BuildContext context) {
     return PreferredSize(
-      preferredSize: const Size(double.infinity, AppSizes.s72),
+      preferredSize: Size(double.infinity, AppSizes.s72.r),
       child: Container(
         // color: AppColors.danger,
-        padding: const EdgeInsets.all(AppSizes.s10),
+        padding: const EdgeInsets.symmetric(
+          vertical: AppValues.small,
+          horizontal: AppValues.small,
+        ).r,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -96,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 CircleAvatar(
                   backgroundColor: AppColors.primaryLight,
-                  radius: AppSizes.s24,
+                  radius: AppSizes.s24.r,
                   child: Image.asset(ImageAssets.profilePicture),
                 ),
                 CustomSpacers.medium(),
@@ -157,10 +162,10 @@ class _HomePageState extends State<HomePage> {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            mainAxisSpacing: AppValues.mediumSmall,
-            crossAxisSpacing: AppValues.mediumSmall,
+            mainAxisSpacing: AppValues.mediumSmall.r,
+            crossAxisSpacing: AppValues.mediumSmall.r,
           ),
           itemCount: insuranceServices.length,
           itemBuilder: (context, index) => _insuranceServiceGridItem(
@@ -175,11 +180,11 @@ class _HomePageState extends State<HomePage> {
     int companies = 32;
     // Todo: Edit this widget incase if the app changed to English language or any other ltr language
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius);
+        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
     return Stack(children: [
       Container(
         width: double.infinity,
-        height: AppSizes.s150,
+        height: AppSizes.s150.r,
         decoration: BoxDecoration(
           boxShadow: [AppValues.boxShadow],
           borderRadius: borderRadius,
@@ -189,8 +194,8 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       Positioned(
-        top: AppValues.large,
-        right: AppValues.small,
+        top: AppValues.large.r,
+        right: AppValues.small.r,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -200,11 +205,11 @@ class _HomePageState extends State<HomePage> {
             ),
             CustomSpacers.medium(),
             Container(
-              padding: const EdgeInsets.all(AppSizes.s10),
+              padding: const EdgeInsets.all(AppValues.small).r,
               decoration: BoxDecoration(
                 color: AppColors.white,
                 borderRadius:
-                    BorderRadius.circular(AppValues.primaryButtonRadius),
+                    BorderRadius.circular(AppValues.primaryButtonRadius.r),
               ),
               child: Row(
                 children: [
@@ -233,11 +238,11 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createVehicleFirstWidget(BuildContext context) {
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius);
+        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.all(AppValues.mediumSmall),
+          padding: const EdgeInsets.all(AppValues.mediumSmall).r,
           decoration: BoxDecoration(
             boxShadow: [AppValues.boxShadow],
             borderRadius: borderRadius,
@@ -261,11 +266,13 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                   decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(AppValues.primaryButtonRadius),
+                      borderRadius: BorderRadius.circular(
+                          AppValues.primaryButtonRadius.r),
                       color: AppColors.black.withOpacity(0.14)),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: AppValues.small, vertical: AppValues.medium),
+                          horizontal: AppValues.small,
+                          vertical: AppValues.medium)
+                      .r,
                   child: SvgPicture.asset(SvgAssets.chevronLeft)),
             ],
           ),
@@ -293,17 +300,17 @@ class _HomePageState extends State<HomePage> {
           color: AppColors.lightGray,
           boxShadow: [AppValues.innerShadow],
           borderRadius:
-              BorderRadius.circular(AppValues.cardPageContainerRadius)),
+              BorderRadius.circular(AppValues.cardPageContainerRadius.r)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(svgPath),
-          const SizedBox(height: AppValues.extraSmall),
+          CustomSpacers.extraSmall(),
           Text(
             title,
             style: smallGrayBodyStyle(),
           ),
-          const SizedBox(height: AppValues.extraSmall),
+          CustomSpacers.extraSmall(),
           Text(
             AppStrings.soon.tr(),
             style: smallGrayBodyStyle(),

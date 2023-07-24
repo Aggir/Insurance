@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 import '../theme/app_colors.dart';
@@ -20,7 +21,7 @@ class CupertinoSwitchTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppValues.small),
+        padding: const EdgeInsets.symmetric(vertical: AppValues.small).r,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
@@ -18,10 +19,10 @@ class SecondaryButton extends StatelessWidget {
     disabledForegroundColor: AppColors.gray,
     foregroundColor: AppColors.gray,
     textStyle: grayBodyStyle(),
-    padding: const EdgeInsets.all(AppValues.small + (AppValues.small / 2)),
+    padding: const EdgeInsets.all(AppValues.mediumSmall).r,
     side: BorderSide(color: AppColors.grayLight, width: 1),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius),
+      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius.r),
     ),
   );
   @override

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -93,8 +94,9 @@ class _SignUpVerificationStepPageState
       color: AppColors.white,
       child: SingleChildScrollView(
           child: SizedBox(
-        height:
-            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        height: MediaQuery.of(context).size.height -
+            kToolbarHeight -
+            AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(
             children: [
@@ -107,7 +109,7 @@ class _SignUpVerificationStepPageState
               _bodyTextWidget(),
               CustomSpacers.large(),
               SizedBox(
-                height: AppSizes.s250,
+                height: AppSizes.s250.r,
                 child: SingleChildScrollView(
                   child: Column(children: [
                     BlocBuilder<SignUpCubit, SignUpState>(

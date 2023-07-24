@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
@@ -45,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: SizedBox(
-        height: AppSizes.s72,
+        height: AppSizes.s72.r,
         child: BottomNavigationBar(
           backgroundColor: AppColors.white,
           currentIndex: widget.child.currentIndex,

@@ -1,47 +1,48 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/app_theme.dart';
 
 class CustomSpacers {
   static Widget large() {
-    return const SizedBox(
-      height: AppValues.large,
-      width: AppValues.large,
+    return SizedBox(
+      height: AppValues.large.r,
+      width: AppValues.large.r,
     );
   }
 
   static Widget extraLarge() {
-    return const SizedBox(
-      height: AppValues.large + AppValues.medium,
-      width: AppValues.large + AppValues.medium,
+    return SizedBox(
+      height: (AppValues.large + AppValues.medium).r,
+      width: (AppValues.large + AppValues.medium).r,
     );
   }
 
   static Widget mediumLarge() {
-    return const SizedBox(
-      height: AppValues.medium + AppValues.small,
-      width: AppValues.medium + AppValues.small,
+    return SizedBox(
+      height: (AppValues.medium + AppValues.small).r,
+      width: (AppValues.medium + AppValues.small).r,
     );
   }
 
   static Widget medium() {
-    return const SizedBox(
-      height: AppValues.medium,
-      width: AppValues.medium,
+    return SizedBox(
+      height: AppValues.medium.r,
+      width: AppValues.medium.r,
     );
   }
 
   static Widget small() {
-    return const SizedBox(
-      height: AppValues.small,
-      width: AppValues.small,
+    return SizedBox(
+      height: AppValues.small.r,
+      width: AppValues.small.r,
     );
   }
 
   static Widget extraSmall() {
-    return const SizedBox(
-      height: AppValues.small / 2,
-      width: AppValues.small / 2,
+    return SizedBox(
+      height: (AppValues.small / 2).r,
+      width: (AppValues.small / 2).r,
     );
   }
 }
