@@ -7,6 +7,7 @@ import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
@@ -67,14 +68,16 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                         backgroundColor: AppColors.white,
                         sliderColor: AppColors.grayLight,
                         sliderDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(
+                            AppValues.primaryButtonRadius,
+                          ),
                           color: AppColors.lightest,
                           border: Border.all(color: AppColors.lightGray),
                         ),
                         shadow: const [],
                       ),
                     ),
-                    const Divider()
+                    const CustomDivider()
                   ],
                 ))),
         body: TabBarView(
@@ -128,29 +131,31 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _emptyState(String text) {
-    return Padding(
-      padding: const EdgeInsets.all(AppValues.large),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        SvgPicture.asset(
-          SvgAssets.insuranceEmptyState,
-          height: AppSizes.s160,
-        ),
-        CustomSpacers.large(),
-        Text(
-          AppStrings.thereAreNoInsurances.tr() + text,
-          style: mediumHeadlineStyle(),
-        ),
-        CustomSpacers.medium(),
-        Text(
-          '${AppStrings.youDoNotHaveAnyInsurances.tr()}$text.',
-          style: grayBodyStyle(),
-        ),
-        CustomSpacers.large(),
-        PrimaryButton.fullWidth(
-          child: Text(AppStrings.insuranceServices.tr()),
-          onPressed: () => _insuranceServicesButtonFunction(context),
-        ),
-      ]),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(AppValues.large),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          SvgPicture.asset(
+            SvgAssets.insuranceEmptyState,
+            height: AppSizes.s160,
+          ),
+          CustomSpacers.large(),
+          Text(
+            AppStrings.thereAreNoInsurances.tr() + text,
+            style: mediumHeadlineStyle(),
+          ),
+          CustomSpacers.medium(),
+          Text(
+            '${AppStrings.youDoNotHaveAnyInsurances.tr()}$text.',
+            style: grayBodyStyle(),
+          ),
+          CustomSpacers.large(),
+          PrimaryButton.fullWidth(
+            child: Text(AppStrings.insuranceServices.tr()),
+            onPressed: () => _insuranceServicesButtonFunction(context),
+          ),
+        ]),
+      ),
     );
   }
 }
