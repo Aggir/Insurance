@@ -117,10 +117,8 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
                 const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
                 Text(
                   text,
-                  style: isSelected
-                      ? smallHeadlineStyle()
-                          .copyWith(color: AppColors.blackText)
-                      : darkGrayBodyStyle(),
+                  style:
+                      isSelected ? smallHeadlineStyle() : darkGrayBodyStyle(),
                 )
               ],
             ),

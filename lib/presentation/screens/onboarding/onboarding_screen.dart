@@ -176,7 +176,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         onPressed: _skipFunction,
                         child: Text(
                           AppStrings.skip.tr(),
-                          style: textButtonStyle(),
+                          style: pressableTextStyle(),
                         ),
                       ),
                     )

@@ -87,6 +87,40 @@ class AppStrings {
   static const newPassword = 'new_password';
   static const changePassword = 'change_password';
 
+  static const youHaveCreatedYourAccountSuccessfully =
+      'you_have_created_your_account_successfully';
+  static const toIssueCarInsuranceCreateYourVehicleFileFirst =
+      'to_issue_car_insurance_create_your_vehicle_file_first';
+  static const createMyVehicleFile = 'create_my_vehicle_file';
+  static const iWillCreateItLater = 'i_will_create_it_later';
+  static const home = 'home';
+  static const myVehicles = 'my_vehicles';
+  static const myInsurances = 'my_insurances';
+  static const more = 'more';
+  static const welcome = 'welcome';
+  static const insuranceServices = 'insurance_services';
+  static const carsInsurance = 'cars_insurance';
+  static const company = 'company';
+  static const propertiesInsurance = 'properties_insurance';
+  static const travelersInsurance = 'travelers_insurance';
+  static const fireInsurance = 'fire_insurance';
+  static const cardInsurance = 'card_insurance';
+  static const familyInsurance = 'family_insurance';
+  static const healthInsurance = 'health_insurance';
+  static const soon = 'soon';
+  static const createVehicleFileFirst = 'create_vehicle_file_first';
+
+  static const youDoNotHaveVehicles = 'you_do_not_have_vehicles';
+  static const youDidNotAddAnyVehicle = 'you_did_not_add_any_vehicle';
+  static const addVehicle = 'add_vehicle';
+
+  static const underTheProcedure = 'under_the_procedure';
+  static const outgoing = 'outgoing';
+  static const unpaid = 'unpaid';
+  static const expired = 'expired';
+  static const thereAreNoInsurances = 'there_are_no_insurances';
+  static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
+
   static const checkInternetConnection = 'check_internet_connection';
   static const checkInternetConnectionDescription =
       'check_internet_connection_description';

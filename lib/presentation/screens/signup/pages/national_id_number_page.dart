@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
@@ -32,6 +34,7 @@ class _SignUpNationalIdNumberPageState
     final cubit = BlocProvider.of<SignUpCubit>(context);
     if (cubit.confirmNationalIdNumberForm()) {
       cubit.signUp();
+      context.go(Routes.homeRoute);
     }
   }
 

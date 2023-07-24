@@ -124,7 +124,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
       children: [
         Text(
           '${index + 1}. $header',
-          style: smallHeadlineStyle(),
+          style: smallDarkGrayHeadlineStyle(),
         ),
         CustomSpacers.medium(),
         Text(

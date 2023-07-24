@@ -38,6 +38,7 @@ class _SignUpVerificationStepPageState
         context.go(Routes.signupNationalIdNumberStepRoute);
       } else {
         cubit.signUp();
+        context.go(Routes.homeRoute);
       }
     }
   }

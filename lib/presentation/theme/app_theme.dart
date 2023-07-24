@@ -7,6 +7,7 @@ import 'app_colors.dart';
 ThemeData appThemeData() => ThemeData(
       fontFamily: FontConstants.fontFamily,
       scaffoldBackgroundColor: AppColors.white,
+      dividerTheme: DividerThemeData(color: AppColors.grayLight, thickness: 1),
       colorScheme: ThemeData()
           .colorScheme
           .copyWith(primary: AppColors.primary, secondary: AppColors.secondary),
@@ -16,6 +17,7 @@ class AppValues {
   // Padding and Margin
   static const double extraSmall = 4.0;
   static const double small = 8.0;
+  static const double mediumSmall = 12.0;
   static const double medium = 16.0;
   static const double large = 32.0;
   static const double extraLarge = 48.0;
@@ -27,6 +29,11 @@ class AppValues {
       blurRadius: shadowBlurRadius,
       color: AppColors.blackShadow,
       offset: shadowOffset);
+
+  static final BoxShadow innerShadow = BoxShadow(
+      blurRadius: 3,
+      color: AppColors.black.withOpacity(0.04),
+      offset: const Offset(0, -1));
   // Radius
   static const double primaryButtonRadius = 10;
   static const double inputRadius = 10;
@@ -40,6 +47,7 @@ class AppValues {
 class AppSizes {
   static const double s2 = 2;
   static const double s4 = 4;
+  static const double s5 = 5;
   static const double s6 = 6;
   static const double s8 = 8;
   static const double s10 = 10;
@@ -69,11 +77,13 @@ class AppSizes {
   static const double s120 = 120;
   static const double s130 = 130;
   static const double s150 = 150;
+  static const double s160 = 160;
   static const double s180 = 180;
   static const double s190 = 190;
   static const double s200 = 200;
   static const double s240 = 240;
   static const double s250 = 250;
+  static const double s360 = 360;
   static const double s320 = 320;
   static const double s330 = 330;
   static const double s350 = 350;

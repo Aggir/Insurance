@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 class DialogService {
@@ -7,13 +6,22 @@ class DialogService {
 
   static IDialog? _current;
 
-  static Future<void> load(BuildContext context) async {
-    _current = LoadDialog();
+  static Future<void> load(BuildContext context,
+      {required Widget content, List<Widget>? actions}) async {
+    _current = CustomDialog(
+      content: content,
+      actions: actions,
+    );
 
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => _current ?? LoadDialog(),
+      builder: (context) =>
+          _current ??
+          CustomDialog(
+            content: content,
+            actions: actions,
+          ),
     );
   }
 
@@ -34,20 +42,18 @@ abstract class IDialog extends StatelessWidget with IDialogService {
 }
 
 // ignore: must_be_immutable
-class LoadDialog extends IDialog {
-  LoadDialog({super.key});
-
+class CustomDialog extends IDialog {
+  CustomDialog({required this.content, this.actions, super.key});
+  Widget content;
+  List<Widget>? actions;
   BuildContext? _context;
 
   @override
   Widget build(BuildContext context) {
     _context = context;
     return AlertDialog(
-      content: Image.asset(
-        GifAssets.loading,
-        height: AppSizes.s150,
-        width: AppSizes.s150,
-      ),
+      content: content,
+      actions: actions,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppValues.cardPageContainerRadius),
       ),

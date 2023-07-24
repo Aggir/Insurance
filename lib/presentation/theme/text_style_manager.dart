@@ -12,6 +12,10 @@ TextStyle mediumHeadlineStyle() {
   return getBoldStyle(fontSize: FontSize.s18, color: AppColors.blackText);
 }
 
+TextStyle mediumSmallHeadlineStyle() {
+  return getBoldStyle(fontSize: FontSize.s16, color: AppColors.blackText);
+}
+
 TextStyle bodyStyle() {
   return getRegularStyle(fontSize: FontSize.s14, color: AppColors.blackText);
 }
@@ -24,8 +28,8 @@ TextStyle grayBodyStyle() {
   return getRegularStyle(fontSize: FontSize.s14, color: AppColors.gray);
 }
 
-TextStyle textButtonStyle() {
-  return getBoldStyle(fontSize: FontSize.s14, color: AppColors.primary);
+TextStyle primaryBodyStyle() {
+  return getRegularStyle(fontSize: FontSize.s14, color: AppColors.primary);
 }
 
 TextStyle pressableTextStyle() {
@@ -41,6 +45,14 @@ TextStyle smallDarkGrayBodyStyle() {
 }
 
 TextStyle smallHeadlineStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s14);
+}
+
+TextStyle extraSmallHeadlineStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s12);
+}
+
+TextStyle smallDarkGrayHeadlineStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
 }
 
