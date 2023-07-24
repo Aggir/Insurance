@@ -38,12 +38,10 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
           resendOtpTimer?.cancel();
         } else {
           currentTimerCount--;
-          if (!state.verifyOtpStatus.isLoading) {
-            emit(state.copyWith(
-              resendCounterInSeconds: currentTimerCount,
-              isResendButtonActive: currentTimerCount == 0 ? true : false,
-            ));
-          }
+          emit(state.copyWith(
+            resendCounterInSeconds: currentTimerCount,
+            isResendButtonActive: currentTimerCount == 0 ? true : false,
+          ));
         }
       },
     );

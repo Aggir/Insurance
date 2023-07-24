@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -54,8 +55,9 @@ class TermsAndConditionsScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(
-              vertical: AppValues.large,
-              horizontal: AppValues.medium + AppValues.small),
+                  vertical: AppValues.large,
+                  horizontal: AppValues.medium + AppValues.small)
+              .r,
           child: Column(
             children: [
               _headerWidget(),
@@ -82,8 +84,8 @@ class TermsAndConditionsScreen extends StatelessWidget {
       children: [
         Image.asset(
           ImageAssets.termsAndConditions,
-          height: AppSizes.s68,
-          width: AppSizes.s68,
+          height: AppSizes.s68.r,
+          width: AppSizes.s68.r,
         ),
         CustomSpacers.medium(),
         Column(
@@ -107,7 +109,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
   Widget _contentWidget(List<Map<String, String>> list) {
     return Expanded(
         child: ListView.separated(
-      padding: const EdgeInsets.only(bottom: AppValues.extraSmall),
+      padding: const EdgeInsets.only(bottom: AppValues.extraSmall).r,
       itemBuilder: (context, index) => _conditionSection(
         index,
         list[index]['header'] ?? 'null',

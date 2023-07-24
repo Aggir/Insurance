@@ -1,6 +1,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
@@ -99,8 +100,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    AppValues.medium, 0, AppValues.medium, AppValues.large),
+                padding: EdgeInsets.fromLTRB(AppValues.medium.r, 0,
+                    AppValues.medium.r, AppValues.large.r),
                 child: Row(
                   children: [
                     DotsIndicator(
@@ -108,14 +109,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       position: _pageIndex,
                       decorator: DotsDecorator(
                         color: AppColors.primary.withOpacity(0.3),
-                        size: const Size(AppSizes.s6, AppSizes.s12),
+                        size: Size(AppSizes.s6.r, AppSizes.s12.r),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
+                          borderRadius: BorderRadius.circular(40.r),
                         ),
                         activeColor: AppColors.primary,
-                        activeSize: const Size(AppSizes.s6, AppSizes.s18),
+                        activeSize: Size(AppSizes.s6.r, AppSizes.s18.r),
                         activeShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40),
+                          borderRadius: BorderRadius.circular(40.r),
                         ),
                       ),
                     ),
@@ -126,8 +127,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ? 1 - (_pageIndex - (_pages.length - 2)) * 2
                             : 1,
                         child: SizedBox(
-                          height: AppSizes.s62,
-                          width: AppSizes.s62,
+                          height: AppSizes.s62.r,
+                          width: AppSizes.s62.r,
                           child: ElevatedButton(
                             onPressed: _nextFunction,
                             style: ElevatedButton.styleFrom(
@@ -144,8 +145,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ? (_pageIndex - (_pages.length - 2))
                             : 1,
                         child: SizedBox(
-                          height: AppSizes.s62,
-                          width: AppSizes.s62,
+                          height: AppSizes.s62.r,
+                          width: AppSizes.s62.r,
                           child: ElevatedButton(
                             onPressed: _doneFunction,
                             style: ElevatedButton.styleFrom(
@@ -164,7 +165,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                    vertical: AppValues.small, horizontal: AppValues.medium),
+                        vertical: AppValues.small, horizontal: AppValues.medium)
+                    .r,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [

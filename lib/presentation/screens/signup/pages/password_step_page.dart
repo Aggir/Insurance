@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/blocs/signup/signup_cubit.dart';
@@ -66,7 +66,7 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
         child: SizedBox(
           height: MediaQuery.of(context).size.height -
               kToolbarHeight -
-              AppSizes.s30,
+              AppSizes.s30.r,
           child: PageContentPadding(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

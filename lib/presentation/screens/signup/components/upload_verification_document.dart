@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../theme/text_style_manager.dart';
 
@@ -40,14 +42,14 @@ class UploadDocument extends StatelessWidget {
   Widget _selectDocumentState(BuildContext context) {
     return Material(
       color: AppColors.lightest,
-      borderRadius: BorderRadius.circular(AppValues.inputRadius),
+      borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
       clipBehavior: Clip.antiAlias,
       child: Container(
-        height: AppSizes.s180,
+        height: AppSizes.s180.r,
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.grayLight),
-          borderRadius: BorderRadius.circular(AppValues.inputRadius),
+          borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -55,13 +57,13 @@ class UploadDocument extends StatelessWidget {
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             SvgPicture.asset(
               SvgAssets.uploadDocument,
-              height: AppSizes.s40,
-              width: AppSizes.s40,
+              height: AppSizes.s40.r,
+              width: AppSizes.s40.r,
             ),
-            const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
+            CustomSpacers.small(),
             Text(uploadStateText ?? AppStrings.uploadPassportPicture.tr(),
                 style: smallDarkGrayHeadlineStyle()),
-            const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
+            CustomSpacers.small(),
             Text(
               AppStrings.passportPictureSupportedExtensions.tr(),
               style: smallGrayBodyStyle(),
@@ -77,13 +79,10 @@ class UploadDocument extends StatelessWidget {
       children: [
         SvgPicture.asset(
           SvgAssets.uploadDocument,
-          height: AppSizes.s60,
-          width: AppSizes.s60,
+          height: AppSizes.s60.r,
+          width: AppSizes.s60.r,
         ),
-        const SizedBox(
-          height: AppSizes.s10,
-          width: AppSizes.s10,
-        ),
+        CustomSpacers.small(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,10 +96,10 @@ class UploadDocument extends StatelessWidget {
               style: smallGrayBodyStyle(),
             ),
             SizedBox(
-              width: AppSizes.s200,
+              width: AppSizes.s200.r,
               child: LinearProgressIndicator(
                 backgroundColor: AppColors.primaryLight,
-                minHeight: AppSizes.s8,
+                minHeight: AppSizes.s8.r,
               ),
             ),
           ],
@@ -114,13 +113,10 @@ class UploadDocument extends StatelessWidget {
       children: [
         SvgPicture.asset(
           uploadedDocumentSvgPath ?? SvgAssets.uploadedDocument,
-          height: AppSizes.s60,
-          width: AppSizes.s60,
+          height: AppSizes.s60.r,
+          width: AppSizes.s60.r,
         ),
-        const SizedBox(
-          height: AppSizes.s10,
-          width: AppSizes.s10,
-        ),
+        CustomSpacers.small(),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -151,12 +147,12 @@ class UploadDocument extends StatelessWidget {
 
   Widget _selectedDocumentContainer({required List<Widget> children}) {
     return Container(
-      height: AppSizes.s100,
-      padding: const EdgeInsets.all(AppValues.medium),
+      height: AppSizes.s100.r,
+      padding: const EdgeInsets.all(AppValues.medium).r,
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(color: AppColors.grayLight),
-        borderRadius: BorderRadius.circular(AppValues.inputRadius),
+        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
         boxShadow: [AppValues.boxShadow],
       ),
       child: Row(

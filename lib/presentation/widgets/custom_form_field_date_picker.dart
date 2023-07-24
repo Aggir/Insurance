@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
@@ -65,8 +66,8 @@ class CustomFormFieldDatePicker extends StatelessWidget {
               fit: BoxFit.scaleDown,
               child: SvgPicture.asset(
                 SvgAssets.calendar,
-                height: AppSizes.s28,
-                width: AppSizes.s28,
+                height: AppSizes.s28.r,
+                width: AppSizes.s28.r,
               ),
             )
           : suffixIcon,

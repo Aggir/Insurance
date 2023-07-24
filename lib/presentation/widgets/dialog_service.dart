@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 class DialogService {
@@ -55,7 +56,8 @@ class CustomDialog extends IDialog {
       content: content,
       actions: actions,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppValues.cardPageContainerRadius),
+        borderRadius:
+            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
       ),
     );
   }

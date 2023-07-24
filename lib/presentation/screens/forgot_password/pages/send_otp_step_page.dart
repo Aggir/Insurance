@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -146,11 +147,11 @@ class _ForgotPasswordSendOtpPageState extends State<ForgotPasswordSendOtpPage> {
                   : null,
           child: state.sendOtpStatus.isLoading
               ? SizedBox(
-                  height: AppSizes.s20,
-                  width: AppSizes.s20,
+                  height: AppSizes.s20.r,
+                  width: AppSizes.s20.r,
                   child: CircularProgressIndicator(
                     color: AppColors.white,
-                    strokeWidth: AppSizes.s2,
+                    strokeWidth: AppSizes.s2.r,
                   ),
                 )
               : Text(AppStrings.next.tr().toUpperCase()),

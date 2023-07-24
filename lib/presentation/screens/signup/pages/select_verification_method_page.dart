@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -29,8 +30,9 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
       color: AppColors.white,
       child: SingleChildScrollView(
           child: SizedBox(
-        height:
-            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        height: MediaQuery.of(context).size.height -
+            kToolbarHeight -
+            AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(
             children: [
@@ -95,9 +97,9 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
         return InkWell(
           onTap: () => cubit.setVerificationType(text),
           child: Container(
-            padding: const EdgeInsets.all(AppValues.small),
+            padding: const EdgeInsets.all(AppValues.small).r,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppValues.inputRadius),
+                borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
                 boxShadow: [AppValues.boxShadow],
                 color: isSelected ? AppColors.lightest : AppColors.white,
                 border:
@@ -114,7 +116,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
                   // selectedTileColor: AppColors.black,
                 ),
                 SvgPicture.asset(svgPath),
-                const SizedBox(height: AppSizes.s10, width: AppSizes.s10),
+                CustomSpacers.small(),
                 Text(
                   text,
                   style:

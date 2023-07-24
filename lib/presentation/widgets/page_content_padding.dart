@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/app_theme.dart';
 
@@ -8,11 +9,11 @@ class PageContentPadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.only(
-          top: AppValues.extraLarge,
-          left: AppValues.large,
-          right: AppValues.large,
-          bottom: AppValues.large + AppValues.large / 3,
+        padding: EdgeInsets.only(
+          top: AppValues.extraLarge.r,
+          left: AppValues.large.r,
+          right: AppValues.large.r,
+          bottom: (AppValues.large + AppValues.large / 3).r,
         ),
         child: child);
   }

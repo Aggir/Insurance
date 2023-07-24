@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:ui' as ui;
 
 import '../../app/app_strings.dart';
@@ -46,21 +47,21 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
   bool _showError = false;
   String _errorMessage = '';
 
-  final flagContainerWidth = AppSizes.s120;
+  final flagContainerWidth = AppSizes.s120.r;
 
   @override
   Widget build(BuildContext context) {
     final inputDecoration = InputDecoration(
       errorStyle: const TextStyle(height: 0),
-      border: const OutlineInputBorder(
+      border: OutlineInputBorder(
         borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(AppValues.inputRadius),
+          right: Radius.circular(AppValues.inputRadius.r),
           left: Radius.zero,
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: const BorderRadius.horizontal(
-            right: Radius.circular(AppValues.inputRadius)),
+        borderRadius: BorderRadius.horizontal(
+            right: Radius.circular(AppValues.inputRadius.r)),
         borderSide: BorderSide(color: AppColors.grayLight),
       ),
       counterText: '',
@@ -83,19 +84,19 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
             children: [
               Stack(children: [
                 Container(
-                  height: AppValues.textFieldHeight,
+                  height: AppValues.textFieldHeight.r,
                   width: flagContainerWidth,
                   decoration: BoxDecoration(
                     color: AppColors.lightest,
                     border: Border.all(
                         color: _showError ? Colors.red : AppColors.grayLight),
-                    borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(AppValues.inputRadius),
+                    borderRadius: BorderRadius.horizontal(
+                      left: Radius.circular(AppValues.inputRadius.r),
                     ),
                   ),
                 ),
                 Container(
-                  height: AppValues.textFieldHeight,
+                  height: AppValues.textFieldHeight.r,
                   width: flagContainerWidth,
                   decoration: BoxDecoration(
                     border:
@@ -122,7 +123,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
         ),
         if (_showError)
           Padding(
-            padding: const EdgeInsets.only(top: AppValues.extraSmall),
+            padding: const EdgeInsets.only(top: AppValues.extraSmall).r,
             child: Text(
               _errorMessage,
               style: textFieldErrorMessageStyle(),

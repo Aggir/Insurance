@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -21,7 +22,7 @@ class FirstLoginDialog extends StatelessWidget {
       children: [
         Image.asset(
           ImageAssets.firstLogin,
-          width: AppSizes.s240,
+          width: AppSizes.s240.r,
         ),
         CustomSpacers.medium(),
         Text(

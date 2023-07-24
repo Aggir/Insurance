@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -14,8 +15,8 @@ class CustomBackButton extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.scaleDown,
       child: SizedBox(
-        height: AppSizes.s48,
-        width: AppSizes.s48,
+        height: AppSizes.s48.r,
+        width: AppSizes.s48.r,
         child: InkWell(
             borderRadius: BorderRadius.circular(100),
             onTap: onTap ??
@@ -28,8 +29,8 @@ class CustomBackButton extends StatelessWidget {
                 Directionality.of(context) == TextDirection.rtl
                     ? SvgAssets.arrowRight
                     : SvgAssets.arrowLeft,
-                height: AppSizes.s24,
-                width: AppSizes.s24,
+                height: AppSizes.s24.r,
+                width: AppSizes.s24.r,
               ),
             )),
       ),

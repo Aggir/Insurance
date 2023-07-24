@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
@@ -51,16 +52,17 @@ class _ForgotPasswordRestPasswordPageState
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
-        height:
-            MediaQuery.of(context).size.height - kToolbarHeight - AppSizes.s30,
+        height: MediaQuery.of(context).size.height -
+            kToolbarHeight -
+            AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomSpacers.large(),
               Container(
-                height: AppSizes.s104,
-                width: AppSizes.s104,
+                height: AppSizes.s104.r,
+                width: AppSizes.s104.r,
                 decoration: BoxDecoration(
                     color: AppColors.primaryLight,
                     borderRadius: BorderRadius.circular(100),
@@ -157,11 +159,11 @@ class _ForgotPasswordRestPasswordPageState
                   : null,
           child: state.resetPasswordStatus.isLoading
               ? SizedBox(
-                  height: AppSizes.s20,
-                  width: AppSizes.s20,
+                  height: AppSizes.s20.r,
+                  width: AppSizes.s20.r,
                   child: CircularProgressIndicator(
                     color: AppColors.white,
-                    strokeWidth: AppSizes.s2,
+                    strokeWidth: AppSizes.s2.r,
                   ),
                 )
               : Text(AppStrings.changePassword.tr().toUpperCase()),
