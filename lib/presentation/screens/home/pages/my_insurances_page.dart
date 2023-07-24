@@ -133,30 +133,32 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _emptyState(String text) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(AppValues.large).r,
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SvgPicture.asset(
-            SvgAssets.insuranceEmptyState,
-            height: AppSizes.s160.r,
-          ),
-          CustomSpacers.large(),
-          Text(
-            AppStrings.thereAreNoInsurances.tr() + text,
-            style: mediumHeadlineStyle(),
-          ),
-          CustomSpacers.medium(),
-          Text(
-            '${AppStrings.youDoNotHaveAnyInsurances.tr()}$text.',
-            style: grayBodyStyle(),
-          ),
-          CustomSpacers.large(),
-          PrimaryButton.fullWidth(
-            child: Text(AppStrings.insuranceServices.tr()),
-            onPressed: () => _insuranceServicesButtonFunction(context),
-          ),
-        ]),
+    return Center(
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(AppValues.large).r,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            SvgPicture.asset(
+              SvgAssets.insuranceEmptyState,
+              height: AppSizes.s160.r,
+            ),
+            CustomSpacers.large(),
+            Text(
+              AppStrings.thereAreNoInsurances.tr() + text,
+              style: mediumHeadlineStyle(),
+            ),
+            CustomSpacers.medium(),
+            Text(
+              '${AppStrings.youDoNotHaveAnyInsurances.tr()}$text.',
+              style: grayBodyStyle(),
+            ),
+            CustomSpacers.large(),
+            PrimaryButton.fullWidth(
+              child: Text(AppStrings.insuranceServices.tr()),
+              onPressed: () => _insuranceServicesButtonFunction(context),
+            ),
+          ]),
+        ),
       ),
     );
   }
