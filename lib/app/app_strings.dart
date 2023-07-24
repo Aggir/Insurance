@@ -109,4 +109,8 @@ class AppStrings {
   static const healthInsurance = 'health_insurance';
   static const soon = 'soon';
   static const createVehicleFileFirst = 'create_vehicle_file_first';
+
+  static const youDoNotHaveVehicles = 'you_do_not_have_vehicles';
+  static const youDidNotAddAnyVehicle = 'you_did_not_add_any_vehicle';
+  static const addVehicle = 'add_vehicle';
 }

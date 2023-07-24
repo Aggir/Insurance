@@ -93,5 +93,8 @@
     "family_insurance": "",
     "health_insurance": "",
     "soon": "",
-    "create_vehicle_file_first": ""
+    "create_vehicle_file_first": "",
+    "you_do_not_have_vehicles":"",
+    "you_did_not_add_any_vehicle":"",
+    "add_vehicle":""
 }

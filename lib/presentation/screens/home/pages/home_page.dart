@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(
           context,
-          content: FirstLoginDialog(),
+          content: const FirstLoginDialog(),
         ),
       );
     }

@@ -93,5 +93,8 @@
     "family_insurance": "تأمين العائلة",
     "health_insurance": "تأمين صحي",
     "soon": "قريبًا",
-    "create_vehicle_file_first": "قم بإنشاء  ملف مركبتك اولا! "
+    "create_vehicle_file_first": "قم بإنشاء  ملف مركبتك اولا! ",
+    "you_do_not_have_vehicles":"لا يوجد لديك مركبات",
+    "you_did_not_add_any_vehicle":"لم تقم بإضافة أي مركبات لحسابك، يرجى إضافة مركبة لتتمكن من إنشاء التأمين لها.",
+    "add_vehicle":"إضافة مركبة"
 }

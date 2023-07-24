@@ -22,6 +22,7 @@ class ImageAssets {
   static const String vehicleInsurance = '$_imagePath/vehicle-insurance.png';
   static const String profilePicture = '$_imagePath/profile-picture.png';
   static const String firstLogin = '$_imagePath/first-login.png';
+  static const String myVehicles = '$_imagePath/my-vehicles.png';
 }
 
 const String _gifPath = 'assets/gifs';
