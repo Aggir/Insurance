@@ -108,6 +108,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   backFromVerifyOtpStep() {
     otpController.clear();
+    resendOtpTimer?.cancel();
     emit(state.copyWith(
         verifyOtpStatus: Status.initial, sendOtpStatus: Status.initial));
   }
