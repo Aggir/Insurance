@@ -15,6 +15,7 @@ class ImageAssets {
       '$_imagePath/forgot-password-background.png';
   static const String verifyOtp = '$_imagePath/verify-otp-screen.png';
   static const String newPassword = '$_imagePath/new-password.png';
+  static const String noConnection = '$_imagePath/no-connection.png';
 }
 
 const String _gifPath = 'assets/gifs';
