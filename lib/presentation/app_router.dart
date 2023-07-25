@@ -49,6 +49,8 @@ class Routes {
   static const String noConnectionRoute = "/no-connection";
 
   static const String myPaymentsRoute = "/my-payments";
+
+  static const String addMyVehicle = "/add-my-vehicle";
 }
 
 class AppRouter {
