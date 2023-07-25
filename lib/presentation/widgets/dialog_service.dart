@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
+import '../../app/assets_manager.dart';
+
 class DialogService {
   const DialogService._();
 
@@ -22,6 +24,32 @@ class DialogService {
           CustomDialog(
             content: content,
             actions: actions,
+          ),
+    );
+  }
+
+  static Future<void> loadLoadingDialog(
+    BuildContext context,
+  ) async {
+    _current = CustomDialog(
+      content: Image.asset(
+        GifAssets.loading,
+        height: AppSizes.s150.r,
+        width: AppSizes.s150.r,
+      ),
+    );
+
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) =>
+          _current ??
+          CustomDialog(
+            content: Image.asset(
+              GifAssets.loading,
+              height: AppSizes.s150.r,
+              width: AppSizes.s150.r,
+            ),
           ),
     );
   }

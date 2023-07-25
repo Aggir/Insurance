@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -15,7 +16,6 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../theme/text_style_manager.dart';
-import '../../../widgets/loading_dialog.dart';
 import '../../../widgets/page_content_padding.dart';
 
 class ForgotPasswordVerifyOtpPage extends StatefulWidget {
@@ -121,7 +121,7 @@ class _ForgotPasswordVerifyOtpPageState
             current.verifyOtpStatus != previous.verifyOtpStatus,
         listener: (context, state) {
           if (state.verifyOtpStatus.isLoading) {
-            DialogService.load(context);
+            DialogService.loadLoadingDialog(context);
           } else if (state.verifyOtpStatus.isSuccess) {
             DialogService.dispose();
             GoRouter.of(context)
