@@ -22,8 +22,7 @@ class MorePage extends StatelessWidget {
   void _myPaymentsFunction(BuildContext context) {}
 
   void _termsAndConditionsFunction(BuildContext context) {
-    GoRouter.of(NavigatorKeys.root.currentContext!)
-        .push(Routes.termsAndConditionsRoute);
+    context.go(Routes.termsAndConditionsRoute, extra: true);
   }
 
   void _settingsFunction(BuildContext context) {}

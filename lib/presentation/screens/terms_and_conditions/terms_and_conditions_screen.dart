@@ -17,7 +17,7 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
   void _acceptButtonFunction(BuildContext context) async {
     if (navigateFromSettings) {
-      context.pop();
+      context.go(Routes.moreRoute);
     } else {
       context.push(Routes.loadingRoute);
       Future.delayed(const Duration(seconds: 2), () {
