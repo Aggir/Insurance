@@ -22,7 +22,7 @@ class MorePage extends StatelessWidget {
   void _myPaymentsFunction(BuildContext context) {}
 
   void _termsAndConditionsFunction(BuildContext context) {
-    context.push(Routes.termsAndConditionsRoute, extra: true);
+    context.go(Routes.termsAndConditionsRoute, extra: true);
   }
 
   void _settingsFunction(BuildContext context) {}
