@@ -9,6 +9,7 @@ import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
 import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 
@@ -49,13 +50,15 @@ class Routes {
   static const String noConnectionRoute = "/no-connection";
 
   static const String myPaymentsRoute = "/my-payments";
+
+  static const String settingsRoute = "/settings";
 }
 
 class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.myPaymentsRoute,
+    initialLocation: Routes.moreRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -91,6 +94,12 @@ class AppRouter {
         path: Routes.myPaymentsRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const MyPaymentsScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.settingsRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const SettingsScreen();
         },
       ),
       StatefulShellRoute.indexedStack(
