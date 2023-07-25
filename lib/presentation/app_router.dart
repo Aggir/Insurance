@@ -6,6 +6,7 @@ import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
+import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
 import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
@@ -46,13 +47,15 @@ class Routes {
 
   static const String loadingRoute = '/loading';
   static const String noConnectionRoute = "/no-connection";
+
+  static const String myPaymentsRoute = "/my-payments";
 }
 
 class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.onboardingRoute,
+    initialLocation: Routes.myPaymentsRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -82,6 +85,12 @@ class AppRouter {
         path: Routes.noConnectionRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const NoConnectionScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.myPaymentsRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const MyPaymentsScreen();
         },
       ),
       StatefulShellRoute.indexedStack(

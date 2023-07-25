@@ -24,6 +24,7 @@ class CustomTextFormField extends StatefulWidget {
     this.initialValue,
     this.hintText,
     this.suffixIcon,
+    this.prefixIcon,
     this.isPassword = false,
     this.focusedStyleEnabled = true,
     this.onTap,
@@ -42,6 +43,7 @@ class CustomTextFormField extends StatefulWidget {
   final String? initialValue;
   final String? hintText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final bool isPassword;
   final void Function()? onTap;
   final bool focusedStyleEnabled;
@@ -59,10 +61,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   String _errorMessage = '';
   final FocusNode _focusNode = FocusNode();
 
-  Widget _suffixIconContainer({required Widget child}) {
+  Widget _iconContainer({required Widget child}) {
     return Padding(
       padding: const EdgeInsets.all(AppValues.small).r,
-      child: child,
+      child: FittedBox(fit: BoxFit.scaleDown, child: child),
     );
   }
 
@@ -104,7 +106,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   Widget? get _suffixIcon => widget.isPassword
       ? _passwordSuffixIconButton
       : widget.suffixIcon != null
-          ? _suffixIconContainer(child: widget.suffixIcon!)
+          ? _iconContainer(child: widget.suffixIcon!)
           : null;
 
   @override
@@ -129,6 +131,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           .r,
       counterText: '',
       suffixIcon: _suffixIcon,
+      prefixIcon: widget.prefixIcon != null
+          ? _iconContainer(child: widget.prefixIcon!)
+          : null,
       hintText: widget.hintText ?? '',
       hintStyle: grayBodyStyle(),
     );

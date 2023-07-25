@@ -9,6 +9,12 @@ ThemeData appThemeData() => ThemeData(
       fontFamily: FontConstants.fontFamily,
       scaffoldBackgroundColor: AppColors.white,
       dividerTheme: DividerThemeData(color: AppColors.grayLight, thickness: 1),
+      appBarTheme: AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: AppColors.transparent,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.dark),
+      ),
       colorScheme: ThemeData()
           .colorScheme
           .copyWith(primary: AppColors.primary, secondary: AppColors.secondary),
@@ -20,6 +26,7 @@ class AppValues {
   static const double small = 8.0;
   static const double mediumSmall = 12.0;
   static const double medium = 16.0;
+  static const double mediumLarge = 24.0;
   static const double large = 32.0;
   static const double extraLarge = 48.0;
 

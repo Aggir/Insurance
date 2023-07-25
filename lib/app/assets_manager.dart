@@ -31,6 +31,11 @@ class ImageAssets {
   static const String settingsListTile = '$_imagePath/settings-list-tile.png';
   static const String unsubscribeDialog = '$_imagePath/unsubscribe-dialog.png';
   static const String unsubscribe = '$_imagePath/unsubscribe.png';
+  static const String moamalat = '$_imagePath/moamalat.png';
+  static const String mobicash = '$_imagePath/mobicash.png';
+  static const String nab4pay = '$_imagePath/nab-4-pay.png';
+  static const String sadad = '$_imagePath/sadad.png';
+  static const String tadawul = '$_imagePath/tadawul.png';
 }
 
 const String _gifPath = 'assets/gifs';

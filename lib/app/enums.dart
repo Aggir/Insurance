@@ -1,3 +1,5 @@
+import 'package:insurance_app/app/app_strings.dart';
+
 enum Status {
   initial,
   loading,
@@ -23,4 +25,22 @@ extension SignUpVerificationTypesExtension on SignUpVerificationTypes {
   bool get isIdCard => this == SignUpVerificationTypes.idCard;
   bool get isNationalIdNumber =>
       this == SignUpVerificationTypes.nationalIdNumber;
+}
+
+enum PaymentStatus {
+  success,
+  failed,
+  onProcess,
+}
+
+extension PaymentStatusExtension on PaymentStatus {
+  bool get isSuccess => this == PaymentStatus.success;
+  bool get isFailed => this == PaymentStatus.failed;
+  bool get isOnProcess => this == PaymentStatus.onProcess;
+
+  String get string => this == PaymentStatus.success
+      ? AppStrings.success
+      : this == PaymentStatus.failed
+          ? AppStrings.failed
+          : AppStrings.onProcess;
 }
