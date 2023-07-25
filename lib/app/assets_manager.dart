@@ -22,8 +22,15 @@ class ImageAssets {
   static const String vehicleInsurance = '$_imagePath/vehicle-insurance.png';
   static const String profilePicture = '$_imagePath/profile-picture.png';
   static const String firstLogin = '$_imagePath/first-login.png';
-  static const String myVehicles = '$_imagePath/my-vehicles.png';
+  static const String emptyList = '$_imagePath/empty-list.png';
   static const String noConnection = '$_imagePath/no-connection.png';
+  static const String changePasswordDialog =
+      '$_imagePath/change-password-dialog.png';
+  static const String myPaymentsListTile =
+      '$_imagePath/my-payments-list-tile.png';
+  static const String settingsListTile = '$_imagePath/settings-list-tile.png';
+  static const String unsubscribeDialog = '$_imagePath/unsubscribe-dialog.png';
+  static const String unsubscribe = '$_imagePath/unsubscribe.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -67,4 +74,9 @@ class SvgAssets {
   static const String bell = '$_svgPath/bell.svg';
   static const String insuranceEmptyState =
       '$_svgPath/insurances-empty-state.svg';
+  static const String cameraCircleFilled = '$_svgPath/camera-circle-filled.svg';
+  static const String envelope = '$_svgPath/envelope.svg';
+  static const String logout = '$_svgPath/logout.svg';
+  static const String phone = '$_svgPath/phone.svg';
+  static const String search = '$_svgPath/search.svg';
 }

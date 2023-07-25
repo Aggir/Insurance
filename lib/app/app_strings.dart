@@ -121,6 +121,43 @@ class AppStrings {
   static const thereAreNoInsurances = 'there_are_no_insurances';
   static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
 
+  static const moreServices = 'more_services';
+  static const myPayments = 'my_payments';
+  static const myPaymentsListTileDescription =
+      'my_payments_list_tile_description';
+  static const termsAndConditionsListTileDescription =
+      'terms_and_conditions_list_tile_description';
+  static const settings = 'settings';
+  static const settingsListTileDescription = 'settings_list_tile_description';
+  static const logout = 'logout';
+
+  static const backToThePreviousPage = 'back_to_the_previous_page';
+
+  static const myAccount = 'my_account';
+  static const userId = 'user_id';
+  static const nationality = 'nationality';
+
+  static const editMyAccount = 'edit_my_account';
+  static const save = 'save';
+
+  static const unsubscribeFormTheApp = 'unsubscribe_from_the_app';
+  static const areYouSureYouWantToUnsubscribe =
+      'are_you_sure_you_want_to_unsubscribe';
+  static const unsubscribeConfirmationMessage =
+      'unsubscribe_confirmation_message';
+  static const deactivateAccount = 'deactivate_account';
+  static const back = 'back';
+
+  static const currentPassword = 'current_password';
+  static const passwordChangedSuccessfully = 'password_changed_successfully';
+  static const useTheNewPasswordToLogin = 'use_the_new_password_to_login';
+  static const okay = 'okay';
+
+  static const search = 'search';
+  static const youDoNotHaveAnyPayments = 'you_do_not_have_any_payments';
+  static const youDidNotPayAnyInsuranceYet =
+      'you_did_not_pay_any_insurance_yet';
+
   static const checkInternetConnection = 'check_internet_connection';
   static const checkInternetConnectionDescription =
       'check_internet_connection_description';

@@ -49,4 +49,22 @@ class SecondaryButton extends StatelessWidget {
       ),
     );
   }
+
+  static Widget fullWidthIconButton(
+      {void Function()? onPressed,
+      required Widget label,
+      required Widget icon}) {
+    return Opacity(
+      opacity: onPressed == null ? 0.3 : 1,
+      child: SizedBox(
+        width: double.infinity,
+        child: OutlinedButton.icon(
+          style: _style,
+          onPressed: onPressed,
+          label: label,
+          icon: icon,
+        ),
+      ),
+    );
+  }
 }
