@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_segment/flutter_advanced_segment.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -42,7 +44,10 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     '3': AppStrings.expired.tr(),
   };
   final _currentIndex = ValueNotifier<String>(0.toString());
-  _insuranceServicesButtonFunction(BuildContext context) {}
+  _insuranceServicesButtonFunction(BuildContext context) {
+    context.go(Routes.homeRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

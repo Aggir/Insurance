@@ -157,6 +157,10 @@ class AppStrings {
   static const youDoNotHaveAnyPayments = 'you_do_not_have_any_payments';
   static const youDidNotPayAnyInsuranceYet =
       'you_did_not_pay_any_insurance_yet';
+  static const dinar = 'dinar';
+  static const success = 'success';
+  static const failed = 'failed';
+  static const onProcess = 'on_process';
 
   static const checkInternetConnection = 'check_internet_connection';
   static const checkInternetConnectionDescription =

@@ -19,7 +19,9 @@ class MorePage extends StatelessWidget {
 
   void _profileWidgetFunction(BuildContext context) {}
 
-  void _myPaymentsFunction(BuildContext context) {}
+  void _myPaymentsFunction(BuildContext context) {
+    context.go(Routes.myPaymentsRoute);
+  }
 
   void _termsAndConditionsFunction(BuildContext context) {
     context.go(Routes.termsAndConditionsRoute, extra: true);

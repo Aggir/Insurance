@@ -130,5 +130,9 @@
     "okay": "حسنا",
     "search": "ابحث",
     "you_do_not_have_any_payments": "لا يوجد لديك أي مدفوعات",
-    "you_did_not_pay_any_insurance_yet": "لم تقم بدفع أي تأمين بعد."
+    "you_did_not_pay_any_insurance_yet": "لم تقم بدفع أي تأمين بعد.",
+    "dinar":"دينار",
+    "success":"ناجحة",
+    "failed":"فاشلة",
+    "on_process":"قيد الاجراء"
 }

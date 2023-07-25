@@ -127,5 +127,9 @@
     "okay": "",
     "search": "",
     "you_do_not_have_any_payments": "",
-    "you_did_not_pay_any_insurance_yet": ""
+    "you_did_not_pay_any_insurance_yet": "",
+    "dinar": "",
+    "success":"",
+    "failed":"",
+    "on_process":""
 }

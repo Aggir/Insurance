@@ -55,7 +55,7 @@ class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.onboardingRoute,
+    initialLocation: Routes.myPaymentsRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
