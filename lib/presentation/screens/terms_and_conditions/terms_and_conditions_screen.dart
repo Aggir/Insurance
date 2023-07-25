@@ -11,16 +11,20 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
-  const TermsAndConditionsScreen({super.key});
-
+  const TermsAndConditionsScreen(this.navigateFromSettings, {super.key});
+  final bool navigateFromSettings;
   final String termsAndConditionsUpdateDate = '2023 - 7 - 12';
 
   void _acceptButtonFunction(BuildContext context) async {
-    context.push(Routes.loadingRoute);
-    Future.delayed(const Duration(seconds: 2), () {
+    if (navigateFromSettings) {
       context.pop();
-      context.go(Routes.loginRoute);
-    });
+    } else {
+      context.push(Routes.loadingRoute);
+      Future.delayed(const Duration(seconds: 2), () {
+        context.pop();
+        context.go(Routes.loginRoute);
+      });
+    }
   }
 
   @override
@@ -68,7 +72,11 @@ class TermsAndConditionsScreen extends StatelessWidget {
               PrimaryButton.fullWidth(
                 onPressed: () => _acceptButtonFunction(context),
                 child: Text(
-                  AppStrings.acceptTermsAndConditions.tr().toUpperCase(),
+                  (navigateFromSettings
+                          ? AppStrings.backToThePreviousPage
+                          : AppStrings.acceptTermsAndConditions)
+                      .tr()
+                      .toUpperCase(),
                 ),
               ),
               CustomSpacers.medium(),

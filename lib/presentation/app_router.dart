@@ -52,7 +52,7 @@ class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.loginRoute,
+    initialLocation: Routes.onboardingRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -63,7 +63,7 @@ class AppRouter {
       GoRoute(
         path: Routes.termsAndConditionsRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return const TermsAndConditionsScreen();
+          return TermsAndConditionsScreen(state.extra != null);
         },
       ),
       GoRoute(
