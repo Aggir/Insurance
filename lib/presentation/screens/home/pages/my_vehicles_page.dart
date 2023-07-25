@@ -40,7 +40,7 @@ class MyVehiclesPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Image.asset(
-              ImageAssets.myVehicles,
+              ImageAssets.emptyList,
               height: AppSizes.s200.r,
               width: AppSizes.s200.r,
             ),

@@ -3,11 +3,11 @@ import 'font_manager.dart';
 
 TextStyle _getTextStyle(double fontSize, FontWeight fontWeight, Color color) {
   return TextStyle(
-    fontSize: fontSize,
-    fontFamily: FontConstants.fontFamily,
-    color: color,
-    fontWeight: fontWeight,
-  );
+      fontSize: fontSize,
+      fontFamily: FontConstants.fontFamily,
+      color: color,
+      fontWeight: fontWeight,
+      height: 1.5);
 }
 
 //light textStyle
