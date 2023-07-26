@@ -16,7 +16,9 @@ import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-  void _changePasswordFunction(BuildContext context) {}
+  void _changePasswordFunction(BuildContext context) {
+    context.push(Routes.settingsChangePasswordRoute);
+  }
 
   void _unsubscribeFunction(BuildContext context) {
     DialogService.load(context, content: const UnsubscribeDialog());
@@ -29,23 +31,24 @@ class SettingsScreen extends StatelessWidget {
         title: AppStrings.settings.tr(),
         backButton: () => context.go(Routes.moreRoute),
       ),
-      body: ListView(
-          padding: const EdgeInsets.symmetric(
-                  vertical: AppValues.large, horizontal: AppValues.medium)
-              .r,
-          children: [
-            _settingListTile(
-              imgPath: ImageAssets.newPassword,
-              title: AppStrings.changePassword.tr(),
-              onTap: () => _changePasswordFunction(context),
-            ),
-            CustomSpacers.medium(),
-            _settingListTile(
-              imgPath: ImageAssets.unsubscribe,
-              title: AppStrings.unsubscribeFormTheApp.tr(),
-              onTap: () => _unsubscribeFunction(context),
-            ),
-          ]),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(
+                vertical: AppValues.large, horizontal: AppValues.medium)
+            .r,
+        child: Column(children: [
+          _settingListTile(
+            imgPath: ImageAssets.newPassword,
+            title: AppStrings.changePassword.tr(),
+            onTap: () => _changePasswordFunction(context),
+          ),
+          CustomSpacers.medium(),
+          _settingListTile(
+            imgPath: ImageAssets.unsubscribe,
+            title: AppStrings.unsubscribeFormTheApp.tr(),
+            onTap: () => _unsubscribeFunction(context),
+          ),
+        ]),
+      ),
     );
   }
 

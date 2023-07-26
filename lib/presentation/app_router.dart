@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
@@ -52,13 +54,16 @@ class Routes {
   static const String myPaymentsRoute = "/my-payments";
 
   static const String settingsRoute = "/settings";
+  static const String changePasswordRoute = "change-password";
+  static const String settingsChangePasswordRoute =
+      "$settingsRoute/$changePasswordRoute";
 }
 
 class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.loginRoute,
+    initialLocation: Routes.settingsRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -97,11 +102,21 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.settingsRoute,
-        builder: (BuildContext context, GoRouterState state) {
-          return const SettingsScreen();
-        },
-      ),
+          path: Routes.settingsRoute,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SettingsScreen();
+          },
+          routes: [
+            GoRoute(
+              path: Routes.changePasswordRoute,
+              builder: (BuildContext context, GoRouterState state) {
+                return BlocProvider(
+                  create: (context) => ChangePasswordCubit(),
+                  child: const ChangePasswordScreen(),
+                );
+              },
+            ),
+          ]),
       StatefulShellRoute.indexedStack(
           builder: (context, state, child) {
             return BlocProvider(
