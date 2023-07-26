@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
         statusBarIconBrightness: Brightness.dark));
     return ScreenUtilInit(
       designSize: const Size(390, 844),
-      minTextAdapt: true,
+      // minTextAdapt: true,
       builder: (context, child) => MaterialApp.router(
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,

@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                 CircleAvatar(
                   backgroundColor: AppColors.primaryLight,
                   radius: AppSizes.s24.r,
-                  child: Image.asset(ImageAssets.profilePicture),
+                  foregroundImage: const AssetImage(ImageAssets.profilePicture),
                 ),
                 CustomSpacers.medium(),
                 Text(

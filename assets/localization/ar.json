@@ -134,5 +134,7 @@
     "dinar":"دينار",
     "success":"ناجحة",
     "failed":"فاشلة",
-    "on_process":"قيد الاجراء"
+    "on_process":"قيد الاجراء",
+    "libyan":"ليبي",
+    "non_libyan":"غير ليبي"
 }

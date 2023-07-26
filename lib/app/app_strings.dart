@@ -166,4 +166,6 @@ class AppStrings {
   static const checkInternetConnectionDescription =
       'check_internet_connection_description';
   static const tryAgain = 'try_again';
+  static const libyan = 'libyan';
+  static const nonLibyan = 'non_libyan';
 }
