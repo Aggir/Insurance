@@ -138,5 +138,12 @@
     "address":"العنوان",
     "personal_info": "المعلومات الشخصية",
     "personal_info_description": "نرغب في معرفة بعض المعلومات عن مالك المركبة",
-    "beneficiary_name":"اسم المؤمن له"
+    "beneficiary_name":"اسم المؤمن له",
+    "vehicle_details":"بيانات المركبة",
+    
+    "vehicle_type":"نوع المركبة",
+    "vehicle_brand":"ماركة  السيارة",
+    "vehicle_model":"موديل السيارة",
+    "vehicle_country":"بلد الصنع",
+    "vehicle_year":"سنة الصنع"
 }

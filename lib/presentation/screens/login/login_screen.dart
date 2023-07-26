@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                 color: AppColors.primaryLightest,
                 image: const DecorationImage(
                   alignment: Alignment.topCenter,
-                  // fit: BoxFit.fill,
+                  fit: BoxFit.fitWidth,
                   image: AssetImage(ImageAssets.loginBackground),
                 ),
               ),

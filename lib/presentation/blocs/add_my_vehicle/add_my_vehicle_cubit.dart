@@ -14,8 +14,20 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
 
+  final GlobalKey<FormState> vehicleDetailsForm = GlobalKey<FormState>();
+  final TextEditingController vehicleTypeController = TextEditingController();
+  final TextEditingController vehicleBrandController = TextEditingController();
+  final TextEditingController vehicleModelController = TextEditingController();
+  final TextEditingController vehicleCountryController =
+      TextEditingController();
+  final TextEditingController vehicleYearController = TextEditingController();
+
   bool isUserInfoValid() {
     return userInfoForm.currentState?.validate() ?? false;
+  }
+
+  bool isVehicleDetailsFormValid() {
+    return vehicleDetailsForm.currentState?.validate() ?? false;
   }
 
   @override

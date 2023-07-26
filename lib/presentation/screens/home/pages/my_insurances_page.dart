@@ -73,6 +73,8 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                         controller: _currentIndex,
                         segments: _tabsMap,
                         backgroundColor: AppColors.white,
+                        activeStyle: extraSmallHeadlineStyle(),
+                        inactiveStyle: smallDarkGrayBodyStyle(),
                         sliderColor: AppColors.grayLight,
                         sliderDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(

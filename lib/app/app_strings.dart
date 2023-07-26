@@ -171,4 +171,12 @@ class AppStrings {
   static const personalInfo = 'personal_info';
   static const personalInfoDescription = 'personal_info_description';
   static const beneficiaryName = 'beneficiary_name';
+
+  static const vehicleDetails = 'vehicle_details';
+
+  static const vehicleType = 'vehicle_type';
+  static const vehicleBrand = 'vehicle_brand';
+  static const vehicleModel = 'vehicle_model';
+  static const vehicleCountry = 'vehicle_country';
+  static const vehicleYear = 'vehicle_year';
 }

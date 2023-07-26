@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../app/app_strings.dart';
 import '../../../app_router.dart';
 import '../../../theme/text_style_manager.dart';
+import '../../../widgets/custom_text_button.dart';
 
 class SignUpFooterRow extends StatelessWidget {
   const SignUpFooterRow({super.key});
@@ -21,11 +22,8 @@ class SignUpFooterRow extends StatelessWidget {
           AppStrings.doYouHaveAnAccount,
           style: grayBodyStyle(),
         ).tr(),
-        TextButton(
-          child: Text(
-            AppStrings.login.tr(),
-            style: pressableTextStyle(),
-          ),
+        CustomTextButton(
+          text: AppStrings.login.tr(),
           onPressed: () => _loginButtonFunction(context),
         ),
       ],
