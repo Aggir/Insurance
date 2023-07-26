@@ -11,6 +11,7 @@ import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
 import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:insurance_app/presentation/screens/profile/profile_screen.dart';
 import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
@@ -57,6 +58,8 @@ class Routes {
   static const String changePasswordRoute = "change-password";
   static const String settingsChangePasswordRoute =
       "$settingsRoute/$changePasswordRoute";
+
+  static const String profileRoute = '/profile';
 }
 
 class AppRouter {
@@ -99,6 +102,12 @@ class AppRouter {
         path: Routes.myPaymentsRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const MyPaymentsScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.profileRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ProfileScreen();
         },
       ),
       GoRoute(

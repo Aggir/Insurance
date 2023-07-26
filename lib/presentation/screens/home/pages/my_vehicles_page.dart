@@ -58,8 +58,9 @@ class MyVehiclesPage extends StatelessWidget {
             ),
             CustomSpacers.large(),
             PrimaryButton.fullWidth(
-                child: Text(AppStrings.addVehicle.tr()),
-                onPressed: () => _addVehicleFunction(context))
+              child: Text(AppStrings.addVehicle.tr()),
+              onPressed: () => _addVehicleFunction(context),
+            )
           ],
         ),
       ),

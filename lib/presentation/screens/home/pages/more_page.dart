@@ -17,7 +17,9 @@ class MorePage extends StatelessWidget {
   final String name = 'مرام محمد العمامي';
   final String email = 'user@email.com';
 
-  void _profileWidgetFunction(BuildContext context) {}
+  void _profileWidgetFunction(BuildContext context) {
+    context.go(Routes.profileRoute);
+  }
 
   void _myPaymentsFunction(BuildContext context) {
     context.go(Routes.myPaymentsRoute);
@@ -38,62 +40,68 @@ class MorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ListView(
-        padding: const EdgeInsets.symmetric(
-                vertical: AppValues.large, horizontal: AppValues.medium)
-            .r,
-        children: [
-          _profileRowWidget(context),
-          CustomSpacers.extraLarge(),
-          Text(
-            AppStrings.moreServices.tr(),
-            style: darkGrayBodyStyle(),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+                  vertical: AppValues.large, horizontal: AppValues.medium)
+              .r,
+          child: Column(
+            children: [
+              _profileRowWidget(context),
+              CustomSpacers.extraLarge(),
+              Text(
+                AppStrings.moreServices.tr(),
+                style: darkGrayBodyStyle(),
+              ),
+              CustomSpacers.large(),
+              _customListTile(
+                context,
+                imgPath: ImageAssets.myPaymentsListTile,
+                title: AppStrings.myPayments.tr(),
+                description: AppStrings.myPaymentsListTileDescription.tr(),
+                onTap: _myPaymentsFunction,
+              ),
+              CustomSpacers.large(),
+              _customListTile(
+                context,
+                imgPath: ImageAssets.termsAndConditions,
+                title: AppStrings.termsAndConditions.tr(),
+                description:
+                    AppStrings.termsAndConditionsListTileDescription.tr(),
+                onTap: _termsAndConditionsFunction,
+              ),
+              CustomSpacers.large(),
+              _customListTile(
+                context,
+                imgPath: ImageAssets.settingsListTile,
+                title: AppStrings.settings.tr(),
+                description: AppStrings.settingsListTileDescription.tr(),
+                onTap: _settingsFunction,
+              ),
+              CustomSpacers.extraLarge(),
+              SecondaryButton.fullWidth(
+                  onPressed: () => _logoutFunction(context),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(
+                        SvgAssets.logout,
+                        height: AppSizes.s28.r,
+                        width: AppSizes.s28.r,
+                      ),
+                      CustomSpacers.medium(),
+                      Text(
+                        AppStrings.logout.tr(),
+                        style: smallHeadlineStyle()
+                            .copyWith(color: AppColors.gray),
+                      ),
+                    ],
+                  ))
+            ],
           ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            imgPath: ImageAssets.myPaymentsListTile,
-            title: AppStrings.myPayments.tr(),
-            description: AppStrings.myPaymentsListTileDescription.tr(),
-            onTap: _myPaymentsFunction,
-          ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            imgPath: ImageAssets.termsAndConditions,
-            title: AppStrings.termsAndConditions.tr(),
-            description: AppStrings.termsAndConditionsListTileDescription.tr(),
-            onTap: _termsAndConditionsFunction,
-          ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            imgPath: ImageAssets.settingsListTile,
-            title: AppStrings.settings.tr(),
-            description: AppStrings.settingsListTileDescription.tr(),
-            onTap: _settingsFunction,
-          ),
-          CustomSpacers.extraLarge(),
-          SecondaryButton.fullWidth(
-              onPressed: () => _logoutFunction(context),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    SvgAssets.logout,
-                    height: AppSizes.s28.r,
-                    width: AppSizes.s28.r,
-                  ),
-                  CustomSpacers.medium(),
-                  Text(
-                    AppStrings.logout.tr(),
-                    style: smallHeadlineStyle().copyWith(color: AppColors.gray),
-                  ),
-                ],
-              ))
-        ],
+        ),
       ),
     );
   }
