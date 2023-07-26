@@ -20,14 +20,20 @@ class AddMyVehicleStepsScreen extends StatefulWidget {
 class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
+    // final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
 
     final BlocBuilder blockBuilder =
         BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(
             builder: (context, state) {
       void onTap() {
-        if (widget.child.currentIndex == 0) {
-          context.go(Routes.homeRoute);
+        switch (widget.child.currentIndex) {
+          case 0:
+            return context.go(Routes.homeRoute);
+          case 1:
+            return context.go(Routes.addMyVehicleRoute);
+
+          default:
+            return context.go(Routes.homeRoute);
         }
       }
 
@@ -37,11 +43,12 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
     });
 
     return Scaffold(
-        appBar: stepsAppBarWidget(
-            backButton: blockBuilder,
-            currentIndex: widget.child.currentIndex,
-            title: AppStrings.addVehicle.tr(),
-            pageCount: AppRouter.addMyVehicleSteps),
-        body: widget.child);
+      appBar: stepsAppBarWidget(
+          backButton: blockBuilder,
+          currentIndex: widget.child.currentIndex,
+          title: AppStrings.addVehicle.tr(),
+          pageCount: AppRouter.addMyVehicleSteps),
+      body: widget.child,
+    );
   }
 }
