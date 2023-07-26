@@ -2,6 +2,7 @@ import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'dart:ui' as ui;
 
 import '../../app/app_strings.dart';
@@ -64,6 +65,9 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
             right: Radius.circular(AppValues.inputRadius.r)),
         borderSide: BorderSide(color: AppColors.grayLight),
       ),
+      contentPadding: const EdgeInsets.symmetric(
+              vertical: AppValues.small, horizontal: AppValues.small)
+          .r,
       counterText: '',
       hintText: widget.hintText ?? '',
       hintStyle: grayBodyStyle(),
@@ -74,7 +78,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
       children: [
         if (widget.label != null)
           AnimatedContainer(
-            height: _focusNode.hasFocus ? 30 : 0,
+            height: _focusNode.hasFocus ? AppSizes.s30.r : 0,
             duration: const Duration(milliseconds: 150),
             child: _getLabelWidget(),
           ),
@@ -85,7 +89,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
               Stack(children: [
                 Container(
                   height: AppValues.textFieldHeight.r,
-                  width: flagContainerWidth,
+                  width: flagContainerWidth.r,
                   decoration: BoxDecoration(
                     color: AppColors.lightest,
                     border: Border.all(
@@ -97,14 +101,17 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                 ),
                 Container(
                   height: AppValues.textFieldHeight.r,
-                  width: flagContainerWidth,
+                  width: flagContainerWidth.r,
                   decoration: BoxDecoration(
                     border:
                         Border(right: BorderSide(color: AppColors.lightest)),
                   ),
+                  // Todo: get CountryCodePicker Value
                   child: CountryCodePicker(
                     initialSelection: 'ly',
-                    textStyle: largeHeadlineStyle().copyWith(fontSize: 14),
+                    textStyle:
+                        largeHeadlineStyle().copyWith(fontSize: FontSize.s14),
+                    padding: EdgeInsets.zero,
                   ),
                 )
               ]),
