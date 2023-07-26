@@ -36,6 +36,13 @@ class ImageAssets {
   static const String nab4pay = '$_imagePath/nab-4-pay.png';
   static const String sadad = '$_imagePath/sadad.png';
   static const String tadawul = '$_imagePath/tadawul.png';
+
+  static const String addMyVehicleStep1 =
+      '$_imagePath/add_my_vehcile_step_1.png';
+  static const String addMyVehicleStep2 =
+      '$_imagePath/add_my_vehcile_step_2.png';
+  static const String addMyVehicleStep3 =
+      '$_imagePath/add_my_vehcile_step_3.png';
 }
 
 const String _gifPath = 'assets/gifs';

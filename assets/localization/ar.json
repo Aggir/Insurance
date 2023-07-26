@@ -134,5 +134,9 @@
     "dinar":"دينار",
     "success":"ناجحة",
     "failed":"فاشلة",
-    "on_process":"قيد الاجراء"
+    "on_process":"قيد الاجراء",
+    "address":"العنوان",
+    "personal_info": "المعلومات الشخصية",
+    "personal_info_description": "نرغب في معرفة بعض المعلومات عن مالك المركبة",
+    "beneficiary_name":"اسم المؤمن له"
 }

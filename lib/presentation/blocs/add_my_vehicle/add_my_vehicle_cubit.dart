@@ -6,4 +6,25 @@ part 'add_my_vehicle_state.dart';
 
 class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
   AddMyVehicleCubit() : super(const AddMyVehicleState());
+
+  final GlobalKey<FormState> userInfoForm = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController middleNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+
+  bool isUserInfoValid() {
+    return userInfoForm.currentState?.validate() ?? false;
+  }
+
+  @override
+  Future<void> close() {
+    firstNameController.dispose();
+    middleNameController.dispose();
+    lastNameController.dispose();
+    addressController.dispose();
+    phoneNumberController.dispose();
+    return super.close();
+  }
 }

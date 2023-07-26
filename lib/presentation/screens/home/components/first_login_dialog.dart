@@ -16,7 +16,7 @@ class FirstLoginDialog extends StatelessWidget {
   const FirstLoginDialog({super.key});
 
   _createMyVehicleFunction(BuildContext context) {
-    context.go(Routes.addMyVehicle);
+    context.go(Routes.addMyVehicleRoute);
   }
 
   @override

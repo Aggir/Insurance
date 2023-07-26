@@ -166,4 +166,9 @@ class AppStrings {
   static const checkInternetConnectionDescription =
       'check_internet_connection_description';
   static const tryAgain = 'try_again';
+  static const address = 'address';
+
+  static const personalInfo = 'personal_info';
+  static const personalInfoDescription = 'personal_info_description';
+  static const beneficiaryName = 'beneficiary_name';
 }

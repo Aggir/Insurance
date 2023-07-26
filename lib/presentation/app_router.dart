@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/screens/add_my_vechicle/add_my_vehicle_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_user_info_step_page.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
@@ -50,7 +53,7 @@ class Routes {
 
   static const String myPaymentsRoute = "/my-payments";
 
-  static const String addMyVehicle = "/add-my-vehicle";
+  static const String addMyVehicleRoute = "/add-my-vehicle-user-info-step";
 }
 
 class AppRouter {
@@ -95,6 +98,14 @@ class AppRouter {
           return const MyPaymentsScreen();
         },
       ),
+      StatefulShellRoute.indexedStack(
+          builder: (context, state, child) {
+            return BlocProvider(
+              create: (context) => AddMyVehicleCubit(),
+              child: AddMyVehicleStepsScreen(child, state.location),
+            );
+          },
+          branches: _addMyVehicleBranches),
       StatefulShellRoute.indexedStack(
           builder: (context, state, child) {
             return BlocProvider(
@@ -156,6 +167,22 @@ class AppRouter {
     ]),
   ];
 
+  static final List<StatefulShellBranch> _addMyVehicleBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehicleRoute,
+        builder: (context, state) => const AddMyVehicleUserInfoStepPage(),
+      ),
+    ]),
+
+    // StatefulShellBranch(routes: [
+    //   GoRoute(
+    //     path: Routes.signupPasswordStepRoute,
+    //     builder: (context, state) => const SignUpPasswordStepPage(),
+    //   ),
+    // ]),
+  ];
+
   static final List<StatefulShellBranch> _forgotPasswordBranches = [
     StatefulShellBranch(routes: [
       GoRoute(
@@ -206,4 +233,5 @@ class AppRouter {
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
   static int get homeBranchesCount => _homeBranches.length;
+  static int get addMyVehicleSteps => _addMyVehicleBranches.length;
 }
