@@ -95,6 +95,8 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   SvgAssets.chevronLeft,
+                  height: AppSizes.s22.r,
+                  width: AppSizes.s22.r,
                   colorFilter:
                       ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                 )

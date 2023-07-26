@@ -81,7 +81,11 @@ class MorePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset(SvgAssets.logout, height: 28),
+                  SvgPicture.asset(
+                    SvgAssets.logout,
+                    height: AppSizes.s28.r,
+                    width: AppSizes.s28.r,
+                  ),
                   CustomSpacers.medium(),
                   Text(
                     AppStrings.logout.tr(),
@@ -139,6 +143,8 @@ class MorePage extends StatelessWidget {
                 ),
                 SvgPicture.asset(
                   SvgAssets.chevronLeft,
+                  height: AppSizes.s22.r,
+                  width: AppSizes.s22.r,
                   colorFilter:
                       ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                 ),
@@ -209,6 +215,8 @@ class MorePage extends StatelessWidget {
                   border: Border.all(color: AppColors.grayLight)),
               child: SvgPicture.asset(
                 SvgAssets.chevronLeft,
+                height: AppSizes.s22.r,
+                width: AppSizes.s22.r,
                 colorFilter: ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
               ),
             ),
