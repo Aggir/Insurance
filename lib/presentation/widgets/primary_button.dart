@@ -8,12 +8,14 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     this.onPressed,
     required this.child,
+    this.style,
     super.key,
   });
 
   final void Function()? onPressed;
   final Widget child;
-  static final _style = ElevatedButton.styleFrom(
+  final ButtonStyle? style;
+  static final customStyle = ElevatedButton.styleFrom(
     minimumSize: AppValues.buttonMinSize,
     disabledBackgroundColor: AppColors.primary.withOpacity(0.3),
     disabledForegroundColor: AppColors.whiteText,
@@ -25,17 +27,18 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: _style,
+      style: style ?? customStyle,
       onPressed: onPressed,
       child: child,
     );
   }
 
-  static Widget fullWidth({void Function()? onPressed, required Widget child}) {
+  static Widget fullWidth(
+      {void Function()? onPressed, required Widget child, ButtonStyle? style}) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        style: _style,
+        style: style ?? customStyle,
         onPressed: onPressed,
         child: child,
       ),

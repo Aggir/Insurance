@@ -27,7 +27,9 @@ class MorePage extends StatelessWidget {
     context.go(Routes.termsAndConditionsRoute, extra: true);
   }
 
-  void _settingsFunction(BuildContext context) {}
+  void _settingsFunction(BuildContext context) {
+    context.go(Routes.settingsRoute);
+  }
 
   void _logoutFunction(BuildContext context) {
     context.go(Routes.loginRoute);
