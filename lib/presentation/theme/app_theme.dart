@@ -50,6 +50,7 @@ class AppValues {
   static Size buttonMinSize = Size(25.r, 50.r);
   // Dimensions
   static const double textFieldHeight = 50;
+  static const double appBarHeight = 68;
 }
 
 class AppSizes {
