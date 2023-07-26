@@ -44,6 +44,10 @@ TextStyle smallDarkGrayBodyStyle() {
   return getRegularStyle(fontSize: FontSize.s12, color: AppColors.darkGray);
 }
 
+TextStyle smallBodyStyle() {
+  return getRegularStyle(fontSize: FontSize.s12, color: AppColors.black);
+}
+
 TextStyle smallHeadlineStyle() {
   return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s14);
 }

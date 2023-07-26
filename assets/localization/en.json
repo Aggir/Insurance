@@ -115,7 +115,7 @@
     "user_id": "",
     "nationality": "",
     "edit_my_account": "",
-    "save":"",
+    "save": "",
     "unsubscribe_from_the_app": "",
     "are_you_sure_you_want_to_unsubscribe": "",
     "unsubscribe_confirmation_message": "",
@@ -129,7 +129,9 @@
     "you_do_not_have_any_payments": "",
     "you_did_not_pay_any_insurance_yet": "",
     "dinar": "",
-    "success":"",
-    "failed":"",
-    "on_process":""
+    "success": "",
+    "failed": "",
+    "on_process": "",
+    "libyan": "",
+    "non_libyan": ""
 }

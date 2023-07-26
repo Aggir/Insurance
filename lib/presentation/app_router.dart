@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/blocs/profile/cubit/profile_cubit.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
@@ -63,7 +64,6 @@ class Routes {
 }
 
 class AppRouter {
-  // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
     initialLocation: Routes.settingsRoute,
@@ -107,7 +107,10 @@ class AppRouter {
       GoRoute(
         path: Routes.profileRoute,
         builder: (BuildContext context, GoRouterState state) {
-          return const ProfileScreen();
+          return BlocProvider(
+            create: (context) => ProfileCubit(),
+            child: const ProfileScreen(),
+          );
         },
       ),
       GoRoute(
