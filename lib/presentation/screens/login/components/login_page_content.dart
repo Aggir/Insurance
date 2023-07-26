@@ -7,8 +7,8 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';
-import '../../../theme/app_colors.dart';
 import '../../../theme/text_style_manager.dart';
+import '../../../widgets/custom_text_button.dart';
 import '../../../widgets/custom_text_form_field.dart';
 
 class LoginPageContent extends StatelessWidget {
@@ -71,12 +71,9 @@ class LoginPageContent extends StatelessWidget {
             hintText: AppStrings.password.tr(),
             isPassword: true,
           ),
-          TextButton(
+          CustomTextButton(
             onPressed: () => _forgotPasswordButtonFunction(context),
-            child: Text(
-              AppStrings.forgotPasswordQuestion.tr(),
-              style: pressableTextStyle().copyWith(color: AppColors.gray),
-            ),
+            text: AppStrings.forgotPasswordQuestion.tr(),
           ),
         ],
       ),
@@ -101,11 +98,8 @@ class LoginPageContent extends StatelessWidget {
           AppStrings.youDoNotHaveAnAccount,
           style: grayBodyStyle(),
         ).tr(),
-        TextButton(
-          child: Text(
-            AppStrings.createAccount.tr(),
-            style: pressableTextStyle(),
-          ),
+        CustomTextButton(
+          text: AppStrings.createAccount.tr(),
           onPressed: () => _createAccountButtonFunction(context),
         ),
       ],

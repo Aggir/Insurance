@@ -91,4 +91,7 @@ class SvgAssets {
   static const String logout = '$_svgPath/logout.svg';
   static const String phone = '$_svgPath/phone.svg';
   static const String search = '$_svgPath/search.svg';
+  static const String edit = '$_svgPath/edit.svg';
+  static const String chevronTop = '$_svgPath/chevron-up.svg';
+  static const String chevronBottom = '$_svgPath/chevron-down.svg';
 }

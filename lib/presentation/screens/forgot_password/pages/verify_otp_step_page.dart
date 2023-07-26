@@ -16,6 +16,7 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../theme/text_style_manager.dart';
+import '../../../widgets/custom_text_button.dart';
 import '../../../widgets/page_content_padding.dart';
 
 class ForgotPasswordVerifyOtpPage extends StatefulWidget {
@@ -190,11 +191,9 @@ class _ForgotPasswordVerifyOtpPageState
         CustomSpacers.small(),
         BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
           builder: (context, state) {
-            return TextButton(
+            return CustomTextButton(
               onPressed: state.isResendButtonActive ? _resendOtp : null,
-              style: TextButton.styleFrom(
-                  disabledForegroundColor: AppColors.primary.withOpacity(0.3)),
-              child: Text(AppStrings.resend.tr()),
+              text: AppStrings.resend.tr(),
             );
           },
         )

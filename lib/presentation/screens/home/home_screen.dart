@@ -77,9 +77,17 @@ class _HomeScreenState extends State<HomeScreen> {
       required String filledSvgPath,
       required String svgPath}) {
     return BottomNavigationBarItem(
-      icon: SvgPicture.asset(svgPath),
+      icon: SvgPicture.asset(
+        svgPath,
+        height: AppSizes.s28.r,
+        width: AppSizes.s28.r,
+      ),
       tooltip: label,
-      activeIcon: SvgPicture.asset(filledSvgPath),
+      activeIcon: SvgPicture.asset(
+        filledSvgPath,
+        height: AppSizes.s28.r,
+        width: AppSizes.s28.r,
+      ),
       label: label,
     );
   }

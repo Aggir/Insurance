@@ -4,7 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/screens/add_my_vechicle/add_my_vehicle_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_details_step_page.dart';
 import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_user_info_step_page.dart';
+import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
+import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
@@ -12,6 +16,8 @@ import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
 import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:insurance_app/presentation/screens/profile/profile_screen.dart';
+import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 
@@ -53,14 +59,22 @@ class Routes {
 
   static const String myPaymentsRoute = "/my-payments";
 
+  static const String settingsRoute = "/settings";
+  static const String changePasswordRoute = "change-password";
+  static const String settingsChangePasswordRoute =
+      "$settingsRoute/$changePasswordRoute";
+
+  static const String profileRoute = '/profile';
   static const String addMyVehicleRoute = "/add-my-vehicle-user-info-step";
+  static const String addMyVehicleDetailsStepRoute =
+      "/add-my-vehicle-details-step";
 }
 
 class AppRouter {
   // onboardingRoute (initialLocation)
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.myPaymentsRoute,
+    initialLocation: Routes.addMyVehicleDetailsStepRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -98,6 +112,28 @@ class AppRouter {
           return const MyPaymentsScreen();
         },
       ),
+      GoRoute(
+        path: Routes.profileRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ProfileScreen();
+        },
+      ),
+      GoRoute(
+          path: Routes.settingsRoute,
+          builder: (BuildContext context, GoRouterState state) {
+            return const SettingsScreen();
+          },
+          routes: [
+            GoRoute(
+              path: Routes.changePasswordRoute,
+              builder: (BuildContext context, GoRouterState state) {
+                return BlocProvider(
+                  create: (context) => ChangePasswordCubit(),
+                  child: const ChangePasswordScreen(),
+                );
+              },
+            ),
+          ]),
       StatefulShellRoute.indexedStack(
           builder: (context, state, child) {
             return BlocProvider(
@@ -174,13 +210,12 @@ class AppRouter {
         builder: (context, state) => const AddMyVehicleUserInfoStepPage(),
       ),
     ]),
-
-    // StatefulShellBranch(routes: [
-    //   GoRoute(
-    //     path: Routes.signupPasswordStepRoute,
-    //     builder: (context, state) => const SignUpPasswordStepPage(),
-    //   ),
-    // ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehicleDetailsStepRoute,
+        builder: (context, state) => const AddMyVehicleDetailsStepPage(),
+      ),
+    ]),
   ];
 
   static final List<StatefulShellBranch> _forgotPasswordBranches = [

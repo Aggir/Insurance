@@ -20,7 +20,7 @@ class AddMyVehicleStepsScreen extends StatefulWidget {
 class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
+    // final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
 
     final BlocBuilder blockBuilder =
         BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(

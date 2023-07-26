@@ -15,7 +15,7 @@ class ADsSlider extends StatelessWidget {
         autoPlay: true,
         // initialPage: (adsUrls.length / 2).floor(),
         viewportFraction: 1,
-        height: AppSizes.s130.r,
+        aspectRatio: MediaQuery.of(context).size.width.r / 130.h,
         clipBehavior: Clip.antiAlias,
       ),
     );
@@ -23,11 +23,14 @@ class ADsSlider extends StatelessWidget {
 
   Widget adWidget(String imgUrl) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
+      padding: EdgeInsets.symmetric(horizontal: AppValues.medium.r),
       child: ClipRRect(
           borderRadius:
               BorderRadius.circular(AppValues.cardPageContainerRadius.r),
-          child: Image.asset(imgUrl)),
+          child: Image.asset(
+            imgUrl,
+            fit: BoxFit.fitHeight,
+          )),
     );
   }
 }

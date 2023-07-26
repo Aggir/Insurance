@@ -12,6 +12,7 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'package:insurance_app/presentation/theme/styles_manager.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 
@@ -67,12 +68,12 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   CustomSpacers.mediumLarge(),
-                  const Divider(),
+                  const CustomDivider(),
                   CustomSpacers.mediumLarge(),
                   if (showCreateVehicle) ...[
                     _createVehicleFirstWidget(context),
                     CustomSpacers.mediumLarge(),
-                    const Divider(),
+                    const CustomDivider(),
                     CustomSpacers.mediumLarge(),
                   ],
                   _insuranceServicesSection(context),
@@ -113,7 +114,11 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               onPressed: () => _notificationButtonFunction(context),
-              icon: SvgPicture.asset(SvgAssets.bell),
+              icon: SvgPicture.asset(
+                SvgAssets.bell,
+                height: AppSizes.s32.r,
+                width: AppSizes.s32.r,
+              ),
             ),
           ],
         ),
@@ -188,9 +193,11 @@ class _HomePageState extends State<HomePage> {
         decoration: BoxDecoration(
           boxShadow: [AppValues.boxShadow],
           borderRadius: borderRadius,
-          image: const DecorationImage(
-            image: AssetImage(ImageAssets.vehicleInsurance),
-          ),
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Image.asset(
+          ImageAssets.vehicleInsurance,
+          fit: BoxFit.fitWidth,
         ),
       ),
       Positioned(
@@ -273,7 +280,11 @@ class _HomePageState extends State<HomePage> {
                           horizontal: AppValues.small,
                           vertical: AppValues.medium)
                       .r,
-                  child: SvgPicture.asset(SvgAssets.chevronLeft)),
+                  child: SvgPicture.asset(
+                    SvgAssets.chevronLeft,
+                    height: AppSizes.s22.r,
+                    width: AppSizes.s22.r,
+                  )),
             ],
           ),
         ),
@@ -304,7 +315,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(svgPath),
+          SvgPicture.asset(
+            svgPath,
+            height: AppSizes.s28.r,
+            width: AppSizes.s28.r,
+          ),
           CustomSpacers.extraSmall(),
           Text(
             title,
