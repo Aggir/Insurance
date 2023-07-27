@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:insurance_app/app/app_strings.dart';
 
-import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/entities/signup_document_info.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 

@@ -7,12 +7,14 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/home/components/insurance_list_item.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class MyInsurancesPage extends StatefulWidget {
   const MyInsurancesPage({super.key});
@@ -38,9 +40,9 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   final Map<String, String> _tabsMap = {
-    '0': AppStrings.underTheProcedure.tr(),
-    '1': AppStrings.outgoing.tr(),
-    '2': AppStrings.unpaid.tr(),
+    '0': AppStrings.underProcessing.tr(),
+    '1': AppStrings.issued.tr(),
+    '2': AppStrings.notPaid.tr(),
     '3': AppStrings.expired.tr(),
   };
   final _currentIndex = ValueNotifier<String>(0.toString());
@@ -93,49 +95,50 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
             controller: _tabController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              _underTheProcedure(),
-              _outgoing(),
-              _unpaid(),
+              _underProcessing(),
+              _issued(),
+              _notPaid(),
               _expired(),
             ]),
       ),
     );
   }
 
-  bool underTheProcedureIsEmpty = true;
-  bool outgoingIsEmpty = true;
-  bool unpaidIsEmpty = true;
-  bool expiredIsEmpty = true;
-
-  Widget _underTheProcedure() {
-    if (underTheProcedureIsEmpty) {
-      return _emptyState(AppStrings.underTheProcedure.tr());
+  Widget _underProcessing() {
+    if (DUMMY.underProcessingInsurances.isEmpty) {
+      return _emptyState(AppStrings.underProcessing.tr());
     } else {
-      return Container();
+      return ListView();
     }
   }
 
-  Widget _outgoing() {
-    if (outgoingIsEmpty) {
-      return _emptyState(AppStrings.outgoing.tr());
+  Widget _issued() {
+    if (DUMMY.issuedInsurances.isEmpty) {
+      return _emptyState(AppStrings.issued.tr());
     } else {
-      return Container();
+      return ListView();
     }
   }
 
-  Widget _unpaid() {
-    if (unpaidIsEmpty) {
-      return _emptyState(AppStrings.unpaid.tr());
+  Widget _notPaid() {
+    if (DUMMY.notPaidInsurances.isEmpty) {
+      return _emptyState(AppStrings.notPaid.tr());
     } else {
-      return Container();
+      return ListView(
+        children: [
+          ...DUMMY.notPaidInsurances
+              .map((insurance) => InsuranceListItem(insurance))
+              .toList()
+        ],
+      );
     }
   }
 
   Widget _expired() {
-    if (expiredIsEmpty) {
+    if (DUMMY.expiredInsurances.isEmpty) {
       return _emptyState(AppStrings.expired.tr());
     } else {
-      return Container();
+      return ListView();
     }
   }
 
@@ -146,7 +149,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
           padding: const EdgeInsets.all(AppValues.large).r,
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             SvgPicture.asset(
-              SvgAssets.insuranceEmptyState,
+              SvgAssets.insurance,
               height: AppSizes.s160.r,
             ),
             CustomSpacers.large(),
