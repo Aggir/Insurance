@@ -76,6 +76,7 @@ class SvgAssets {
   static const String car = '$_svgPath/car.svg';
   static const String carFilled = '$_svgPath/car-filled.svg';
   static const String creditCard = '$_svgPath/credit-card.svg';
+  static const String creditCardFilled = '$_svgPath/credit-card-filled.svg';
   static const String flame = '$_svgPath/flame.svg';
   static const String home = '$_svgPath/home.svg';
   static const String homeFilled = '$_svgPath/home-filled.svg';

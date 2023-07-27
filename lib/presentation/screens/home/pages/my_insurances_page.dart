@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/home/components/insurance_list_item.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -108,7 +109,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     if (DUMMY.underProcessingInsurances.isEmpty) {
       return _emptyState(AppStrings.underProcessing.tr());
     } else {
-      return ListView();
+      return _customListViewBuilder(DUMMY.underProcessingInsurances);
     }
   }
 
@@ -116,7 +117,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     if (DUMMY.issuedInsurances.isEmpty) {
       return _emptyState(AppStrings.issued.tr());
     } else {
-      return ListView();
+      return _customListViewBuilder(DUMMY.issuedInsurances);
     }
   }
 
@@ -124,13 +125,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     if (DUMMY.notPaidInsurances.isEmpty) {
       return _emptyState(AppStrings.notPaid.tr());
     } else {
-      return ListView(
-        children: [
-          ...DUMMY.notPaidInsurances
-              .map((insurance) => InsuranceListItem(insurance))
-              .toList()
-        ],
-      );
+      return _customListViewBuilder(DUMMY.notPaidInsurances);
     }
   }
 
@@ -138,7 +133,22 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     if (DUMMY.expiredInsurances.isEmpty) {
       return _emptyState(AppStrings.expired.tr());
     } else {
-      return ListView();
+      return _customListViewBuilder(DUMMY.expiredInsurances);
+    }
+  }
+
+  Widget _customListViewBuilder(List<Insurance> data) {
+    if (DUMMY.notPaidInsurances.isEmpty) {
+      return _emptyState(AppStrings.notPaid.tr());
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.symmetric(
+                vertical: AppValues.large, horizontal: AppValues.medium)
+            .r,
+        separatorBuilder: (context, index) => CustomSpacers.medium(),
+        itemCount: data.length,
+        itemBuilder: (context, index) => InsuranceListItem(data[index]),
+      );
     }
   }
 

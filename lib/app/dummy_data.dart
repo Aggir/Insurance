@@ -53,9 +53,9 @@ const paymentMethods = [
   {'id': 5, 'value': 'معاملات', 'imgPath': ImageAssets.moamalat},
 ];
 
-const underProcessingInsurances = [];
-const issuedInsurances = [];
-const notPaidInsurances = [
+const underProcessingInsurances = <Insurance>[];
+const issuedInsurances = <Insurance>[];
+const notPaidInsurances = <Insurance>[
   Insurance(
     id: 1,
     insuranceTypeId: 1,
@@ -64,7 +64,11 @@ const notPaidInsurances = [
     referenceNumber: '008096',
     issuanceDate: '1-11-2022',
     insuredName: 'مرام عبدالباسط القدري',
+    insuranceType: 'وثيقة تأمين سيارة إجباري',
+    insuranceCompany: 'شركة تيبستي للتأمين',
+    carBrand: 'كيا',
+    carBrandImgPath: ImageAssets.kia,
     insuranceStatus: InsuranceStatus.notPaid,
   ),
 ];
-const expiredInsurances = [];
+const expiredInsurances = <Insurance>[];
