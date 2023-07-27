@@ -64,6 +64,10 @@ TextStyle extraSmallGrayBodyStyle() {
   return getRegularStyle(color: AppColors.gray, fontSize: FontSize.s10);
 }
 
+TextStyle extraSmallDarkGrayBodyStyle() {
+  return getRegularStyle(color: AppColors.darkGray, fontSize: FontSize.s10);
+}
+
 TextStyle textFieldErrorMessageStyle() {
   return getRegularStyle(color: AppColors.danger, fontSize: FontSize.s10);
 }

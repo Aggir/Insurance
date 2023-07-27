@@ -149,7 +149,7 @@ class _HomePageState extends State<HomePage> {
         'title': AppStrings.familyInsurance.tr(),
       },
       {
-        'svgPath': SvgAssets.creditCard,
+        'svgPath': SvgAssets.creditCardFilled,
         'title': AppStrings.cardInsurance.tr(),
       },
     ];

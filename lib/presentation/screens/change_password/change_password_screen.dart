@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
 import 'package:insurance_app/presentation/screens/change_password/components/change_password_dialog.dart';

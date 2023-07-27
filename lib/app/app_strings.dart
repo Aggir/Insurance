@@ -114,12 +114,20 @@ class AppStrings {
   static const youDidNotAddAnyVehicle = 'you_did_not_add_any_vehicle';
   static const addVehicle = 'add_vehicle';
 
-  static const underTheProcedure = 'under_the_procedure';
-  static const outgoing = 'outgoing';
-  static const unpaid = 'unpaid';
+  static const underProcessing = 'under_processing';
+  static const issued = 'issued';
+  static const notPaid = 'not_paid';
   static const expired = 'expired';
   static const thereAreNoInsurances = 'there_are_no_insurances';
   static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
+  static const issuedInsurance = 'issued_insurance';
+  static const expiredInsurance = 'expired_insurance';
+  static const theVehicle = 'the_vehicle';
+  static const insuredName = 'insured_name';
+  static const insuredBy = 'insured_by';
+  static const viewTheDocument = 'view_the_document';
+  static const completeThePayment = 'complete_the_payment';
+  static const renewal = 'renewal';
 
   static const moreServices = 'more_services';
   static const myPayments = 'my_payments';

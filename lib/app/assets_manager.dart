@@ -36,6 +36,15 @@ class ImageAssets {
   static const String nab4pay = '$_imagePath/nab-4-pay.png';
   static const String sadad = '$_imagePath/sadad.png';
   static const String tadawul = '$_imagePath/tadawul.png';
+  static const String kia = '$_imagePath/kia.png';
+  static const String mercedes = '$_imagePath/mercedes.png';
+  static const String volkswagen = '$_imagePath/volkswagen.png';
+  static const String jeep = '$_imagePath/jeep.png';
+  static const String lexus = '$_imagePath/lexus.png';
+  static const String hyundai = '$_imagePath/hyundai.png';
+  static const String audi = '$_imagePath/audi.png';
+  static const String toyota = '$_imagePath/toyota.png';
+  static const String porsche = '$_imagePath/porsche.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -67,6 +76,7 @@ class SvgAssets {
   static const String car = '$_svgPath/car.svg';
   static const String carFilled = '$_svgPath/car-filled.svg';
   static const String creditCard = '$_svgPath/credit-card.svg';
+  static const String creditCardFilled = '$_svgPath/credit-card-filled.svg';
   static const String flame = '$_svgPath/flame.svg';
   static const String home = '$_svgPath/home.svg';
   static const String homeFilled = '$_svgPath/home-filled.svg';
@@ -77,8 +87,7 @@ class SvgAssets {
   static const String shield = '$_svgPath/shield.svg';
   static const String shieldFilled = '$_svgPath/shield-filled.svg';
   static const String bell = '$_svgPath/bell.svg';
-  static const String insuranceEmptyState =
-      '$_svgPath/insurances-empty-state.svg';
+  static const String insurance = '$_svgPath/insurance.svg';
   static const String cameraCircleFilled = '$_svgPath/camera-circle-filled.svg';
   static const String envelope = '$_svgPath/envelope.svg';
   static const String logout = '$_svgPath/logout.svg';
@@ -87,4 +96,5 @@ class SvgAssets {
   static const String edit = '$_svgPath/edit.svg';
   static const String chevronTop = '$_svgPath/chevron-up.svg';
   static const String chevronBottom = '$_svgPath/chevron-down.svg';
+  static const String clock = '$_svgPath/clock.svg';
 }
