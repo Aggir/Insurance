@@ -151,5 +151,13 @@
     "you_have_chosen_this_payment_method":"",
     "payment_completed_successfully":"",
     "payment_dialog_message":"",
-    "home_screen":""
+    "home_screen":"",
+    "notifications":"",
+    "you_have_no_notifications":"",
+    "you_have_no_notifications_message":"",
+    "back_to_home_screen":"",
+    "the_document_is_about_to_expire":"",
+    "the_document_has_expired":"",
+    "the_insurance_has_been_approved":"",
+    "the_insurance_has_been_paid":""
 }

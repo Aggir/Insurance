@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
 import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -15,27 +17,28 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({this.firstLogin = false, super.key});
+  final bool firstLogin;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  _notificationButtonFunction(BuildContext context) {}
+  _notificationButtonFunction(BuildContext context) {
+    context.go(Routes.notificationsRoute);
+  }
 
   _createVehicleFunction(BuildContext context) {}
 
   _insureCarFunction(BuildContext context) {}
 
-  final bool _firstLogin = true;
-
   @override
   void initState() {
     super.initState();
-    if (_firstLogin) {
+    if (widget.firstLogin) {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(
           context,
@@ -107,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 CustomSpacers.medium(),
                 Text(
-                  '${AppStrings.welcome.tr()}مرام!',
+                  '${AppStrings.welcome.tr()}${DUMMY.fistName}!',
                   style: mediumSmallHeadlineStyle(),
                 ),
               ],

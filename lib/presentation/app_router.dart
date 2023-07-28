@@ -17,6 +17,7 @@ import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
 import 'package:insurance_app/presentation/screens/no_connection/no_connection_screen.dart';
+import 'package:insurance_app/presentation/screens/notifications/notifications_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/profile/profile_screen.dart';
 import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
@@ -71,12 +72,14 @@ class Routes {
 
   static const String paymentRoute = '/payment-send-otp';
   static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
+
+  static const String notificationsRoute = '/notifications';
 }
 
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.myInsurancesRoute,
+    initialLocation: Routes.homeRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -144,6 +147,12 @@ class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return InsuranceDocument(
               state.pathParameters['reference_number'] ?? '0');
+        },
+      ),
+      GoRoute(
+        path: Routes.notificationsRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const NotificationsScreen();
         },
       ),
       StatefulShellRoute.indexedStack(
@@ -244,7 +253,8 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.homeRoute,
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) =>
+            HomePage(firstLogin: state.extra as bool? ?? false),
       ),
     ]),
     StatefulShellBranch(routes: [

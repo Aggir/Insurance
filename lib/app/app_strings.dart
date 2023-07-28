@@ -191,4 +191,14 @@ class AppStrings {
   static const paymentCompletedSuccessfully = 'payment_completed_successfully';
   static const paymentDialogMessage = 'payment_dialog_message';
   static const homeScreen = 'home_screen';
+
+  static const notifications = 'notifications';
+  static const youHaveNoNotifications = 'you_have_no_notifications';
+  static const youHaveNoNotificationsMessage =
+      'you_have_no_notifications_message';
+  static const backToHomeScreen = 'back_to_home_screen';
+  static const theDocumentIsAboutToExpire = 'the_document_is_about_to_expire';
+  static const theDocumentHasExpired = 'the_document_has_expired';
+  static const theInsuranceHasBeenApproved = 'the_insurance_has_been_approved';
+  static const theInsuranceHasBeenPaid = 'the_insurance_has_been_paid';
 }
