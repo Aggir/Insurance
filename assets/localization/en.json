@@ -143,5 +143,13 @@
     "libyan": "",
     "non_libyan": "",
     "document": "",
-    "download": ""
+    "download": "",
+    "choose_the_appropriate_payment_method":"",
+    "choose_the_payment_method_that_suits_you":"",
+    "payment_by":"",
+    "enter_phone_number":"",
+    "you_have_chosen_this_payment_method":"",
+    "payment_completed_successfully":"",
+    "payment_dialog_message":"",
+    "home_screen":""
 }

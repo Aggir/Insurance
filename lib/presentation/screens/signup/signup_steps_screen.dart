@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import '../../blocs/signup/signup_cubit.dart';
 import '../../widgets/custom_back_button.dart';
-import '../../widgets/steps_app_bar_widget.dart';
 
 class SignUpStepsScreen extends StatefulWidget {
   const SignUpStepsScreen(this.child, this.location, {super.key});
@@ -22,7 +22,7 @@ class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
     return Scaffold(
       appBar: widget.child.currentIndex == 0
           ? null
-          : stepsAppBarWidget(
+          : CustomAppBar.steps(
               currentIndex: widget.child.currentIndex,
               pageCount: AppRouter.signupSteps,
               backButton: BlocBuilder<SignUpCubit, SignUpState>(

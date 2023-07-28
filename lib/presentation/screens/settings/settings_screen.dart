@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
+      appBar: CustomAppBar.basic(
         title: AppStrings.settings.tr(),
         backButton: () => context.go(Routes.moreRoute),
       ),

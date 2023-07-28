@@ -52,7 +52,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.build(
+        appBar: CustomAppBar.basic(
           title: AppStrings.changePassword.tr(),
         ),
         body: SingleChildScrollView(

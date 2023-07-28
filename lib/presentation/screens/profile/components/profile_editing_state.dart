@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:insurance_app/presentation/blocs/profile/cubit/profile_cubit.dart';
+import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';

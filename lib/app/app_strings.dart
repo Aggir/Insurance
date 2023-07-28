@@ -179,4 +179,16 @@ class AppStrings {
 
   static const document = 'document';
   static const download = 'download';
+
+  static const chooseTheAppropriatePaymentMethod =
+      'choose_the_appropriate_payment_method';
+  static const chooseThePaymentMethodThatSuitsYou =
+      'choose_the_payment_method_that_suits_you';
+  static const paymentBy = 'payment_by';
+  static const enterPhoneNumber = 'enter_phone_number';
+  static const youHaveChosenThisPaymentMethod =
+      'you_have_chosen_this_payment_method';
+  static const paymentCompletedSuccessfully = 'payment_completed_successfully';
+  static const paymentDialogMessage = 'payment_dialog_message';
+  static const homeScreen = 'home_screen';
 }

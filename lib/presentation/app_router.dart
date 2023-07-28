@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
-import 'package:insurance_app/presentation/blocs/profile/cubit/profile_cubit.dart';
+import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
+import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/insurance_document/insurance_document_screen.dart';
+import 'package:insurance_app/presentation/screens/insurance_payment/pages/send_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/insurance_payment/pages/verify_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/insurance_payment/payment_steps_screen.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
@@ -29,6 +34,7 @@ class Routes {
   static const String homeRoute = "/";
   static const String myVehiclesRoute = "/my-vehicles";
   static const String myInsurancesRoute = "/my-insurances";
+  static const String insuranceDocumentRoute = "/insurance-document";
   static const String moreRoute = "/more";
 
   static const String onboardingRoute = "/onboarding";
@@ -62,6 +68,9 @@ class Routes {
       "$settingsRoute/$changePasswordRoute";
 
   static const String profileRoute = '/profile';
+
+  static const String paymentRoute = '/payment-send-otp';
+  static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
 }
 
 class AppRouter {
@@ -130,27 +139,46 @@ class AppRouter {
               },
             ),
           ]),
+      GoRoute(
+        path: '${Routes.insuranceDocumentRoute}:reference_number',
+        builder: (BuildContext context, GoRouterState state) {
+          return InsuranceDocument(
+              state.pathParameters['reference_number'] ?? '0');
+        },
+      ),
       StatefulShellRoute.indexedStack(
-          builder: (context, state, child) {
-            return BlocProvider(
-              create: (context) => SignUpCubit(),
-              child: SignUpStepsScreen(child, state.uri.toString()),
-            );
-          },
-          branches: _signupBranches),
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => SignUpCubit(),
+            child: SignUpStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _signupBranches,
+      ),
       StatefulShellRoute.indexedStack(
-          builder: (context, state, child) {
-            return BlocProvider(
-              create: (context) => ForgotPasswordCubit(),
-              child: ForgotPasswordStepsScreen(child, state.uri.toString()),
-            );
-          },
-          branches: _forgotPasswordBranches),
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => ForgotPasswordCubit(),
+            child: ForgotPasswordStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _forgotPasswordBranches,
+      ),
       StatefulShellRoute.indexedStack(
-          builder: (context, state, child) {
-            return HomeScreen(child, state.uri.toString());
-          },
-          branches: _homeBranches),
+        builder: (context, state, child) {
+          return HomeScreen(child, state.uri.toString());
+        },
+        branches: _homeBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => PaymentCubit(),
+            child: PaymentStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _paymentBranches,
+      ),
     ],
   );
 
@@ -227,17 +255,9 @@ class AppRouter {
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
-          path: Routes.myInsurancesRoute,
-          builder: (context, state) => const MyInsurancesPage(),
-          routes: [
-            GoRoute(
-              path: ':reference_number',
-              builder: (BuildContext context, GoRouterState state) {
-                return InsuranceDocument(
-                    state.pathParameters['reference_number'] ?? '0');
-              },
-            ),
-          ]),
+        path: Routes.myInsurancesRoute,
+        builder: (context, state) => MyInsurancesPage(state.extra ?? 0),
+      ),
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
@@ -246,7 +266,25 @@ class AppRouter {
       ),
     ]),
   ];
+
+  static final List<StatefulShellBranch> _paymentBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.paymentRoute,
+        builder: (context, state) =>
+            PaymentSendOtpPage(state.extra as PaymentMethod?),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.paymentVerifyOtpStepRoute,
+        builder: (context, state) => const PaymentVerifyOtpPage(),
+      ),
+    ]),
+  ];
+
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
   static int get homeBranchesCount => _homeBranches.length;
+  static int get paymentSteps => _paymentBranches.length;
 }
