@@ -162,5 +162,14 @@
     "the_document_is_about_to_expire":"قاربت الوثيقة على انتهاء الصلاحية قم بتجديد الوثيقة لتصبح صالحة من جديد",
     "the_document_has_expired":"انتهت الوثيقة قم بتجديد الوثيقة في اقرب وقت",
     "the_insurance_has_been_approved":"تمت الموافقة على إصدار الوثيقة يمكنك مراجعة تاميناتك الصادرة الإلكتروني",
-    "the_insurance_has_been_paid":"تم سداد الوثيقة عن طريق تطبيق مصرفي "
+    "the_insurance_has_been_paid":"تم سداد الوثيقة عن طريق تطبيق مصرفي ",
+    "car_insurance_screen_description":"يمكنك  تقديم طلب اصدار وثيقة تامين أو تذكير بقرب بانتهاء صلاحية وثيقة تامين مصدرة مسبقا دون العناء و الحاجة إلى زيارة فروع الشركات أو الاتصال .",
+    "issuing_a_car_insurance":"اصدار وثيقة تأمين السيارة",
+    "issuing_a_car_insurance_description":"اصدار وثيقة إلكترونيا واكمال رسوم  الاصدار بوسائل دفع إلكترونيا مختلفة .",
+    "reminder_about_expiration_date":"تذكير بقرب انتهاء الصلاحية",
+    "reminder_about_expiration_date_description":"حدّد التذكير بقرب انتهاء الفحص الفني ، ضريبة   الطريق ، او التنبيه لوثيقة مصدرة سابقا.",
+    "insurance_policy_prices":"اسعار الوثائق",
+    "insurance_policy_prices_description":"قارن بين أسعار الشركات المختلفة، لإصدار الوثيقة بالسعر المناسب لك.",
+    "insurance_companies":"شركات التأمين ",
+    "insurance_companies_description":"يعرض لك هذا الخيار كافة شركات التأمين المتوفرة بالنظام."
 }

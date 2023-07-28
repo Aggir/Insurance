@@ -201,4 +201,19 @@ class AppStrings {
   static const theDocumentHasExpired = 'the_document_has_expired';
   static const theInsuranceHasBeenApproved = 'the_insurance_has_been_approved';
   static const theInsuranceHasBeenPaid = 'the_insurance_has_been_paid';
+
+  static const carInsuranceScreenDescription =
+      'car_insurance_screen_description';
+  static const issuingACarInsurance = 'issuing_a_car_insurance';
+  static const issuingACarInsuranceDescription =
+      'issuing_a_car_insurance_description';
+  static const reminderAboutExpirationDate = 'reminder_about_expiration_date';
+  static const reminderAboutExpirationDateDescription =
+      'reminder_about_expiration_date_description';
+  static const insurancePolicyPrices = 'insurance_policy_prices';
+  static const insurancePolicyPricesDescription =
+      'insurance_policy_prices_description';
+  static const insuranceCompanies = 'insurance_companies';
+  static const insuranceCompaniesDescription =
+      'insurance_companies_description';
 }

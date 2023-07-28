@@ -6,6 +6,7 @@ import 'package:insurance_app/presentation/blocs/change_password/change_password
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
@@ -74,6 +75,8 @@ class Routes {
   static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
 
   static const String notificationsRoute = '/notifications';
+
+  static const String carsInsuranceRoute = '/cars-insurance';
 }
 
 class AppRouter {
@@ -154,6 +157,24 @@ class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return const NotificationsScreen();
         },
+      ),
+      GoRoute(
+        path: Routes.carsInsuranceRoute,
+        pageBuilder: (context, state) => CustomTransitionPage(
+          child: const CarsInsuranceScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+              SlideTransition(
+            position: animation.drive(
+              Tween<Offset>(
+                begin: const Offset(0, 1),
+                end: Offset.zero,
+              ).chain(
+                CurveTween(curve: Curves.easeIn),
+              ),
+            ),
+            child: child,
+          ),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
