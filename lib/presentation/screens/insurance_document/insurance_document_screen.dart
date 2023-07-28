@@ -5,9 +5,11 @@ import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -45,6 +47,7 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
   loadDocument() async {
     _document = await PDFDocument.fromURL(pdfUrlString);
     _firstPage = await _document.get(page: 1);
+    if (!mounted) return;
     setState(() {
       _isLoading = false;
     });
@@ -69,20 +72,22 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
-        customTitle: Text.rich(
-          TextSpan(
-            text: '${AppStrings.document.tr()} ',
-            style: smallHeadlineStyle(),
-            children: [
-              TextSpan(
-                text: widget.referenceNumber,
-                style: smallGrayHeadlineStyle(),
-              )
-            ],
+      appBar: CustomAppBar.basic(
+          customTitle: Text.rich(
+            TextSpan(
+              text: '${AppStrings.document.tr()} ',
+              style: smallHeadlineStyle(),
+              children: [
+                TextSpan(
+                  text: widget.referenceNumber,
+                  style: smallGrayHeadlineStyle(),
+                )
+              ],
+            ),
           ),
-        ),
-      ),
+          backButton: () {
+            context.go(Routes.myInsurancesRoute, extra: 1);
+          }),
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: AppValues.mediumLarge, vertical: AppValues.extraLarge),

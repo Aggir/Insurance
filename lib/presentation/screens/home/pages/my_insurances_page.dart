@@ -18,8 +18,8 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class MyInsurancesPage extends StatefulWidget {
-  const MyInsurancesPage({super.key});
-
+  const MyInsurancesPage(this.pageIndex, {super.key});
+  final pageIndex;
   @override
   State<MyInsurancesPage> createState() => _MyInsurancesPageState();
 }
@@ -27,14 +27,16 @@ class MyInsurancesPage extends StatefulWidget {
 class _MyInsurancesPageState extends State<MyInsurancesPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  late final ValueNotifier<String> _currentIndex;
   @override
   void initState() {
     super.initState();
     _tabController = TabController(
-      initialIndex: 0,
+      initialIndex: widget.pageIndex,
       length: 4,
       vsync: this,
     );
+    _currentIndex = ValueNotifier<String>(widget.pageIndex.toString());
     _currentIndex.addListener(() {
       _tabController.animateTo(int.parse(_currentIndex.value));
     });
@@ -46,7 +48,6 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     '2': AppStrings.notPaid.tr(),
     '3': AppStrings.expired.tr(),
   };
-  final _currentIndex = ValueNotifier<String>(0.toString());
   _insuranceServicesButtonFunction(BuildContext context) {
     context.go(Routes.homeRoute);
   }
@@ -169,7 +170,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
             ),
             CustomSpacers.medium(),
             Text(
-              '${AppStrings.youDoNotHaveAnyInsurances.tr()}$text.',
+              '${AppStrings.youDoNotHaveAnyInsurances.tr()} $text.',
               style: grayBodyStyle(),
             ),
             CustomSpacers.large(),

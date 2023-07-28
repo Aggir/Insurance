@@ -31,7 +31,7 @@ class MyPaymentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
+      appBar: CustomAppBar.basic(
         title: AppStrings.myPayments.tr(),
         backButton: () {
           context.go(Routes.moreRoute);

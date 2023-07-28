@@ -3,14 +3,12 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
+import 'package:insurance_app/presentation/screens/insurance_payment/components/payment_completed_dialog.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
@@ -20,23 +18,21 @@ import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_text_button.dart';
 import '../../../widgets/page_content_padding.dart';
 
-class ForgotPasswordVerifyOtpPage extends StatefulWidget {
-  const ForgotPasswordVerifyOtpPage({super.key});
+class PaymentVerifyOtpPage extends StatefulWidget {
+  const PaymentVerifyOtpPage({super.key});
 
   @override
-  State<ForgotPasswordVerifyOtpPage> createState() =>
-      _ForgotPasswordVerifyOtpPageState();
+  State<PaymentVerifyOtpPage> createState() => _PaymentVerifyOtpPageState();
 }
 
-class _ForgotPasswordVerifyOtpPageState
-    extends State<ForgotPasswordVerifyOtpPage> {
-  _otpOnComplete(ForgotPasswordCubit cubit) {
+class _PaymentVerifyOtpPageState extends State<PaymentVerifyOtpPage> {
+  _otpOnComplete(PaymentCubit cubit) {
     cubit.confirmVerifyOtpForm();
   }
 
   bool isResendButtonActive = false;
   _resendOtp() {
-    BlocProvider.of<ForgotPasswordCubit>(context).startTimer();
+    BlocProvider.of<PaymentCubit>(context).startTimer();
   }
 
   @override
@@ -61,18 +57,23 @@ class _ForgotPasswordVerifyOtpPageState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // CustomSpacers.large(),
-              Container(
-                height: AppSizes.s104.r,
-                width: AppSizes.s104.r,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryLight,
-                  borderRadius: BorderRadius.circular(100),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      ImageAssets.verifyOtp,
+              BlocBuilder<PaymentCubit, PaymentState>(
+                builder: (context, state) {
+                  return Container(
+                    height: AppSizes.s104.r,
+                    width: AppSizes.s104.r,
+                    padding: const EdgeInsets.all(AppValues.medium).r,
+                    decoration: BoxDecoration(
+                      color: AppColors.lightest,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: AppColors.grayLight),
                     ),
-                  ),
-                ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.asset(
+                      state.paymentMethod!.imagePath,
+                    ),
+                  );
+                },
               ),
               CustomSpacers.medium(),
               CustomSpacers.small(),
@@ -98,7 +99,7 @@ class _ForgotPasswordVerifyOtpPageState
   }
 
   Widget _bodyTextWidget() {
-    return BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+    return BlocBuilder<PaymentCubit, PaymentState>(
       builder: (context, state) {
         return Text.rich(
           textAlign: TextAlign.center,
@@ -108,8 +109,7 @@ class _ForgotPasswordVerifyOtpPageState
               style: darkGrayBodyStyle(),
               children: [
                 TextSpan(
-                    text: state.emailOrPhoneNumber ?? '',
-                    style: smallHeadlineStyle())
+                    text: state.phoneNumber ?? '', style: smallHeadlineStyle())
               ]),
         );
       },
@@ -117,8 +117,8 @@ class _ForgotPasswordVerifyOtpPageState
   }
 
   Widget _otpForm(BuildContext context) {
-    final cubit = BlocProvider.of<ForgotPasswordCubit>(context);
-    return BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+    final cubit = BlocProvider.of<PaymentCubit>(context);
+    return BlocListener<PaymentCubit, PaymentState>(
         listenWhen: (previous, current) =>
             current.verifyOtpStatus != previous.verifyOtpStatus,
         listener: (context, state) {
@@ -126,8 +126,8 @@ class _ForgotPasswordVerifyOtpPageState
             DialogService.loadLoadingDialog(context);
           } else if (state.verifyOtpStatus.isSuccess) {
             DialogService.dispose();
-            GoRouter.of(context)
-                .go(Routes.forgotPasswordResetPasswordStepRoute);
+            DialogService.load(context,
+                content: const PaymentCompletedDialog());
           } else if (state.verifyOtpStatus.isFailure) {
             DialogService.dispose();
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -174,7 +174,7 @@ class _ForgotPasswordVerifyOtpPageState
           AppStrings.left.tr(),
           style: grayBodyStyle(),
         ),
-        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+        BlocBuilder<PaymentCubit, PaymentState>(
           builder: (context, state) {
             return Text(
               '${formatDuration(Duration(seconds: state.resendCounterInSeconds))} ',
@@ -188,7 +188,7 @@ class _ForgotPasswordVerifyOtpPageState
           style: grayBodyStyle(),
         ),
         CustomSpacers.small(),
-        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+        BlocBuilder<PaymentCubit, PaymentState>(
           builder: (context, state) {
             return CustomTextButton(
               onPressed: state.isResendButtonActive ? _resendOtp : null,

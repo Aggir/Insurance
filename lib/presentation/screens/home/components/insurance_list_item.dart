@@ -8,6 +8,7 @@ import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/insurance_payment/components/payment_method_modal.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -204,11 +205,20 @@ class InsuranceListItem extends StatelessWidget {
     if (insurance.insuranceStatus.isExpired ||
         insurance.insuranceStatus.isNotPaid) {
       onPressed = () {
-        // todo: open payment modal
+        showModalBottomSheet(
+          context: context,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadiusDirectional.vertical(
+              top: Radius.circular(AppValues.largeRadius),
+            ),
+          ),
+          builder: (context) => const PaymentMethodModal(),
+        );
       };
     } else if (insurance.insuranceStatus.isIssued) {
       onPressed = () {
-        context.go("${Routes.myInsurancesRoute}/${insurance.referenceNumber}");
+        context
+            .go("${Routes.insuranceDocumentRoute}${insurance.referenceNumber}");
       };
     }
     return PrimaryButton(

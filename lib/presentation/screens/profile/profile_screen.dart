@@ -15,7 +15,7 @@ import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../app/dummy_data.dart' as DUMMY;
-import '../../blocs/profile/cubit/profile_cubit.dart';
+import '../../blocs/profile/profile_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -28,7 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
+      appBar: CustomAppBar.basic(
         title: AppStrings.myAccount.tr(),
         backButton: () {
           final cubit = BlocProvider.of<ProfileCubit>(context);
