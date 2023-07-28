@@ -46,6 +46,11 @@ class ImageAssets {
   static const String toyota = '$_imagePath/toyota.png';
   static const String porsche = '$_imagePath/porsche.png';
   static const String notifications = '$_imagePath/notifications.png';
+  static const String issuing = '$_imagePath/issuing.png';
+  static const String reminder = '$_imagePath/reminder.png';
+  static const String insurancePrices = '$_imagePath/insurance-prices.png';
+  static const String insuranceCompanies =
+      '$_imagePath/insurance-companies.png';
 }
 
 const String _gifPath = 'assets/gifs';

@@ -159,5 +159,14 @@
     "the_document_is_about_to_expire":"",
     "the_document_has_expired":"",
     "the_insurance_has_been_approved":"",
-    "the_insurance_has_been_paid":""
+    "the_insurance_has_been_paid":"",
+    "car_insurance_screen_description":"",
+    "issuing_a_car_insurance":"",
+    "issuing_a_car_insurance_description":"",
+    "reminder_about_expiration_date":"",
+    "reminder_about_expiration_date_description":"",
+    "insurance_policy_prices":"",
+    "insurance_policy_prices_description":"",
+    "insurance_companies":"",
+    "insurance_companies_description":""
 }

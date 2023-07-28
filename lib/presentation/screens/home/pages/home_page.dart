@@ -33,7 +33,9 @@ class _HomePageState extends State<HomePage> {
 
   _createVehicleFunction(BuildContext context) {}
 
-  _insureCarFunction(BuildContext context) {}
+  _carsInsuranceFunction(BuildContext context) {
+    context.go(Routes.carsInsuranceRoute);
+  }
 
   @override
   void initState() {
@@ -238,7 +240,7 @@ class _HomePageState extends State<HomePage> {
           clipBehavior: Clip.antiAlias,
           color: Colors.transparent,
           child: InkWell(
-            onTap: () => _insureCarFunction(context),
+            onTap: () => _carsInsuranceFunction(context),
           ),
         ),
       ),
