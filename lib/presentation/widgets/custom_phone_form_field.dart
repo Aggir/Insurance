@@ -56,13 +56,13 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
       errorStyle: const TextStyle(height: 0),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(AppValues.inputRadius.r),
+          right: Radius.circular(AppValues.mediumRadius.r),
           left: Radius.zero,
         ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.horizontal(
-            right: Radius.circular(AppValues.inputRadius.r)),
+            right: Radius.circular(AppValues.mediumRadius.r)),
         borderSide: BorderSide(color: AppColors.grayLight),
       ),
       contentPadding: const EdgeInsets.symmetric(
@@ -95,7 +95,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                     border: Border.all(
                         color: _showError ? Colors.red : AppColors.grayLight),
                     borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(AppValues.inputRadius.r),
+                      left: Radius.circular(AppValues.mediumRadius.r),
                     ),
                   ),
                 ),

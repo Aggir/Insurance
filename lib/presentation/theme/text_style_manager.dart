@@ -60,6 +60,10 @@ TextStyle smallDarkGrayHeadlineStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
 }
 
+TextStyle smallGrayHeadlineStyle() {
+  return getBoldStyle(color: AppColors.gray, fontSize: FontSize.s14);
+}
+
 TextStyle extraSmallGrayBodyStyle() {
   return getRegularStyle(color: AppColors.gray, fontSize: FontSize.s10);
 }

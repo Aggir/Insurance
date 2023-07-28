@@ -23,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
     disabledForegroundColor: AppColors.whiteText,
     padding: const EdgeInsets.all(AppValues.mediumSmall).r,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius.r),
+      borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
     ),
   );
   @override

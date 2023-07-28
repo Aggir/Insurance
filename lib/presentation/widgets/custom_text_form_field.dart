@@ -114,16 +114,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
     final inputDecoration = InputDecoration(
       errorStyle: const TextStyle(height: 0),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
         borderSide: BorderSide(color: AppColors.grayLight),
       ),
       focusedBorder: widget.focusedStyleEnabled
           ? null
           : OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+              borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
               borderSide: BorderSide(color: AppColors.grayLight),
             ),
       contentPadding: const EdgeInsets.symmetric(
@@ -237,9 +237,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       case TextInputType.phone:
         return [FilteringTextInputFormatter.allow(RegExp(r'^\+?\d+'))];
       case TextInputType.name:
-        return [
-          FilteringTextInputFormatter.allow(RegExp('[a-zA-Zأ-ي]+| +|\s'))
-        ];
+        return [FilteringTextInputFormatter.allow(RegExp('[a-zA-Zأ-ي]+| +|s'))];
       default:
         return [];
     }

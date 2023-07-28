@@ -43,10 +43,9 @@ class AppValues {
       color: AppColors.black.withOpacity(0.04),
       offset: const Offset(0, -1));
   // Radius
-  static const double primaryButtonRadius = 10;
-  static const double brandContainerRadius = 5;
-  static const double inputRadius = 10;
-  static const double cardPageContainerRadius = 15;
+  static const double mediumRadius = 10;
+  static const double smallRadius = 5;
+  static const double largeRadius = 15;
   // Sizes
   static Size buttonMinSize = Size(25.r, 50.r);
   // Dimensions

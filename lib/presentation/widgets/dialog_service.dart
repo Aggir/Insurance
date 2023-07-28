@@ -84,8 +84,7 @@ class CustomDialog extends IDialog {
       content: content,
       actions: actions,
       shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
     );
   }

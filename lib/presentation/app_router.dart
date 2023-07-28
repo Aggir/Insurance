@@ -7,6 +7,7 @@ import 'package:insurance_app/presentation/blocs/profile/cubit/profile_cubit.dar
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
+import 'package:insurance_app/presentation/screens/insurance_document/insurance_document_screen.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
@@ -66,7 +67,7 @@ class Routes {
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.settingsRoute,
+    initialLocation: Routes.myInsurancesRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -133,7 +134,7 @@ class AppRouter {
           builder: (context, state, child) {
             return BlocProvider(
               create: (context) => SignUpCubit(),
-              child: SignUpStepsScreen(child, state.location),
+              child: SignUpStepsScreen(child, state.uri.toString()),
             );
           },
           branches: _signupBranches),
@@ -141,13 +142,13 @@ class AppRouter {
           builder: (context, state, child) {
             return BlocProvider(
               create: (context) => ForgotPasswordCubit(),
-              child: ForgotPasswordStepsScreen(child, state.location),
+              child: ForgotPasswordStepsScreen(child, state.uri.toString()),
             );
           },
           branches: _forgotPasswordBranches),
       StatefulShellRoute.indexedStack(
           builder: (context, state, child) {
-            return HomeScreen(child, state.location);
+            return HomeScreen(child, state.uri.toString());
           },
           branches: _homeBranches),
     ],
@@ -226,9 +227,17 @@ class AppRouter {
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
-        path: Routes.myInsurancesRoute,
-        builder: (context, state) => const MyInsurancesPage(),
-      ),
+          path: Routes.myInsurancesRoute,
+          builder: (context, state) => const MyInsurancesPage(),
+          routes: [
+            GoRoute(
+              path: ':reference_number',
+              builder: (BuildContext context, GoRouterState state) {
+                return InsuranceDocument(
+                    state.pathParameters['reference_number'] ?? '0');
+              },
+            ),
+          ]),
     ]),
     StatefulShellBranch(routes: [
       GoRoute(

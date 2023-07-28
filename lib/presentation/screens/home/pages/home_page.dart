@@ -185,7 +185,7 @@ class _HomePageState extends State<HomePage> {
     int companies = 32;
     // Todo: Edit this widget incase if the app changed to English language or any other ltr language
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
+        BorderRadius.circular(AppValues.largeRadius.r);
     return Stack(children: [
       Container(
         width: double.infinity,
@@ -215,8 +215,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(AppValues.small).r,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius:
-                    BorderRadius.circular(AppValues.primaryButtonRadius.r),
+                borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
               ),
               child: Row(
                 children: [
@@ -245,7 +244,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createVehicleFirstWidget(BuildContext context) {
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
+        BorderRadius.circular(AppValues.largeRadius.r);
     return Stack(
       children: [
         Container(
@@ -273,8 +272,8 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          AppValues.primaryButtonRadius.r),
+                      borderRadius:
+                          BorderRadius.circular(AppValues.mediumRadius.r),
                       color: AppColors.black.withOpacity(0.14)),
                   padding: const EdgeInsets.symmetric(
                           horizontal: AppValues.small,
@@ -310,8 +309,7 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
           color: AppColors.lightGray,
           boxShadow: [AppValues.innerShadow],
-          borderRadius:
-              BorderRadius.circular(AppValues.cardPageContainerRadius.r)),
+          borderRadius: BorderRadius.circular(AppValues.largeRadius.r)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

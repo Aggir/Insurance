@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 
 class Insurance extends Equatable {
-  final int id;
-  final int insuranceTypeId;
-  final int carBrandId;
-  final int insuranceCompanyId;
+  final String id;
+  final String insuranceTypeId;
+  final String carBrandId;
+  final String insuranceCompanyId;
   final String referenceNumber;
   final String issuanceDate;
   final String insuredName;
@@ -31,10 +31,10 @@ class Insurance extends Equatable {
   });
 
   Insurance copyWith({
-    int? id,
-    int? insuranceTypeId,
-    int? carBrandId,
-    int? insuranceCompanyId,
+    String? id,
+    String? insuranceTypeId,
+    String? carBrandId,
+    String? insuranceCompanyId,
     String? referenceNumber,
     String? issuanceDate,
     String? insuredName,

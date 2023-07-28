@@ -52,8 +52,7 @@ class ProfileDetailsState extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.lightest,
         border: Border.all(color: AppColors.grayLight),
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
       child: Row(
         children: [
