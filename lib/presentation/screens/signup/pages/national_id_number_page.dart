@@ -35,7 +35,7 @@ class _SignUpNationalIdNumberPageState
     final cubit = BlocProvider.of<SignUpCubit>(context);
     if (cubit.confirmNationalIdNumberForm()) {
       cubit.signUp();
-      context.go(Routes.homeRoute);
+      context.go(Routes.homeRoute, extra: true);
     }
   }
 

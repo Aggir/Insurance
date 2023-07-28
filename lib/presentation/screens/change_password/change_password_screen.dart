@@ -46,50 +46,63 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   void _changePasswordButtonFunction(BuildContext context) {
+    _unfocusFields();
     BlocProvider.of<ChangePasswordCubit>(context).confirmForm();
+  }
+
+  final FocusNode currentPasswordNode = FocusNode();
+  final FocusNode newPasswordNode = FocusNode();
+  final FocusNode confirmPasswordNode = FocusNode();
+  _unfocusFields() {
+    currentPasswordNode.unfocus();
+    newPasswordNode.unfocus();
+    confirmPasswordNode.unfocus();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar.basic(
-          title: AppStrings.changePassword.tr(),
-        ),
-        body: SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height -
-                AppSizes.s68.r -
-                AppSizes.s30.r,
-            child: PageContentPadding(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomSpacers.large(),
-                  Container(
-                    height: AppSizes.s104.r,
-                    width: AppSizes.s104.r,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryLight,
-                      borderRadius: BorderRadius.circular(100),
-                      image: const DecorationImage(
-                        image: AssetImage(ImageAssets.newPassword),
+    return GestureDetector(
+      onTap: _unfocusFields,
+      child: Scaffold(
+          appBar: CustomAppBar.basic(
+            title: AppStrings.changePassword.tr(),
+          ),
+          body: SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height -
+                  AppSizes.s68.r -
+                  AppSizes.s30.r,
+              child: PageContentPadding(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomSpacers.large(),
+                    Container(
+                      height: AppSizes.s104.r,
+                      width: AppSizes.s104.r,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryLight,
+                        borderRadius: BorderRadius.circular(100),
+                        image: const DecorationImage(
+                          image: AssetImage(ImageAssets.newPassword),
+                        ),
                       ),
                     ),
-                  ),
-                  CustomSpacers.medium(),
-                  CustomSpacers.small(),
-                  _headlineTextWidget(),
-                  CustomSpacers.medium(),
-                  _bodyTextWidget(),
-                  CustomSpacers.large(),
-                  _resetPasswordForm(context),
-                  const Spacer(),
-                  _changePasswordButton(),
-                ],
+                    CustomSpacers.medium(),
+                    CustomSpacers.small(),
+                    _headlineTextWidget(),
+                    CustomSpacers.medium(),
+                    _bodyTextWidget(),
+                    CustomSpacers.large(),
+                    _resetPasswordForm(context),
+                    const Spacer(),
+                    _changePasswordButton(),
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   Widget _headlineTextWidget() {
@@ -115,6 +128,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       child: Column(
         children: [
           CustomTextFormField(
+            focusNode: currentPasswordNode,
             controller: cubit.currentPasswordController,
             hintText: AppStrings.currentPassword.tr(),
             isPassword: true,
@@ -128,6 +142,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           CustomSpacers.medium(),
           CustomTextFormField(
+            focusNode: newPasswordNode,
             controller: cubit.newPasswordController,
             hintText: AppStrings.newPassword.tr(),
             isPassword: true,
@@ -143,6 +158,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           ),
           CustomSpacers.medium(),
           CustomTextFormField(
+            focusNode: confirmPasswordNode,
             controller: cubit.confirmPasswordController,
             hintText: AppStrings.confirmPassword.tr(),
             isPassword: true,

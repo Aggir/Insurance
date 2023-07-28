@@ -45,6 +45,7 @@ class ImageAssets {
   static const String audi = '$_imagePath/audi.png';
   static const String toyota = '$_imagePath/toyota.png';
   static const String porsche = '$_imagePath/porsche.png';
+  static const String notifications = '$_imagePath/notifications.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -98,4 +99,5 @@ class SvgAssets {
   static const String chevronBottom = '$_svgPath/chevron-down.svg';
   static const String clock = '$_svgPath/clock.svg';
   static const String expand = '$_svgPath/expand.svg';
+  static const String xShield = '$_svgPath/x-shield.svg';
 }

@@ -154,5 +154,13 @@
     "you_have_chosen_this_payment_method":"لقد قمت باختيار وسيلة الدفع عن طريق ",
     "payment_completed_successfully":"تمت عملية الدفع بنجاح",
     "payment_dialog_message":"تمت العملية بنجاح يمكنك مراحعة تاميناتي لايجاد الوثيقة",
-    "home_screen":"الصفحة الرئيسية"
+    "home_screen":"الصفحة الرئيسية",
+    "notifications":"الإشعارات",
+    "you_have_no_notifications":"لا يوجد لديك إشعارات",
+    "you_have_no_notifications_message":"لا يوجد لديك أي إشعارات بعد. ستصلك إشعارات بكافة التبيهات بالنظام.",
+    "back_to_home_screen":"عودة للرئيسية",
+    "the_document_is_about_to_expire":"قاربت الوثيقة على انتهاء الصلاحية قم بتجديد الوثيقة لتصبح صالحة من جديد",
+    "the_document_has_expired":"انتهت الوثيقة قم بتجديد الوثيقة في اقرب وقت",
+    "the_insurance_has_been_approved":"تمت الموافقة على إصدار الوثيقة يمكنك مراجعة تاميناتك الصادرة الإلكتروني",
+    "the_insurance_has_been_paid":"تم سداد الوثيقة عن طريق تطبيق مصرفي "
 }
