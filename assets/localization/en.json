@@ -103,7 +103,7 @@
     "expired": "",
     "there_are_no_insurances": "",
     "you_do_not_have_any_insurances": "",
-    "issued_insurance": "صادرة" ,
+    "issued_insurance": "صادرة",
     "expired_insurance": "منتهية الصلاحية",
     "the_vehicle": "المركبة",
     "insured_name": "اسم مؤمن له",
@@ -141,5 +141,7 @@
     "failed": "",
     "on_process": "",
     "libyan": "",
-    "non_libyan": ""
+    "non_libyan": "",
+    "document": "",
+    "download": ""
 }

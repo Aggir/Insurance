@@ -97,4 +97,5 @@ class SvgAssets {
   static const String chevronTop = '$_svgPath/chevron-up.svg';
   static const String chevronBottom = '$_svgPath/chevron-down.svg';
   static const String clock = '$_svgPath/clock.svg';
+  static const String expand = '$_svgPath/expand.svg';
 }

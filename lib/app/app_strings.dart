@@ -176,4 +176,7 @@ class AppStrings {
   static const tryAgain = 'try_again';
   static const libyan = 'libyan';
   static const nonLibyan = 'non_libyan';
+
+  static const document = 'document';
+  static const download = 'download';
 }

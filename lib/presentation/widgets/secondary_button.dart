@@ -18,11 +18,12 @@ class SecondaryButton extends StatelessWidget {
     minimumSize: AppValues.buttonMinSize,
     disabledForegroundColor: AppColors.gray,
     foregroundColor: AppColors.gray,
+    backgroundColor: AppColors.white,
     textStyle: grayBodyStyle(),
     padding: const EdgeInsets.all(AppValues.mediumSmall).r,
     side: BorderSide(color: AppColors.grayLight, width: 1),
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(AppValues.primaryButtonRadius.r),
+      borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
     ),
   );
   @override

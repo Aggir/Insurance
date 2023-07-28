@@ -146,8 +146,7 @@ class _ForgotPasswordVerifyOtpPageState
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r),
+                  borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
                 ),
                 height: AppSizes.s72.r,
                 width: AppSizes.s72.r,
@@ -156,8 +155,7 @@ class _ForgotPasswordVerifyOtpPageState
                 decoration: BoxDecoration(
                   color: AppColors.lightest,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r),
+                  borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
                 ),
                 height: AppSizes.s72.r,
                 width: AppSizes.s72.r,

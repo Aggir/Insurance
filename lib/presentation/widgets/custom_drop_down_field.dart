@@ -55,7 +55,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
                     vertical: AppValues.small, horizontal: AppValues.small)
                 .r,
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+              borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
               borderSide: BorderSide(color: AppColors.grayLight),
             ),
           ),

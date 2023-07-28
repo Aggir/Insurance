@@ -81,7 +81,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                         sliderColor: AppColors.grayLight,
                         sliderDecoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(
-                            AppValues.primaryButtonRadius.r,
+                            AppValues.mediumRadius.r,
                           ),
                           color: AppColors.lightest,
                           border: Border.all(color: AppColors.lightGray),

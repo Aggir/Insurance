@@ -111,8 +111,7 @@ class MorePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.lightest,
         boxShadow: [AppValues.boxShadow],
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
       child: Material(
         clipBehavior: Clip.antiAlias,
@@ -188,7 +187,7 @@ class MorePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.primaryLightest,
                     borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r,
+                      AppValues.largeRadius.r,
                     ),
                   ),
                   clipBehavior: Clip.antiAlias,
@@ -224,8 +223,7 @@ class MorePage extends StatelessWidget {
                   .r,
               decoration: BoxDecoration(
                   color: AppColors.lightest,
-                  borderRadius:
-                      BorderRadius.circular(AppValues.primaryButtonRadius),
+                  borderRadius: BorderRadius.circular(AppValues.mediumRadius),
                   border: Border.all(color: AppColors.grayLight)),
               child: SvgPicture.asset(
                 SvgAssets.chevronLeft,

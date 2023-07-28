@@ -54,13 +54,28 @@ const paymentMethods = [
 ];
 
 const underProcessingInsurances = <Insurance>[];
-const issuedInsurances = <Insurance>[];
+const issuedInsurances = <Insurance>[
+  Insurance(
+    id: '1',
+    insuranceTypeId: '1',
+    carBrandId: '5',
+    insuranceCompanyId: '1',
+    referenceNumber: '112233',
+    issuanceDate: '1-1-2023',
+    insuredName: 'حسين الشريف',
+    insuranceType: 'وثيقة تأمين سيارة إجباري',
+    insuranceCompany: 'شركة تيبستي للتأمين',
+    carBrand: 'هيونداي',
+    carBrandImgPath: ImageAssets.hyundai,
+    insuranceStatus: InsuranceStatus.issued,
+  ),
+];
 const notPaidInsurances = <Insurance>[
   Insurance(
-    id: 1,
-    insuranceTypeId: 1,
-    carBrandId: 2,
-    insuranceCompanyId: 1,
+    id: '2',
+    insuranceTypeId: '1',
+    carBrandId: '2',
+    insuranceCompanyId: '1',
     referenceNumber: '008096',
     issuanceDate: '1-11-2022',
     insuredName: 'مرام عبدالباسط القدري',

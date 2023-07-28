@@ -2,10 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -23,8 +25,7 @@ class InsuranceListItem extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [AppValues.boxShadow],
         color: AppColors.white,
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
       padding: const EdgeInsets.symmetric(vertical: AppValues.medium).r,
       child: Column(
@@ -71,73 +72,80 @@ class InsuranceListItem extends StatelessWidget {
                   ],
                 ),
                 CustomSpacers.mediumLarge(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.theVehicle.tr(),
-                          style: extraSmallDarkGrayBodyStyle(),
-                        ),
-                        CustomSpacers.small(),
-                        Row(
-                          children: [
-                            Container(
-                              width: AppSizes.s28.r,
-                              height: AppSizes.s28.r,
-                              decoration: BoxDecoration(
-                                  color: AppColors.lightest,
-                                  borderRadius: BorderRadius.circular(
-                                    AppValues.brandContainerRadius,
-                                  ),
-                                  border:
-                                      Border.all(color: AppColors.grayLight)),
-                              child: Image.asset(
-                                insurance.carBrandImgPath,
-                                width: AppSizes.s24.r,
-                                height: AppSizes.s24.r,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width -
+                      AppValues.medium.r * 2,
+                  child: Wrap(
+                    runSpacing: AppValues.medium,
+                    spacing: AppValues.small,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.theVehicle.tr(),
+                            style: extraSmallDarkGrayBodyStyle(),
+                          ),
+                          CustomSpacers.small(),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                width: AppSizes.s28.r,
+                                height: AppSizes.s28.r,
+                                decoration: BoxDecoration(
+                                    color: AppColors.lightest,
+                                    borderRadius: BorderRadius.circular(
+                                      AppValues.smallRadius,
+                                    ),
+                                    border:
+                                        Border.all(color: AppColors.grayLight)),
+                                child: Image.asset(
+                                  insurance.carBrandImgPath,
+                                  width: AppSizes.s24.r,
+                                  height: AppSizes.s24.r,
+                                ),
                               ),
-                            ),
-                            CustomSpacers.small(),
-                            Text(
-                              insurance.carBrand,
-                              style: extraSmallHeadlineStyle(),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.insuredName.tr(),
-                          style: extraSmallDarkGrayBodyStyle(),
-                        ),
-                        CustomSpacers.small(),
-                        Text(
-                          insurance.insuredName,
-                          style: extraSmallHeadlineStyle(),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppStrings.insuredBy.tr(),
-                          style: extraSmallDarkGrayBodyStyle(),
-                        ),
-                        CustomSpacers.small(),
-                        Text(
-                          insurance.insuranceCompany,
-                          style: extraSmallHeadlineStyle(),
-                        ),
-                      ],
-                    ),
-                  ],
+                              CustomSpacers.small(),
+                              Text(
+                                insurance.carBrand,
+                                style: extraSmallHeadlineStyle(),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.insuredName.tr(),
+                            style: extraSmallDarkGrayBodyStyle(),
+                          ),
+                          CustomSpacers.small(),
+                          Text(
+                            insurance.insuredName,
+                            style: extraSmallHeadlineStyle(),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppStrings.insuredBy.tr(),
+                            style: extraSmallDarkGrayBodyStyle(),
+                          ),
+                          CustomSpacers.small(),
+                          Text(
+                            insurance.insuranceCompany,
+                            style: extraSmallHeadlineStyle(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -200,12 +208,12 @@ class InsuranceListItem extends StatelessWidget {
       };
     } else if (insurance.insuranceStatus.isIssued) {
       onPressed = () {
-        // todo: View Document
+        context.go("${Routes.myInsurancesRoute}/${insurance.referenceNumber}");
       };
     }
     return PrimaryButton(
-      child: Text(textButton.tr()),
       onPressed: onPressed,
+      child: Text(textButton.tr()),
     );
   }
 }

@@ -99,7 +99,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(AppValues.small).r,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+                borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
                 boxShadow: [AppValues.boxShadow],
                 color: isSelected ? AppColors.lightest : AppColors.white,
                 border:

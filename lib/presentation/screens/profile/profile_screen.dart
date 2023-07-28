@@ -80,9 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
                 if (state.isEditing) {
-                  return ProfileEditingState();
+                  return const ProfileEditingState();
                 } else {
-                  return ProfileDetailsState();
+                  return const ProfileDetailsState();
                 }
               },
             )
