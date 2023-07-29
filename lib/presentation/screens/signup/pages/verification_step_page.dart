@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
@@ -17,9 +18,9 @@ import '../../../widgets/custom_form_field_date_picker.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/custom_text_form_field.dart';
 import '../../../widgets/primary_button.dart';
-import '../components/identity_verification_image.dart';
+import '../../../widgets/identity_verification_image.dart';
 import '../components/signup_footer_row.dart';
-import '../components/upload_verification_document.dart';
+import '../../../widgets/upload_verification_document.dart';
 
 class SignUpVerificationStepPage extends StatefulWidget {
   const SignUpVerificationStepPage({super.key});
@@ -39,7 +40,7 @@ class _SignUpVerificationStepPageState
         context.go(Routes.signupNationalIdNumberStepRoute);
       } else {
         cubit.signUp();
-        context.go(Routes.homeRoute, extra: true);
+        context.go(Routes.homeRoute, extra: const FirstLoginDialog());
       }
     }
   }
@@ -100,7 +101,7 @@ class _SignUpVerificationStepPageState
         child: PageContentPadding(
           child: Column(
             children: [
-              const IdentityVerificationImage(
+              const FramedImage(
                 imagePath: ImageAssets.identityVerificationPassport,
               ),
               CustomSpacers.large(),

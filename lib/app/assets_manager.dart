@@ -52,6 +52,8 @@ class ImageAssets {
   static const String insurancePrices = '$_imagePath/insurance-prices.png';
   static const String insuranceCompanies =
       '$_imagePath/insurance-companies.png';
+  static const String reminderDialog = '$_imagePath/reminder-dialog.png';
+  static const String alarmClock = '$_imagePath/alarm-clock.png';
 }
 
 const String _gifPath = 'assets/gifs';

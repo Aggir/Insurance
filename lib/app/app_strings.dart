@@ -248,4 +248,18 @@ class AppStrings {
   static const theInsurancePolicyHasBeenIssuedDescription =
       'the_insurance_policy_has_been_issued_description';
   static const iWillPayLater = 'i_will_pay_later';
+
+  static const setAnAlarmForYourInsurance = 'set_an_alert_for_your_insurance';
+  static const insurancePolicyData = 'insurance_policy_data';
+  static const youCanSetAnExpirationDateReminder =
+      'you_can_set_an_expiration_date_reminder';
+  static const selectAlarmType = 'select_alarm_type';
+  static const selectTheAppropriateAlarm = 'select_the_appropriate_alarm';
+  static const insurancePicture = 'insurance_picture';
+  static const pleaseAttachACopyOfTheInsuranceToBeReminded =
+      'please_attach_a_copy_of_the_insurance_to_be_reminded';
+  static const uploadInsurancePicture = 'upload_insurance_picture';
+  static const activate = 'activate';
+  static const theOperationWasSuccessful = 'the_operation_was_successful';
+  static const reminderSuccessDialogMessage = 'reminder_success_dialog_message';
 }

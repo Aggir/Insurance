@@ -195,5 +195,16 @@
     "issue_the_insurance_policy_and_pay_later": "اصدار الوثيقة والدفع لاحقا",
     "the_insurance_policy_has_been_issued": "تم اصدار الوثيقة ",
     "the_insurance_policy_has_been_issued_description": " يمكنك سداد ثمنها عن طريق تأميناتي أو عن طريق أي تطبيق خاص بشركة مسارات عبر ادخال” معرف المستخدم الخاص بك”",
-    "i_will_pay_later": "سأقوم بالدفع لاحقًا"
+    "i_will_pay_later": "سأقوم بالدفع لاحقًا",
+    "set_an_alert_for_your_insurance": "حدّد تنبيه الخاص بوثيقتك",
+    "insurance_policy_data": "بيانات الوثيقة",
+    "you_can_set_an_expiration_date_reminder": "يمكنك  تفعيل قرب انتهاء الصلاحية  وثيقة تامين مركبة الية مصدرة يدويا .",
+    "select_alarm_type": "اختر نوع التنبيه",
+    "select_the_appropriate_alarm": "اختر التنبيه المناسب",
+    "insurance_picture": "صورة الوثيقة",
+    "please_attach_a_copy_of_the_insurance_to_be_reminded": "يرجى إرفاق صورة الوثيقة المراد التذكير بها.",
+    "upload_insurance_picture": "إرفاق صورة الوثيقة",
+    "activate": "تفعيل",
+    "the_operation_was_successful": "تمت العملية بنجاح!",
+    "reminder_success_dialog_message": "سيصلك تبيه بخصوص وثيقتك في الوقت المحدد."
 }

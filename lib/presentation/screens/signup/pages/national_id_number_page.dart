@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
@@ -16,9 +17,9 @@ import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/custom_text_form_field.dart';
 import '../../../widgets/primary_button.dart';
-import '../components/identity_verification_image.dart';
+import '../../../widgets/identity_verification_image.dart';
 import '../components/signup_footer_row.dart';
-import '../components/upload_verification_document.dart';
+import '../../../widgets/upload_verification_document.dart';
 
 class SignUpNationalIdNumberPage extends StatefulWidget {
   const SignUpNationalIdNumberPage({super.key});
@@ -35,7 +36,7 @@ class _SignUpNationalIdNumberPageState
     final cubit = BlocProvider.of<SignUpCubit>(context);
     if (cubit.confirmNationalIdNumberForm()) {
       cubit.signUp();
-      context.go(Routes.homeRoute, extra: true);
+      context.go(Routes.homeRoute, extra: const FirstLoginDialog());
     }
   }
 
@@ -80,7 +81,7 @@ class _SignUpNationalIdNumberPageState
         child: PageContentPadding(
           child: Column(
             children: [
-              const IdentityVerificationImage(
+              const FramedImage(
                 imagePath: ImageAssets.libya,
               ),
               CustomSpacers.large(),
