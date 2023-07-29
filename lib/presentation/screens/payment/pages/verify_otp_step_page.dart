@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/components/payment_completed_dialog.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_completed_dialog.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';

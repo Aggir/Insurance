@@ -21,6 +21,12 @@ ThemeData appThemeData() => ThemeData(
     );
 
 class AppValues {
+  static final modalShape = RoundedRectangleBorder(
+    borderRadius: BorderRadiusDirectional.vertical(
+      top: Radius.circular(AppValues.largeRadius.r),
+    ),
+  );
+
   // Padding and Margin
   static const double extraSmall = 4.0;
   static const double small = 8.0;

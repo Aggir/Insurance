@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,12 +11,13 @@ import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
+import 'package:insurance_app/presentation/screens/compare_companies/compare_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
 import 'package:insurance_app/presentation/screens/insurance_document/insurance_document_screen.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/pages/send_otp_step_page.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/pages/verify_otp_step_page.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/payment_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/payment/pages/send_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/payment/pages/verify_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/payment/payment_steps_screen.dart';
 import 'package:insurance_app/presentation/screens/issue_insurance/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
@@ -89,6 +91,8 @@ class Routes {
   static const String reminderRoute = '/reminder';
   static const String reminderUploadInsurancePictureStepRoute =
       '/reminder-upload-insurance-picture';
+
+  static const String comparePricesRoute = '/compare-prices';
 }
 
 class AppRouter {
@@ -172,21 +176,17 @@ class AppRouter {
       ),
       GoRoute(
         path: Routes.carsInsuranceRoute,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: const CarsInsuranceScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              SlideTransition(
-            position: animation.drive(
-              Tween<Offset>(
-                begin: const Offset(0, 1),
-                end: Offset.zero,
-              ).chain(
-                CurveTween(curve: Curves.easeIn),
-              ),
-            ),
-            child: child,
-          ),
-        ),
+        builder: (context, state) =>
+            // pageBuilder: (context, state) => CupertinoPage(
+            // child:
+            const CarsInsuranceScreen(),
+        // ),
+      ),
+      GoRoute(
+        path: Routes.comparePricesRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ComparePricesScreen();
+        },
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {

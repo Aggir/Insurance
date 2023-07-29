@@ -54,6 +54,8 @@ class ImageAssets {
       '$_imagePath/insurance-companies.png';
   static const String reminderDialog = '$_imagePath/reminder-dialog.png';
   static const String alarmClock = '$_imagePath/alarm-clock.png';
+  static const String tibestyInsuranceCo =
+      '$_imagePath/tibesty-insurance-co.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -109,4 +111,5 @@ class SvgAssets {
   static const String expand = '$_svgPath/expand.svg';
   static const String xShield = '$_svgPath/x-shield.svg';
   static const String installmentCard = '$_svgPath/installment-card.svg';
+  static const String filter = '$_svgPath/filter.svg';
 }

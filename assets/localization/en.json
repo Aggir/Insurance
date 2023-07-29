@@ -203,5 +203,14 @@
     "upload_insurance_picture": "",
     "activate": "",
     "the_operation_was_successful": "",
-    "reminder_success_dialog_message": ""
+    "reminder_success_dialog_message": "",
+    "insurance_companies_filter": "",
+    "you_can_find_out_the_prices_by_filtering": "",
+    "select_insurance_policy": "",
+    "select_the_horsepower_of_the_engine": "",
+    "sort_by": "",
+    "lowest_price": "",
+    "highest_price": "",
+    "price": "",
+    "issue_an_insurance": ""
 }

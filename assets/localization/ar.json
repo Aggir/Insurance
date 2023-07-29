@@ -206,5 +206,14 @@
     "upload_insurance_picture": "إرفاق صورة الوثيقة",
     "activate": "تفعيل",
     "the_operation_was_successful": "تمت العملية بنجاح!",
-    "reminder_success_dialog_message": "سيصلك تبيه بخصوص وثيقتك في الوقت المحدد."
+    "reminder_success_dialog_message": "سيصلك تبيه بخصوص وثيقتك في الوقت المحدد.",
+    "insurance_companies_filter": "فلتر شركات التأمين",
+    "you_can_find_out_the_prices_by_filtering": "يمكنك معرفة الاسعار حسب الفرز ",
+    "select_insurance_policy": "اختر وثيقة التأمين",
+    "select_the_horsepower_of_the_engine": "اختر قوة المحرك بالحصان",
+    "sort_by": "فرز حسب",
+    "lowest_price": "أقل سعر",
+    "highest_price": "أعلى سعر",
+    "price": "السعر:",
+    "issue_an_insurance": "إصدار وثيقة"
 }
