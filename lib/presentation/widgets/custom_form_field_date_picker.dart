@@ -23,6 +23,7 @@ class CustomFormFieldDatePicker extends StatelessWidget {
     this.initialDate,
     this.firstDate,
     this.lastDate,
+    this.onChanged,
   });
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
@@ -37,13 +38,12 @@ class CustomFormFieldDatePicker extends StatelessWidget {
   final DateTime? initialDate;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final void Function(String?)? onChanged;
 
   _showDatePicker(BuildContext context) async {
     DateTime getInitialDate() {
       if (initialDate == null) {
         if (controller != null && controller!.text.isNotEmpty) {
-          print(controller!.text);
-
           return DateFormat('dd-M-yyyy').parse(controller!.text);
         } else {
           return DateTime.now();
@@ -59,14 +59,17 @@ class CustomFormFieldDatePicker extends StatelessWidget {
         lastDate: lastDate ?? DateTime.now());
     if (pickedDate != null) {
       String formattedDate = DateFormat('dd-M-yyyy').format(pickedDate);
-
       controller?.text = formattedDate;
+      if (onChanged != null) {
+        onChanged!(formattedDate);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      onChanged: onChanged,
       validator: validator,
       controller: controller,
       defaultValidator: defaultValidator,

@@ -32,6 +32,7 @@ class CustomTextFormField extends StatefulWidget {
     this.focusNode,
     this.hideErrorMessage = false,
     this.label,
+    this.onChanged,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -51,6 +52,7 @@ class CustomTextFormField extends StatefulWidget {
   final FocusNode? focusNode;
   final bool hideErrorMessage;
   final String? label;
+  final void Function(String?)? onChanged;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -136,6 +138,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           : null,
       hintText: widget.hintText ?? '',
       hintStyle: grayBodyStyle(),
+      fillColor: widget.enabled ? null : AppColors.lightest,
+      filled: widget.enabled ? false : true,
     );
 
     return Column(
@@ -157,6 +161,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         SizedBox(
           height: AppValues.textFieldHeight.r,
           child: TextFormField(
+            onChanged: widget.onChanged,
             focusNode: widget.focusNode ?? _focusNode,
             controller: widget.controller,
             keyboardType: widget.keyboardType,
