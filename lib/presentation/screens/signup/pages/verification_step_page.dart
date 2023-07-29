@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -39,7 +39,7 @@ class _SignUpVerificationStepPageState
         context.go(Routes.signupNationalIdNumberStepRoute);
       } else {
         cubit.signUp();
-        context.go(Routes.homeRoute);
+        context.go(Routes.homeRoute, extra: true);
       }
     }
   }

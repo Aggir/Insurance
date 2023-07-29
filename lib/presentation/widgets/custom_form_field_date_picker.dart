@@ -39,9 +39,22 @@ class CustomFormFieldDatePicker extends StatelessWidget {
   final DateTime? lastDate;
 
   _showDatePicker(BuildContext context) async {
+    DateTime getInitialDate() {
+      if (initialDate == null) {
+        if (controller != null && controller!.text.isNotEmpty) {
+          print(controller!.text);
+
+          return DateFormat('dd-M-yyyy').parse(controller!.text);
+        } else {
+          return DateTime.now();
+        }
+      }
+      return initialDate!;
+    }
+
     DateTime? pickedDate = await showDatePicker(
         context: context,
-        initialDate: initialDate ?? DateTime.now(),
+        initialDate: getInitialDate(),
         firstDate: firstDate ?? DateTime(DateTime.now().year - 100),
         lastDate: lastDate ?? DateTime.now());
     if (pickedDate != null) {

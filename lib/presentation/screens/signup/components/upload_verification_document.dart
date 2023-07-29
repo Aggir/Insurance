@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
@@ -42,14 +42,14 @@ class UploadDocument extends StatelessWidget {
   Widget _selectDocumentState(BuildContext context) {
     return Material(
       color: AppColors.lightest,
-      borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+      borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
       clipBehavior: Clip.antiAlias,
       child: Container(
         height: AppSizes.s180.r,
         width: double.infinity,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.grayLight),
-          borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+          borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
         ),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -152,7 +152,7 @@ class UploadDocument extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         border: Border.all(color: AppColors.grayLight),
-        borderRadius: BorderRadius.circular(AppValues.inputRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
         boxShadow: [AppValues.boxShadow],
       ),
       child: Row(

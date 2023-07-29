@@ -19,12 +19,14 @@ class DialogService {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) =>
-          _current ??
-          CustomDialog(
-            content: content,
-            actions: actions,
-          ),
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: _current ??
+            CustomDialog(
+              content: content,
+              actions: actions,
+            ),
+      ),
     );
   }
 
@@ -42,15 +44,17 @@ class DialogService {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) =>
-          _current ??
-          CustomDialog(
-            content: Image.asset(
-              GifAssets.loading,
-              height: AppSizes.s150.r,
-              width: AppSizes.s150.r,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: _current ??
+            CustomDialog(
+              content: Image.asset(
+                GifAssets.loading,
+                height: AppSizes.s150.r,
+                width: AppSizes.s150.r,
+              ),
             ),
-          ),
+      ),
     );
   }
 
@@ -84,8 +88,7 @@ class CustomDialog extends IDialog {
       content: content,
       actions: actions,
       shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
     );
   }

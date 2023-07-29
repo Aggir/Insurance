@@ -43,9 +43,9 @@ class AppValues {
       color: AppColors.black.withOpacity(0.04),
       offset: const Offset(0, -1));
   // Radius
-  static const double primaryButtonRadius = 10;
-  static const double inputRadius = 10;
-  static const double cardPageContainerRadius = 15;
+  static const double mediumRadius = 10;
+  static const double smallRadius = 5;
+  static const double largeRadius = 15;
   // Sizes
   static Size buttonMinSize = Size(25.r, 50.r);
   // Dimensions
@@ -72,6 +72,7 @@ class AppSizes {
   static const double s30 = 30;
   static const double s32 = 32;
   static const double s40 = 40;
+  static const double s46 = 46;
   static const double s48 = 48;
   static const double s50 = 50;
   static const double s60 = 60;
@@ -79,6 +80,7 @@ class AppSizes {
   static const double s64 = 64;
   static const double s68 = 68;
   static const double s72 = 72;
+  static const double s80 = 80;
   static const double s84 = 84;
   static const double s86 = 86;
   static const double s90 = 90;
@@ -87,6 +89,7 @@ class AppSizes {
   static const double s110 = 110;
   static const double s120 = 120;
   static const double s130 = 130;
+  static const double s140 = 140;
   static const double s150 = 150;
   static const double s160 = 160;
   static const double s170 = 170;
@@ -95,6 +98,8 @@ class AppSizes {
   static const double s200 = 200;
   static const double s240 = 240;
   static const double s250 = 250;
+  static const double s270 = 270;
+  static const double s280 = 280;
   static const double s320 = 320;
   static const double s330 = 330;
   static const double s350 = 350;

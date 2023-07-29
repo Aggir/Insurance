@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
+      appBar: CustomAppBar.basic(
         title: AppStrings.settings.tr(),
         backButton: () => context.go(Routes.moreRoute),
       ),
@@ -60,8 +60,7 @@ class SettingsScreen extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
         color: AppColors.white,
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
         boxShadow: [AppValues.boxShadow],
       ),
       child: Material(

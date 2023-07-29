@@ -7,7 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/app/enums.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -20,6 +19,8 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
+import '../../../app/enums/payment_status_enum.dart';
+
 class MyPaymentsScreen extends StatelessWidget {
   const MyPaymentsScreen({super.key});
 
@@ -30,7 +31,7 @@ class MyPaymentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.build(
+      appBar: CustomAppBar.basic(
         title: AppStrings.myPayments.tr(),
         backButton: () {
           context.go(Routes.moreRoute);
@@ -64,7 +65,6 @@ class MyPaymentsScreen extends StatelessWidget {
 
   final String _insuranceType = 'سداد وثيقة تأمين سيارة اجباري';
   final String _date = 'السبت 9:30 م';
-  final PaymentStatus _status = PaymentStatus.success;
   Widget _getContent(BuildContext context) {
     final random = Random();
     if (random.nextBool()) {
@@ -102,7 +102,7 @@ class MyPaymentsScreen extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         padding:
-            const EdgeInsets.symmetric(horizontal: AppValues.mediumLarge).r,
+            const EdgeInsets.symmetric(horizontal: AppValues.mediumSmall).r,
         children: [
           myPaymentItem(
             imgPath: ImageAssets.mobicash,
@@ -110,7 +110,7 @@ class MyPaymentsScreen extends StatelessWidget {
             paymentMethod: 'موبي كاش',
             insuranceType: _insuranceType,
             date: _date,
-            status: _status,
+            status: PaymentStatus.success,
           ),
           CustomSpacers.medium(),
           const CustomDivider(),
@@ -121,7 +121,7 @@ class MyPaymentsScreen extends StatelessWidget {
             paymentMethod: 'معاملات',
             insuranceType: _insuranceType,
             date: _date,
-            status: _status,
+            status: PaymentStatus.onProcess,
           ),
         ],
       );
@@ -191,11 +191,7 @@ class MyPaymentsScreen extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: AppSizes.s5.r,
-                  backgroundColor: status.isSuccess
-                      ? AppColors.secondary
-                      : status.isFailed
-                          ? AppColors.danger
-                          : AppColors.primaryLight,
+                  backgroundColor: status.color,
                 ),
                 CustomSpacers.small(),
                 Text(

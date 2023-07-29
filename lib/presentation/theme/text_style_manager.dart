@@ -44,6 +44,10 @@ TextStyle smallDarkGrayBodyStyle() {
   return getRegularStyle(fontSize: FontSize.s12, color: AppColors.darkGray);
 }
 
+TextStyle smallBodyStyle() {
+  return getRegularStyle(fontSize: FontSize.s12, color: AppColors.black);
+}
+
 TextStyle smallHeadlineStyle() {
   return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s14);
 }
@@ -56,8 +60,16 @@ TextStyle smallDarkGrayHeadlineStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s14);
 }
 
+TextStyle smallGrayHeadlineStyle() {
+  return getBoldStyle(color: AppColors.gray, fontSize: FontSize.s14);
+}
+
 TextStyle extraSmallGrayBodyStyle() {
   return getRegularStyle(color: AppColors.gray, fontSize: FontSize.s10);
+}
+
+TextStyle extraSmallDarkGrayBodyStyle() {
+  return getRegularStyle(color: AppColors.darkGray, fontSize: FontSize.s10);
 }
 
 TextStyle textFieldErrorMessageStyle() {

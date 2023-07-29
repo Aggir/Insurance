@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -14,8 +15,6 @@ import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
-  final String name = 'مرام محمد العمامي';
-  final String email = 'user@email.com';
 
   void _profileWidgetFunction(BuildContext context) {
     context.go(Routes.profileRoute);
@@ -112,8 +111,7 @@ class MorePage extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.lightest,
         boxShadow: [AppValues.boxShadow],
-        borderRadius:
-            BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
       ),
       child: Material(
         clipBehavior: Clip.antiAlias,
@@ -132,20 +130,27 @@ class MorePage extends StatelessWidget {
                     CircleAvatar(
                       radius: AppSizes.s32.r,
                       backgroundColor: AppColors.transparent,
-                      child: Image.asset(ImageAssets.profilePicture),
+                      foregroundImage:
+                          const AssetImage(ImageAssets.profilePicture),
                     ),
                     CustomSpacers.medium(),
-                    Column(
-                      children: [
-                        Text(
-                          name,
-                          style: smallHeadlineStyle(),
-                        ),
-                        Text(
-                          email,
-                          style: smallGrayBodyStyle(),
-                        ),
-                      ],
+                    SizedBox(
+                      width: AppSizes.s200.r,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${DUMMY.fistName} ${DUMMY.middleName} ${DUMMY.lastName}',
+                            style: smallHeadlineStyle(),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            DUMMY.email,
+                            style: smallGrayBodyStyle(),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -182,7 +187,7 @@ class MorePage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppColors.primaryLightest,
                     borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r,
+                      AppValues.largeRadius.r,
                     ),
                   ),
                   clipBehavior: Clip.antiAlias,
@@ -218,8 +223,7 @@ class MorePage extends StatelessWidget {
                   .r,
               decoration: BoxDecoration(
                   color: AppColors.lightest,
-                  borderRadius:
-                      BorderRadius.circular(AppValues.primaryButtonRadius),
+                  borderRadius: BorderRadius.circular(AppValues.mediumRadius),
                   border: Border.all(color: AppColors.grayLight)),
               child: SvgPicture.asset(
                 SvgAssets.chevronLeft,

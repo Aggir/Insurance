@@ -25,8 +25,7 @@ class ADsSlider extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: AppValues.medium.r),
       child: ClipRRect(
-          borderRadius:
-              BorderRadius.circular(AppValues.cardPageContainerRadius.r),
+          borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
           child: Image.asset(
             imgUrl,
             fit: BoxFit.fitHeight,

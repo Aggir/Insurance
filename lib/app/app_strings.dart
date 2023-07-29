@@ -114,12 +114,20 @@ class AppStrings {
   static const youDidNotAddAnyVehicle = 'you_did_not_add_any_vehicle';
   static const addVehicle = 'add_vehicle';
 
-  static const underTheProcedure = 'under_the_procedure';
-  static const outgoing = 'outgoing';
-  static const unpaid = 'unpaid';
+  static const underProcessing = 'under_processing';
+  static const issued = 'issued';
+  static const notPaid = 'not_paid';
   static const expired = 'expired';
   static const thereAreNoInsurances = 'there_are_no_insurances';
   static const youDoNotHaveAnyInsurances = 'you_do_not_have_any_insurances';
+  static const issuedInsurance = 'issued_insurance';
+  static const expiredInsurance = 'expired_insurance';
+  static const theVehicle = 'the_vehicle';
+  static const insuredName = 'insured_name';
+  static const insuredBy = 'insured_by';
+  static const viewTheDocument = 'view_the_document';
+  static const completeThePayment = 'complete_the_payment';
+  static const renewal = 'renewal';
 
   static const moreServices = 'more_services';
   static const myPayments = 'my_payments';
@@ -173,10 +181,53 @@ class AppStrings {
   static const beneficiaryName = 'beneficiary_name';
 
   static const vehicleDetails = 'vehicle_details';
+  static const vehicleDetailsDescription = 'vehicle_description';
 
   static const vehicleType = 'vehicle_type';
   static const vehicleBrand = 'vehicle_brand';
   static const vehicleModel = 'vehicle_model';
   static const vehicleCountry = 'vehicle_country';
   static const vehicleYear = 'vehicle_year';
+  static const libyan = 'libyan';
+  static const nonLibyan = 'non_libyan';
+
+  static const document = 'document';
+  static const download = 'download';
+
+  static const chooseTheAppropriatePaymentMethod =
+      'choose_the_appropriate_payment_method';
+  static const chooseThePaymentMethodThatSuitsYou =
+      'choose_the_payment_method_that_suits_you';
+  static const paymentBy = 'payment_by';
+  static const enterPhoneNumber = 'enter_phone_number';
+  static const youHaveChosenThisPaymentMethod =
+      'you_have_chosen_this_payment_method';
+  static const paymentCompletedSuccessfully = 'payment_completed_successfully';
+  static const paymentDialogMessage = 'payment_dialog_message';
+  static const homeScreen = 'home_screen';
+
+  static const notifications = 'notifications';
+  static const youHaveNoNotifications = 'you_have_no_notifications';
+  static const youHaveNoNotificationsMessage =
+      'you_have_no_notifications_message';
+  static const backToHomeScreen = 'back_to_home_screen';
+  static const theDocumentIsAboutToExpire = 'the_document_is_about_to_expire';
+  static const theDocumentHasExpired = 'the_document_has_expired';
+  static const theInsuranceHasBeenApproved = 'the_insurance_has_been_approved';
+  static const theInsuranceHasBeenPaid = 'the_insurance_has_been_paid';
+
+  static const carInsuranceScreenDescription =
+      'car_insurance_screen_description';
+  static const issuingACarInsurance = 'issuing_a_car_insurance';
+  static const issuingACarInsuranceDescription =
+      'issuing_a_car_insurance_description';
+  static const reminderAboutExpirationDate = 'reminder_about_expiration_date';
+  static const reminderAboutExpirationDateDescription =
+      'reminder_about_expiration_date_description';
+  static const insurancePolicyPrices = 'insurance_policy_prices';
+  static const insurancePolicyPricesDescription =
+      'insurance_policy_prices_description';
+  static const insuranceCompanies = 'insurance_companies';
+  static const insuranceCompaniesDescription =
+      'insurance_companies_description';
 }

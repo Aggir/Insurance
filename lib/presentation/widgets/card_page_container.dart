@@ -20,7 +20,7 @@ class CardPageContainer extends StatelessWidget {
             color: AppColors.white,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(
-                AppValues.cardPageContainerRadius.r,
+                AppValues.largeRadius.r,
               ),
             ),
           ),

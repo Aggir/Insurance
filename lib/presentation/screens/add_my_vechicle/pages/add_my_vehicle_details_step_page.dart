@@ -57,9 +57,6 @@ class _AddMyVehicleDetailsStepPageState
                       ],
                     ),
                     PrimaryButton.fullWidth(
-                      // onPressed: cubit.isUserInfoValid()
-                      //     ? () => _nextButtonFunction(context)
-                      //     : null,
                       child: Text(AppStrings.next.tr().toUpperCase()),
                     ),
                   ]),
@@ -76,12 +73,12 @@ class _AddMyVehicleDetailsStepPageState
         Column(
           children: [
             Text(
-              AppStrings.personalInfo.tr(),
+              AppStrings.vehicleDetails.tr(),
               style: mediumHeadlineStyle(),
             ),
             CustomSpacers.medium(),
             Text(
-              AppStrings.personalInfoDescription.tr(),
+              AppStrings.vehicleDetailsDescription.tr(),
               style: bodyStyle(),
             ),
           ],
@@ -95,53 +92,33 @@ class _AddMyVehicleDetailsStepPageState
     final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
     return Form(
       // Todo: Add onChanged to check if the form is empty
-      key: cubit.userInfoForm,
+      key: cubit.vehicleDetailsForm,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         CustomTextFormField(
-          hintText: AppStrings.firstName.tr(),
-          controller: cubit.firstNameController,
+          hintText: AppStrings.vehicleType.tr(),
+          controller: cubit.vehicleTypeController,
+        ),
+        CustomSpacers.medium(),
+        CustomTextFormField(
+          hintText: AppStrings.vehicleBrand.tr(),
+          controller: cubit.vehicleBrandController,
+        ),
+        CustomSpacers.medium(),
+        CustomTextFormField(
+          hintText: AppStrings.vehicleModel.tr(),
+          controller: cubit.vehicleModelController,
+        ),
+        CustomSpacers.medium(),
+        CustomTextFormField(
+          hintText: AppStrings.vehicleCountry.tr(),
+          controller: cubit.vehicleCountryController,
+        ),
+        CustomSpacers.medium(),
+        CustomTextFormField(
+          hintText: AppStrings.vehicleYear.tr(),
+          controller: cubit.vehicleYearController,
         ),
       ]),
     );
   }
 }
-
-// [
-//         Text(AppStrings.beneficiaryName.tr(), style: darkGrayBodyStyle()),
-//         CustomSpacers.medium(),
-//         Row(
-//           children: [
-//             Flexible(
-//               child: CustomTextFormField(
-//                 hintText: AppStrings.firstName.tr(),
-//                 controller: cubit.firstNameController,
-//               ),
-//             ),
-//             CustomSpacers.extraSmall(),
-//             Flexible(
-//               child: CustomTextFormField(
-//                 hintText: AppStrings.middleName.tr(),
-//                 controller: cubit.middleNameController,
-//               ),
-//             ),
-//             CustomSpacers.extraSmall(),
-//             Flexible(
-//               child: CustomTextFormField(
-//                 hintText: AppStrings.lastName.tr(),
-//                 controller: cubit.lastNameController,
-//               ),
-//             )
-//           ],
-//         ),
-//         CustomSpacers.medium(),
-//         CustomPhoneFormField(
-//           hintText: AppStrings.phoneNumberExample.tr(),
-//           label: AppStrings.phoneNumber.tr(),
-//           controller: cubit.phoneNumberController,
-//         ),
-//         CustomSpacers.medium(),
-//         CustomTextFormField(
-//           hintText: AppStrings.address.tr(),
-//           controller: cubit.addressController,
-//         ),
-//       ]

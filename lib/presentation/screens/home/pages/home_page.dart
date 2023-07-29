@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
 import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -15,27 +17,30 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  const HomePage({this.firstLogin = false, super.key});
+  final bool firstLogin;
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  _notificationButtonFunction(BuildContext context) {}
+  _notificationButtonFunction(BuildContext context) {
+    context.go(Routes.notificationsRoute);
+  }
 
   _createVehicleFunction(BuildContext context) {}
 
-  _insureCarFunction(BuildContext context) {}
-
-  final bool _firstLogin = true;
+  _carsInsuranceFunction(BuildContext context) {
+    context.go(Routes.carsInsuranceRoute);
+  }
 
   @override
   void initState() {
     super.initState();
-    if (_firstLogin) {
+    if (widget.firstLogin) {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(
           context,
@@ -103,11 +108,11 @@ class _HomePageState extends State<HomePage> {
                 CircleAvatar(
                   backgroundColor: AppColors.primaryLight,
                   radius: AppSizes.s24.r,
-                  child: Image.asset(ImageAssets.profilePicture),
+                  foregroundImage: const AssetImage(ImageAssets.profilePicture),
                 ),
                 CustomSpacers.medium(),
                 Text(
-                  '${AppStrings.welcome.tr()}مرام!',
+                  '${AppStrings.welcome.tr()}${DUMMY.fistName}!',
                   style: mediumSmallHeadlineStyle(),
                 ),
               ],
@@ -149,7 +154,7 @@ class _HomePageState extends State<HomePage> {
         'title': AppStrings.familyInsurance.tr(),
       },
       {
-        'svgPath': SvgAssets.creditCard,
+        'svgPath': SvgAssets.creditCardFilled,
         'title': AppStrings.cardInsurance.tr(),
       },
     ];
@@ -185,7 +190,7 @@ class _HomePageState extends State<HomePage> {
     int companies = 32;
     // Todo: Edit this widget incase if the app changed to English language or any other ltr language
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
+        BorderRadius.circular(AppValues.largeRadius.r);
     return Stack(children: [
       Container(
         width: double.infinity,
@@ -215,8 +220,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(AppValues.small).r,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius:
-                    BorderRadius.circular(AppValues.primaryButtonRadius.r),
+                borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
               ),
               child: Row(
                 children: [
@@ -236,7 +240,7 @@ class _HomePageState extends State<HomePage> {
           clipBehavior: Clip.antiAlias,
           color: Colors.transparent,
           child: InkWell(
-            onTap: () => _insureCarFunction(context),
+            onTap: () => _carsInsuranceFunction(context),
           ),
         ),
       ),
@@ -245,7 +249,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _createVehicleFirstWidget(BuildContext context) {
     final BorderRadius borderRadius =
-        BorderRadius.circular(AppValues.cardPageContainerRadius.r);
+        BorderRadius.circular(AppValues.largeRadius.r);
     return Stack(
       children: [
         Container(
@@ -273,8 +277,8 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          AppValues.primaryButtonRadius.r),
+                      borderRadius:
+                          BorderRadius.circular(AppValues.mediumRadius.r),
                       color: AppColors.black.withOpacity(0.14)),
                   padding: const EdgeInsets.symmetric(
                           horizontal: AppValues.small,
@@ -310,8 +314,7 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
           color: AppColors.lightGray,
           boxShadow: [AppValues.innerShadow],
-          borderRadius:
-              BorderRadius.circular(AppValues.cardPageContainerRadius.r)),
+          borderRadius: BorderRadius.circular(AppValues.largeRadius.r)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

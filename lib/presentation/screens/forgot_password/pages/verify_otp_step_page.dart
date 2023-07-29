@@ -4,7 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/app/enums.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:pinput/pinput.dart';
@@ -15,6 +15,7 @@ import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
+import '../../../../app/functions.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_text_button.dart';
 import '../../../widgets/page_content_padding.dart';
@@ -146,8 +147,7 @@ class _ForgotPasswordVerifyOtpPageState
                 decoration: BoxDecoration(
                   color: AppColors.white,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r),
+                  borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
                 ),
                 height: AppSizes.s72.r,
                 width: AppSizes.s72.r,
@@ -156,8 +156,7 @@ class _ForgotPasswordVerifyOtpPageState
                 decoration: BoxDecoration(
                   color: AppColors.lightest,
                   border: Border.all(color: AppColors.grayLight),
-                  borderRadius: BorderRadius.circular(
-                      AppValues.cardPageContainerRadius.r),
+                  borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
                 ),
                 height: AppSizes.s72.r,
                 width: AppSizes.s72.r,
@@ -178,7 +177,7 @@ class _ForgotPasswordVerifyOtpPageState
         BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
           builder: (context, state) {
             return Text(
-              '${_formatDuration(Duration(seconds: state.resendCounterInSeconds))} ',
+              '${formatDuration(Duration(seconds: state.resendCounterInSeconds))} ',
               style: smallDarkGrayHeadlineStyle()
                   .copyWith(color: AppColors.secondary),
             );
@@ -200,11 +199,4 @@ class _ForgotPasswordVerifyOtpPageState
       ],
     );
   }
-}
-
-String _formatDuration(Duration duration) {
-  String twoDigits(int n) => n.toString().padLeft(2, "0");
-  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
-  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
-  return "$twoDigitMinutes:$twoDigitSeconds";
 }
