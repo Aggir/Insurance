@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
@@ -14,6 +15,7 @@ import 'package:insurance_app/presentation/screens/insurance_document/insurance_
 import 'package:insurance_app/presentation/screens/insurance_payment/pages/send_otp_step_page.dart';
 import 'package:insurance_app/presentation/screens/insurance_payment/pages/verify_otp_step_page.dart';
 import 'package:insurance_app/presentation/screens/insurance_payment/payment_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/issue_insurance/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
@@ -77,6 +79,10 @@ class Routes {
   static const String notificationsRoute = '/notifications';
 
   static const String carsInsuranceRoute = '/cars-insurance';
+
+  static const String issueInsuranceRoute = '/issue-insurance';
+  static const String issueInstallmentDetailsRoute =
+      '/issue-installment-details';
 }
 
 class AppRouter {
@@ -203,6 +209,15 @@ class AppRouter {
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
           return BlocProvider(
+            create: (context) => IssueInsuranceCubit(),
+            child: IssueInsuranceStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _issueInsuranceBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
+          return BlocProvider(
             create: (context) => PaymentCubit(),
             child: PaymentStepsScreen(child, state.uri.toString()),
           );
@@ -281,7 +296,8 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.myVehiclesRoute,
-        builder: (context, state) => const MyVehiclesPage(),
+        builder: (context, state) =>
+            MyVehiclesPage(state.extra as bool? ?? false),
       ),
     ]),
     StatefulShellBranch(routes: [
@@ -310,6 +326,21 @@ class AppRouter {
       GoRoute(
         path: Routes.paymentVerifyOtpStepRoute,
         builder: (context, state) => const PaymentVerifyOtpPage(),
+      ),
+    ]),
+  ];
+
+  static final List<StatefulShellBranch> _issueInsuranceBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.issueInsuranceRoute,
+        builder: (context, state) => const IssueFormStepPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.issueInstallmentDetailsRoute,
+        builder: (context, state) => const InstallmentDetailsStepPage(),
       ),
     ]),
   ];

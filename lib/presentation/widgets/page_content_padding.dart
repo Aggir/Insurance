@@ -11,8 +11,8 @@ class PageContentPadding extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.only(
           top: AppValues.extraLarge.h,
-          left: AppValues.large.w,
-          right: AppValues.large.w,
+          left: AppValues.mediumLarge.w,
+          right: AppValues.mediumLarge.w,
           bottom: (AppValues.large + AppValues.large / 3).h,
         ),
         child: child);

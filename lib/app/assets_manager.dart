@@ -1,6 +1,7 @@
 const String _imagePath = 'assets/images';
 
 class ImageAssets {
+  static const String image = '$_imagePath/image.png';
   static const String onboardingOne = '$_imagePath/onboarding-one.png';
   static const String onboardingTwo = '$_imagePath/onboarding-two.png';
   static const String onboardingThree = '$_imagePath/onboarding-three.png';
@@ -105,4 +106,5 @@ class SvgAssets {
   static const String clock = '$_svgPath/clock.svg';
   static const String expand = '$_svgPath/expand.svg';
   static const String xShield = '$_svgPath/x-shield.svg';
+  static const String installmentCard = '$_svgPath/installment-card.svg';
 }

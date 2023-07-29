@@ -16,7 +16,10 @@ import '../../theme/app_colors.dart';
 class CarsInsuranceScreen extends StatelessWidget {
   const CarsInsuranceScreen({super.key});
 
-  void _issueCarInsurance(BuildContext context) {}
+  void _issueCarInsurance(BuildContext context) {
+    context.go(Routes.issueInsuranceRoute);
+  }
+
   void _reminderAboutExpiration(BuildContext context) {}
   void _insurancePolicyPrices(BuildContext context) {}
   void _insuranceCompanies(BuildContext context) {}
