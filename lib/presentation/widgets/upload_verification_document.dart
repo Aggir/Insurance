@@ -9,7 +9,7 @@ import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
-import '../../../theme/text_style_manager.dart';
+import '../theme/text_style_manager.dart';
 
 class UploadDocument extends StatelessWidget {
   const UploadDocument({
@@ -19,6 +19,7 @@ class UploadDocument extends StatelessWidget {
     this.uploadFunction,
     this.loadingAndSuccessStateText,
     this.uploadedDocumentSvgPath,
+    this.uploadedDocumentSvgColor,
     super.key,
   });
   final Status uploadFileStatus;
@@ -27,6 +28,7 @@ class UploadDocument extends StatelessWidget {
   final String? uploadStateText;
   final String? loadingAndSuccessStateText;
   final String? uploadedDocumentSvgPath;
+  final Color? uploadedDocumentSvgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +117,9 @@ class UploadDocument extends StatelessWidget {
           uploadedDocumentSvgPath ?? SvgAssets.uploadedDocument,
           height: AppSizes.s60.r,
           width: AppSizes.s60.r,
+          colorFilter: uploadedDocumentSvgColor != null
+              ? ColorFilter.mode(uploadedDocumentSvgColor!, BlendMode.srcIn)
+              : null,
         ),
         CustomSpacers.small(),
         Column(

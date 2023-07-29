@@ -15,7 +15,7 @@ import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/page_content_padding.dart';
 import '../../../widgets/primary_button.dart';
-import '../components/identity_verification_image.dart';
+import '../../../widgets/identity_verification_image.dart';
 import '../components/signup_footer_row.dart';
 
 class SignUpSelectVerificationMethodStep extends StatelessWidget {
@@ -36,7 +36,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
         child: PageContentPadding(
           child: Column(
             children: [
-              const IdentityVerificationImage(
+              const FramedImage(
                 imagePath: ImageAssets.identityVerificationPassport,
               ),
               CustomSpacers.large(),

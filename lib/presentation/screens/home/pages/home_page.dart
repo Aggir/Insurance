@@ -8,7 +8,6 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
-import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -20,8 +19,8 @@ import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class HomePage extends StatefulWidget {
-  const HomePage({this.firstLogin = false, super.key});
-  final bool firstLogin;
+  const HomePage({this.dialog, super.key});
+  final Widget? dialog;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -40,11 +39,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    if (widget.firstLogin) {
+    if (widget.dialog != null) {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(
           context,
-          content: const FirstLoginDialog(),
+          content: widget.dialog!,
         ),
       );
     }

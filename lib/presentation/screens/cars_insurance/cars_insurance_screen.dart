@@ -20,7 +20,10 @@ class CarsInsuranceScreen extends StatelessWidget {
     context.go(Routes.issueInsuranceRoute);
   }
 
-  void _reminderAboutExpiration(BuildContext context) {}
+  void _reminderAboutExpiration(BuildContext context) {
+    context.go(Routes.reminderRoute);
+  }
+
   void _insurancePolicyPrices(BuildContext context) {}
   void _insuranceCompanies(BuildContext context) {}
 

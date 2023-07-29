@@ -7,6 +7,7 @@ import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
@@ -23,6 +24,7 @@ import 'package:insurance_app/presentation/screens/no_connection/no_connection_s
 import 'package:insurance_app/presentation/screens/notifications/notifications_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/profile/profile_screen.dart';
+import 'package:insurance_app/presentation/screens/reminder/index.dart';
 import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
@@ -83,6 +85,10 @@ class Routes {
   static const String issueInsuranceRoute = '/issue-insurance';
   static const String issueInstallmentDetailsRoute =
       '/issue-installment-details';
+
+  static const String reminderRoute = '/reminder';
+  static const String reminderUploadInsurancePictureStepRoute =
+      '/reminder-upload-insurance-picture';
 }
 
 class AppRouter {
@@ -202,6 +208,15 @@ class AppRouter {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => ReminderCubit(),
+            child: ReminderStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _reminderBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
           return HomeScreen(child, state.uri.toString());
         },
         branches: _homeBranches,
@@ -289,8 +304,7 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.homeRoute,
-        builder: (context, state) =>
-            HomePage(firstLogin: state.extra as bool? ?? false),
+        builder: (context, state) => HomePage(dialog: state.extra as Widget?),
       ),
     ]),
     StatefulShellBranch(routes: [
@@ -303,7 +317,7 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.myInsurancesRoute,
-        builder: (context, state) => MyInsurancesPage(state.extra ?? 0),
+        builder: (context, state) => MyInsurancesPage(state.extra as int? ?? 0),
       ),
     ]),
     StatefulShellBranch(routes: [
@@ -345,8 +359,25 @@ class AppRouter {
     ]),
   ];
 
+  static final List<StatefulShellBranch> _reminderBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.reminderRoute,
+        builder: (context, state) => const ReminderInfoFormStepPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.reminderUploadInsurancePictureStepRoute,
+        builder: (context, state) =>
+            const ReminderUploadInsurancePictureStepPage(),
+      ),
+    ]),
+  ];
+
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
   static int get homeBranchesCount => _homeBranches.length;
   static int get paymentSteps => _paymentBranches.length;
+  static int get reminderSteps => _reminderBranches.length;
 }

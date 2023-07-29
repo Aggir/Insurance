@@ -28,6 +28,19 @@ const List<Map<String, String>> insuranceCompanies = [
   {'id': '3', 'value': 'شركة تجربة للتأمين'},
 ];
 
+const List<Map<String, String>> alarmTypes = [
+  {'id': '1', 'value': 'الفحص الفني'},
+  {'id': '2', 'value': 'التأمين الاجباري'},
+];
+
+const List<Map<String, String>> remindMeOptions = [
+  {'id': '1', 'value': 'قبل يوم'},
+  {'id': '2', 'value': 'قبل 3 ايام'},
+  {'id': '3', 'value': 'قبل اسبوع'},
+  {'id': '4', 'value': 'قبل اسبوعين'},
+  {'id': '5', 'value': 'قبل شهر'},
+];
+
 const List<Map<String, String>> typesOfCarInsurance = [
   {'id': '1', 'value': 'وثيقة تأمين سيارة إجباري'},
   {'id': '2', 'value': 'وثيقة تأمين سيارة شامل'},
