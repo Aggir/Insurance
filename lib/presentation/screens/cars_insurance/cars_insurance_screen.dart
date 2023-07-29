@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/compare_companies/components/filter_insurance_companies_modal.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
@@ -24,7 +25,15 @@ class CarsInsuranceScreen extends StatelessWidget {
     context.go(Routes.reminderRoute);
   }
 
-  void _insurancePolicyPrices(BuildContext context) {}
+  void _insurancePolicyPrices(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: AppValues.modalShape,
+      builder: (context) => const FilterInsuranceCompaniesModal(),
+    );
+  }
+
   void _insuranceCompanies(BuildContext context) {}
 
   @override

@@ -47,6 +47,21 @@ const List<Map<String, String>> typesOfCarInsurance = [
   {'id': '3', 'value': 'وثيقة تأمين المنافع الإضافية'},
 ];
 
+const List<Map<String, String>> horsePower = [
+  {'id': '1', 'value': '8'},
+  {'id': '2', 'value': '10'},
+  {'id': '3', 'value': '12'},
+  {'id': '4', 'value': '14'},
+  {'id': '5', 'value': '16'},
+];
+
+const List<Map<String, String>> test = [
+  {'id': '1', 'value': 'تجربة 1'},
+  {'id': '2', 'value': 'تجربة 2'},
+  {'id': '3', 'value': 'تجربة 3'},
+  {'id': '4', 'value': 'تجربة 4'},
+];
+
 const List<Map<String, String>> carBrands = [
   {'id': '1', 'value': 'فولسفاغن', 'imgPath': ImageAssets.volkswagen},
   {'id': '2', 'value': 'كيا', 'imgPath': ImageAssets.kia},

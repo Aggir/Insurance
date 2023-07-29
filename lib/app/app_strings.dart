@@ -262,4 +262,16 @@ class AppStrings {
   static const activate = 'activate';
   static const theOperationWasSuccessful = 'the_operation_was_successful';
   static const reminderSuccessDialogMessage = 'reminder_success_dialog_message';
+
+  static const insuranceCompaniesFilter = 'insurance_companies_filter';
+  static const youCanFindOutThePricesByFiltering =
+      'you_can_find_out_the_prices_by_filtering';
+  static const selectInsurancePolicy = 'select_insurance_policy';
+  static const selectTheHorsepowerOfTheEngine =
+      'select_the_horsepower_of_the_engine';
+  static const sortBy = 'sort_by';
+  static const lowestPrice = 'lowest_price';
+  static const highestPrice = 'highest_price';
+  static const price = 'price';
+  static const issueAnInsurance = 'issue_an_insurance';
 }
