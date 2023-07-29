@@ -14,6 +14,7 @@ import 'package:insurance_app/presentation/screens/change_password/change_passwo
 import 'package:insurance_app/presentation/screens/compare_companies/compare_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
+import 'package:insurance_app/presentation/screens/insurance_companies/insurance_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/insurance_document/insurance_document_screen.dart';
 import 'package:insurance_app/presentation/screens/payment/pages/send_otp_step_page.dart';
 import 'package:insurance_app/presentation/screens/payment/pages/verify_otp_step_page.dart';
@@ -93,6 +94,8 @@ class Routes {
       '/reminder-upload-insurance-picture';
 
   static const String comparePricesRoute = '/compare-prices';
+
+  static const String insuranceCompaniesRoute = '/insurance-companies';
 }
 
 class AppRouter {
@@ -172,6 +175,12 @@ class AppRouter {
         path: Routes.notificationsRoute,
         builder: (BuildContext context, GoRouterState state) {
           return const NotificationsScreen();
+        },
+      ),
+      GoRoute(
+        path: Routes.insuranceCompaniesRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const InsuranceCompaniesScreen();
         },
       ),
       GoRoute(
