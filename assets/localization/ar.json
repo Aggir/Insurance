@@ -257,6 +257,13 @@
     "you_can_now_get_insurance_for_your_vehicle": "يمكنك الآن إصدار تأمين لمركبتك",
     "select_or_search_for_your_vehicle_type": "اختر أو ابحث عن نوع سيارتك",
     "find_your_car_type": "ابحث عن نوع سيارتك",
-    "instant_payment":"الدفع الفوري",
-    "pay_in_installments":"الدفع على أقساط"
+    "instant_payment": "الدفع الفوري",
+    "pay_in_installments": "الدفع على أقساط",
+    "choose_the_appropriate_number_of_installments": "اختر عدد الأقساط المناسبة ",
+    "choose_the_number_of_monthly_installments_that_suit_you": "اختر عدد الأقساط الشهرية المناسبة لك",
+    "choose_the_number_of_monthly_installments": "اختر عدد الأقساط الشهرية",
+    "monthly_installment": "القسط الشهري",
+    "pay_installments_via_the_banking_application": "دفع الأقساط عبر التطبيق المصرفي",
+    "the_installments_will_be_paid_through_the_banking_application": "ستتم عملية دفع الأقساط عبر التطبيق المصرفي.",
+    "ok": "موافق"
 }

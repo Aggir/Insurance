@@ -5,14 +5,26 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/payment/components/installments_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 
 class PaymentMethodModal extends StatelessWidget {
-  const PaymentMethodModal({super.key});
+  const PaymentMethodModal({this.isInstallments = false, super.key});
+  final bool isInstallments;
+
+  void _selectPaymentMethodFunction(BuildContext context, method) {
+    if (isInstallments) {
+      // context.pop();
+      DialogService.load(context, content: InstallmentDialog(method));
+    } else {
+      context.go(Routes.paymentRoute, extra: method);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +103,7 @@ class PaymentMethodModal extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () => context.go(Routes.paymentRoute, extra: method),
+                  onTap: () => _selectPaymentMethodFunction(context, method),
                 ),
               ),
             ),
