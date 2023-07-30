@@ -112,7 +112,7 @@ class _AddMyVehiclePictureStepPageState
           child: Column(
             children: [
               CustomTextFormField(
-                hintText: AppStrings.vehiclePicture.tr(),
+                hintText: AppStrings.licensePlateNumber.tr(),
               ),
               CustomSpacers.medium(),
               CustomDropDownField(

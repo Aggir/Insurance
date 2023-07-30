@@ -127,7 +127,7 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
       key: cubit.userInfoForm,
       onChanged: _checkIsFormEmpty,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -169,6 +169,18 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
             hintText: AppStrings.birthDate.tr(),
             controller: cubit.birthDateController,
           ),
+          CustomSpacers.medium(),
+          Text(
+            AppStrings.gender.tr(),
+            style: smallDarkGrayBodyStyle(),
+          ),
+          Row(
+            children: [
+              _customRadioRow(value: true, title: AppStrings.male.tr()),
+              CustomSpacers.medium(),
+              _customRadioRow(value: false, title: AppStrings.female.tr()),
+            ],
+          ),
         ],
       ),
     );
@@ -178,6 +190,32 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
     return PrimaryButton.fullWidth(
       onPressed: formIsNotEmpty ? () => _nextButtonFunction(context) : null,
       child: Text(AppStrings.next.tr().toUpperCase()),
+    );
+  }
+
+  bool _isMale = true;
+  Widget _customRadioRow({required bool value, required String title}) {
+    return InkWell(
+      onTap: () => setState(() {
+        _isMale = value;
+      }),
+      child: Row(
+        children: [
+          Radio(
+              visualDensity: VisualDensity.compact,
+              value: value,
+              groupValue: _isMale,
+              onChanged: (_) {
+                setState(() {
+                  _isMale = value;
+                });
+              }),
+          Text(
+            title,
+            style: darkGrayBodyStyle(),
+          )
+        ],
+      ),
     );
   }
 }

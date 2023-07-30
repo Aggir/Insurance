@@ -265,5 +265,8 @@
     "monthly_installment": "القسط الشهري",
     "pay_installments_via_the_banking_application": "دفع الأقساط عبر التطبيق المصرفي",
     "the_installments_will_be_paid_through_the_banking_application": "ستتم عملية دفع الأقساط عبر التطبيق المصرفي.",
-    "ok": "موافق"
+    "ok": "موافق",
+    "gender":"الجنس",
+    "male":"ذكر",
+    "female":"انثى"
 }

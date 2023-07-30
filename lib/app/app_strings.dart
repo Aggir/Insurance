@@ -338,4 +338,8 @@ class AppStrings {
   static const theInstallmentsWillBePaidThroughTheBankingApplication =
       'the_installments_will_be_paid_through_the_banking_application';
   static const ok = 'ok';
+
+  static const gender = 'gender';
+  static const male = 'male';
+  static const female = 'female';
 }
