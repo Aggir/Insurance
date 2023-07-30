@@ -40,32 +40,35 @@ class ComparePricesScreen extends StatelessWidget {
           actions: [_filterButton(context)]),
       body: Column(
         children: [
-          CustomTextFormField(
-            hintText: AppStrings.search.tr(),
-            prefixIcon: SvgPicture.asset(
-              SvgAssets.search,
-              height: AppSizes.s24.r,
-              width: AppSizes.s24.r,
-              fit: BoxFit.fill,
+          Padding(
+            padding: const EdgeInsets.all(AppValues.medium).r,
+            child: CustomTextFormField(
+              hintText: AppStrings.search.tr(),
+              prefixIcon: SvgPicture.asset(
+                SvgAssets.search,
+                height: AppSizes.s24.r,
+                width: AppSizes.s24.r,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
-          CustomSpacers.medium(),
-          ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(AppValues.medium).r,
-            children: [
-              _companyCardWidget(context,
-                  name: _companyName,
-                  imagePath: _imagePath,
-                  description: _companyDescription,
-                  price: _price),
-              CustomSpacers.medium(),
-              _companyCardWidget(context,
-                  name: _companyName,
-                  imagePath: _imagePath,
-                  description: _companyDescription,
-                  price: _price),
-            ],
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.all(AppValues.medium).r,
+              children: [
+                _companyCardWidget(context,
+                    name: _companyName,
+                    imagePath: _imagePath,
+                    description: _companyDescription,
+                    price: _price),
+                CustomSpacers.medium(),
+                _companyCardWidget(context,
+                    name: _companyName,
+                    imagePath: _imagePath,
+                    description: _companyDescription,
+                    price: _price),
+              ],
+            ),
           ),
         ],
       ),

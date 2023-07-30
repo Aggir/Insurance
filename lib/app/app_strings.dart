@@ -274,4 +274,22 @@ class AppStrings {
   static const highestPrice = 'highest_price';
   static const price = 'price';
   static const issueAnInsurance = 'issue_an_insurance';
+
+  static const companyDetails = 'company_details';
+  static const aboutTheCompany = 'about_the_company';
+  static const branches = 'branches';
+  static const prices = 'prices';
+  static const insurances = 'insurances';
+  static const pricesModalDescription = 'pricesDialogDescription';
+  static const selectVehicleType = 'select_vehicle_type';
+  static const selectSeatsNumber = 'select_seats_number';
+  static const publicUse = 'public_use';
+  static const knowThePrice = 'know_the_price';
+  static const personalInsurances = 'personal_insurances';
+  static const medicalLiability = 'medical_liability';
+  static const propertyInsurances = 'property_insurances';
+  static const marineInsurance = 'marine_insurance';
+  static const chooseOrSearchForTheNearestBranchToYou =
+      'choose_or_search_for_the_nearest_branch_to_you';
+  static const selectCity = 'select_city';
 }
