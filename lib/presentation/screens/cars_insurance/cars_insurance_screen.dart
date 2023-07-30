@@ -35,7 +35,7 @@ class CarsInsuranceScreen extends StatelessWidget {
   }
 
   void _insuranceCompanies(BuildContext context) {
-    context.go(Routes.insuranceCompaniesRoute);
+    context.go(Routes.companiesRoute);
   }
 
   @override

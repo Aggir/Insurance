@@ -11,6 +11,7 @@ import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
+import 'package:insurance_app/presentation/screens/company_details/company_details_screen.dart';
 import 'package:insurance_app/presentation/screens/compare_companies/compare_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
@@ -95,7 +96,8 @@ class Routes {
 
   static const String comparePricesRoute = '/compare-prices';
 
-  static const String insuranceCompaniesRoute = '/insurance-companies';
+  static const String companiesRoute = '/companies';
+  static const String companyDetailsRoute = ':company_id';
 }
 
 class AppRouter {
@@ -178,11 +180,19 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.insuranceCompaniesRoute,
-        builder: (BuildContext context, GoRouterState state) {
-          return const InsuranceCompaniesScreen();
-        },
-      ),
+          path: Routes.companiesRoute,
+          builder: (BuildContext context, GoRouterState state) {
+            return const InsuranceCompaniesScreen();
+          },
+          routes: [
+            GoRoute(
+              path: Routes.companyDetailsRoute,
+              builder: (BuildContext context, GoRouterState state) {
+                return CompanyDetailsScreen(
+                    state.pathParameters['company_id'] ?? '0');
+              },
+            )
+          ]),
       GoRoute(
         path: Routes.carsInsuranceRoute,
         builder: (context, state) =>

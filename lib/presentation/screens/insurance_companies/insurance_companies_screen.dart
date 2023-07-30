@@ -165,6 +165,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 focusNode.unfocus();
+                context.go('${Routes.companiesRoute}/1');
               },
             ),
           ),
