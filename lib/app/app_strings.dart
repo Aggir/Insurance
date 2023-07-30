@@ -280,7 +280,7 @@ class AppStrings {
   static const branches = 'branches';
   static const prices = 'prices';
   static const insurances = 'insurances';
-  static const pricesDialogDescription = 'insurances';
+  static const pricesModalDescription = 'pricesDialogDescription';
   static const selectVehicleType = 'select_vehicle_type';
   static const selectSeatsNumber = 'select_seats_number';
   static const publicUse = 'public_use';
