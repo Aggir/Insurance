@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -45,6 +46,16 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
         appBar: AppBar(
           backgroundColor: AppColors.transparent,
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () => _addVehicleFunction(context),
+              icon: SvgPicture.asset(
+                SvgAssets.plus,
+                height: AppSizes.s32.r,
+                width: AppSizes.s32.r,
+              ),
+            ),
+          ],
           elevation: 0,
           title: Text(
             AppStrings.myVehicles.tr(),

@@ -128,4 +128,5 @@ class SvgAssets {
   static const String germany = '$_svgPath/germany.svg';
   static const String installmentIcon = '$_svgPath/installment-icon.svg';
   static const String checkCircle = '$_svgPath/check-circle.svg';
+  static const String plus = '$_svgPath/plus.svg';
 }
