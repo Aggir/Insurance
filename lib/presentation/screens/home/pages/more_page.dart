@@ -145,9 +145,17 @@ class MorePage extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          Text(
-                            DUMMY.email,
-                            style: smallGrayBodyStyle(),
+                          Row(
+                            children: [
+                              Text(
+                                AppStrings.userId.tr(),
+                                style: smallGrayBodyStyle(),
+                              ),
+                              Text(
+                                DUMMY.id,
+                                style: extraSmallHeadlineStyle(),
+                              ),
+                            ],
                           ),
                         ],
                       ),

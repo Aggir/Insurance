@@ -17,7 +17,7 @@ import '../../theme/app_theme.dart';
 import '../../theme/text_style_manager.dart';
 import '../../widgets/custom_spacers.dart';
 import '../../widgets/primary_button.dart';
-import '../payment/components/payment_method_modal.dart';
+import '../payment/components/payment_type_modal.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -30,7 +30,7 @@ class NotificationsScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       shape: AppValues.modalShape,
-      builder: (context) => const PaymentMethodModal(),
+      builder: (context) => const PaymentTypeModal(),
     );
   }
 

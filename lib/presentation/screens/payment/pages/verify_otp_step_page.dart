@@ -50,7 +50,7 @@ class _PaymentVerifyOtpPageState extends State<PaymentVerifyOtpPage> {
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.height -
-            kToolbarHeight -
+            AppValues.appBarHeight.r -
             AppSizes.s30.r,
         child: PageContentPadding(
           child: Column(

@@ -65,7 +65,7 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
       child: SingleChildScrollView(
         child: SizedBox(
           height: MediaQuery.of(context).size.height -
-              kToolbarHeight -
+              AppValues.appBarHeight.r -
               AppSizes.s30.r,
           child: PageContentPadding(
             child: Column(

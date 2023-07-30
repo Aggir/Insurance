@@ -30,7 +30,9 @@ class _HomePageState extends State<HomePage> {
     context.go(Routes.notificationsRoute);
   }
 
-  _createVehicleFunction(BuildContext context) {}
+  _createVehicleFunction(BuildContext context) {
+    context.go(Routes.addMyVehicleRoute);
+  }
 
   _carsInsuranceFunction(BuildContext context) {
     context.go(Routes.carsInsuranceRoute);

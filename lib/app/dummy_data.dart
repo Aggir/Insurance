@@ -56,14 +56,30 @@ const List<Map<String, String>> horsePower = [
 ];
 
 const List<Map<String, String>> seatsNumber = [
+  {'id': '1', 'value': '2'},
+  {'id': '2', 'value': '4'},
+  {'id': '3', 'value': '5'},
+  {'id': '4', 'value': '6'},
+  {'id': '5', 'value': '7'},
+  {'id': '6', 'value': '8'},
+];
+
+const List<Map<String, String>> seatsNumberWithoutTheDriver = [
   {'id': '1', 'value': '1'},
-  {'id': '2', 'value': '2'},
-  {'id': '3', 'value': '3'},
-  {'id': '4', 'value': '4'},
-  {'id': '5', 'value': '5'},
-  {'id': '6', 'value': '6'},
-  {'id': '7', 'value': '7'},
-  {'id': '9', 'value': '8'},
+  {'id': '2', 'value': '3'},
+  {'id': '3', 'value': '4'},
+  {'id': '4', 'value': '5'},
+  {'id': '5', 'value': '6'},
+  {'id': '6', 'value': '7'},
+];
+
+const List<Map<String, String>> colors = [
+  {'id': '1', 'value': 'أحمر'},
+  {'id': '2', 'value': 'أزرق'},
+  {'id': '3', 'value': 'أخضر'},
+  {'id': '4', 'value': 'أصفر'},
+  {'id': '5', 'value': 'أسود'},
+  {'id': '6', 'value': 'أبيض'},
 ];
 
 const List<Map<String, String>> test = [
@@ -90,12 +106,26 @@ const List<Map<String, String>> myVehicles = [
   {'id': '2', 'value': 'هيونداي اكسنت 2012', 'imgPath': ImageAssets.hyundai},
 ];
 
+const List<Map<String, String>> vehicleYears = [
+  {'id': '1', 'value': '2007'},
+  {'id': '2', 'value': '2008'},
+  {'id': '3', 'value': '2009'},
+  {'id': '4', 'value': '2010'},
+  {'id': '5', 'value': '2011'},
+  {'id': '6', 'value': '2012'},
+];
+
 const List<PaymentMethod> paymentMethods = [
   PaymentMethod(id: '1', name: 'موبي كاش', imagePath: ImageAssets.mobicash),
   PaymentMethod(id: '2', name: 'ناب 4 باي', imagePath: ImageAssets.nab4pay),
   PaymentMethod(id: '3', name: 'سداد', imagePath: ImageAssets.sadad),
   PaymentMethod(id: '4', name: 'تداول', imagePath: ImageAssets.tadawul),
   PaymentMethod(id: '5', name: 'معاملات', imagePath: ImageAssets.moamalat),
+];
+
+const List<Map<String, String>> vehicleCountry = [
+  {'id': '1', 'value': 'ليبيا', 'svgPath': SvgAssets.libya},
+  {'id': '2', 'value': 'المانيا', 'svgPath': SvgAssets.germany},
 ];
 // const List<Map<String, String>> paymentMethods = [
 //   {'id': '1', 'value': 'موبي كاش', 'imgPath': ImageAssets.mobicash},

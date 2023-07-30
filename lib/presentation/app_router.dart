@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
+import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/screens/add_my_vehicle/index.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
-import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
+import 'package:insurance_app/presentation/screens/add_my_vehicle/pages/vehicle_picture_step_page.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/company_branches/company_branches_screen.dart';
@@ -80,11 +82,17 @@ class Routes {
 
   static const String profileRoute = '/profile';
 
+  static const String addMyVehicleRoute = "/add-my-vehicle-user-info-step";
+  static const String addMyVehicleDetailsStepOneRoute =
+      "/add-my-vehicle-details-one-step";
+  static const String addMyVehicleDetailsStepTwoRoute =
+      "/add-my-vehicle-details-two-step";
+  static const String addMyVehiclePictureStepRoute =
+      "/add-my-vehicle-picture-step";
+
   static const String paymentRoute = '/payment-send-otp';
   static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
-
   static const String notificationsRoute = '/notifications';
-
   static const String carsInsuranceRoute = '/cars-insurance';
 
   static const String issueInsuranceRoute = '/issue-insurance';
@@ -106,6 +114,7 @@ class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
     initialLocation: Routes.homeRoute,
+    // initialLocation: Routes.homeRoute,
     routes: <RouteBase>[
       GoRoute(
         path: Routes.onboardingRoute,
@@ -231,6 +240,15 @@ class AppRouter {
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
           return BlocProvider(
+            create: (context) => AddMyVehicleCubit(),
+            child: AddMyVehicleStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _addMyVehicleBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
+          return BlocProvider(
             create: (context) => ForgotPasswordCubit(),
             child: ForgotPasswordStepsScreen(child, state.uri.toString()),
           );
@@ -306,6 +324,35 @@ class AppRouter {
         pageBuilder: (context, state) => const MaterialPage(
           child: SignUpNationalIdNumberPage(),
         ),
+      ),
+    ]),
+  ];
+
+  static final List<StatefulShellBranch> _addMyVehicleBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehicleRoute,
+        builder: (context, state) => const AddMyVehicleUserInfoStepPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehicleDetailsStepOneRoute,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: AddMyVehicleDetailsStepOnePage(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.addMyVehicleDetailsStepTwoRoute,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: AddMyVehicleDetailsStepTwoPage(),
+        ),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehiclePictureStepRoute,
+        builder: (context, state) => const AddMyVehiclePictureStepPage(),
       ),
     ]),
   ];
@@ -409,6 +456,7 @@ class AppRouter {
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
   static int get homeBranchesCount => _homeBranches.length;
+  static int get addMyVehicleSteps => _addMyVehicleBranches.length;
   static int get paymentSteps => _paymentBranches.length;
   static int get reminderSteps => _reminderBranches.length;
 }
