@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/screens/payment/components/installments_amount_modal.dart';
 import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
 
 import '../../../../app/app_strings.dart';
@@ -14,6 +15,24 @@ import '../../../widgets/custom_spacers.dart';
 
 class PaymentTypeModal extends StatelessWidget {
   const PaymentTypeModal({super.key});
+
+  void _instantPaymentFunction(BuildContext context) {
+    context.pop();
+    showModalBottomSheet(
+      context: context,
+      shape: AppValues.modalShape,
+      builder: (context) => const PaymentMethodModal(),
+    );
+  }
+
+  void _payInInstallmentsFunction(BuildContext context) {
+    context.pop();
+    showModalBottomSheet(
+      context: context,
+      shape: AppValues.modalShape,
+      builder: (context) => const InstallmentsAmountModal(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +59,13 @@ class PaymentTypeModal extends StatelessWidget {
           context,
           AppStrings.instantPayment.tr(),
           SvgAssets.checkCircle,
+          () => _instantPaymentFunction(context),
         ),
         _paymentTypeRow(
           context,
           AppStrings.payInInstallments.tr(),
           SvgAssets.installmentIcon,
+          () => _payInInstallmentsFunction(context),
         ),
         CustomSpacers.large(),
         // _paymentTypeRow(context )
@@ -52,7 +73,8 @@ class PaymentTypeModal extends StatelessWidget {
     );
   }
 
-  Widget _paymentTypeRow(BuildContext context, String title, String svgPath) {
+  Widget _paymentTypeRow(BuildContext context, String title, String svgPath,
+      void Function() onTap) {
     return Column(
       children: [
         Stack(
@@ -84,14 +106,7 @@ class PaymentTypeModal extends StatelessWidget {
                 clipBehavior: Clip.antiAlias,
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
-                    context.pop();
-                    showModalBottomSheet(
-                      context: context,
-                      shape: AppValues.modalShape,
-                      builder: (context) => const PaymentMethodModal(),
-                    );
-                  },
+                  onTap: onTap,
                 ),
               ),
             ),

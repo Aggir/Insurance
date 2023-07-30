@@ -66,6 +66,7 @@ class ImageAssets {
   static const String location = '$_imagePath/location.png';
   static const String vehicleAddedSuccess =
       '$_imagePath/vehicle-added-success.png';
+  static const String installment = '$_imagePath/installment.png';
 }
 
 const String _gifPath = 'assets/gifs';

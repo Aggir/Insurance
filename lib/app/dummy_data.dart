@@ -115,6 +115,20 @@ const List<Map<String, String>> vehicleYears = [
   {'id': '6', 'value': '2012'},
 ];
 
+const List<Map<String, String>> theNumberOfMonthlyInstallments = [
+  {'id': '1', 'value': 'شهرين'},
+  {'id': '2', 'value': '3 أشهر'},
+  {'id': '3', 'value': '4 أشهر'},
+  {'id': '4', 'value': '5 أشهر'},
+  {'id': '5', 'value': '6 أشهر'},
+  {'id': '6', 'value': '7 أشهر'},
+  {'id': '7', 'value': '8 أشهر'},
+  {'id': '8', 'value': '9 أشهر'},
+  {'id': '9', 'value': '10 أشهر'},
+  {'id': '10', 'value': '11 أشهر'},
+  {'id': '11', 'value': 'عام'},
+];
+
 const List<PaymentMethod> paymentMethods = [
   PaymentMethod(id: '1', name: 'موبي كاش', imagePath: ImageAssets.mobicash),
   PaymentMethod(id: '2', name: 'ناب 4 باي', imagePath: ImageAssets.nab4pay),

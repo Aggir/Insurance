@@ -326,4 +326,16 @@ class AppStrings {
   static const findYourCarType = 'find_your_car_type';
   static const instantPayment = 'instant_payment';
   static const payInInstallments = 'pay_in_installments';
+  static const chooseTheAppropriateNumberOfInstallments =
+      'choose_the_appropriate_number_of_installments';
+  static const chooseTheNumberOfMonthlyInstallmentsThatSuitYou =
+      'choose_the_number_of_monthly_installments_that_suit_you';
+  static const chooseTheNumberOfMonthlyInstallments =
+      'choose_the_number_of_monthly_installments';
+  static const monthlyInstallment = 'monthly_installment';
+  static const payInstallmentsViaTheBankingApplication =
+      'pay_installments_via_the_banking_application';
+  static const theInstallmentsWillBePaidThroughTheBankingApplication =
+      'the_installments_will_be_paid_through_the_banking_application';
+  static const ok = 'ok';
 }
