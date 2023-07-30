@@ -87,7 +87,7 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
         body: TabBarView(
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: const [AboutCompanyTab(), InsurancesTab()],
+          children: [AboutCompanyTab(widget.companyId), const InsurancesTab()],
         ));
   }
 }

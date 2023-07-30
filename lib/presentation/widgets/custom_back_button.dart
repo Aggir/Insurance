@@ -7,8 +7,9 @@ import 'package:insurance_app/app/assets_manager.dart';
 import '../theme/app_theme.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({this.onTap, super.key});
+  const CustomBackButton({this.color, this.onTap, super.key});
   final void Function()? onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,12 @@ class CustomBackButton extends StatelessWidget {
                     : SvgAssets.arrowLeft,
                 height: AppSizes.s24.r,
                 width: AppSizes.s24.r,
+                colorFilter: color != null
+                    ? ColorFilter.mode(
+                        color!,
+                        BlendMode.srcIn,
+                      )
+                    : null,
               ),
             )),
       ),

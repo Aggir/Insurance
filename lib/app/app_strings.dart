@@ -291,4 +291,5 @@ class AppStrings {
   static const marineInsurance = 'marine_insurance';
   static const chooseOrSearchForTheNearestBranchToYou =
       'choose_or_search_for_the_nearest_branch_to_you';
+  static const selectCity = 'select_city';
 }

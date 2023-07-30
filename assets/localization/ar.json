@@ -230,5 +230,6 @@
     "medical_liability": "المسؤولية الطبية",
     "property_insurances": "تامينات الممتلكات",
     "marine_insurance": "التأمين البحري",
-    "choose_or_search_for_the_nearest_branch_to_you": "اختر أو ابحث عن الفرع الأقرب لك"
+    "choose_or_search_for_the_nearest_branch_to_you": "اختر أو ابحث عن الفرع الأقرب لك",
+    "select_city": "اختر المدينة"
 }

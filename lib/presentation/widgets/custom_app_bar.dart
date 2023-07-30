@@ -24,14 +24,14 @@ class CustomAppBar {
     }
   }
 
-  static AppBar basic({
-    Widget? customTitle,
-    String? title,
-    void Function()? backButton,
-    List<Widget>? actions,
-    bool centerTitle = true,
-    PreferredSize? bottom,
-  }) {
+  static AppBar basic(
+      {Widget? customTitle,
+      String? title,
+      void Function()? backButton,
+      List<Widget>? actions,
+      bool centerTitle = true,
+      PreferredSize? bottom,
+      Color? backButtonColor}) {
     return AppBar(
       toolbarHeight: AppValues.appBarHeight.r,
       centerTitle: centerTitle,
@@ -42,6 +42,7 @@ class CustomAppBar {
       title: _getTitle(customTitle, title),
       leading: CustomBackButton(
         onTap: backButton,
+        color: backButtonColor,
       ),
     );
   }
