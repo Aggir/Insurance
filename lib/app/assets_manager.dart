@@ -42,8 +42,7 @@ class ImageAssets {
       '$_imagePath/add_my_vehcile_step_1.png';
   static const String addMyVehicleStep2 =
       '$_imagePath/add_my_vehcile_step_2.png';
-  static const String addMyVehicleStep3 =
-      '$_imagePath/add_my_vehcile_step_3.png';
+  static const String addMyVehicleStep3 = '$_imagePath/vehicle-step-3.png';
   static const String kia = '$_imagePath/kia.png';
   static const String mercedes = '$_imagePath/mercedes.png';
   static const String volkswagen = '$_imagePath/volkswagen.png';
@@ -65,6 +64,8 @@ class ImageAssets {
       '$_imagePath/tibesty-insurance-co.png';
   static const String price = '$_imagePath/price.png';
   static const String location = '$_imagePath/location.png';
+  static const String vehicleAddedSuccess =
+      '$_imagePath/vehicle-added-success.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -123,4 +124,7 @@ class SvgAssets {
   static const String filter = '$_svgPath/filter.svg';
   static const String shipFilled = '$_svgPath/ship-filled.svg';
   static const String healthFilled = '$_svgPath/health-filled.svg';
+  static const String germany = '$_svgPath/germany.svg';
+  static const String installmentIcon = '$_svgPath/installment-icon.svg';
+  static const String checkCircle = '$_svgPath/check-circle.svg';
 }

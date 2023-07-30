@@ -174,7 +174,7 @@ class AppStrings {
   static const checkInternetConnectionDescription =
       'check_internet_connection_description';
   static const tryAgain = 'try_again';
-  static const address = 'address';
+  static const selectAddress = 'select_address';
 
   static const personalInfo = 'personal_info';
   static const personalInfoDescription = 'personal_info_description';
@@ -306,4 +306,24 @@ class AppStrings {
   static const chooseOrSearchForTheNearestBranchToYou =
       'choose_or_search_for_the_nearest_branch_to_you';
   static const selectCity = 'select_city';
+  static const engineSerialNumber = 'engine_serial_number';
+  static const chassisNumber = 'chassis_number';
+  static const carColor = 'car_color';
+  static const seatsWithoutTheDriver = 'seats_without_the_driver';
+  static const vehiclePicture = 'vehicle_picture';
+  static const thisInformationHelpsUsToKnowYourVehicleMoreAccurately =
+      'this_information_helps_us_to_know_your_vehicle_more_accurately';
+  static const uploadVehiclePicture = 'upload_vehicle_picture';
+  static const licensePlateNumber = 'license_plate_number';
+  static const registeredAuthority = 'registered_authority';
+  static const saveVehicleFile = 'save_vehicle_file';
+  static const youHaveSuccessfullyAddedYourVehicle =
+      'you_have_successfully_added_your_vehicle';
+  static const youCanNowGetInsuranceForYourVehicle =
+      'you_can_now_get_insurance_for_your_vehicle';
+  static const selectOrSearchForYourVehicleType =
+      'select_or_search_for_your_vehicle_type';
+  static const findYourCarType = 'find_your_car_type';
+  static const instantPayment = 'instant_payment';
+  static const payInInstallments = 'pay_in_installments';
 }

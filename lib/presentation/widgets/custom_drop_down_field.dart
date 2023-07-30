@@ -18,16 +18,20 @@ class CustomDropDownField extends StatefulWidget {
     this.enabled = true,
     this.defaultValidator = true,
     this.hintText,
+    this.onTap,
     this.initialValue,
+    this.value,
     this.focusedStyleEnabled = true,
     this.hideErrorMessage = false,
   }) : super(key: key);
   final List<DropdownMenuItem> items;
   final void Function(dynamic)? onChanged;
+  final void Function()? onTap;
   final String? Function(String? value)? validator;
   final bool defaultValidator;
   final bool enabled;
   final dynamic initialValue;
+  final dynamic value;
   final String? hintText;
   final bool focusedStyleEnabled;
   final bool hideErrorMessage;
@@ -57,6 +61,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
           width: double.infinity,
           height: AppValues.textFieldHeight.r,
           child: DropdownButtonFormField(
+            onTap: widget.onTap,
             validator: (value) => (widget.defaultValidator
                 ? _defaultValidator(value, widget.validator)
                 : null),
@@ -66,7 +71,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
               width: AppSizes.s22.r,
             ),
             items: widget.items,
-            value: selectedValue,
+            value: widget.value ?? selectedValue,
             onChanged: (value) {
               if (widget.onChanged != null) {
                 widget.onChanged!(value);

@@ -1,19 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
-import 'package:insurance_app/presentation/screens/add_my_vechicle/add_my_vehicle_steps_screen.dart';
-import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_details_step_page.dart';
-import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_user_info_step_page.dart';
+import 'package:insurance_app/presentation/screens/add_my_vehicle/index.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
-import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
 import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
+import 'package:insurance_app/presentation/screens/add_my_vehicle/pages/vehicle_picture_step_page.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 import 'package:insurance_app/presentation/screens/company_branches/company_branches_screen.dart';
@@ -84,9 +81,14 @@ class Routes {
       "$settingsRoute/$changePasswordRoute";
 
   static const String profileRoute = '/profile';
+
   static const String addMyVehicleRoute = "/add-my-vehicle-user-info-step";
-  static const String addMyVehicleDetailsStepRoute =
-      "/add-my-vehicle-details-step";
+  static const String addMyVehicleDetailsStepOneRoute =
+      "/add-my-vehicle-details-one-step";
+  static const String addMyVehicleDetailsStepTwoRoute =
+      "/add-my-vehicle-details-two-step";
+  static const String addMyVehiclePictureStepRoute =
+      "/add-my-vehicle-picture-step";
 
   static const String paymentRoute = '/payment-send-otp';
   static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
@@ -111,7 +113,7 @@ class Routes {
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.addMyVehicleDetailsStepRoute,
+    initialLocation: Routes.homeRoute,
     // initialLocation: Routes.homeRoute,
     routes: <RouteBase>[
       GoRoute(
@@ -335,8 +337,22 @@ class AppRouter {
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
-        path: Routes.addMyVehicleDetailsStepRoute,
-        builder: (context, state) => const AddMyVehicleDetailsStepPage(),
+        path: Routes.addMyVehicleDetailsStepOneRoute,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: AddMyVehicleDetailsStepOnePage(),
+        ),
+      ),
+      GoRoute(
+        path: Routes.addMyVehicleDetailsStepTwoRoute,
+        pageBuilder: (context, state) => const MaterialPage(
+          child: AddMyVehicleDetailsStepTwoPage(),
+        ),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.addMyVehiclePictureStepRoute,
+        builder: (context, state) => const AddMyVehiclePictureStepPage(),
       ),
     ]),
   ];

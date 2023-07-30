@@ -2,8 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/issue_insurance/components/issue_completed_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -21,7 +23,9 @@ class MyVehiclesPage extends StatefulWidget {
 }
 
 class _MyVehiclesPageState extends State<MyVehiclesPage> {
-  _addVehicleFunction(context) {}
+  _addVehicleFunction(BuildContext context) {
+    context.go(Routes.addMyVehicleRoute);
+  }
 
   @override
   void initState() {
@@ -48,6 +52,10 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
         body: emptyListState(context),
       ),
     );
+  }
+
+  Widget _myVehicleItem() {
+    return Container();
   }
 
   Widget emptyListState(BuildContext context) {

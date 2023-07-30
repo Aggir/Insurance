@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
+import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_back_button.dart';
-import 'package:insurance_app/presentation/widgets/steps_app_bar_widget.dart';
 
 class AddMyVehicleStepsScreen extends StatefulWidget {
   const AddMyVehicleStepsScreen(this.child, this.location, {super.key});
@@ -30,10 +30,12 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
           case 0:
             return context.go(Routes.homeRoute);
           case 1:
-            return context.go(Routes.addMyVehicleRoute);
+            if (widget.location == Routes.addMyVehicleDetailsStepTwoRoute) {
+              return context.go(Routes.addMyVehicleDetailsStepOneRoute);
+            }
 
           default:
-            return context.go(Routes.homeRoute);
+            return widget.child.goBranch(widget.child.currentIndex - 1);
         }
       }
 
@@ -43,7 +45,7 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
     });
 
     return Scaffold(
-      appBar: stepsAppBarWidget(
+      appBar: CustomAppBar.steps(
           backButton: blockBuilder,
           currentIndex: widget.child.currentIndex,
           title: AppStrings.addVehicle.tr(),

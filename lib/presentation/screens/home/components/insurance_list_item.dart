@@ -8,7 +8,7 @@ import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/presentation/app_router.dart';
-import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_type_modal.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -208,7 +208,8 @@ class InsuranceListItem extends StatelessWidget {
         showModalBottomSheet(
           context: context,
           shape: AppValues.modalShape,
-          builder: (context) => const PaymentMethodModal(),
+          isScrollControlled: true,
+          builder: (context) => const PaymentTypeModal(),
         );
       };
     } else if (insurance.insuranceStatus.isIssued) {

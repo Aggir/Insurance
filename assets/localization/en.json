@@ -226,5 +226,17 @@
     "medical_liability": "",
     "property_insurances": "",
     "marine_insurance": "",
-    "choose_or_search_for_the_nearest_branch_to_you": ""
+    "choose_or_search_for_the_nearest_branch_to_you": "",
+    "engine_serial_number": "",
+    "chassis_number": "",
+    "car_color": "",
+    "seats_without_the_driver": "",
+    "vehicle_picture": "",
+    "this_information_helps_us_to_know_your_vehicle_more_accurately": "",
+    "upload_vehicle_picture": "",
+    "license_plate_number": "",
+    "registered_authority": "",
+    "save_vehicle_file": "",
+    "you_have_successfully_added_your_vehicle": "",
+    "you_can_now_get_insurance_for_your_vehicle": ""
 }
