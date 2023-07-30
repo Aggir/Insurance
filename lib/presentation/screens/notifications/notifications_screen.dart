@@ -17,7 +17,7 @@ import '../../theme/app_theme.dart';
 import '../../theme/text_style_manager.dart';
 import '../../widgets/custom_spacers.dart';
 import '../../widgets/primary_button.dart';
-import '../insurance_payment/components/payment_method_modal.dart';
+import '../payment/components/payment_method_modal.dart';
 
 class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
@@ -29,11 +29,7 @@ class NotificationsScreen extends StatelessWidget {
   _renewalFunction(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadiusDirectional.vertical(
-          top: Radius.circular(AppValues.largeRadius),
-        ),
-      ),
+      shape: AppValues.modalShape,
       builder: (context) => const PaymentMethodModal(),
     );
   }

@@ -6,7 +6,7 @@ import 'package:insurance_app/domain/entities/payment_method.dart';
 String fistName = "مرام";
 String middleName = "محمد";
 String lastName = "العمامي";
-const id = "a989bc";
+const id = "01015323";
 String email = "user@email.com";
 String phone = "0920000000";
 String birthDate = "18-1-1998";
@@ -23,15 +23,54 @@ const List<Map<String, String>> cities = [
 ];
 
 const List<Map<String, String>> insuranceCompanies = [
-  {'id': '1', 'value': 'وثيقة تأمين سيارة إجباري'},
-  {'id': '2', 'value': 'وثيقة تأمين سيارة شامل'},
-  {'id': '3', 'value': 'وثيقة تأمين المنافع الإضافية'},
+  {'id': '1', 'value': 'شركة تيبستي للتأمين'},
+  {'id': '2', 'value': 'الشركة العالمية للتأمين'},
+  {'id': '3', 'value': 'شركة تجربة للتأمين'},
+];
+
+const List<Map<String, String>> alarmTypes = [
+  {'id': '1', 'value': 'الفحص الفني'},
+  {'id': '2', 'value': 'التأمين الاجباري'},
+];
+
+const List<Map<String, String>> remindMeOptions = [
+  {'id': '1', 'value': 'قبل يوم'},
+  {'id': '2', 'value': 'قبل 3 ايام'},
+  {'id': '3', 'value': 'قبل اسبوع'},
+  {'id': '4', 'value': 'قبل اسبوعين'},
+  {'id': '5', 'value': 'قبل شهر'},
 ];
 
 const List<Map<String, String>> typesOfCarInsurance = [
   {'id': '1', 'value': 'وثيقة تأمين سيارة إجباري'},
   {'id': '2', 'value': 'وثيقة تأمين سيارة شامل'},
   {'id': '3', 'value': 'وثيقة تأمين المنافع الإضافية'},
+];
+
+const List<Map<String, String>> horsePower = [
+  {'id': '1', 'value': '8'},
+  {'id': '2', 'value': '10'},
+  {'id': '3', 'value': '12'},
+  {'id': '4', 'value': '14'},
+  {'id': '5', 'value': '16'},
+];
+
+const List<Map<String, String>> seatsNumber = [
+  {'id': '1', 'value': '1'},
+  {'id': '2', 'value': '2'},
+  {'id': '3', 'value': '3'},
+  {'id': '4', 'value': '4'},
+  {'id': '5', 'value': '5'},
+  {'id': '6', 'value': '6'},
+  {'id': '7', 'value': '7'},
+  {'id': '9', 'value': '8'},
+];
+
+const List<Map<String, String>> test = [
+  {'id': '1', 'value': 'تجربة 1'},
+  {'id': '2', 'value': 'تجربة 2'},
+  {'id': '3', 'value': 'تجربة 3'},
+  {'id': '4', 'value': 'تجربة 4'},
 ];
 
 const List<Map<String, String>> carBrands = [
@@ -44,6 +83,11 @@ const List<Map<String, String>> carBrands = [
   {'id': '7', 'value': 'بورش', 'imgPath': ImageAssets.porsche},
   {'id': '8', 'value': 'تويوتا', 'imgPath': ImageAssets.toyota},
   {'id': '9', 'value': 'اودي', 'imgPath': ImageAssets.audi},
+];
+
+const List<Map<String, String>> myVehicles = [
+  {'id': '1', 'value': 'كيا أوبتما 2007', 'imgPath': ImageAssets.kia},
+  {'id': '2', 'value': 'هيونداي اكسنت 2012', 'imgPath': ImageAssets.hyundai},
 ];
 
 const List<PaymentMethod> paymentMethods = [

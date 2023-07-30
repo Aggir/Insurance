@@ -230,4 +230,80 @@ class AppStrings {
   static const insuranceCompanies = 'insurance_companies';
   static const insuranceCompaniesDescription =
       'insurance_companies_description';
+
+  static const requestInsurancePolicy = 'request_insurance_policy';
+  static const carsInsurancePolicy = 'cars_insurance_policy';
+  static const carsInsurancePolicyDescription =
+      'cars_insurance_policy_description';
+  static const selectTheInsuranceCompany = 'select_the_insurance_company';
+  static const selectInsuranceType = 'select_insurance_type';
+  static const selectTheVehicle = 'select_the_vehicle';
+  static const startDate = 'start_date';
+  static const endDate = 'end_date';
+  static const installmentDetails = 'installment_details';
+  static const netInstallment = 'net_installment';
+  static const tax = 'tax';
+  static const supervision = 'supervision';
+  static const stampDuty = 'stamp_duty';
+  static const issuanceFee = 'issuance_fee';
+  static const total = 'total';
+  static const currency = 'currency';
+  static const pleaseAcceptToContinue = 'please_accept_to_continue';
+  static const iAcceptTheGeneralTermsOfTheInsurancePolicy =
+      'i_accept_the_general_terms_of_the_insurance';
+  static const iAgreeToPayTheFeeAsShownInTheTotal =
+      'i_agree_to_pay_the_fee_as_shown_in_the_total';
+  static const completeTheInsurancePolicyPayment =
+      'complete_the_insurance_policy_payment';
+  static const issueTheInsurancePolicyAndPayLater =
+      'issue_the_insurance_policy_and_pay_later';
+  static const theInsurancePolicyHasBeenIssued =
+      'the_insurance_policy_has_been_issued';
+  static const theInsurancePolicyHasBeenIssuedDescription =
+      'the_insurance_policy_has_been_issued_description';
+  static const iWillPayLater = 'i_will_pay_later';
+
+  static const setAnAlarmForYourInsurance = 'set_an_alert_for_your_insurance';
+  static const insurancePolicyData = 'insurance_policy_data';
+  static const youCanSetAnExpirationDateReminder =
+      'you_can_set_an_expiration_date_reminder';
+  static const selectAlarmType = 'select_alarm_type';
+  static const selectTheAppropriateAlarm = 'select_the_appropriate_alarm';
+  static const insurancePicture = 'insurance_picture';
+  static const pleaseAttachACopyOfTheInsuranceToBeReminded =
+      'please_attach_a_copy_of_the_insurance_to_be_reminded';
+  static const uploadInsurancePicture = 'upload_insurance_picture';
+  static const activate = 'activate';
+  static const theOperationWasSuccessful = 'the_operation_was_successful';
+  static const reminderSuccessDialogMessage = 'reminder_success_dialog_message';
+
+  static const insuranceCompaniesFilter = 'insurance_companies_filter';
+  static const youCanFindOutThePricesByFiltering =
+      'you_can_find_out_the_prices_by_filtering';
+  static const selectInsurancePolicy = 'select_insurance_policy';
+  static const selectTheHorsepowerOfTheEngine =
+      'select_the_horsepower_of_the_engine';
+  static const sortBy = 'sort_by';
+  static const lowestPrice = 'lowest_price';
+  static const highestPrice = 'highest_price';
+  static const price = 'price';
+  static const issueAnInsurance = 'issue_an_insurance';
+
+  static const companyDetails = 'company_details';
+  static const aboutTheCompany = 'about_the_company';
+  static const branches = 'branches';
+  static const prices = 'prices';
+  static const insurances = 'insurances';
+  static const pricesModalDescription = 'pricesDialogDescription';
+  static const selectVehicleType = 'select_vehicle_type';
+  static const selectSeatsNumber = 'select_seats_number';
+  static const publicUse = 'public_use';
+  static const knowThePrice = 'know_the_price';
+  static const personalInsurances = 'personal_insurances';
+  static const medicalLiability = 'medical_liability';
+  static const propertyInsurances = 'property_insurances';
+  static const marineInsurance = 'marine_insurance';
+  static const chooseOrSearchForTheNearestBranchToYou =
+      'choose_or_search_for_the_nearest_branch_to_you';
+  static const selectCity = 'select_city';
 }

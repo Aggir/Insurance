@@ -75,3 +75,7 @@ TextStyle extraSmallDarkGrayBodyStyle() {
 TextStyle textFieldErrorMessageStyle() {
   return getRegularStyle(color: AppColors.danger, fontSize: FontSize.s10);
 }
+
+TextStyle mediumExBoldStyle() {
+  return getExtraBoldStyle(color: AppColors.black, fontSize: FontSize.s16);
+}

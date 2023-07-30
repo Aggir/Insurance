@@ -1,6 +1,7 @@
 const String _imagePath = 'assets/images';
 
 class ImageAssets {
+  static const String image = '$_imagePath/image.png';
   static const String onboardingOne = '$_imagePath/onboarding-one.png';
   static const String onboardingTwo = '$_imagePath/onboarding-two.png';
   static const String onboardingThree = '$_imagePath/onboarding-three.png';
@@ -58,6 +59,12 @@ class ImageAssets {
   static const String insurancePrices = '$_imagePath/insurance-prices.png';
   static const String insuranceCompanies =
       '$_imagePath/insurance-companies.png';
+  static const String reminderDialog = '$_imagePath/reminder-dialog.png';
+  static const String alarmClock = '$_imagePath/alarm-clock.png';
+  static const String tibestyInsuranceCo =
+      '$_imagePath/tibesty-insurance-co.png';
+  static const String price = '$_imagePath/price.png';
+  static const String location = '$_imagePath/location.png';
 }
 
 const String _gifPath = 'assets/gifs';
@@ -112,4 +119,8 @@ class SvgAssets {
   static const String clock = '$_svgPath/clock.svg';
   static const String expand = '$_svgPath/expand.svg';
   static const String xShield = '$_svgPath/x-shield.svg';
+  static const String installmentCard = '$_svgPath/installment-card.svg';
+  static const String filter = '$_svgPath/filter.svg';
+  static const String shipFilled = '$_svgPath/ship-filled.svg';
+  static const String healthFilled = '$_svgPath/health-filled.svg';
 }

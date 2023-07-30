@@ -3,10 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
-import '../../../../app/assets_manager.dart';
+import '../../app/assets_manager.dart';
 
-class IdentityVerificationImage extends StatelessWidget {
-  const IdentityVerificationImage({required this.imagePath, super.key});
+class FramedImage extends StatelessWidget {
+  const FramedImage({required this.imagePath, super.key});
   final String imagePath;
 
   @override

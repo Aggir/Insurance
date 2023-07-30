@@ -1,0 +1,140 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/theme/app_colors.dart';
+import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
+import 'package:insurance_app/presentation/widgets/primary_button.dart';
+
+import '../../../blocs/reminder/reminder_cubit.dart';
+import '../../../theme/app_theme.dart';
+import '../../../widgets/custom_drop_down_field.dart';
+import '../../../widgets/custom_form_field_date_picker.dart';
+import '../../../widgets/page_content_padding.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+
+class ReminderInfoFormStepPage extends StatelessWidget {
+  const ReminderInfoFormStepPage({super.key});
+
+  void _nextButtonFunction(BuildContext context) {
+    if (BlocProvider.of<ReminderCubit>(context).confirmStepOne()) {
+      context.go(Routes.reminderUploadInsurancePictureStepRoute);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height -
+            AppValues.appBarHeight -
+            AppSizes.s30.r,
+        child: PageContentPadding(
+          child: Column(
+            children: [
+              Container(
+                height: AppSizes.s104.r,
+                width: AppSizes.s104.r,
+                decoration: BoxDecoration(
+                  color: AppColors.primaryLight,
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: Image.asset(ImageAssets.alarmClock),
+              ),
+              CustomSpacers.large(),
+              Text(
+                AppStrings.insurancePolicyData.tr(),
+                style: largeHeadlineStyle(),
+              ),
+              CustomSpacers.medium(),
+              Text(
+                AppStrings.reminderAboutExpirationDateDescription.tr(),
+                style: darkGrayBodyStyle(),
+                textAlign: TextAlign.center,
+              ),
+              CustomSpacers.extraLarge(),
+              _form(context),
+              const Spacer(),
+              PrimaryButton.fullWidth(
+                onPressed: () => _nextButtonFunction(context),
+                child: Text(AppStrings.next.tr()),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _form(context) {
+    final cubit = BlocProvider.of<ReminderCubit>(context);
+    return Form(
+        key: cubit.formKey,
+        child: Column(
+          children: [
+            CustomDropDownField(
+              onChanged: (value) {
+                cubit.setSelectedType(value);
+              },
+              hintText: AppStrings.selectAlarmType.tr(),
+              items: DUMMY.alarmTypes
+                  .map(
+                    (company) => DropdownMenuItem(
+                      value: company['value'],
+                      child: Text(
+                        company['value'] ?? '',
+                        style: bodyStyle(),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            CustomSpacers.medium(),
+            CustomDropDownField(
+              onChanged: (value) {
+                cubit.setSelectedType(value);
+              },
+              hintText: AppStrings.selectTheAppropriateAlarm.tr(),
+              items: DUMMY.remindMeOptions
+                  .map(
+                    (type) => DropdownMenuItem(
+                      value: type['value'],
+                      child: Text(
+                        type['value'] ?? '',
+                        style: bodyStyle(),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+            CustomSpacers.medium(),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Flexible(
+                    child: CustomFormFieldDatePicker(
+                  onChanged: (_) {
+                    cubit.setEndDate();
+                  },
+                  controller: cubit.startDateController,
+                  hintText: AppStrings.startDate.tr(),
+                  lastDate: DateTime(DateTime.now().year + 10),
+                )),
+                CustomSpacers.medium(),
+                Flexible(
+                    child: CustomFormFieldDatePicker(
+                  controller: cubit.endDateController,
+                  enabled: false,
+                  hintText: AppStrings.endDate.tr(),
+                )),
+              ],
+            )
+          ],
+        ));
+  }
+}

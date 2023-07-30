@@ -13,13 +13,14 @@ import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
-import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart'
+    show CustomSpacers;
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class MyInsurancesPage extends StatefulWidget {
   const MyInsurancesPage(this.pageIndex, {super.key});
-  final pageIndex;
+  final int pageIndex;
   @override
   State<MyInsurancesPage> createState() => _MyInsurancesPageState();
 }

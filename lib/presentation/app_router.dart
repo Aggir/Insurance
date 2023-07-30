@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,16 +9,24 @@ import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_
 import 'package:insurance_app/presentation/screens/add_my_vechicle/pages/add_my_vehicle_user_info_step_page.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/presentation/blocs/change_password/change_password_cubit.dart';
+import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
+import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/profile/profile_cubit.dart';
+import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
 import 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
+import 'package:insurance_app/presentation/screens/company_branches/company_branches_screen.dart';
+import 'package:insurance_app/presentation/screens/company_details/company_details_screen.dart';
+import 'package:insurance_app/presentation/screens/compare_companies/compare_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/index.dart';
 import 'package:insurance_app/presentation/screens/home/index.dart';
+import 'package:insurance_app/presentation/screens/insurance_companies/insurance_companies_screen.dart';
 import 'package:insurance_app/presentation/screens/insurance_document/insurance_document_screen.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/pages/send_otp_step_page.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/pages/verify_otp_step_page.dart';
-import 'package:insurance_app/presentation/screens/insurance_payment/payment_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/payment/pages/send_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/payment/pages/verify_otp_step_page.dart';
+import 'package:insurance_app/presentation/screens/payment/payment_steps_screen.dart';
+import 'package:insurance_app/presentation/screens/issue_insurance/index.dart';
 import 'package:insurance_app/presentation/screens/loading/loading_screen.dart';
 import 'package:insurance_app/presentation/screens/login/login_screen.dart';
 import 'package:insurance_app/presentation/screens/my_payments/my_payments_screen.dart';
@@ -25,6 +34,7 @@ import 'package:insurance_app/presentation/screens/no_connection/no_connection_s
 import 'package:insurance_app/presentation/screens/notifications/notifications_screen.dart';
 import 'package:insurance_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:insurance_app/presentation/screens/profile/profile_screen.dart';
+import 'package:insurance_app/presentation/screens/reminder/index.dart';
 import 'package:insurance_app/presentation/screens/settings/settings_screen.dart';
 import 'package:insurance_app/presentation/screens/signup/index.dart';
 import 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
@@ -82,6 +92,20 @@ class Routes {
   static const String paymentVerifyOtpStepRoute = '/payment-verify-otp';
   static const String notificationsRoute = '/notifications';
   static const String carsInsuranceRoute = '/cars-insurance';
+
+  static const String issueInsuranceRoute = '/issue-insurance';
+  static const String issueInstallmentDetailsRoute =
+      '/issue-installment-details';
+
+  static const String reminderRoute = '/reminder';
+  static const String reminderUploadInsurancePictureStepRoute =
+      '/reminder-upload-insurance-picture';
+
+  static const String comparePricesRoute = '/compare-prices';
+
+  static const String companiesRoute = '/companies';
+  static const String companyDetailsRoute = ':company_id';
+  static const String companyBranchesRoute = 'branches';
 }
 
 class AppRouter {
@@ -165,22 +189,42 @@ class AppRouter {
         },
       ),
       GoRoute(
-        path: Routes.carsInsuranceRoute,
-        pageBuilder: (context, state) => CustomTransitionPage(
-          child: const CarsInsuranceScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              SlideTransition(
-            position: animation.drive(
-              Tween<Offset>(
-                begin: const Offset(0, 1),
-                end: Offset.zero,
-              ).chain(
-                CurveTween(curve: Curves.easeIn),
+        path: Routes.companiesRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const InsuranceCompaniesScreen();
+        },
+        routes: [
+          GoRoute(
+            path: Routes.companyDetailsRoute,
+            builder: (BuildContext context, GoRouterState state) {
+              return CompanyDetailsScreen(
+                  state.pathParameters['company_id'] ?? '0');
+            },
+            routes: [
+              GoRoute(
+                path: Routes.companyBranchesRoute,
+                builder: (BuildContext context, GoRouterState state) {
+                  return CompanyBranchesScreen(
+                      state.pathParameters['company_id'] ?? '0');
+                },
               ),
-            ),
-            child: child,
+            ],
           ),
-        ),
+        ],
+      ),
+      GoRoute(
+        path: Routes.carsInsuranceRoute,
+        builder: (context, state) =>
+            // pageBuilder: (context, state) => CupertinoPage(
+            // child:
+            const CarsInsuranceScreen(),
+        // ),
+      ),
+      GoRoute(
+        path: Routes.comparePricesRoute,
+        builder: (BuildContext context, GoRouterState state) {
+          return const ComparePricesScreen();
+        },
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
@@ -211,9 +255,27 @@ class AppRouter {
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => ReminderCubit(),
+            child: ReminderStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _reminderBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
           return HomeScreen(child, state.uri.toString());
         },
         branches: _homeBranches,
+      ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (context) => IssueInsuranceCubit(),
+            child: IssueInsuranceStepsScreen(child, state.uri.toString()),
+          );
+        },
+        branches: _issueInsuranceBranches,
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, child) {
@@ -304,20 +366,20 @@ class AppRouter {
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.homeRoute,
-        builder: (context, state) =>
-            HomePage(firstLogin: state.extra as bool? ?? false),
+        builder: (context, state) => HomePage(dialog: state.extra as Widget?),
       ),
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.myVehiclesRoute,
-        builder: (context, state) => const MyVehiclesPage(),
+        builder: (context, state) =>
+            MyVehiclesPage(state.extra as bool? ?? false),
       ),
     ]),
     StatefulShellBranch(routes: [
       GoRoute(
         path: Routes.myInsurancesRoute,
-        builder: (context, state) => MyInsurancesPage(state.extra ?? 0),
+        builder: (context, state) => MyInsurancesPage(state.extra as int? ?? 0),
       ),
     ]),
     StatefulShellBranch(routes: [
@@ -344,9 +406,41 @@ class AppRouter {
     ]),
   ];
 
+  static final List<StatefulShellBranch> _issueInsuranceBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.issueInsuranceRoute,
+        builder: (context, state) => const IssueFormStepPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.issueInstallmentDetailsRoute,
+        builder: (context, state) => const InstallmentDetailsStepPage(),
+      ),
+    ]),
+  ];
+
+  static final List<StatefulShellBranch> _reminderBranches = [
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.reminderRoute,
+        builder: (context, state) => const ReminderInfoFormStepPage(),
+      ),
+    ]),
+    StatefulShellBranch(routes: [
+      GoRoute(
+        path: Routes.reminderUploadInsurancePictureStepRoute,
+        builder: (context, state) =>
+            const ReminderUploadInsurancePictureStepPage(),
+      ),
+    ]),
+  ];
+
   static int get signupSteps => _signupBranches.length;
   static int get forgotPasswordSteps => _signupBranches.length;
   static int get homeBranchesCount => _homeBranches.length;
   static int get addMyVehicleSteps => _addMyVehicleBranches.length;
   static int get paymentSteps => _paymentBranches.length;
+  static int get reminderSteps => _reminderBranches.length;
 }

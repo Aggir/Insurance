@@ -2,25 +2,28 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
-import 'package:insurance_app/presentation/theme/app_theme.dart';
-import 'package:insurance_app/presentation/theme/text_style_manager.dart';
-import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
-import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
-class PaymentCompletedDialog extends StatelessWidget {
-  const PaymentCompletedDialog({super.key});
+import '../../../../app/app_strings.dart';
+import '../../../../app/assets_manager.dart';
+import '../../../app_router.dart';
+import '../../../theme/app_theme.dart';
+import '../../../theme/text_style_manager.dart';
+import '../../../widgets/custom_spacers.dart';
+import '../../../widgets/dialog_service.dart';
+import '../../../widgets/primary_button.dart';
+import '../../../widgets/secondary_button.dart';
+
+class IssueCompletedDialog extends StatelessWidget {
+  const IssueCompletedDialog({super.key});
 
   _myInsurancesFunction(BuildContext context) {
-    // Todo: make it dynamic
-    context.go(Routes.myInsurancesRoute, extra: 1);
+    context.go(Routes.myInsurancesRoute, extra: 2);
+    DialogService.dispose();
   }
 
   _homeScreenFunction(BuildContext context) {
     context.go(Routes.homeRoute);
+    DialogService.dispose();
   }
 
   @override
@@ -29,18 +32,18 @@ class PaymentCompletedDialog extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Image.asset(
-          ImageAssets.firstLogin,
+          ImageAssets.onboardingThree,
           width: AppSizes.s240.r,
         ),
         CustomSpacers.medium(),
         Text(
-          AppStrings.paymentCompletedSuccessfully.tr(),
+          AppStrings.theInsurancePolicyHasBeenIssued.tr(),
           style: mediumHeadlineStyle(),
           textAlign: TextAlign.center,
         ),
         CustomSpacers.medium(),
         Text(
-          AppStrings.paymentDialogMessage.tr(),
+          AppStrings.theInsurancePolicyHasBeenIssuedDescription.tr(),
           style: darkGrayBodyStyle(),
           textAlign: TextAlign.center,
         ),
@@ -52,7 +55,7 @@ class PaymentCompletedDialog extends StatelessWidget {
         CustomSpacers.medium(),
         SecondaryButton.fullWidth(
           child: Text(
-            AppStrings.homeScreen.tr(),
+            AppStrings.iWillPayLater.tr(),
             // style: grayBodyStyle(),
           ),
           onPressed: () => _homeScreenFunction(context),
