@@ -342,4 +342,9 @@ class AppStrings {
   static const gender = 'gender';
   static const male = 'male';
   static const female = 'female';
+
+  static const usage = 'usage';
+  static const address = 'address';
+  static const countryOfManufacture = 'country_of_manufacture';
+  static const secureNow = 'secure_now';
 }

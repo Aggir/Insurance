@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/presentation/screens/home/components/vehicle_list_item.dart';
 import 'package:insurance_app/presentation/screens/issue_insurance/components/issue_completed_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -13,6 +14,7 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class MyVehiclesPage extends StatefulWidget {
   const MyVehiclesPage(this.showIssueDialog, {super.key});
@@ -49,16 +51,28 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
             style: smallHeadlineStyle(),
           ),
         ),
-        body: emptyListState(context),
+        body: _getContent(context),
       ),
     );
   }
 
-  Widget _myVehicleItem() {
-    return Container();
+  Widget _getContent(BuildContext context) {
+    if (DUMMY.myVehicles.isEmpty) {
+      return _emptyListState(context);
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.all(AppValues.medium).r,
+        separatorBuilder: (context, index) => CustomSpacers.medium(),
+        shrinkWrap: true,
+        itemCount: DUMMY.myVehicles.length,
+        itemBuilder: (context, index) => VehicleListItem(
+            DUMMY.myVehicles[index]['value'] as String,
+            DUMMY.myVehicles[index]['imgPath'] as String),
+      );
+    }
   }
 
-  Widget emptyListState(BuildContext context) {
+  Widget _emptyListState(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(AppValues.large).r,
       child: Center(
