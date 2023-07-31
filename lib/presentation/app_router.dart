@@ -113,7 +113,7 @@ class Routes {
 class AppRouter {
   static final GoRouter appRouter = GoRouter(
     navigatorKey: NavigatorKeys.rootNavigatorKey,
-    initialLocation: Routes.homeRoute,
+    initialLocation: Routes.onboardingRoute,
     // initialLocation: Routes.homeRoute,
     routes: <RouteBase>[
       GoRoute(

@@ -26,12 +26,12 @@ class VehicleListItem extends StatelessWidget {
   final _address = "طرابلس";
 
   void _secureNowButtonFunction(BuildContext context) {
-    context.go(Routes.carsInsuranceRoute);
+    context.go(Routes.issueInsuranceRoute);
   }
 
   @override
   Widget build(BuildContext context) {
-    final _countryOfManufacture = DUMMY.vehicleCountry[1];
+    final countryOfManufacture = DUMMY.vehicleCountry[1];
     return Container(
       decoration: BoxDecoration(
         boxShadow: [AppValues.boxShadow],
@@ -136,13 +136,13 @@ class VehicleListItem extends StatelessWidget {
                       Row(
                         children: [
                           SvgPicture.asset(
-                            _countryOfManufacture['svgPath'] as String,
+                            countryOfManufacture['svgPath'] as String,
                             width: AppSizes.s22.r,
                             height: AppSizes.s18.r,
                           ),
                           CustomSpacers.small(),
                           Text(
-                            _countryOfManufacture['value'] as String,
+                            countryOfManufacture['value'] as String,
                             style: extraSmallHeadlineStyle(),
                           ),
                         ],
