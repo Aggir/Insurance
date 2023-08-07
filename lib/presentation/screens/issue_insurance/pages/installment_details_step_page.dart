@@ -133,7 +133,7 @@ class _InstallmentDetailsStepPageState
       children: [
         Positioned.fill(
           child: SvgPicture.asset(
-            SvgAssets.installmentCard, fit: BoxFit.fitHeight,
+            SvgAssets.installmentCard, fit: BoxFit.fill,
             // width: double.infinity,f
           ),
         ),
