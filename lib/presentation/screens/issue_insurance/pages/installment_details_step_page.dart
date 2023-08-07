@@ -14,7 +14,6 @@ import '../../../app_router.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
-import '../../../widgets/page_content_padding.dart';
 import '../../../widgets/primary_button.dart';
 import '../../payment/components/payment_type_modal.dart';
 
@@ -49,79 +48,93 @@ class _InstallmentDetailsStepPageState
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height -
-            AppValues.appBarHeight.r -
-            AppSizes.s30.r,
-        child: PageContentPadding(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  AppStrings.installmentDetails.tr(),
-                  style: largeHeadlineStyle(),
-                  textAlign: TextAlign.center,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: constraints.copyWith(
+            minHeight: constraints.maxHeight,
+            maxHeight: double.infinity,
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: AppValues.extraLarge.h,
+              left: AppValues.mediumLarge.w,
+              right: AppValues.mediumLarge.w,
+              bottom: (AppValues.large + AppValues.large / 3).h,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      AppStrings.installmentDetails.tr(),
+                      style: largeHeadlineStyle(),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  CustomSpacers.mediumLarge(),
+                  _installmentDetailsWidget(context),
+                  CustomSpacers.mediumLarge(),
+                  Text(
+                    AppStrings.pleaseAcceptToContinue.tr(),
+                    style: extraSmallHeadlineStyle(),
+                  ),
+                  RadioListTile.adaptive(
+                    title: Text(
+                      AppStrings.iAcceptTheGeneralTermsOfTheInsurancePolicy
+                          .tr(),
+                      style: bodyStyle(),
+                    ),
+                    contentPadding: const EdgeInsets.all(0),
+                    value: '1',
+                    toggleable: true,
+                    groupValue: selectedRadio.contains('1') ? '1' : null,
+                    onChanged: (v) => setState(() {
+                      if (selectedRadio.contains('1')) {
+                        selectedRadio.remove('1');
+                      } else {
+                        selectedRadio.add('1');
+                      }
+                    }),
+                  ),
+                  RadioListTile(
+                    title: Text(
+                      AppStrings.iAgreeToPayTheFeeAsShownInTheTotal.tr(),
+                      style: bodyStyle(),
+                    ),
+                    contentPadding: const EdgeInsets.all(0),
+                    toggleable: true,
+                    value: '2',
+                    groupValue: selectedRadio.contains('2') ? '2' : null,
+                    onChanged: (v) => setState(() {
+                      if (selectedRadio.contains('2')) {
+                        selectedRadio.remove('2');
+                      } else {
+                        selectedRadio.add('2');
+                      }
+                    }),
+                  ),
+                  const Spacer(),
+                  PrimaryButton.fullWidth(
+                    onPressed: _radiosSelected
+                        ? () => _completeTheInsurancePolicyPayment(context)
+                        : null,
+                    child:
+                        Text(AppStrings.completeTheInsurancePolicyPayment.tr()),
+                  ),
+                  CustomSpacers.medium(),
+                  SecondaryButton.fullWidth(
+                    onPressed: _radiosSelected
+                        ? () => _issueTheInsurancePolicyAndPayLate(context)
+                        : null,
+                    child: Text(
+                        AppStrings.issueTheInsurancePolicyAndPayLater.tr()),
+                  )
+                ],
               ),
-              CustomSpacers.mediumLarge(),
-              _installmentDetailsWidget(context),
-              CustomSpacers.mediumLarge(),
-              Text(
-                AppStrings.pleaseAcceptToContinue.tr(),
-                style: extraSmallHeadlineStyle(),
-              ),
-              RadioListTile.adaptive(
-                title: Text(
-                  AppStrings.iAcceptTheGeneralTermsOfTheInsurancePolicy.tr(),
-                  style: bodyStyle(),
-                ),
-                contentPadding: const EdgeInsets.all(0),
-                value: '1',
-                toggleable: true,
-                groupValue: selectedRadio.contains('1') ? '1' : null,
-                onChanged: (v) => setState(() {
-                  if (selectedRadio.contains('1')) {
-                    selectedRadio.remove('1');
-                  } else {
-                    selectedRadio.add('1');
-                  }
-                }),
-              ),
-              RadioListTile(
-                title: Text(
-                  AppStrings.iAgreeToPayTheFeeAsShownInTheTotal.tr(),
-                  style: bodyStyle(),
-                ),
-                contentPadding: const EdgeInsets.all(0),
-                toggleable: true,
-                value: '2',
-                groupValue: selectedRadio.contains('2') ? '2' : null,
-                onChanged: (v) => setState(() {
-                  if (selectedRadio.contains('2')) {
-                    selectedRadio.remove('2');
-                  } else {
-                    selectedRadio.add('2');
-                  }
-                }),
-              ),
-              const Spacer(),
-              PrimaryButton.fullWidth(
-                onPressed: _radiosSelected
-                    ? () => _completeTheInsurancePolicyPayment(context)
-                    : null,
-                child: Text(AppStrings.completeTheInsurancePolicyPayment.tr()),
-              ),
-              CustomSpacers.medium(),
-              SecondaryButton.fullWidth(
-                onPressed: _radiosSelected
-                    ? () => _issueTheInsurancePolicyAndPayLate(context)
-                    : null,
-                child: Text(AppStrings.issueTheInsurancePolicyAndPayLater.tr()),
-              )
-            ],
+            ),
           ),
         ),
       ),
