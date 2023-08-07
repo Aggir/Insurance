@@ -23,9 +23,9 @@ const List<Map<String, String>> cities = [
 ];
 
 const List<Map<String, String>> insuranceCompanies = [
-  {'id': '1', 'value': 'شركة تيبستي للتأمين'},
-  {'id': '2', 'value': 'الشركة العالمية للتأمين'},
-  {'id': '3', 'value': 'شركة تجربة للتأمين'},
+  {'id': '1', 'value': 'شركة البركة للتأمين'},
+  {'id': '2', 'value': 'شركة تيبستي للتأمين'},
+  {'id': '3', 'value': 'الشركة العالمية للتأمين'},
 ];
 
 const List<Map<String, String>> alarmTypes = [
