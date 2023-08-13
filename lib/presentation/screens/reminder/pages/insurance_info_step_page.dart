@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/reminder/components/reminder_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -15,12 +15,13 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/identity_verification_image.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
+import '../../../../app/router/routes.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/page_content_padding.dart';
-import '../../../widgets/upload_verification_document.dart';
+import '../../../widgets/select_document.dart';
 
-class ReminderUploadInsurancePictureStepPage extends StatelessWidget {
-  const ReminderUploadInsurancePictureStepPage({super.key});
+class ReminderInsuranceInfoStepPage extends StatelessWidget {
+  const ReminderInsuranceInfoStepPage({super.key});
 
   void _uploadFunction(BuildContext context) {
     BlocProvider.of<ReminderCubit>(context).uploadInsurancePicture();
@@ -31,7 +32,7 @@ class ReminderUploadInsurancePictureStepPage extends StatelessWidget {
   }
 
   void _activateButtonFunction(BuildContext context) {
-    context.go(Routes.homeRoute, extra: const ReminderDialog());
+    context.go(AppScreen.home.toPath, extra: const ReminderDialog());
   }
 
   @override
@@ -62,13 +63,13 @@ class ReminderUploadInsurancePictureStepPage extends StatelessWidget {
                 child: Column(children: [
                   BlocBuilder<ReminderCubit, ReminderState>(
                     builder: (context, state) {
-                      return UploadDocument(
-                        uploadFileStatus: state.insurancePictureStatus,
-                        uploadStateText: AppStrings.uploadInsurancePicture.tr(),
+                      return SelectDocument(
+                        selectFileStatus: state.insurancePictureStatus,
+                        selectStateText: AppStrings.uploadInsurancePicture.tr(),
                         loadingAndSuccessStateText:
                             AppStrings.insurancePicture.tr(),
-                        uploadedDocumentSvgPath: SvgAssets.shield,
-                        uploadedDocumentSvgColor: AppColors.secondary,
+                        selectedDocumentSvgPath: SvgAssets.shield,
+                        selectedDocumentSvgColor: AppColors.secondary,
                         uploadFunction: () => _uploadFunction(context),
                         removeFunction: () => _removeFunction(context),
                       );

@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/screens/add_my_vehicle/components/car_brand_modal.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -33,7 +33,7 @@ class _AddMyVehicleDetailsStepOnePageState
     FocusScope.of(context).unfocus();
     if (BlocProvider.of<AddMyVehicleCubit>(context)
         .isVehicleDetailsFormOneValid()) {
-      context.go(Routes.addMyVehicleDetailsStepTwoRoute);
+      context.go(AppScreen.addMyVehicleDetailsStepTwo.toPath);
     }
   }
 

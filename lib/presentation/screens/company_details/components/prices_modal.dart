@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 
@@ -83,7 +83,7 @@ class _PricesModalState extends State<PricesModal> {
                 style: mediumExBoldStyle(),
               ),
               PrimaryButton(
-                onPressed: () => context.go(Routes.issueInsuranceRoute),
+                onPressed: () => context.go(AppScreen.issueInsurance.toPath),
                 child: Text(AppStrings.issueAnInsurance.tr()),
               ),
             ],

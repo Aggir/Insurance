@@ -2,11 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -17,8 +18,8 @@ import '../../../widgets/secondary_button.dart';
 class UnsubscribeDialog extends StatelessWidget {
   const UnsubscribeDialog({super.key});
 
-  _createMyVehicleFunction(BuildContext context) {
-    context.go(Routes.loginRoute);
+  _unsubscribeFunction(BuildContext context) {
+    context.go(AppScreen.login.toPath);
   }
 
   @override
@@ -45,7 +46,7 @@ class UnsubscribeDialog extends StatelessWidget {
         CustomSpacers.extraLarge(),
         PrimaryButton.fullWidth(
           child: Text(AppStrings.deactivateAccount.tr()),
-          onPressed: () => _createMyVehicleFunction(context),
+          onPressed: () => _unsubscribeFunction(context),
           style: PrimaryButton.customStyle.copyWith(
             backgroundColor: MaterialStateProperty.resolveWith<Color?>(
               (Set<MaterialState> states) {

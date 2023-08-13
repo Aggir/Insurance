@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
@@ -31,7 +31,7 @@ class _FilterInsuranceCompaniesModalState
       if (widget.isComparePricesShown) {
         context.pop();
       } else {
-        context.go(Routes.comparePricesRoute);
+        context.go(AppScreen.comparePrices.toPath);
       }
     }
   }

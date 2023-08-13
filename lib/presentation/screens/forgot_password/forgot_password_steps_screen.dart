@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/router/app_routes.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 
-import '../../app_router.dart';
 import '../../widgets/custom_back_button.dart';
 
 class ForgotPasswordStepsScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _ForgotPasswordStepsScreenState extends State<ForgotPasswordStepsScreen> {
           ? null
           : CustomAppBar.steps(
               currentIndex: widget.child.currentIndex,
-              pageCount: AppRouter.forgotPasswordSteps,
+              pageCount: AppRoutes.forgotPasswordBranchesCount,
               backButton: BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
                 builder: (context, state) {
                   void goBack() {

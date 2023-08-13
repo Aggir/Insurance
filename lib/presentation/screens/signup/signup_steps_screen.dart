@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/app_routes.dart';
+import 'package:insurance_app/app/router/routes.dart';
+
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
-import '../../blocs/signup/signup_cubit.dart';
+import '../../blocs/sign_up/sign_up_cubit.dart';
 import '../../widgets/custom_back_button.dart';
 
 class SignUpStepsScreen extends StatefulWidget {
@@ -24,23 +26,23 @@ class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
           ? null
           : CustomAppBar.steps(
               currentIndex: widget.child.currentIndex,
-              pageCount: AppRouter.signupSteps,
+              pageCount: AppRoutes.signupBranchesCount,
               backButton: BlocBuilder<SignUpCubit, SignUpState>(
                 builder: (context, state) {
                   void goBack() {
                     if (widget.child.currentIndex == 2) {
                       if (widget.location ==
-                              Routes.signupNationalIdNumberStepRoute &&
+                              AppScreen.signupNationalInfoStep.toPath &&
                           state.isLibyan) {
                         context.go(
-                          Routes.signupVerificationStepRoute,
+                          AppScreen.signupProofInfoStep.toPath,
                         );
                         cubit.backFromNationalIdNumberPage();
                       } else if (widget.location ==
-                              Routes.signupVerificationStepRoute &&
+                              AppScreen.signupProofInfoStep.toPath &&
                           state.isLibyan) {
                         context.go(
-                          Routes.signupSelectVerificationMethodStepRoute,
+                          AppScreen.signupSelectProofTypeStep.toPath,
                         );
                         cubit.backFromVerificationStepPage();
                       } else {
@@ -48,7 +50,7 @@ class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
                         cubit.backFromSelectDocumentTypePage();
                       }
                     } else if (widget.location ==
-                        Routes.signupPasswordStepRoute) {
+                        AppScreen.signupPasswordStep.toPath) {
                       widget.child.goBranch(widget.child.currentIndex - 1);
                       cubit.backFromPasswordPage();
                     } else {

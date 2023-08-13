@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/app_routes.dart';
+
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
+import '../../../app/router/routes.dart';
 import '../../widgets/custom_back_button.dart';
 
 class PaymentStepsScreen extends StatefulWidget {
@@ -22,7 +24,7 @@ class _PaymentStepsScreenState extends State<PaymentStepsScreen> {
     return Scaffold(
       appBar: CustomAppBar.steps(
         currentIndex: widget.child.currentIndex,
-        pageCount: AppRouter.paymentSteps,
+        pageCount: AppRoutes.paymentBranchesCount,
         backButton: CustomBackButton(
           onTap: widget.child.currentIndex > 0
               ? () {
@@ -32,7 +34,7 @@ class _PaymentStepsScreenState extends State<PaymentStepsScreen> {
                   widget.child.goBranch(widget.child.currentIndex - 1);
                 }
               //todo: make it dynamic
-              : () => context.go(Routes.myInsurancesRoute, extra: 2),
+              : () => context.go(AppScreen.myInsurances.toPath, extra: 2),
         ),
       ),
       body: widget.child,

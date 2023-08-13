@@ -7,12 +7,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/enums/notification_types_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 
 import '../../../app/assets_manager.dart';
+import '../../../app/router/routes.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/text_style_manager.dart';
 import '../../widgets/custom_spacers.dart';
@@ -23,7 +24,7 @@ class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key});
 
   _backToHomeScreenFunction(BuildContext context) {
-    context.go(Routes.homeRoute);
+    context.go(AppScreen.home.toPath);
   }
 
   _renewalFunction(BuildContext context) {
@@ -42,7 +43,7 @@ class NotificationsScreen extends StatelessWidget {
       appBar: CustomAppBar.basic(
         title: AppStrings.notifications.tr(),
         backButton: () {
-          context.go(Routes.homeRoute);
+          context.go(AppScreen.home.toPath);
         },
       ),
       body: random.nextBool()

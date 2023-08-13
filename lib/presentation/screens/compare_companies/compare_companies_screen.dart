@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
@@ -21,12 +21,12 @@ class ComparePricesScreen extends StatelessWidget {
   const ComparePricesScreen({super.key});
   final _companyName = 'شركة تيبستي للتأمين';
   final _companyDescription =
-      'هي شركة ليبية مساهمة تأسست بموجب قرار التأسيس المؤرخ 13\يناير\2011 وبرأس مال قدره 10,000,000 دينار';
+      'هي شركة ليبية مساهمة تأسست بموجب قرار التأسيس المؤرخ 13\\يناير\\2011 وبرأس مال قدره 10,000,000 دينار';
   final _price = '28.125';
   final _imagePath = ImageAssets.tibestyInsuranceCo;
 
   void _issueAnInsuranceFunction(BuildContext context) {
-    context.go(Routes.issueInsuranceRoute);
+    context.go(AppScreen.issueInsurance.toPath);
   }
 
   @override
@@ -35,7 +35,7 @@ class ComparePricesScreen extends StatelessWidget {
       appBar: CustomAppBar.basic(
           title: AppStrings.insurancePolicyPrices.tr(),
           backButton: () {
-            context.go(Routes.carsInsuranceRoute);
+            context.go(AppScreen.carsInsurance.toPath);
           },
           actions: [_filterButton(context)]),
       body: Column(

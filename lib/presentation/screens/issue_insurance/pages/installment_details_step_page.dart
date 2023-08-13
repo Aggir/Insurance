@@ -10,7 +10,7 @@ import 'package:insurance_app/presentation/theme/styles_manager.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
 import '../../../../app/app_strings.dart';
-import '../../../app_router.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -36,10 +36,10 @@ class _InstallmentDetailsStepPageState
   }
 
   void _issueTheInsurancePolicyAndPayLate(BuildContext context) {
-    context.push(Routes.loadingRoute);
+    context.push(AppScreen.loading.toPath);
     Future.delayed(const Duration(seconds: 2), () {
       context.pop();
-      context.go(Routes.myVehiclesRoute, extra: true);
+      context.go(AppScreen.myVehicles.toPath, extra: true);
     });
   }
 

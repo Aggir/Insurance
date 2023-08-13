@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../blocs/forgot_password/forgot_password_cubit.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
@@ -147,7 +148,7 @@ class _ForgotPasswordRestPasswordPageState
           previous.resetPasswordStatus != current.resetPasswordStatus,
       listener: (context, state) {
         if (state.resetPasswordStatus.isSuccess) {
-          context.go(Routes.homeRoute);
+          context.go(AppScreen.home.toPath);
         }
       },
       builder: (context, state) {

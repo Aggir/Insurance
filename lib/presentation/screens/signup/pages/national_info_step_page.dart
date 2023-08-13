@@ -2,41 +2,46 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
-import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../blocs/signup/signup_cubit.dart';
+import '../../../blocs/sign_up/sign_up_cubit.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/custom_text_form_field.dart';
+import '../../../widgets/dialog_service.dart';
 import '../../../widgets/primary_button.dart';
 import '../../../widgets/identity_verification_image.dart';
+import '../../../widgets/snackBars.dart';
 import '../components/signup_footer_row.dart';
-import '../../../widgets/upload_verification_document.dart';
+import '../../../widgets/select_document.dart';
 
-class SignUpNationalIdNumberPage extends StatefulWidget {
-  const SignUpNationalIdNumberPage({super.key});
+class SignUpNationalInfoPage extends StatefulWidget {
+  const SignUpNationalInfoPage({super.key});
 
   @override
-  State<SignUpNationalIdNumberPage> createState() =>
-      _SignUpNationalIdNumberPageState();
+  State<SignUpNationalInfoPage> createState() => _SignUpNationalInfoPageState();
 }
 
-class _SignUpNationalIdNumberPageState
-    extends State<SignUpNationalIdNumberPage> {
+class _SignUpNationalInfoPageState extends State<SignUpNationalInfoPage> {
   void _createAccountButtonFunction(BuildContext context) {
     FocusScope.of(context).unfocus();
     final cubit = BlocProvider.of<SignUpCubit>(context);
     if (cubit.confirmNationalIdNumberForm()) {
-      cubit.signUp();
-      context.go(Routes.homeRoute, extra: const FirstLoginDialog());
+      DialogService.loadLoadingDialog(context);
+      BlocProvider.of<UserCubit>(context).signUp(
+        cubit.state.userInfo!,
+        cubit.state.password!,
+        cubit.state.isLibyan,
+        cubit.state.proofDocumentInfo!,
+        nationalDocument: cubit.state.nationalDocumentInfo,
+      );
     }
   }
 
@@ -79,36 +84,49 @@ class _SignUpNationalIdNumberPageState
             AppValues.appBarHeight.r -
             AppSizes.s30.r,
         child: PageContentPadding(
-          child: Column(
-            children: [
-              const FramedImage(
-                imagePath: ImageAssets.libya,
-              ),
-              CustomSpacers.large(),
-              _headlineTextWidget(),
-              CustomSpacers.medium(),
-              _bodyTextWidget(),
-              CustomSpacers.large(),
-              BlocBuilder<SignUpCubit, SignUpState>(
-                builder: (context, state) {
-                  return UploadDocument(
-                    uploadFileStatus: state.nationalNumberStatus,
-                    uploadFunction: () => _uploadFunction(context),
-                    removeFunction: () => _removeFunction(context),
-                    uploadStateText: AppStrings.uploadNationalIdPicture.tr(),
-                    loadingAndSuccessStateText:
-                        AppStrings.nationalIdPicture.tr(),
-                    uploadedDocumentSvgPath: SvgAssets.nationalId,
-                  );
-                },
-              ),
-              CustomSpacers.medium(),
-              _nationalIdNumberForm(),
-              const Spacer(),
-              _createAccountButton(context),
-              CustomSpacers.medium(),
-              const SignUpFooterRow(),
-            ],
+          child: BlocListener<UserCubit, UserState>(
+            listenWhen: (previous, current) =>
+                previous.authStatus != current.authStatus,
+            listener: (context, state) {
+              if (state.authStatus.isFailure) {
+                DialogService.dispose();
+                SnackBars.error(context, state.authErrorMessage!);
+              } else if (state.authStatus.isSuccess) {
+                DialogService.dispose();
+              }
+            },
+            child: Column(
+              children: [
+                const FramedImage(
+                  imagePath: ImageAssets.libya,
+                ),
+                CustomSpacers.large(),
+                _headlineTextWidget(),
+                CustomSpacers.medium(),
+                _bodyTextWidget(),
+                CustomSpacers.large(),
+                BlocBuilder<SignUpCubit, SignUpState>(
+                  builder: (context, state) {
+                    return SelectDocument(
+                      selectFileStatus: state.nationalIdStatus,
+                      uploadFunction: () => _uploadFunction(context),
+                      removeFunction: () => _removeFunction(context),
+                      selectStateText: AppStrings.uploadNationalIdPicture.tr(),
+                      loadingAndSuccessStateText:
+                          AppStrings.nationalIdPicture.tr(),
+                      selectedDocumentSvgPath: SvgAssets.nationalId,
+                      filename: state.nationalFileName,
+                    );
+                  },
+                ),
+                CustomSpacers.medium(),
+                _nationalIdNumberForm(),
+                const Spacer(),
+                _createAccountButton(context),
+                CustomSpacers.medium(),
+                const SignUpFooterRow(),
+              ],
+            ),
           ),
         ),
       )),
@@ -148,7 +166,7 @@ class _SignUpNationalIdNumberPageState
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
         return PrimaryButton.fullWidth(
-          onPressed: (formIsNotEmpty && state.nationalNumberStatus.isSuccess)
+          onPressed: (formIsNotEmpty && state.nationalIdStatus.isSuccess)
               ? () => _createAccountButtonFunction(context)
               : null,
           child: Text(

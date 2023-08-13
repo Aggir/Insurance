@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
@@ -13,6 +13,7 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -23,7 +24,7 @@ class IssueFormStepPage extends StatelessWidget {
 
   void _nextButton(BuildContext context) {
     if (BlocProvider.of<IssueInsuranceCubit>(context).confirmStepOne()) {
-      context.go(Routes.issueInstallmentDetailsRoute);
+      context.go(AppScreen.issueInstallmentDetails.toPath);
     }
   }
 

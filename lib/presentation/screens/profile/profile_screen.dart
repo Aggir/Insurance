@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/screens/profile/components/profile_details_state.dart';
 import 'package:insurance_app/presentation/screens/profile/components/profile_editing_state.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -15,6 +15,7 @@ import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../app/dummy_data.dart' as DUMMY;
+import '../../../app/router/routes.dart';
 import '../../blocs/profile/profile_cubit.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final cubit = BlocProvider.of<ProfileCubit>(context);
           cubit.state.isEditing
               ? cubit.toggleIsEditing()
-              : context.go(Routes.moreRoute);
+              : context.go(AppScreen.more.toPath);
         },
         actions: [
           BlocBuilder<ProfileCubit, ProfileState>(

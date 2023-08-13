@@ -25,6 +25,9 @@ class CustomPhoneFormField extends StatefulWidget {
     this.showCalendarSuffixIcon = true,
     this.focusedStyleEnabled = false,
     this.label,
+    this.focusNode,
+    this.textInputAction,
+    this.setCode,
   });
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
@@ -37,6 +40,9 @@ class CustomPhoneFormField extends StatefulWidget {
   final bool showCalendarSuffixIcon;
   final bool focusedStyleEnabled;
   final String? label;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final void Function(String? value)? setCode;
 
   @override
   State<CustomPhoneFormField> createState() => _CustomPhoneFormFieldState();
@@ -109,6 +115,11 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                   // Todo: get CountryCodePicker Value
                   child: CountryCodePicker(
                     initialSelection: 'ly',
+                    onChanged: (value) {
+                      if (widget.setCode != null) {
+                        widget.setCode!(value.dialCode?.replaceAll('+', ''));
+                      }
+                    },
                     textStyle:
                         largeHeadlineStyle().copyWith(fontSize: FontSize.s14),
                     padding: EdgeInsets.zero,
@@ -117,7 +128,8 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
               ]),
               Flexible(
                 child: CustomTextFormField(
-                  focusNode: _focusNode,
+                  textInputAction: widget.textInputAction,
+                  focusNode: widget.focusNode ?? _focusNode,
                   inputDecoration: inputDecoration,
                   controller: widget.controller,
                   keyboardType: TextInputType.phone,

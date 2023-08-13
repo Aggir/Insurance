@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/screens/add_my_vehicle/components/vehicle_success_dialog.dart';
 import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
@@ -18,7 +18,7 @@ import '../../../widgets/custom_text_form_field.dart';
 import '../../../widgets/identity_verification_image.dart';
 import '../../../widgets/page_content_padding.dart';
 import '../../../widgets/primary_button.dart';
-import '../../../widgets/upload_verification_document.dart';
+import '../../../widgets/select_document.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class AddMyVehiclePictureStepPage extends StatefulWidget {
@@ -35,7 +35,7 @@ class _AddMyVehiclePictureStepPageState
     FocusScope.of(context).unfocus();
     final cubit = BlocProvider.of<AddMyVehicleCubit>(context);
     if (cubit.isVehiclePictureFormValid()) {
-      context.go(Routes.homeRoute, extra: const VehicleSuccessDialog());
+      context.go(AppScreen.home.toPath, extra: const VehicleSuccessDialog());
     }
   }
 
@@ -78,14 +78,14 @@ class _AddMyVehiclePictureStepPageState
                       CustomSpacers.large(),
                       BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(
                         builder: (context, state) {
-                          return UploadDocument(
-                            uploadFileStatus: state.vehiclePictureStatus,
-                            uploadStateText:
+                          return SelectDocument(
+                            selectFileStatus: state.vehiclePictureStatus,
+                            selectStateText:
                                 AppStrings.uploadVehiclePicture.tr(),
                             loadingAndSuccessStateText:
                                 AppStrings.vehiclePicture.tr(),
-                            uploadedDocumentSvgPath: SvgAssets.car,
-                            uploadedDocumentSvgColor: AppColors.secondary,
+                            selectedDocumentSvgPath: SvgAssets.car,
+                            selectedDocumentSvgColor: AppColors.secondary,
                             uploadFunction: () => _uploadFunction(context),
                             removeFunction: () => _removeFunction(context),
                           );

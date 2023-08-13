@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -19,6 +18,8 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../app/router/routes.dart';
 
 class InsuranceDocument extends StatefulWidget {
   const InsuranceDocument(this.referenceNumber, {super.key});
@@ -86,7 +87,7 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
             ),
           ),
           backButton: () {
-            context.go(Routes.myInsurancesRoute, extra: 1);
+            context.go(AppScreen.myInsurances.toPath, extra: 1);
           }),
       body: Padding(
         padding: const EdgeInsets.symmetric(

@@ -2,7 +2,7 @@ part of 'add_my_vehicle_cubit.dart';
 
 @immutable
 class AddMyVehicleState extends Equatable {
-  final AddMyVehicleUserInfo? userInfo;
+  final Vehicle? userInfo;
   final Status vehiclePictureStatus;
   final bool isPublicUse;
   final Map<String, String>? carBrand;
@@ -22,7 +22,7 @@ class AddMyVehicleState extends Equatable {
       ];
 
   AddMyVehicleState copyWith(
-      {AddMyVehicleUserInfo? userInfo,
+      {Vehicle? userInfo,
       Status? vehiclePictureStatus,
       bool? isPublicUse,
       Map<String, String>? carBrand}) {

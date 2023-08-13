@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart' show Equatable;
 
-class AddMyVehicleUserInfo extends Equatable {
+class Vehicle extends Equatable {
   final String firstName;
   final String middleName;
   final String lastName;
   final String address;
   final String phoneNumber;
-  const AddMyVehicleUserInfo({
+  const Vehicle({
     required this.firstName,
     required this.middleName,
     required this.lastName,
@@ -14,14 +14,14 @@ class AddMyVehicleUserInfo extends Equatable {
     required this.phoneNumber,
   });
 
-  AddMyVehicleUserInfo copyWith({
+  Vehicle copyWith({
     String? firstName,
     String? middleName,
     String? lastName,
     String? address,
     String? phoneNumber,
   }) {
-    return AddMyVehicleUserInfo(
+    return Vehicle(
       firstName: firstName ?? this.firstName,
       middleName: middleName ?? this.middleName,
       lastName: lastName ?? this.lastName,

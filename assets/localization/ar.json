@@ -35,7 +35,7 @@
     "identity_verification_description": "نطلب منك إرفاق بعض المستندات المهمة لإثبات هويتك.",
     "passport_number": "رقم جواز السفر",
     "upload_passport_picture": "إرفاق صورة جواز سفر",
-    "passport_picture_supported_extensions": "الصيغة: PDF - PNG - JPEG",
+    "passport_picture_supported_extensions": "الصيغة: PDF - PNG - JPG - JPEG",
     "passport_picture": "صورة الجواز",
     "passport": "جواز السفر",
     "select_identity_verification_type": "اختر طريقة اثبات الهوية",
@@ -272,5 +272,11 @@
     "usage": "الإستعمال",
     "country_of_manufacture": "بلد الصنع",
     "secure_now": "أمن الآن",
-    "address": "العنوان"
+    "address": "العنوان",
+    "generic_error": "حدث خطأ ما، الرجاء اعادة المحاولة.",
+    "invalid_credentials": "بيانات تسجيل الدخول غير صحيحة.",
+    "the_email_has_already_been_taken": "البريد الإلكتروني مُستخدم بالفعل.",
+    "the_phone_has_already_been_taken":"رقم الهاتف مُستخدم بالفعل.",
+    "the_proof_id_has_already_been_taken":"رقم وثيقة تاكيد الهوية مُستخدم بالفعل.",
+    "the_national_id_has_already_been_taken":"الرقم الوطني مُستخدم بالفعل."
 }

@@ -347,4 +347,14 @@ class AppStrings {
   static const address = 'address';
   static const countryOfManufacture = 'country_of_manufacture';
   static const secureNow = 'secure_now';
+
+  // Error messages
+  static const genericError = 'generic_error';
+  static const invalidCredentials = 'invalid_credentials';
+  static const theEmailHasAlreadyBeenTaken = 'the_email_has_already_been_taken';
+  static const thePhoneHasAlreadyBeenTaken = 'the_phone_has_already_been_taken';
+  static const theProofIdHasAlreadyBeenTaken =
+      'the_proof_id_has_already_been_taken';
+  static const theNationalIdHasAlreadyBeenTaken =
+      'the_national_id_has_already_been_taken';
 }

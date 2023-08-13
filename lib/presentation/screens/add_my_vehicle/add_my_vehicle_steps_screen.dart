@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/router/app_routes.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_back_button.dart';
@@ -28,10 +29,11 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
       void onTap() {
         switch (widget.child.currentIndex) {
           case 0:
-            return context.go(Routes.homeRoute);
+            return context.go(AppScreen.home.toPath);
           case 1:
-            if (widget.location == Routes.addMyVehicleDetailsStepTwoRoute) {
-              return context.go(Routes.addMyVehicleDetailsStepOneRoute);
+            if (widget.location ==
+                AppScreen.addMyVehicleDetailsStepTwo.toPath) {
+              return context.go(AppScreen.addMyVehicleDetailsStepOne.toPath);
             }
 
           default:
@@ -49,7 +51,7 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
           backButton: blockBuilder,
           currentIndex: widget.child.currentIndex,
           title: AppStrings.addVehicle.tr(),
-          pageCount: AppRouter.addMyVehicleSteps),
+          pageCount: AppRoutes.addMyVehicleBranchesCount),
       body: widget.child,
     );
   }

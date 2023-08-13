@@ -1,0 +1,129 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+
+import 'package:insurance_app/app/extensions.dart';
+
+import 'base_request.dart';
+
+class SignInRequest implements BaseRequest {
+  final String email;
+  final String password;
+  const SignInRequest({
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  String toString() => 'SignInRequest(email: $email, password: $password)';
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'password': password,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+}
+
+class SignUpRequest implements BaseRequest {
+  final String firstName;
+  final String middleName;
+  final String lastName;
+  final String email;
+  final String phone;
+  final String dateOfBirth;
+  final String gender;
+  final String password;
+  final bool isLibyan;
+  final String proofType;
+  final File proofFile;
+  final String proofId;
+  final String proofIssuePlace;
+  final String proofIssueDate;
+  final String proofExpirationDate;
+  final String? nationalId;
+  final File? nationalFile;
+
+  const SignUpRequest({
+    required this.firstName,
+    required this.middleName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.dateOfBirth,
+    required this.gender,
+    required this.password,
+    required this.isLibyan,
+    required this.proofType,
+    required this.proofFile,
+    required this.proofId,
+    required this.proofIssuePlace,
+    required this.proofIssueDate,
+    required this.proofExpirationDate,
+    this.nationalId,
+    this.nationalFile,
+  });
+
+  Future<Map<String, dynamic>> toMap() async {
+    return {
+      'first_name': firstName,
+      'father_name': middleName,
+      'last_name': lastName,
+      'email': email,
+      'phone': phone,
+      'dob': dateOfBirth,
+      'gender': gender,
+      'password': password,
+      'password_confirmation': password,
+      'is_libyan': isLibyan.asString,
+      'proof_type': proofType,
+      'proof_file': await MultipartFile.fromFile(proofFile.path),
+      'proof_id': proofId,
+      'proof_issue_place': proofIssuePlace,
+      'proof_issue_date': proofIssueDate,
+      'proof_expiration_date': proofExpirationDate,
+      'national_id': nationalId,
+      'national_file': nationalFile != null
+          ? await MultipartFile.fromFile(nationalFile!.path)
+          : nationalFile,
+    };
+  }
+
+  String toJson() => json.encode(toMap());
+
+  @override
+  String toString() {
+    return 'SignUpRequest(firstName: $firstName, middleName: $middleName, lastName: $lastName, email: $email, phone: $phone, dateOfBirth: $dateOfBirth, gender: $gender, password: $password, isLibyan: $isLibyan, proofType: $proofType, proofFile: $proofFile, proofId: $proofId, proofIssuePlace: $proofIssuePlace, proofIssueDate: $proofIssueDate, proofExpirationDate: $proofExpirationDate, nationalId: $nationalId, nationalFile: $nationalFile)';
+  }
+}
+
+class CheckUserInfoRequest implements BaseRequest {
+  final String email;
+  final String phone;
+  CheckUserInfoRequest({
+    required this.email,
+    required this.phone,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'email': email,
+      'phone': phone,
+    };
+  }
+
+  factory CheckUserInfoRequest.fromMap(Map<String, dynamic> map) {
+    return CheckUserInfoRequest(
+      email: map['email'] ?? '',
+      phone: map['phone'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory CheckUserInfoRequest.fromJson(String source) =>
+      CheckUserInfoRequest.fromMap(json.decode(source));
+}

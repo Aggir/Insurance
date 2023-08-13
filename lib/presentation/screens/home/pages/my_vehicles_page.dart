@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/screens/home/components/vehicle_list_item.dart';
 import 'package:insurance_app/presentation/screens/issue_insurance/components/issue_completed_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -16,6 +16,8 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+
+import '../../../../app/router/routes.dart';
 
 class MyVehiclesPage extends StatefulWidget {
   const MyVehiclesPage(this.showIssueDialog, {super.key});
@@ -27,7 +29,7 @@ class MyVehiclesPage extends StatefulWidget {
 
 class _MyVehiclesPageState extends State<MyVehiclesPage> {
   _addVehicleFunction(BuildContext context) {
-    context.go(Routes.addMyVehicleRoute);
+    context.go(AppScreen.addMyVehicle.toPath);
   }
 
   @override

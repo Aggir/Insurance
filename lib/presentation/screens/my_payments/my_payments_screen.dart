@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -20,12 +20,13 @@ import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../app/enums/payment_status_enum.dart';
+import '../../../app/router/routes.dart';
 
 class MyPaymentsScreen extends StatelessWidget {
   const MyPaymentsScreen({super.key});
 
   void _insuranceServicesFunction(BuildContext context) {
-    context.go(Routes.homeRoute);
+    context.go(AppScreen.home.toPath);
   }
 
   @override
@@ -34,7 +35,7 @@ class MyPaymentsScreen extends StatelessWidget {
       appBar: CustomAppBar.basic(
         title: AppStrings.myPayments.tr(),
         backButton: () {
-          context.go(Routes.moreRoute);
+          context.go(AppScreen.more.toPath);
         },
       ),
       body: SingleChildScrollView(

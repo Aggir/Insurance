@@ -5,10 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 import '../../../app/assets_manager.dart';
+import '../../../app/di/dependency_injection.dart';
+import '../../../app/helpers/app_service.dart';
+import '../../../app/router/routes.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/custom_text_button.dart';
 import 'components/onboarding_page_content.dart';
@@ -62,7 +65,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _doneFunction() {
-    context.go(Routes.termsAndConditionsRoute);
+    instance<AppService>().onboarding = true;
+    context.go(AppScreen.termsAndConditions.toPath);
   }
 
   @override

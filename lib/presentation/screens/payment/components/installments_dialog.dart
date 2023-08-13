@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../app_router.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -19,7 +19,7 @@ class InstallmentDialog extends StatelessWidget {
 
   _okButtonFunction(BuildContext context) {
     // extra (paymentMethod id)
-    context.go(Routes.paymentRoute, extra: method);
+    context.go(AppScreen.payment.toPath, extra: method);
     DialogService.dispose();
   }
 

@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 
+import 'package:insurance_app/app/enums/gender.dart';
+
 class SignUpUserInfo extends Equatable {
   final String firstName;
   final String middleName;
@@ -7,6 +9,7 @@ class SignUpUserInfo extends Equatable {
   final String email;
   final String phoneNumber;
   final String birthDate;
+  final Gender gender;
   const SignUpUserInfo({
     required this.firstName,
     required this.middleName,
@@ -14,6 +17,7 @@ class SignUpUserInfo extends Equatable {
     required this.email,
     required this.phoneNumber,
     required this.birthDate,
+    required this.gender,
   });
 
   SignUpUserInfo copyWith({
@@ -23,6 +27,7 @@ class SignUpUserInfo extends Equatable {
     String? email,
     String? phoneNumber,
     String? birthDate,
+    Gender? gender,
   }) {
     return SignUpUserInfo(
       firstName: firstName ?? this.firstName,
@@ -31,6 +36,7 @@ class SignUpUserInfo extends Equatable {
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       birthDate: birthDate ?? this.birthDate,
+      gender: gender ?? this.gender,
     );
   }
 
@@ -42,10 +48,11 @@ class SignUpUserInfo extends Equatable {
         email,
         phoneNumber,
         birthDate,
+        gender,
       ];
 
   @override
   String toString() {
-    return 'SignUpUserInfo(firstName: $firstName, middleName: $middleName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, birthDate: $birthDate)';
+    return 'SignUpUserInfo(firstName: $firstName, middleName: $middleName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, birthDate: $birthDate, gender: $gender)';
   }
 }

@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
@@ -26,7 +27,7 @@ class VehicleListItem extends StatelessWidget {
   final _address = "طرابلس";
 
   void _secureNowButtonFunction(BuildContext context) {
-    context.go(Routes.issueInsuranceRoute);
+    context.go(AppScreen.issueInsurance.toPath);
   }
 
   @override

@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../blocs/signup/signup_cubit.dart';
+import '../../../../app/enums/proof_type.dart';
+import '../../../../app/router/routes.dart';
+import '../../../blocs/sign_up/sign_up_cubit.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
@@ -18,10 +19,10 @@ import '../../../widgets/primary_button.dart';
 import '../../../widgets/identity_verification_image.dart';
 import '../components/signup_footer_row.dart';
 
-class SignUpSelectVerificationMethodStep extends StatelessWidget {
-  const SignUpSelectVerificationMethodStep({super.key});
+class SignUpSelectProofTypeStep extends StatelessWidget {
+  const SignUpSelectProofTypeStep({super.key});
   _nextButtonFunction(BuildContext context) {
-    context.go(Routes.signupVerificationStepRoute);
+    context.go(AppScreen.signupProofInfoStep.toPath);
   }
 
   @override
@@ -50,13 +51,13 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
               ),
               CustomSpacers.medium(),
               _customRadioListTile(
-                text: AppStrings.passport.tr(),
+                type: ProofType.passport,
                 svgPath: SvgAssets.passport,
                 context,
               ),
               CustomSpacers.medium(),
               _customRadioListTile(
-                text: AppStrings.idCard.tr(),
+                type: ProofType.id,
                 svgPath: SvgAssets.idCard,
                 context,
               ),
@@ -87,15 +88,15 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
 
   _customRadioListTile(
     BuildContext context, {
-    required String text,
+    required ProofType type,
     required String svgPath,
   }) {
     final cubit = BlocProvider.of<SignUpCubit>(context);
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
-        final bool isSelected = text == state.verificationType;
+        final bool isSelected = type == state.proofType;
         return InkWell(
-          onTap: () => cubit.setVerificationType(text),
+          onTap: () => cubit.setDocumentType(type),
           child: Container(
             padding: const EdgeInsets.all(AppValues.small).r,
             decoration: BoxDecoration(
@@ -107,10 +108,10 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
             child: Row(
               children: [
                 Radio(
-                  value: text,
-                  groupValue: state.verificationType,
+                  value: type,
+                  groupValue: state.proofType,
                   onChanged: (value) =>
-                      value != null ? cubit.setVerificationType(value) : null,
+                      value != null ? cubit.setDocumentType(value) : null,
                   activeColor: AppColors.secondary,
                   // selected: true,
                   // selectedTileColor: AppColors.black,
@@ -118,7 +119,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
                 SvgPicture.asset(svgPath),
                 CustomSpacers.small(),
                 Text(
-                  text,
+                  type.toDisplayedText.tr(),
                   style:
                       isSelected ? smallHeadlineStyle() : darkGrayBodyStyle(),
                 )
@@ -134,7 +135,7 @@ class SignUpSelectVerificationMethodStep extends StatelessWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       builder: (context, state) {
         return PrimaryButton.fullWidth(
-          onPressed: state.verificationType.isNotEmpty
+          onPressed: state.proofType != null
               ? () => _nextButtonFunction(context)
               : null,
           child: Text(AppStrings.next.tr().toUpperCase()),

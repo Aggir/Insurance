@@ -5,12 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
+import '../../../../app/router/routes.dart';
 import '../../../blocs/reminder/reminder_cubit.dart';
 import '../../../theme/app_theme.dart';
 import '../../../widgets/custom_drop_down_field.dart';
@@ -23,7 +24,7 @@ class ReminderInfoFormStepPage extends StatelessWidget {
 
   void _nextButtonFunction(BuildContext context) {
     if (BlocProvider.of<ReminderCubit>(context).confirmStepOne()) {
-      context.go(Routes.reminderUploadInsurancePictureStepRoute);
+      context.go(AppScreen.reminderInsuranceInfoStep.toPath);
     }
   }
 

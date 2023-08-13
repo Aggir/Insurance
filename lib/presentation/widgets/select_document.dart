@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -11,30 +12,32 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../theme/text_style_manager.dart';
 
-class UploadDocument extends StatelessWidget {
-  const UploadDocument({
-    required this.uploadFileStatus,
-    this.uploadStateText,
+class SelectDocument extends StatelessWidget {
+  const SelectDocument({
+    required this.selectFileStatus,
+    this.selectStateText,
     this.removeFunction,
     this.uploadFunction,
     this.loadingAndSuccessStateText,
-    this.uploadedDocumentSvgPath,
-    this.uploadedDocumentSvgColor,
+    this.selectedDocumentSvgPath,
+    this.selectedDocumentSvgColor,
+    this.filename,
     super.key,
   });
-  final Status uploadFileStatus;
+  final Status selectFileStatus;
   final void Function()? uploadFunction;
   final void Function()? removeFunction;
-  final String? uploadStateText;
+  final String? selectStateText;
   final String? loadingAndSuccessStateText;
-  final String? uploadedDocumentSvgPath;
-  final Color? uploadedDocumentSvgColor;
+  final String? selectedDocumentSvgPath;
+  final Color? selectedDocumentSvgColor;
+  final String? filename;
 
   @override
   Widget build(BuildContext context) {
-    if (uploadFileStatus.isLoading) {
+    if (selectFileStatus.isLoading) {
       return _uploadDocumentOnprogressState(context);
-    } else if (uploadFileStatus.isSuccess) {
+    } else if (selectFileStatus.isSuccess) {
       return _uploadedDocumentState(context);
     } else {
       return _selectDocumentState(context);
@@ -63,7 +66,7 @@ class UploadDocument extends StatelessWidget {
               width: AppSizes.s40.r,
             ),
             CustomSpacers.small(),
-            Text(uploadStateText ?? AppStrings.uploadPassportPicture.tr(),
+            Text(selectStateText ?? AppStrings.uploadPassportPicture.tr(),
                 style: smallDarkGrayHeadlineStyle()),
             CustomSpacers.small(),
             Text(
@@ -93,10 +96,6 @@ class UploadDocument extends StatelessWidget {
               loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
               style: smallDarkGrayHeadlineStyle(),
             ),
-            Text(
-              'File_name.pdf',
-              style: smallGrayBodyStyle(),
-            ),
             SizedBox(
               width: AppSizes.s200.r,
               child: LinearProgressIndicator(
@@ -114,11 +113,11 @@ class UploadDocument extends StatelessWidget {
     return _selectedDocumentContainer(
       children: [
         SvgPicture.asset(
-          uploadedDocumentSvgPath ?? SvgAssets.uploadedDocument,
+          selectedDocumentSvgPath ?? SvgAssets.uploadedDocument,
           height: AppSizes.s60.r,
           width: AppSizes.s60.r,
-          colorFilter: uploadedDocumentSvgColor != null
-              ? ColorFilter.mode(uploadedDocumentSvgColor!, BlendMode.srcIn)
+          colorFilter: selectedDocumentSvgColor != null
+              ? ColorFilter.mode(selectedDocumentSvgColor!, BlendMode.srcIn)
               : null,
         ),
         CustomSpacers.small(),
@@ -130,9 +129,14 @@ class UploadDocument extends StatelessWidget {
               loadingAndSuccessStateText ?? AppStrings.passportPicture.tr(),
               style: smallDarkGrayHeadlineStyle(),
             ),
-            Text(
-              'File_name.pdf',
-              style: smallGrayBodyStyle(),
+            SizedBox(
+              width: AppSizes.s180.r,
+              child: Text(
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                filename ?? Constants.empty,
+                style: smallGrayBodyStyle(),
+              ),
             ),
           ],
         ),

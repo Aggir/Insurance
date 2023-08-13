@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
 import 'package:insurance_app/presentation/screens/company_details/components/prices_modal.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
@@ -24,7 +24,7 @@ class AboutCompanyTab extends StatelessWidget {
 
   void _branchesButtonFunction(BuildContext context) {
     context.go(
-        '${Routes.companiesRoute}/$companyId/${Routes.companyBranchesRoute}');
+        '${AppScreen.companyDetails.toPath}$companyId/${AppScreen.companyBranches.toSubPath}');
   }
 
   void _pricesButtonFunction(BuildContext context) {
