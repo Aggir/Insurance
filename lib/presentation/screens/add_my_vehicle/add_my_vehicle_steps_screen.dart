@@ -35,7 +35,7 @@ class _AddMyVehicleStepsState extends State<AddMyVehicleStepsScreen> {
                 AppScreen.addMyVehicleDetailsStepTwo.toPath) {
               return context.go(AppScreen.addMyVehicleDetailsStepOne.toPath);
             }
-
+            return widget.child.goBranch(widget.child.currentIndex - 1);
           default:
             return widget.child.goBranch(widget.child.currentIndex - 1);
         }

@@ -50,16 +50,16 @@ class UserModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'firstName': firstName,
-      'fatherName': fatherName,
-      'lastName': lastName,
+      'first_name': firstName,
+      'father_name': fatherName,
+      'last_name': lastName,
       'email': email,
       'phone': phone,
       'dob': dateOfBirth?.toIso8601String(),
       'gender': gender,
-      'createdAt': createdAt?.toIso8601String(),
-      'updatedAt': updatedAt?.toIso8601String(),
-      'isActive': isActive,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
+      'is_active': isActive,
     };
   }
 
@@ -74,10 +74,10 @@ class UserModel extends Equatable {
       dateOfBirth: map['dob'] != null ? DateTime.parse(map['dob']) : null,
       gender: map['gender'],
       createdAt:
-          map['createdAt'] != null ? DateTime.parse(map['createdAt']) : null,
+          map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
       updatedAt:
-          map['updatedAt'] != null ? DateTime.parse(map['updatedAt']) : null,
-      isActive: map['isActive'],
+          map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
+      isActive: map['is_active'],
     );
   }
 

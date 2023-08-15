@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import 'package:insurance_app/app/failure.dart';
-import 'package:insurance_app/data/requests/requests.dart';
+import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 import 'package:insurance_app/domain/usecases/base_usecase.dart';
 

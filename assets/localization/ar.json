@@ -273,6 +273,7 @@
     "country_of_manufacture": "بلد الصنع",
     "secure_now": "أمن الآن",
     "address": "العنوان",
+    "alias":"الاسم المستعار",
     "generic_error": "حدث خطأ ما، الرجاء اعادة المحاولة.",
     "invalid_credentials": "بيانات تسجيل الدخول غير صحيحة.",
     "the_email_has_already_been_taken": "البريد الإلكتروني مُستخدم بالفعل.",

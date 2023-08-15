@@ -2,10 +2,19 @@ import 'package:get_it/get_it.dart';
 import 'package:insurance_app/data/datasources/remote/api_constants.dart';
 import 'package:insurance_app/data/datasources/remote/remote_datasource_impl.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
+import 'package:insurance_app/data/repositories/repository_impl.dart';
 import 'package:insurance_app/data/repositories/user_repository_impl.dart';
+import 'package:insurance_app/data/repositories/vehicle_repository_impl.dart';
+import 'package:insurance_app/domain/repositories/repository.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
+import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
+import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
@@ -34,19 +43,26 @@ Future<void> initAppModule() async {
       baseUrl: ApiConstants.baseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
-      headers: {'Accept': 'application/json'});
+      headers: {'Accept': 'application/json', 'locale': 'ar'});
   final Dio dio = Dio(dioOptions);
 
   instance.registerLazySingleton<Dio>(() => dio);
 
-  // remote database instance (Firebase Package)
   instance.registerLazySingleton<RemoteDataSource>(
     () => RemoteDataSourceImpl(instance<Dio>(), instance<AppService>()),
   );
 
-  // remote database instance (Firebase Package)
+  // Repositories
   instance.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(instance<RemoteDataSource>()),
+  );
+
+  instance.registerLazySingleton<Repository>(
+    () => RepositoryImpl(instance<RemoteDataSource>()),
+  );
+
+  instance.registerLazySingleton<VehicleRepository>(
+    () => VehicleRepositoryImpl(instance<RemoteDataSource>()),
   );
 
   // User Cubit
@@ -94,6 +110,41 @@ void initCheckProofId() async {
   if (!GetIt.I.isRegistered<CheckProofIdUsecase>()) {
     instance.registerFactory<CheckProofIdUsecase>(
         () => CheckProofIdUsecase(instance<UserRepository>()));
+  }
+}
+
+void initGetCities() async {
+  if (!GetIt.I.isRegistered<GetCitiesUsecase>()) {
+    instance.registerFactory<GetCitiesUsecase>(
+        () => GetCitiesUsecase(instance<Repository>()));
+  }
+}
+
+void initGetColors() async {
+  if (!GetIt.I.isRegistered<GetColorsUsecase>()) {
+    instance.registerFactory<GetColorsUsecase>(
+        () => GetColorsUsecase(instance<Repository>()));
+  }
+}
+
+void initGetAddVehicleFormData() async {
+  if (!GetIt.I.isRegistered<GetAddVehicleFormDataUsecase>()) {
+    instance.registerFactory<GetAddVehicleFormDataUsecase>(
+        () => GetAddVehicleFormDataUsecase(instance<VehicleRepository>()));
+  }
+}
+
+void initGetVehicleModels() async {
+  if (!GetIt.I.isRegistered<GetVehicleModelsUsecase>()) {
+    instance.registerFactory<GetVehicleModelsUsecase>(
+        () => GetVehicleModelsUsecase(instance<VehicleRepository>()));
+  }
+}
+
+void initAddVehicle() async {
+  if (!GetIt.I.isRegistered<AddVehicleUsecase>()) {
+    instance.registerFactory<AddVehicleUsecase>(
+        () => AddVehicleUsecase(instance<VehicleRepository>()));
   }
 }
 

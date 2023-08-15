@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/proof_type.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/entities/proof_document.dart';
+import 'package:insurance_app/domain/data_classes/proof_document.dart';
 
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';

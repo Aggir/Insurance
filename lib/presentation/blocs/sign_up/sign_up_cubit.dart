@@ -10,8 +10,8 @@ import 'package:insurance_app/app/enums/proof_type.dart';
 import 'package:insurance_app/app/enums/gender.dart';
 
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/entities/national_document.dart';
-import 'package:insurance_app/domain/entities/proof_document.dart';
+import 'package:insurance_app/domain/data_classes/national_document.dart';
+import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';

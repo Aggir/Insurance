@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
-import 'package:insurance_app/data/requests/requests.dart';
+import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/domain/entities/user.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 import 'package:insurance_app/data/mapper/user_mapper.dart';

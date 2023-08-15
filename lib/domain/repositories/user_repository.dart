@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../app/failure.dart';
-import '../../data/requests/requests.dart';
+import '../../data/requests/user_requests.dart';
 import '../entities/user.dart';
 
 abstract class UserRepository {

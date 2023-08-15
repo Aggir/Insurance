@@ -19,12 +19,12 @@ extension UserEntityExtension on UserEntity {
 extension UserModelExtension on UserModel? {
   UserEntity toDomain() => this == null
       ? UserEntity(
-          id: 0,
-          firstName: 'firstName',
-          fatherName: 'fatherName',
-          lastName: 'lastName',
-          email: 'email',
-          phone: 'phone',
+          id: Constants.zero,
+          firstName: Constants.empty,
+          fatherName: Constants.empty,
+          lastName: Constants.empty,
+          email: Constants.empty,
+          phone: Constants.empty,
           dateOfBirth: DateTime.now(),
           gender: Gender.female)
       : UserEntity(

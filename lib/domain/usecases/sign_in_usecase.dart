@@ -3,7 +3,7 @@ import 'package:insurance_app/domain/entities/user.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 
 import '../../app/failure.dart';
-import '../../data/requests/requests.dart';
+import '../../data/requests/user_requests.dart';
 import 'base_usecase.dart';
 
 class SignInUsecase implements BaseUsecase<SignInUsecaseInput, UserEntity> {

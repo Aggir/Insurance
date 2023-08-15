@@ -11,4 +11,10 @@ class Constants {
     'jpeg',
     'webp',
   ];
+  static const List<String> allowedPictureExtensions = [
+    'jpg',
+    'png',
+    'jpeg',
+    'webp',
+  ];
 }

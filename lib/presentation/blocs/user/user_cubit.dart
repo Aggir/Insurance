@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/helpers/app_service.dart';
-import 'package:insurance_app/domain/entities/national_document.dart';
-import 'package:insurance_app/domain/entities/proof_document.dart';
+import 'package:insurance_app/domain/data_classes/national_document.dart';
+import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/entities/user.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';

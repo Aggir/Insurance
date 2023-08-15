@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:insurance_app/domain/entities/national_document.dart';
+import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 
 import 'package:insurance_app/domain/entities/user.dart';
-import 'package:insurance_app/domain/entities/proof_document.dart';
+import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 
 import '../../app/failure.dart';
-import '../../data/requests/requests.dart';
+import '../../data/requests/user_requests.dart';
 import 'base_usecase.dart';
 
 class SignUpUsecase implements BaseUsecase<SignUpUsecaseInput, UserEntity> {

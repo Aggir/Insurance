@@ -348,6 +348,8 @@ class AppStrings {
   static const countryOfManufacture = 'country_of_manufacture';
   static const secureNow = 'secure_now';
 
+  static const alias = 'alias';
+
   // Error messages
   static const genericError = 'generic_error';
   static const invalidCredentials = 'invalid_credentials';

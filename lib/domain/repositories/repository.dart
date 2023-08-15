@@ -1,0 +1,11 @@
+import 'package:dartz/dartz.dart';
+import 'package:insurance_app/domain/entities/city.dart';
+import 'package:insurance_app/domain/entities/color.dart';
+
+import '../../app/failure.dart';
+
+abstract class Repository {
+  Future<Either<Failure, List<CityEntity>>> getCities();
+
+  Future<Either<Failure, List<ColorEntity>>> getColors();
+}

@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -17,6 +19,8 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../theme/app_colors.dart';
+import '../../../widgets/dialog_service.dart';
+import '../../../widgets/snackBars.dart';
 
 class AddMyVehicleDetailsStepTwoPage extends StatefulWidget {
   const AddMyVehicleDetailsStepTwoPage({super.key});
@@ -34,6 +38,14 @@ class _AddMyVehicleDetailsStepTwoPageState
         .isVehicleDetailsFormTwoValid()) {
       context.go(AppScreen.addMyVehiclePictureStep.toPath);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance
+        .addPostFrameCallback((_) => DialogService.loadLoadingDialog(context));
+    BlocProvider.of<AddMyVehicleCubit>(context).getColors();
   }
 
   @override
@@ -110,6 +122,7 @@ class _AddMyVehicleDetailsStepTwoPageState
       key: cubit.vehicleDetailsTwoForm,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         CustomDropDownField(
+          onChanged: (value) => cubit.setVehicleHorsePower(int.parse(value)),
           hintText: AppStrings.selectTheHorsepowerOfTheEngine.tr(),
           items: DUMMY.horsePower
               .map(
@@ -125,29 +138,49 @@ class _AddMyVehicleDetailsStepTwoPageState
         ),
         CustomSpacers.medium(),
         CustomTextFormField(
+          controller: cubit.vehicleEngineNumberController,
           hintText: AppStrings.engineSerialNumber.tr(),
         ),
         CustomSpacers.medium(),
         CustomTextFormField(
+          controller: cubit.vehicleChassisNumberController,
           hintText: AppStrings.chassisNumber.tr(),
         ),
         CustomSpacers.medium(),
-        CustomDropDownField(
-          hintText: AppStrings.carColor.tr(),
-          items: DUMMY.colors
-              .map(
-                (type) => DropdownMenuItem(
-                  value: type['value'],
-                  child: Text(
-                    type['value'] ?? '',
-                    style: bodyStyle(),
-                  ),
-                ),
-              )
-              .toList(),
+        BlocConsumer<AddMyVehicleCubit, AddMyVehicleState>(
+          listenWhen: (previous, current) =>
+              previous.getColorsStatus != current.getColorsStatus,
+          listener: (context, state) {
+            if (state.getColorsStatus.isFailure) {
+              DialogService.dispose();
+              SnackBars.error(context, state.getColorsErrorMessage!);
+            } else if (state.getColorsStatus.isSuccess) {
+              DialogService.dispose();
+            }
+          },
+          builder: (context, state) {
+            return CustomDropDownField(
+              onChanged: (value) => cubit.setVehicleColorId(int.parse(value)),
+              hintText: AppStrings.carColor.tr(),
+              items: state.colors == null
+                  ? []
+                  : state.colors!
+                      .map(
+                        (color) => DropdownMenuItem(
+                          value: color.id.toString(),
+                          child: Text(
+                            color.name,
+                            style: bodyStyle(),
+                          ),
+                        ),
+                      )
+                      .toList(),
+            );
+          },
         ),
         CustomSpacers.medium(),
         CustomDropDownField(
+          onChanged: (value) => cubit.setVehicleSeats((int.parse(value))),
           hintText: AppStrings.seatsWithoutTheDriver.tr(),
           items: DUMMY.seatsNumberWithoutTheDriver
               .map(
