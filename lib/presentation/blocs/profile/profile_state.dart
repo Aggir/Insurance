@@ -2,25 +2,22 @@ part of 'profile_cubit.dart';
 
 class ProfileState extends Equatable {
   const ProfileState({
-    this.fetchAccount = Status.initial,
-    this.fetchAccountError,
+    this.photoFile,
     this.isEditing = false,
-    required this.isLibyan,
+    this.isLibyan,
     this.editStatus = Status.initial,
     this.editError,
   });
-  final Status fetchAccount;
-  final String? fetchAccountError;
-  final bool isEditing;
 
+  final File? photoFile;
+  final bool isEditing;
   final bool? isLibyan;
   final Status editStatus;
   final String? editError;
 
   @override
   List<Object?> get props => [
-        fetchAccount,
-        fetchAccountError,
+        photoFile,
         isEditing,
         editStatus,
         editError,
@@ -28,16 +25,15 @@ class ProfileState extends Equatable {
       ];
 
   ProfileState copyWith({
-    Status? fetchAccount,
-    String? fetchAccountError,
+    File? photoFile,
     bool? isEditing,
     bool? isLibyan,
     Status? editStatus,
     String? editError,
+    bool removePickedPhoto = false,
   }) {
     return ProfileState(
-      fetchAccount: fetchAccount ?? this.fetchAccount,
-      fetchAccountError: fetchAccountError ?? this.fetchAccountError,
+      photoFile: removePickedPhoto ? null : photoFile ?? this.photoFile,
       isEditing: isEditing ?? this.isEditing,
       isLibyan: isLibyan ?? this.isLibyan,
       editStatus: editStatus ?? this.editStatus,

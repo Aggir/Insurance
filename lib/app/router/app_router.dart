@@ -58,12 +58,15 @@ class AppRouter {
                 return const NoConnectionScreen();
               } else if (state is ConnectedState) {
                 return BlocListener<UserCubit, UserState>(
+                  listenWhen: (previous, current) =>
+                      previous.authStatus != current.authStatus,
                   listener: (context, state) {
                     print(state.user);
                     print(state.authStatus);
                     if (state.checkTokenStatus.isFailure) {
                       context.go(AppScreen.login.toPath);
-                    } else if (state.checkTokenStatus.isLoading) {
+                    } else if (state.authStatus.isLoading &&
+                        state.checkTokenStatus.isLoading) {
                       context.go(AppScreen.loading.toPath);
                     } else if (state.user == null &&
                         (state.authStatus.isInitial ||

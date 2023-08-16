@@ -16,4 +16,6 @@ abstract class UserRepository {
   Future<Either<Failure, void>> checkUserInfo(CheckUserInfoRequest input);
 
   Future<Either<Failure, void>> checkProofId(String proofId);
+
+  Future<Either<Failure, UserEntity>> editProfile(EditProfileRequest input);
 }

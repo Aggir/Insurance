@@ -86,4 +86,18 @@ class UserRepositoryImpl extends UserRepository {
       return const Right(null);
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> editProfile(
+      EditProfileRequest input) async {
+    final response = await _remoteDataSource.editProfile(input);
+    if (response.user == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return Right(response.user.toDomain());
+    }
+  }
 }

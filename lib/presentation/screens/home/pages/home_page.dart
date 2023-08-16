@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -16,9 +18,9 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../../app/router/routes.dart';
+import '../../../blocs/user/user_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({this.dialog, super.key});
@@ -103,32 +105,54 @@ class _HomePageState extends State<HomePage> {
           vertical: AppValues.small,
           horizontal: AppValues.small,
         ).r,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+        child: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  backgroundColor: AppColors.primaryLight,
-                  radius: AppSizes.s24.r,
-                  foregroundImage: const AssetImage(ImageAssets.profilePicture),
+                Row(
+                  children: [
+                    Container(
+                      height: AppSizes.s48.r,
+                      width: AppSizes.s48.r,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryLight,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: state.user != null
+                          ? state.user!.imageUrl.isNotEmpty
+                              ? CachedNetworkImage(
+                                  cacheKey: state.user?.updatedAt,
+                                  imageUrl: state.user!.imageUrl,
+                                  fit: BoxFit.cover,
+                                )
+                              : Center(
+                                  child: Text(
+                                    state.user!.firstName[0],
+                                    style: boldBlackLargeStyle(),
+                                  ),
+                                )
+                          : Container(),
+                    ),
+                    CustomSpacers.medium(),
+                    Text(
+                      '${AppStrings.welcome.tr()}${state.user?.firstName}!',
+                      style: mediumSmallHeadlineStyle(),
+                    ),
+                  ],
                 ),
-                CustomSpacers.medium(),
-                Text(
-                  '${AppStrings.welcome.tr()}${DUMMY.fistName}!',
-                  style: mediumSmallHeadlineStyle(),
+                IconButton(
+                  onPressed: () => _notificationButtonFunction(context),
+                  icon: SvgPicture.asset(
+                    SvgAssets.bell,
+                    height: AppSizes.s32.r,
+                    width: AppSizes.s32.r,
+                  ),
                 ),
               ],
-            ),
-            IconButton(
-              onPressed: () => _notificationButtonFunction(context),
-              icon: SvgPicture.asset(
-                SvgAssets.bell,
-                height: AppSizes.s32.r,
-                width: AppSizes.s32.r,
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -315,9 +339,10 @@ class _HomePageState extends State<HomePage> {
   ) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.lightGray,
-          boxShadow: [AppValues.innerShadow],
-          borderRadius: BorderRadius.circular(AppValues.largeRadius.r)),
+        color: AppColors.lightGray,
+        boxShadow: [AppValues.innerShadow],
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

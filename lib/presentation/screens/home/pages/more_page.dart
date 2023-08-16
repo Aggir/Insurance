@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
@@ -143,54 +144,76 @@ class MorePage extends StatelessWidget {
                     vertical: AppValues.mediumSmall,
                     horizontal: AppValues.medium)
                 .r,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+            child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: AppSizes.s32.r,
-                      backgroundColor: AppColors.transparent,
-                      foregroundImage:
-                          const AssetImage(ImageAssets.profilePicture),
-                    ),
-                    CustomSpacers.medium(),
-                    SizedBox(
-                      width: AppSizes.s200.r,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${DUMMY.fistName} ${DUMMY.middleName} ${DUMMY.lastName}',
-                            style: smallHeadlineStyle(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Container(
+                          height: AppSizes.s64.r,
+                          width: AppSizes.s64.r,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryLight,
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          Row(
+                          clipBehavior: Clip.antiAlias,
+                          child: state.user != null
+                              ? state.user!.imageUrl.isNotEmpty
+                                  ? CachedNetworkImage(
+                                      cacheKey: state.user?.updatedAt,
+                                      imageUrl: state.user!.imageUrl,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        state.user!.firstName[0],
+                                        style: boldBlackLargeStyle(),
+                                      ),
+                                    )
+                              : Container(),
+                        ),
+                        CustomSpacers.medium(),
+                        SizedBox(
+                          width: AppSizes.s200.r,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                AppStrings.userId.tr(),
-                                style: smallGrayBodyStyle(),
+                                '${state.user?.firstName} ${state.user?.fatherName} ${state.user?.lastName}',
+                                style: smallHeadlineStyle(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
-                                DUMMY.id,
-                                style: extraSmallHeadlineStyle(),
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.userId.tr(),
+                                    style: smallGrayBodyStyle(),
+                                  ),
+                                  Text(
+                                    state.user?.userId.toString() ??
+                                        Constants.empty,
+                                    style: extraSmallHeadlineStyle(),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
+                    SvgPicture.asset(
+                      SvgAssets.chevronLeft,
+                      height: AppSizes.s22.r,
+                      width: AppSizes.s22.r,
+                      colorFilter:
+                          ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                     ),
                   ],
-                ),
-                SvgPicture.asset(
-                  SvgAssets.chevronLeft,
-                  height: AppSizes.s22.r,
-                  width: AppSizes.s22.r,
-                  colorFilter:
-                      ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),

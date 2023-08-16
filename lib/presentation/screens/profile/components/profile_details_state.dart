@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:insurance_app/app/constants.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../../app/dummy_data.dart';
+import '../../../blocs/user/user_cubit.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
@@ -16,32 +18,39 @@ class ProfileDetailsState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _infoCardWidget(
-          SvgAssets.envelope,
-          AppStrings.emailAddress.tr(),
-          email,
-        ),
-        CustomSpacers.medium(),
-        _infoCardWidget(
-          SvgAssets.phone,
-          AppStrings.phoneNumber.tr(),
-          phone,
-        ),
-        CustomSpacers.medium(),
-        _infoCardWidget(
-          SvgAssets.calendar,
-          AppStrings.birthDate.tr(),
-          birthDate,
-        ),
-        CustomSpacers.medium(),
-        _infoCardWidget(
-          SvgAssets.idCard,
-          AppStrings.nationality.tr(),
-          (isLibyan ? AppStrings.libyan : AppStrings.nonLibyan).tr(),
-        ),
-      ],
+    return BlocBuilder<UserCubit, UserState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            _infoCardWidget(
+              SvgAssets.envelope,
+              AppStrings.emailAddress.tr(),
+              state.user?.email ?? Constants.empty,
+            ),
+            CustomSpacers.medium(),
+            _infoCardWidget(
+              SvgAssets.phone,
+              AppStrings.phoneNumber.tr(),
+              state.user?.phone ?? Constants.empty,
+            ),
+            CustomSpacers.medium(),
+            _infoCardWidget(
+              SvgAssets.calendar,
+              AppStrings.birthDate.tr(),
+              state.user?.dateOfBirth ?? Constants.empty,
+            ),
+            CustomSpacers.medium(),
+            _infoCardWidget(
+              SvgAssets.idCard,
+              AppStrings.nationality.tr(),
+              ((state.user?.isLibyan ?? false)
+                      ? AppStrings.libyan
+                      : AppStrings.nonLibyan)
+                  .tr(),
+            ),
+          ],
+        );
+      },
     );
   }
 

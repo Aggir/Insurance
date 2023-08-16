@@ -125,7 +125,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<UserResponse> signUp(SignUpRequest request) async {
     try {
-      print(request);
       final body = await request.toMap();
 
       Response response = await _dio.post(
@@ -137,8 +136,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
-      print(response.data);
-
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
       _appService.token = userResponse.token ?? Constants.empty;
@@ -337,6 +334,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.auth(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<UserResponse> editProfile(EditProfileRequest request) async {
+    try {
+      final body = await request.toMap();
+      var response = await _dio.post(
+        ApiConstants.updateSelf,
+        data: FormData.fromMap(body),
+        options: _bearerToken(
+          _appService.token,
+          header: {
+            'Content-Type': 'multipart/form-data',
+          },
+        ),
+      );
+      final userResponse = UserResponse.fromMap({'user': response.data});
+      return userResponse;
+    } on DioException catch (error) {
+      return UserResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.auth(error));
+    } catch (error) {
+      return UserResponse(message: AppStrings.genericError);
     }
   }
 }

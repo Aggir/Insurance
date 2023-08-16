@@ -79,3 +79,11 @@ TextStyle textFieldErrorMessageStyle() {
 TextStyle mediumExBoldStyle() {
   return getExtraBoldStyle(color: AppColors.black, fontSize: FontSize.s16);
 }
+
+TextStyle boldBlackLargeStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s18);
+}
+
+TextStyle boldBlackExtraLargeStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s22);
+}

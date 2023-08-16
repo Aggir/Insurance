@@ -359,4 +359,5 @@ class AppStrings {
       'the_proof_id_has_already_been_taken';
   static const theNationalIdHasAlreadyBeenTaken =
       'the_national_id_has_already_been_taken';
+  static const editProfileSuccessMessage = 'edit_profile_success_message';
 }

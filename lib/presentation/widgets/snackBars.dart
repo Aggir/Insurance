@@ -12,4 +12,14 @@ class SnackBars {
       ),
     );
   }
+
+  static void success(BuildContext context, String successMessage) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(successMessage),
+        backgroundColor: AppColors.secondary,
+      ),
+    );
+  }
 }

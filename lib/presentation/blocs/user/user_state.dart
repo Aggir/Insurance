@@ -8,6 +8,8 @@ class UserState extends Equatable {
   final String? checkTokenErrorMessage;
   final Status logoutStatus;
   final String? logoutErrorMessage;
+  final Status editProfileStatus;
+  final String? editProfileErrorMessage;
 
   const UserState({
     this.user,
@@ -17,6 +19,8 @@ class UserState extends Equatable {
     this.checkTokenErrorMessage,
     this.logoutStatus = Status.initial,
     this.logoutErrorMessage,
+    this.editProfileStatus = Status.initial,
+    this.editProfileErrorMessage,
   });
 
   @override
@@ -28,6 +32,8 @@ class UserState extends Equatable {
         checkTokenErrorMessage,
         logoutStatus,
         logoutErrorMessage,
+        editProfileStatus,
+        editProfileErrorMessage,
       ];
 
   UserState copyWith({
@@ -38,6 +44,8 @@ class UserState extends Equatable {
     String? checkTokenErrorMessage,
     Status? logoutStatus,
     String? logoutErrorMessage,
+    Status? editProfileStatus,
+    String? editProfileErrorMessage,
   }) {
     return UserState(
       user: user ?? this.user,
@@ -48,6 +56,9 @@ class UserState extends Equatable {
           checkTokenErrorMessage ?? this.checkTokenErrorMessage,
       logoutStatus: logoutStatus ?? this.logoutStatus,
       logoutErrorMessage: logoutErrorMessage ?? this.logoutErrorMessage,
+      editProfileStatus: editProfileStatus ?? this.editProfileStatus,
+      editProfileErrorMessage:
+          editProfileErrorMessage ?? this.editProfileErrorMessage,
     );
   }
 }

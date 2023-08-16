@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,6 +9,7 @@ import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/entities/user.dart';
+import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
@@ -60,12 +63,16 @@ class UserCubit extends Cubit<UserState> {
 
   void isLoggedIn() async {
     if (instance<AppService>().token.isNotEmpty) {
-      emit(state.copyWith(checkTokenStatus: Status.loading));
+      emit(state.copyWith(
+        checkTokenStatus: Status.loading,
+        authStatus: Status.loading,
+      ));
       initIsLoggedIn();
       (await instance<IsLoggedInUsecase>().execute(null)).fold(
         (failure) {
           emit(state.copyWith(
               checkTokenStatus: Status.failure,
+              authStatus: Status.failure,
               checkTokenErrorMessage: failure.message));
         },
         (data) {
@@ -93,6 +100,37 @@ class UserCubit extends Cubit<UserState> {
       },
       (data) {
         emit(const UserState());
+      },
+    );
+  }
+
+  void editProfile(String firstName, String fatherName, String lastName,
+      String email, String phone, String dateOfBirth,
+      {File? photo}) async {
+    emit(state.copyWith(editProfileStatus: Status.loading));
+
+    initEditProfile();
+    (await instance<EditProfileUsecase>().execute(EditProfileUsecaseInput(
+      firstName: firstName,
+      fatherName: fatherName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      dob: dateOfBirth,
+      photo: photo,
+    )))
+        .fold(
+      (failure) {
+        emit(state.copyWith(
+          editProfileStatus: Status.failure,
+          editProfileErrorMessage: failure.message,
+        ));
+      },
+      (data) {
+        emit(state.copyWith(
+          editProfileStatus: Status.success,
+          user: data,
+        ));
       },
     );
   }

@@ -24,6 +24,8 @@ abstract class RemoteDataSource {
 
   Future<BasicResponse> checkProofId(String proofId);
 
+  Future<UserResponse> editProfile(EditProfileRequest request);
+
   Future<CitiesResponse> getCities();
 
   Future<ColorsResponse> getColors();

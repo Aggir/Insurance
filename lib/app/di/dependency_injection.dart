@@ -11,6 +11,7 @@ import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
@@ -110,6 +111,13 @@ void initCheckProofId() async {
   if (!GetIt.I.isRegistered<CheckProofIdUsecase>()) {
     instance.registerFactory<CheckProofIdUsecase>(
         () => CheckProofIdUsecase(instance<UserRepository>()));
+  }
+}
+
+void initEditProfile() async {
+  if (!GetIt.I.isRegistered<EditProfileUsecase>()) {
+    instance.registerFactory<EditProfileUsecase>(
+        () => EditProfileUsecase(instance<UserRepository>()));
   }
 }
 

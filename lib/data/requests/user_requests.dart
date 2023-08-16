@@ -114,16 +114,39 @@ class CheckUserInfoRequest implements BaseRequest {
       'phone': phone,
     };
   }
+}
 
-  factory CheckUserInfoRequest.fromMap(Map<String, dynamic> map) {
-    return CheckUserInfoRequest(
-      email: map['email'] ?? '',
-      phone: map['phone'] ?? '',
-    );
+class EditProfileRequest implements BaseRequest {
+  final String firstName;
+  final String fatherName;
+  final String lastName;
+  final String email;
+  final String phone;
+  final String dob;
+  final File? photo;
+
+  EditProfileRequest({
+    required this.firstName,
+    required this.fatherName,
+    required this.lastName,
+    required this.email,
+    required this.phone,
+    required this.dob,
+    this.photo,
+  });
+
+  Future<Map<String, dynamic>> toMap() async {
+    final Map<String, dynamic> map = {
+      'first_name': firstName,
+      'father_name': fatherName,
+      'last_name': lastName,
+      'email': email,
+      'phone': phone,
+      'dob': dob,
+    };
+    if (photo != null) {
+      map['photo'] = await MultipartFile.fromFile(photo!.path);
+    }
+    return map;
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory CheckUserInfoRequest.fromJson(String source) =>
-      CheckUserInfoRequest.fromMap(json.decode(source));
 }
