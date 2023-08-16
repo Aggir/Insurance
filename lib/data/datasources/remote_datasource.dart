@@ -26,6 +26,8 @@ abstract class RemoteDataSource {
 
   Future<UserResponse> editProfile(EditProfileRequest request);
 
+  Future<BasicResponse> changePassword(ChangePasswordRequest request);
+
   Future<CitiesResponse> getCities();
 
   Future<ColorsResponse> getColors();

@@ -349,6 +349,8 @@ class AppStrings {
   static const secureNow = 'secure_now';
 
   static const alias = 'alias';
+  static const editProfileSuccessMessage = 'edit_profile_success_message';
+  static const passwordMinLength = 'password_min_length';
 
   // Error messages
   static const genericError = 'generic_error';
@@ -359,5 +361,5 @@ class AppStrings {
       'the_proof_id_has_already_been_taken';
   static const theNationalIdHasAlreadyBeenTaken =
       'the_national_id_has_already_been_taken';
-  static const editProfileSuccessMessage = 'edit_profile_success_message';
+  static const wrongCurrentPassword = 'wrong_current_password';
 }

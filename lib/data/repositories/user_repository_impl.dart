@@ -100,4 +100,18 @@ class UserRepositoryImpl extends UserRepository {
       return Right(response.user.toDomain());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> changePassword(
+      ChangePasswordRequest input) async {
+    final response = await _remoteDataSource.changePassword(input);
+    if (response.message != null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return const Right(null);
+    }
+  }
 }

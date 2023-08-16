@@ -22,4 +22,16 @@ class ApiErrorHandler {
 
     return message ?? AppStrings.genericError.tr();
   }
+
+  static String changePassword(DioException error) {
+    final message = error.response?.data['message'];
+
+    if (message != null) {
+      if (message.contains('invalid credentials')) {
+        return AppStrings.wrongCurrentPassword.tr();
+      }
+    }
+
+    return message ?? AppStrings.genericError.tr();
+  }
 }

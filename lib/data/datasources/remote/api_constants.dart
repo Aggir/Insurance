@@ -11,6 +11,7 @@ class ApiConstants {
   static const String check = '/check';
   static const String checkDoc = '/checkDoc';
   static const String updateSelf = '/update_self';
+  static const String changePassword = '/change_password';
   // Vehicle
   static const String vehicleBrands = '/vehicle_brands';
   static const String vehicleCountries = '/vehicle_countries';

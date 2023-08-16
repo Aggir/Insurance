@@ -239,5 +239,7 @@
     "save_vehicle_file": "",
     "you_have_successfully_added_your_vehicle": "",
     "you_can_now_get_insurance_for_your_vehicle": "",
-    "edit_profile_success_message": ""
+    "edit_profile_success_message": "",
+    "password_min_length": "",
+    "wrong_current_password": ""
 }

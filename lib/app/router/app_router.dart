@@ -61,8 +61,6 @@ class AppRouter {
                   listenWhen: (previous, current) =>
                       previous.authStatus != current.authStatus,
                   listener: (context, state) {
-                    print(state.user);
-                    print(state.authStatus);
                     if (state.checkTokenStatus.isFailure) {
                       context.go(AppScreen.login.toPath);
                     } else if (state.authStatus.isLoading &&

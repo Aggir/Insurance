@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
@@ -10,6 +9,7 @@ import 'package:insurance_app/presentation/blocs/change_password/change_password
 import 'package:insurance_app/presentation/screens/change_password/components/change_password_dialog.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../app/assets_manager.dart';
 import '../../theme/app_colors.dart';
@@ -47,7 +47,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   void _changePasswordButtonFunction(BuildContext context) {
     _unfocusFields();
-    BlocProvider.of<ChangePasswordCubit>(context).confirmForm();
+    final cubit = BlocProvider.of<ChangePasswordCubit>(context);
+    if (cubit.isFormValid()) {
+      DialogService.loadLoadingDialog(context);
+      cubit.changePassword();
+    }
   }
 
   final FocusNode currentPasswordNode = FocusNode();
@@ -72,32 +76,49 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               height: MediaQuery.of(context).size.height -
                   AppSizes.s68.r -
                   AppSizes.s30.r,
-              child: PageContentPadding(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CustomSpacers.large(),
-                    Container(
-                      height: AppSizes.s104.r,
-                      width: AppSizes.s104.r,
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryLight,
-                        borderRadius: BorderRadius.circular(100),
-                        image: const DecorationImage(
-                          image: AssetImage(ImageAssets.newPassword),
+              child: BlocListener<ChangePasswordCubit, ChangePasswordState>(
+                listenWhen: (previous, current) =>
+                    previous.changePasswordStatus !=
+                    current.changePasswordStatus,
+                listener: (context, state) {
+                  if (state.changePasswordStatus.isFailure) {
+                    DialogService.dispose();
+                    SnackBars.error(context, state.changePasswordError!);
+                  } else if (state.changePasswordStatus.isSuccess) {
+                    DialogService.dispose();
+                    DialogService.load(
+                      context,
+                      content: const ChangePasswordDialog(),
+                    );
+                  }
+                },
+                child: PageContentPadding(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CustomSpacers.large(),
+                      Container(
+                        height: AppSizes.s104.r,
+                        width: AppSizes.s104.r,
+                        decoration: BoxDecoration(
+                          color: AppColors.primaryLight,
+                          borderRadius: BorderRadius.circular(100),
+                          image: const DecorationImage(
+                            image: AssetImage(ImageAssets.newPassword),
+                          ),
                         ),
                       ),
-                    ),
-                    CustomSpacers.medium(),
-                    CustomSpacers.small(),
-                    _headlineTextWidget(),
-                    CustomSpacers.medium(),
-                    _bodyTextWidget(),
-                    CustomSpacers.large(),
-                    _resetPasswordForm(context),
-                    const Spacer(),
-                    _changePasswordButton(),
-                  ],
+                      CustomSpacers.medium(),
+                      CustomSpacers.small(),
+                      _headlineTextWidget(),
+                      CustomSpacers.medium(),
+                      _bodyTextWidget(),
+                      CustomSpacers.large(),
+                      _resetPasswordForm(context),
+                      const Spacer(),
+                      _changePasswordButton(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -135,6 +156,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return AppStrings.thisFieldIsRequired.tr();
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -151,6 +174,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.confirmPasswordController.text) {
                 return "";
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -167,6 +192,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.newPasswordController.text) {
                 return AppStrings.passwordAndConfirmPasswordDoNotMatch.tr();
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -178,43 +205,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   }
 
   Widget _changePasswordButton() {
-    return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
-      listenWhen: (previous, current) =>
-          previous.changePasswordStatus != current.changePasswordStatus,
-      listener: (context, state) {
-        if (state.changePasswordStatus.isSuccess) {
-          context.pop();
-          DialogService.load(context, content: const ChangePasswordDialog());
-        } else if (state.changePasswordStatus.isFailure) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.changePasswordError!),
-            ),
-          );
-        }
-      },
-      builder: (context, state) {
-        return PrimaryButton.fullWidth(
-          onPressed: state.changePasswordStatus.isLoading
-              ? () {}
-              : formIsNotEmpty
-                  ? () => _changePasswordButtonFunction(context)
-                  : null,
-          child: state.changePasswordStatus.isLoading
-              ? SizedBox(
-                  height: AppSizes.s20.r,
-                  width: AppSizes.s20.r,
-                  child: CircularProgressIndicator(
-                    color: AppColors.white,
-                    strokeWidth: AppSizes.s2.r,
-                  ),
-                )
-              : Text(
-                  AppStrings.changePassword.tr().toUpperCase(),
-                ),
-        );
-      },
+    return PrimaryButton.fullWidth(
+      onPressed:
+          formIsNotEmpty ? () => _changePasswordButtonFunction(context) : null,
+      child: Text(
+        AppStrings.changePassword.tr().toUpperCase(),
+      ),
     );
   }
 }

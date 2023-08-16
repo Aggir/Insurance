@@ -49,7 +49,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UserResponse> isLoggedIn() async {
     try {
       final String token = _appService.token;
-      print(token);
       late UserResponse userResponse;
       if (token.isNotEmpty) {
         var response = await _dio.get(
@@ -84,7 +83,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         ApiConstants.signin,
         data: body,
       );
-      print(response.data);
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
       _appService.token = userResponse.token ?? Constants.empty;
@@ -359,6 +357,25 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.auth(error));
     } catch (error) {
       return UserResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> changePassword(ChangePasswordRequest request) async {
+    try {
+      final body = request.toMap();
+      Response response = await _dio.post(
+        ApiConstants.changePassword,
+        data: body,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response);
+    } on DioException catch (error) {
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.changePassword(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
     }
   }
 }

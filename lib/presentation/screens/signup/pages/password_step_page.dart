@@ -124,6 +124,8 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.confirmPasswordController.text) {
                 return "";
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -139,6 +141,8 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.passwordController.text) {
                 return AppStrings.passwordAndConfirmPasswordDoNotMatch.tr();
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }

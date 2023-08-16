@@ -280,5 +280,7 @@
     "the_phone_has_already_been_taken": "رقم الهاتف مُستخدم بالفعل.",
     "the_proof_id_has_already_been_taken": "رقم وثيقة تاكيد الهوية مُستخدم بالفعل.",
     "the_national_id_has_already_been_taken": "الرقم الوطني مُستخدم بالفعل.",
-    "edit_profile_success_message": "لقد تم تعديل الحساب بنجاح."
+    "edit_profile_success_message": "لقد تم تعديل الحساب بنجاح.",
+    "password_min_length": "كلمة المرور يجب ان تكون اطول من 8 حروف.",
+    "wrong_current_password": "كلمة المرور الحالية غير صحيحة."
 }
