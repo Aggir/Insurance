@@ -13,6 +13,7 @@ import '../../presentation/blocs/change_password/change_password_cubit.dart';
 import '../../presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import '../../presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import '../../presentation/blocs/login/login_cubit.dart';
+import '../../presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 import '../../presentation/blocs/payment/payment_cubit.dart';
 import '../../presentation/blocs/profile/profile_cubit.dart';
 import '../../presentation/blocs/reminder/reminder_cubit.dart';
@@ -214,7 +215,17 @@ class AppRoutes {
 
   static final home = StatefulShellRoute.indexedStack(
     builder: (context, state, child) {
-      return HomeScreen(child, state.uri.toString());
+      return BlocProvider(
+        create: (context) => MyVehiclesCubit()..init(),
+        child: Builder(builder: (context) {
+          return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
+            builder: (context, cubitState) {
+              print(cubitState.fetchMyVehiclesStatus);
+              return HomeScreen(child, state.uri.toString());
+            },
+          );
+        }),
+      );
     },
     branches: _homeBranches,
   );

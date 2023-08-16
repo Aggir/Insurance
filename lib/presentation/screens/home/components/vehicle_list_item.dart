@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/domain/entities/vehicle.dart';
 
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
@@ -14,17 +16,10 @@ import '../../../../app/assets_manager.dart';
 import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class VehicleListItem extends StatelessWidget {
-  const VehicleListItem(this.title, this.imgPath, {super.key});
-  final String title;
-  final String imgPath;
-
-  final _licensePlateNumber = "5 -7888 98 00";
-  final _vehicleType = "سيارة خاصة ملاكي";
-  final _usage = "شخصي";
-  final _address = "طرابلس";
+  const VehicleListItem(this.vehicle, {super.key});
+  final VehicleEntity vehicle;
 
   void _secureNowButtonFunction(BuildContext context) {
     context.go(AppScreen.issueInsurance.toPath);
@@ -32,7 +27,6 @@ class VehicleListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final countryOfManufacture = DUMMY.vehicleCountry[1];
     return Container(
       decoration: BoxDecoration(
         boxShadow: [AppValues.boxShadow],
@@ -57,19 +51,21 @@ class VehicleListItem extends StatelessWidget {
                           BorderRadius.circular(AppValues.mediumRadius.r),
                     ),
                     padding: const EdgeInsets.all(AppValues.extraSmall).r,
-                    child: Image.asset(imgPath),
+                    child: CachedNetworkImage(imageUrl: vehicle.brand.icon),
                   ),
                   CustomSpacers.small(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        vehicle.alias.isEmpty
+                            ? "${vehicle.brand.name} ${vehicle.model.name} - ${vehicle.makingYear}"
+                            : vehicle.alias,
                         style: mediumSmallHeadlineStyle(),
                       ),
                       CustomSpacers.extraSmall(),
                       Text(
-                        _licensePlateNumber,
+                        vehicle.licensePlate,
                         style: smallGrayBodyStyle(),
                       ),
                     ],
@@ -96,10 +92,10 @@ class VehicleListItem extends StatelessWidget {
                 ],
               ),
               CustomSpacers.medium(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // spacing: AppValues.small.r,
-                // runSpacing: AppValues.small.r,
+              Wrap(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: AppValues.small.r,
+                runSpacing: AppValues.small.r,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +105,7 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _vehicleType,
+                        vehicle.type.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
@@ -122,7 +118,7 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _usage,
+                        vehicle.ownershipType.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
@@ -135,15 +131,21 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SvgPicture.asset(
-                            countryOfManufacture['svgPath'] as String,
-                            width: AppSizes.s22.r,
-                            height: AppSizes.s18.r,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.grayLight, width: 0.5.r)),
+                            child: CachedNetworkImage(
+                              imageUrl: vehicle.country.icon,
+                              width: AppSizes.s22.r,
+                              height: AppSizes.s18.r,
+                            ),
                           ),
                           CustomSpacers.small(),
                           Text(
-                            countryOfManufacture['value'] as String,
+                            vehicle.country.name,
                             style: extraSmallHeadlineStyle(),
                           ),
                         ],
@@ -154,11 +156,11 @@ class VehicleListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.selectAddress.tr(),
+                        AppStrings.city.tr(),
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _address,
+                        vehicle.city.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],

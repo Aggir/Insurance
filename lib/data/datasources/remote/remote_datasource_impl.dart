@@ -18,6 +18,7 @@ import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
 import 'package:insurance_app/data/responses/vehicle_models_response.dart';
 import 'package:insurance_app/data/responses/vehicle_ownership_types_reponse.dart';
 import 'package:insurance_app/data/responses/vehicle_types_reponse.dart';
+import 'package:insurance_app/data/responses/vehicles_response.dart';
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final Dio _dio;
@@ -376,6 +377,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.changePassword(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<VehiclesResponse> getMyVehicles({int? page}) async {
+    try {
+      print(page);
+      var response = await _dio.get(ApiConstants.vehicles,
+          data: page != null ? {'page': page} : null,
+          options: _bearerToken(_appService.token));
+      // print(response.data['data'][0]);
+      return VehiclesResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      return VehiclesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.auth(error));
+    } catch (error) {
+      return VehiclesResponse(message: AppStrings.genericError);
     }
   }
 }

@@ -306,6 +306,7 @@ class AppStrings {
   static const chooseOrSearchForTheNearestBranchToYou =
       'choose_or_search_for_the_nearest_branch_to_you';
   static const selectCity = 'select_city';
+  static const city = 'city';
   static const engineSerialNumber = 'engine_serial_number';
   static const chassisNumber = 'chassis_number';
   static const carColor = 'car_color';

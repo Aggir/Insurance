@@ -10,6 +10,7 @@ import 'package:insurance_app/data/responses/vehicle_ownership_types_reponse.dar
 import 'package:insurance_app/data/responses/vehicle_types_reponse.dart';
 
 import '../requests/user_requests.dart';
+import '../responses/vehicles_response.dart';
 
 abstract class RemoteDataSource {
   Future<UserResponse> signIn(SignInRequest request);
@@ -43,4 +44,6 @@ abstract class RemoteDataSource {
   Future<VehicleModelsResponse> getVehicleModels(int vehicleBrandId);
 
   Future<BasicResponse> addVehicle(AddVehicleRequest request);
+
+  Future<VehiclesResponse> getMyVehicles({int? page});
 }

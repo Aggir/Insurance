@@ -1,46 +1,76 @@
 import 'package:equatable/equatable.dart' show Equatable;
+import 'package:equatable/equatable.dart';
 
-class Vehicle extends Equatable {
-  final String firstName;
-  final String middleName;
-  final String lastName;
-  final String address;
-  final String phoneNumber;
-  const Vehicle({
-    required this.firstName,
-    required this.middleName,
-    required this.lastName,
-    required this.address,
-    required this.phoneNumber,
+import 'package:insurance_app/domain/entities/city.dart';
+import 'package:insurance_app/domain/entities/vehicle_brand.dart';
+import 'package:insurance_app/domain/entities/vehicle_country.dart';
+import 'package:insurance_app/domain/entities/vehicle_model.dart';
+import 'package:insurance_app/domain/entities/vehicle_ownership_type.dart';
+import 'package:insurance_app/domain/entities/vehicle_type.dart';
+
+import '../../app/constants.dart';
+
+class VehicleEntity extends Equatable {
+  final int id;
+  final int makingYear;
+  final String licensePlate;
+  final bool isHidden;
+  final String alias;
+  final VehicleBrandEntity brand;
+  final VehicleModelEntity model;
+  final VehicleCountryEntity country;
+  final VehicleOwnershipTypeEntity ownershipType;
+  final CityEntity city;
+  final VehicleTypeEntity type;
+
+  factory VehicleEntity.empty() => const VehicleEntity(
+        id: Constants.zero,
+        makingYear: Constants.zero,
+        licensePlate: Constants.empty,
+        isHidden: false,
+        alias: Constants.empty,
+        brand: VehicleBrandEntity(
+            id: Constants.zero, name: Constants.empty, icon: Constants.empty),
+        model: VehicleModelEntity(
+            id: Constants.zero,
+            name: Constants.empty,
+            vehicleBrandId: Constants.zero),
+        country: VehicleCountryEntity(
+            id: Constants.zero, name: Constants.empty, icon: Constants.empty),
+        ownershipType: VehicleOwnershipTypeEntity(
+            id: Constants.zero, name: Constants.empty),
+        city: CityEntity(id: Constants.zero, name: Constants.empty),
+        type: VehicleTypeEntity(id: Constants.zero, name: Constants.empty),
+      );
+
+  const VehicleEntity({
+    required this.id,
+    required this.makingYear,
+    required this.licensePlate,
+    required this.isHidden,
+    required this.alias,
+    required this.brand,
+    required this.model,
+    required this.country,
+    required this.ownershipType,
+    required this.city,
+    required this.type,
   });
 
-  Vehicle copyWith({
-    String? firstName,
-    String? middleName,
-    String? lastName,
-    String? address,
-    String? phoneNumber,
-  }) {
-    return Vehicle(
-      firstName: firstName ?? this.firstName,
-      middleName: middleName ?? this.middleName,
-      lastName: lastName ?? this.lastName,
-      address: address ?? this.address,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
-    );
-  }
-
   @override
-  List<Object?> get props => [
-        firstName,
-        middleName,
-        lastName,
-        address,
-        phoneNumber,
-      ];
-
-  @override
-  String toString() {
-    return 'AddMyVehicleUserInfo(firstName: $firstName, middleName: $middleName, lastName: $lastName, address: $address, phoneNumber: $phoneNumber)';
+  List<Object> get props {
+    return [
+      id,
+      makingYear,
+      licensePlate,
+      isHidden,
+      alias,
+      brand,
+      model,
+      country,
+      ownershipType,
+      city,
+      type,
+    ];
   }
 }

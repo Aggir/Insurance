@@ -16,6 +16,7 @@ import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
@@ -164,12 +165,12 @@ void initAddVehicle() async {
   }
 }
 
-// void initChangePassword() async {
-//   if (!GetIt.I.isRegistered<ChangePasswordUsecase>()) {
-//     instance.registerFactory<ChangePasswordUsecase>(
-//         () => ChangePasswordUsecase(instance<Repository>()));
-//   }
-// }
+void initGetMyVehicles() async {
+  if (!GetIt.I.isRegistered<GetMyVehiclesUsecase>()) {
+    instance.registerFactory<GetMyVehiclesUsecase>(
+        () => GetMyVehiclesUsecase(instance<VehicleRepository>()));
+  }
+}
 
 // void initEditProfile() async {
 //   if (!GetIt.I.isRegistered<EditProfileUsecase>()) {

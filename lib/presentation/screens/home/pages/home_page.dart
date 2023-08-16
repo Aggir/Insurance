@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -277,59 +278,64 @@ class _HomePageState extends State<HomePage> {
   Widget _createVehicleFirstWidget(BuildContext context) {
     final BorderRadius borderRadius =
         BorderRadius.circular(AppValues.largeRadius.r);
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(AppValues.mediumSmall).r,
-          decoration: BoxDecoration(
-            boxShadow: [AppValues.boxShadow],
-            borderRadius: borderRadius,
-            color: AppColors.primary,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
+    return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppValues.mediumSmall).r,
+              decoration: BoxDecoration(
+                boxShadow: [AppValues.boxShadow],
+                borderRadius: borderRadius,
+                color: AppColors.primary,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryLight,
+                        borderRadius: borderRadius),
+                    child: ClipRRect(
+                      child: Image.asset(ImageAssets.newVehicleFile),
+                    ),
+                  ),
+                  Text(
+                    AppStrings.createVehicleFileFirst.tr(),
+                    style: smallHeadlineStyle()
+                        .copyWith(color: AppColors.whiteText),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(AppValues.mediumRadius.r),
+                          color: AppColors.black.withOpacity(0.14)),
+                      padding: const EdgeInsets.symmetric(
+                              horizontal: AppValues.small,
+                              vertical: AppValues.medium)
+                          .r,
+                      child: SvgPicture.asset(
+                        SvgAssets.chevronLeft,
+                        height: AppSizes.s22.r,
+                        width: AppSizes.s22.r,
+                      )),
+                ],
+              ),
+            ),
+            Positioned.fill(
+              child: Material(
+                borderRadius: borderRadius,
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    color: AppColors.primaryLight, borderRadius: borderRadius),
-                child: ClipRRect(
-                  child: Image.asset(ImageAssets.newVehicleFile),
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => _createVehicleFunction(context),
                 ),
               ),
-              Text(
-                AppStrings.createVehicleFileFirst.tr(),
-                style:
-                    smallHeadlineStyle().copyWith(color: AppColors.whiteText),
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(AppValues.mediumRadius.r),
-                      color: AppColors.black.withOpacity(0.14)),
-                  padding: const EdgeInsets.symmetric(
-                          horizontal: AppValues.small,
-                          vertical: AppValues.medium)
-                      .r,
-                  child: SvgPicture.asset(
-                    SvgAssets.chevronLeft,
-                    height: AppSizes.s22.r,
-                    width: AppSizes.s22.r,
-                  )),
-            ],
-          ),
-        ),
-        Positioned.fill(
-          child: Material(
-            borderRadius: borderRadius,
-            clipBehavior: Clip.antiAlias,
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => _createVehicleFunction(context),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 

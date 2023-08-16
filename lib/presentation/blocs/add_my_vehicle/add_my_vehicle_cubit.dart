@@ -9,7 +9,6 @@ import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/data_classes/add_vehicle_form_data.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
-import 'package:insurance_app/domain/entities/vehicle.dart';
 import 'package:insurance_app/domain/entities/vehicle_brand.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
@@ -18,6 +17,7 @@ import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 
 import '../../../app/constants.dart';
+import '../../../domain/data_classes/vehicle_owner_info.dart';
 part 'add_my_vehicle_state.dart';
 
 class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
