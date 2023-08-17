@@ -1,9 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/entities/company.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -12,12 +15,13 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../app/assets_manager.dart';
 import '../../../app/router/routes.dart';
+import '../../blocs/companies/companies_cubit.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/custom_text_form_field.dart';
 
 class InsuranceCompaniesScreen extends StatelessWidget {
   const InsuranceCompaniesScreen({super.key});
-  final _companyName = 'شركة تيبستي للتأمين';
+
   final _companyDescription =
       'هي شركة ليبية مساهمة تأسست بموجب قرار التأسيس المؤرخ 13\\يناير\\2011 وبرأس مال قدره 10,000,000 دينار';
   final _imagePath = ImageAssets.tibestyInsuranceCo;
@@ -28,14 +32,14 @@ class InsuranceCompaniesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchFocusNode = FocusNode();
+    final cubit = BlocProvider.of<CompaniesCubit>(context);
     return GestureDetector(
       onTap: () {
-        searchFocusNode.unfocus();
+        cubit.searchFocusNode.unfocus();
       },
       child: Scaffold(
         appBar: CustomAppBar.basic(
-          title: AppStrings.insurancePolicyPrices.tr(),
+          title: AppStrings.insuranceCompanies.tr(),
           backButton: () {
             context.go(AppScreen.carsInsurance.toPath);
           },
@@ -45,7 +49,9 @@ class InsuranceCompaniesScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(AppValues.medium).r,
               child: CustomTextFormField(
-                focusNode: searchFocusNode,
+                controller: cubit.searchController,
+                onChanged: cubit.setFilterCompanies,
+                focusNode: cubit.searchFocusNode,
                 hintText: AppStrings.search.tr(),
                 prefixIcon: SvgPicture.asset(
                   SvgAssets.search,
@@ -56,25 +62,49 @@ class InsuranceCompaniesScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView(
-                // shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.all(AppValues.medium).r,
-                children: List.generate(
-                  5,
-                  (index) => Column(
-                    children: [
-                      _companyCardWidget(
-                        searchFocusNode,
-                        context,
-                        name: _companyName,
-                        imagePath: _imagePath,
-                        description: _companyDescription,
+              child: BlocBuilder<CompaniesCubit, CompaniesState>(
+                builder: (context, state) {
+                  if (state.fetchCompaniesStatus.isLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
                       ),
-                      CustomSpacers.medium(),
-                    ],
-                  ),
-                ),
+                    );
+                  } else {
+                    return Stack(
+                      children: [
+                        ListView.separated(
+                          controller: cubit.scrollController,
+                          separatorBuilder: (context, index) =>
+                              CustomSpacers.medium(),
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.all(AppValues.medium).r,
+                          itemCount: state.filteredCompanies?.length ?? 0,
+                          itemBuilder: (context, index) => _companyCardWidget(
+                              cubit.searchFocusNode, context,
+                              company: state.filteredCompanies![index]),
+                        ),
+                        if (state.fetchMoreCompaniesStatus.isLoading)
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: CircleAvatar(
+                              backgroundColor: AppColors.lightest,
+                              radius: AppSizes.s20.r,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(AppValues.small).r,
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                  strokeWidth: AppSizes.s4.r,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    );
+                  }
+                },
               ),
             ),
           ],
@@ -86,11 +116,10 @@ class InsuranceCompaniesScreen extends StatelessWidget {
   Widget _companyCardWidget(
     FocusNode focusNode,
     BuildContext context, {
-    required String name,
-    required String description,
-    required String imagePath,
+    required CompanyEntity company,
   }) {
     return Stack(
+      key: ValueKey(company.id),
       children: [
         Container(
           padding: const EdgeInsets.symmetric(
@@ -115,7 +144,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
                           border: Border.all(color: AppColors.grayLight),
                         ),
                         child: Image.asset(
-                          imagePath,
+                          _imagePath,
                           height: AppSizes.s64.r,
                           width: AppSizes.s64.r,
                         ),
@@ -124,7 +153,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
                       SizedBox(
                         width: AppSizes.s200.r,
                         child: Text(
-                          name,
+                          company.name,
                           style: mediumSmallHeadlineStyle(),
                         ),
                       ),
@@ -152,7 +181,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
               ),
               CustomSpacers.medium(),
               Text(
-                description,
+                _companyDescription,
                 style: smallGrayBodyStyle(),
               ),
             ],
@@ -166,7 +195,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 focusNode.unfocus();
-                context.go('${AppScreen.companyDetails.toPath}1');
+                context.go('${AppScreen.companyDetails.toPath}${company.id}');
               },
             ),
           ),

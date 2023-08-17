@@ -3,6 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/mapper/city_mapper.dart';
 import 'package:insurance_app/data/mapper/color_mapper.dart';
+import 'package:insurance_app/data/mapper/company_mapper.dart';
+import 'package:insurance_app/data/mapper/meta_mapper.dart';
+import 'package:insurance_app/domain/data_classes/companies_page.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
 import 'package:insurance_app/domain/repositories/repository.dart';
@@ -36,6 +39,25 @@ class RepositoryImpl extends Repository {
       ));
     } else {
       return Right(response.colors?.map((e) => e.toDomain()).toList() ?? []);
+    }
+  }
+
+  @override
+  Future<Either<Failure, CompaniesPage>> getCompanies(int? page) async {
+    final response = await _remoteDataSource.getCompanies(page);
+    if (response.companies == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return Right(
+        CompaniesPage(
+          companies:
+              response.companies?.map((e) => e.toDomain()).toList() ?? [],
+          meta: response.meta.toDomain(),
+        ),
+      );
     }
   }
 }

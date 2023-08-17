@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
       ImageAssets.adTwo,
       ImageAssets.adThree
     ];
-    const bool showCreateVehicle = true;
+
     return SafeArea(
       child: Scaffold(
         appBar: _customAppBar(context),
@@ -81,12 +82,24 @@ class _HomePageState extends State<HomePage> {
                   CustomSpacers.mediumLarge(),
                   const CustomDivider(),
                   CustomSpacers.mediumLarge(),
-                  if (showCreateVehicle) ...[
-                    _createVehicleFirstWidget(context),
-                    CustomSpacers.mediumLarge(),
-                    const CustomDivider(),
-                    CustomSpacers.mediumLarge(),
-                  ],
+                  BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
+                    builder: (context, state) {
+                      if (state.fetchMyVehiclesStatus.isSuccess &&
+                          (state.myVehicles == null ||
+                              state.myVehicles!.isEmpty)) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _createVehicleFirstWidget(context),
+                            CustomSpacers.mediumLarge(),
+                            const CustomDivider(),
+                            CustomSpacers.mediumLarge(),
+                          ],
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
                   _insuranceServicesSection(context),
                 ],
               ),

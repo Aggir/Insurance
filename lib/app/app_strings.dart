@@ -363,4 +363,5 @@ class AppStrings {
   static const theNationalIdHasAlreadyBeenTaken =
       'the_national_id_has_already_been_taken';
   static const wrongCurrentPassword = 'wrong_current_password';
+  static const unauthenticated = 'unauthenticated';
 }

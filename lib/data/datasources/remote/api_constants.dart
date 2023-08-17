@@ -3,6 +3,7 @@ class ApiConstants {
 
   static const String cities = '/cities';
   static const String colors = '/colors';
+  static const String companies = '/companies';
   // User
   static const String signup = '/signup';
   static const String signin = '/signin';

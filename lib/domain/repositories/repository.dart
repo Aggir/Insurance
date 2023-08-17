@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:insurance_app/domain/data_classes/companies_page.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
 
@@ -8,4 +9,6 @@ abstract class Repository {
   Future<Either<Failure, List<CityEntity>>> getCities();
 
   Future<Either<Failure, List<ColorEntity>>> getColors();
+
+  Future<Either<Failure, CompaniesPage>> getCompanies(int? page);
 }

@@ -34,4 +34,16 @@ class ApiErrorHandler {
 
     return message ?? AppStrings.genericError.tr();
   }
+
+  static String generic(DioException error) {
+    final message = error.response?.data['message'];
+
+    if (message != null) {
+      if (message.contains('Unauthenticated.')) {
+        return AppStrings.unauthenticated.tr();
+      }
+    }
+
+    return message ?? AppStrings.genericError.tr();
+  }
 }

@@ -12,6 +12,7 @@ import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
+import 'package:insurance_app/data/responses/companies_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
 import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
@@ -383,11 +384,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<VehiclesResponse> getMyVehicles({int? page}) async {
     try {
-      print(page);
       var response = await _dio.get(ApiConstants.vehicles,
           data: page != null ? {'page': page} : null,
           options: _bearerToken(_appService.token));
-      // print(response.data['data'][0]);
       return VehiclesResponse.fromMap(response.data);
     } on DioException catch (error) {
       return VehiclesResponse(
@@ -395,6 +394,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.auth(error));
     } catch (error) {
       return VehiclesResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<CompaniesResponse> getCompanies(int? page) async {
+    try {
+      var response = await _dio.get(ApiConstants.companies,
+          data: page != null ? {'page': page} : null,
+          options: _bearerToken(_appService.token));
+      print(response);
+      return CompaniesResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      return CompaniesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return CompaniesResponse(message: AppStrings.genericError);
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/presentation/blocs/companies/companies_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
@@ -118,7 +119,10 @@ class AppRoutes {
     path: AppScreen.companies.toPath,
     name: AppScreen.companies.toName,
     builder: (BuildContext context, GoRouterState state) {
-      return const InsuranceCompaniesScreen();
+      return BlocProvider(
+        create: (context) => CompaniesCubit()..fetchCompanies(),
+        child: const InsuranceCompaniesScreen(),
+      );
     },
     routes: [_companyDetails],
   );
@@ -220,7 +224,6 @@ class AppRoutes {
         child: Builder(builder: (context) {
           return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
             builder: (context, cubitState) {
-              print(cubitState.fetchMyVehiclesStatus);
               return HomeScreen(child, state.uri.toString());
             },
           );

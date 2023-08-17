@@ -283,5 +283,6 @@
     "the_national_id_has_already_been_taken": "الرقم الوطني مُستخدم بالفعل.",
     "edit_profile_success_message": "لقد تم تعديل الحساب بنجاح.",
     "password_min_length": "كلمة المرور يجب ان تكون اطول من 8 حروف.",
-    "wrong_current_password": "كلمة المرور الحالية غير صحيحة."
+    "wrong_current_password": "كلمة المرور الحالية غير صحيحة.",
+    "unauthenticated": "تم تسجيل خروجك."
 }

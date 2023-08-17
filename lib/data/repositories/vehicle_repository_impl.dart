@@ -12,7 +12,7 @@ import 'package:insurance_app/data/mapper/vehicle_type_mapper.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/base_response.dart';
 import 'package:insurance_app/domain/data_classes/add_vehicle_form_data.dart';
-import 'package:insurance_app/domain/entities/vehicles_page.dart';
+import 'package:insurance_app/domain/data_classes/vehicles_page.dart';
 import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
 
 import '../../app/app_strings.dart';
@@ -119,7 +119,7 @@ class VehicleRepositoryImpl extends VehicleRepository {
   }
 
   @override
-  Future<Either<Failure, VehiclesPageEntity>> getMyVehicles({int? page}) async {
+  Future<Either<Failure, VehiclesPage>> getMyVehicles({int? page}) async {
     final response = await _remoteDataSource.getMyVehicles(page: page);
     if (response.message != null) {
       return Left(Failure(
@@ -127,7 +127,7 @@ class VehicleRepositoryImpl extends VehicleRepository {
         response.message ?? AppStrings.genericError.tr(),
       ));
     } else {
-      return Right(VehiclesPageEntity(
+      return Right(VehiclesPage(
           vehicles: response.vehicles?.map((e) => e.toDomain()).toList(),
           meta: response.meta?.toDomain()));
     }
