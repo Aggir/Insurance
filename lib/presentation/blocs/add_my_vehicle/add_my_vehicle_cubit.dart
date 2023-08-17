@@ -10,6 +10,7 @@ import 'package:insurance_app/domain/data_classes/add_vehicle_form_data.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
 import 'package:insurance_app/domain/entities/vehicle_brand.dart';
+import 'package:insurance_app/domain/entities/vehicle_model.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
@@ -58,7 +59,12 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
   }
 
   bool isVehicleDetailsFormTwoValid() {
-    return vehicleDetailsTwoForm.currentState?.validate() ?? false;
+    final isFormValid = vehicleDetailsTwoForm.currentState?.validate() ?? false;
+    if (isFormValid) {
+      vehicleAliasController.text =
+          '${state.selectedVehicleBrand?.name} ${state.selectedVehicleModel} - ${state.selectedVehicleYearId}';
+    }
+    return isFormValid;
   }
 
   bool isVehiclePictureFormValid() {
@@ -136,8 +142,11 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     emit(state.copyWith(selectedVehicleTypeId: vehicleTypeId));
   }
 
-  setVehicleModel(int vehicleModelId) {
-    emit(state.copyWith(selectedVehicleModelId: vehicleModelId));
+  setVehicleModel(VehicleModelEntity vehicleModel) {
+    emit(state.copyWith(
+      selectedVehicleModelId: vehicleModel.id,
+      selectedVehicleModel: vehicleModel.name,
+    ));
   }
 
   setVehicleCountry(int vehicleCountryId) {

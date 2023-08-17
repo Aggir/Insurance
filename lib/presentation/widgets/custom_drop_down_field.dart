@@ -28,7 +28,7 @@ class CustomDropDownField extends StatefulWidget {
   final List<DropdownMenuItem> items;
   final void Function(dynamic)? onChanged;
   final void Function()? onTap;
-  final String? Function(String? value)? validator;
+  final String? Function(dynamic value)? validator;
   final bool defaultValidator;
   final bool enabled;
   final dynamic initialValue;
@@ -125,7 +125,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
   }
 
   String? _defaultValidator(
-      String? value, String? Function(String? value)? validator) {
+      dynamic value, String? Function(dynamic value)? validator) {
     // check if there is a custom Validator
     if (validator != null) {
       String? errorMessage = validator(value);

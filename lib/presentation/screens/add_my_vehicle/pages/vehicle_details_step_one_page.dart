@@ -169,15 +169,15 @@ class _AddMyVehicleDetailsStepOnePageState
             CustomSpacers.medium(),
             CustomDropDownField(
               isLoading: state.getAddVehicleFormDataStatus.isLoading,
-              onChanged: (vehicleModel) =>
-                  cubit.setVehicleModel(int.parse(vehicleModel)),
+              onChanged: (vehicleModel) => cubit.setVehicleModel(vehicleModel),
               hintText: AppStrings.vehicleModel.tr(),
+              defaultValidator: false,
               items: (state.addVehicleFormData?.vehicleModels == null)
                   ? []
                   : state.addVehicleFormData!.vehicleModels!
                       .map(
                         (type) => DropdownMenuItem(
-                          value: type.id.toString(),
+                          value: type,
                           child: Text(
                             type.name,
                             style: bodyStyle(),

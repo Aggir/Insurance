@@ -322,7 +322,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BasicResponse> addVehicle(AddVehicleRequest request) async {
     try {
       final body = await request.toMap();
-
       var response = await _dio.post(ApiConstants.vehicles,
           data: FormData.fromMap(body),
           options: _bearerToken(_appService.token, header: {

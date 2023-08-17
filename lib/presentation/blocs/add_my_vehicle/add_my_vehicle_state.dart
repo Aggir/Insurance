@@ -15,6 +15,7 @@ class AddMyVehicleState extends Equatable {
   final int? selectedVehicleCityId;
   final int? selectedVehicleTypeId;
   final int? selectedVehicleModelId;
+  final String? selectedVehicleModel;
   final int? selectedVehicleCountryId;
   final int? selectedVehicleYearId;
   final int? selectedVehicleHorsePower;
@@ -44,6 +45,7 @@ class AddMyVehicleState extends Equatable {
     this.selectedVehicleCityId,
     this.selectedVehicleTypeId,
     this.selectedVehicleModelId,
+    this.selectedVehicleModel,
     this.selectedVehicleCountryId,
     this.selectedVehicleYearId,
     this.selectedVehicleHorsePower,
@@ -74,6 +76,7 @@ class AddMyVehicleState extends Equatable {
         selectedVehicleCityId,
         selectedVehicleTypeId,
         selectedVehicleModelId,
+        selectedVehicleModel,
         selectedVehicleCountryId,
         selectedVehicleYearId,
         selectedVehicleHorsePower,
@@ -101,6 +104,7 @@ class AddMyVehicleState extends Equatable {
     List<ColorEntity>? colors,
     int? selectedVehicleTypeId,
     int? selectedVehicleModelId,
+    String? selectedVehicleModel,
     int? selectedVehicleCountryId,
     int? selectedVehicleYearId,
     int? selectedOwnerCityId,
@@ -138,6 +142,7 @@ class AddMyVehicleState extends Equatable {
           selectedVehicleTypeId ?? this.selectedVehicleTypeId,
       selectedVehicleModelId:
           selectedVehicleModelId ?? this.selectedVehicleModelId,
+      selectedVehicleModel: selectedVehicleModel ?? this.selectedVehicleModel,
       selectedVehicleCountryId:
           selectedVehicleCountryId ?? this.selectedVehicleCountryId,
       selectedVehicleYearId:
