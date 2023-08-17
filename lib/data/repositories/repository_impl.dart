@@ -1,11 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:insurance_app/app/failure.dart';
+import 'package:insurance_app/data/mapper/branch_mapper.dart';
 import 'package:insurance_app/data/mapper/city_mapper.dart';
 import 'package:insurance_app/data/mapper/color_mapper.dart';
 import 'package:insurance_app/data/mapper/company_mapper.dart';
 import 'package:insurance_app/data/mapper/meta_mapper.dart';
 import 'package:insurance_app/domain/data_classes/companies_page.dart';
+import 'package:insurance_app/domain/entities/branch.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
 import 'package:insurance_app/domain/repositories/repository.dart';
@@ -57,6 +59,22 @@ class RepositoryImpl extends Repository {
               response.companies?.map((e) => e.toDomain()).toList() ?? [],
           meta: response.meta.toDomain(),
         ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<BranchEntity>>> getCompanyBranches(
+      int companyId) async {
+    final response = await _remoteDataSource.getCompanyBranches(companyId);
+    if (response.branches == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return Right(
+        response.branches?.map((e) => e.toDomain()).toList() ?? [],
       );
     }
   }

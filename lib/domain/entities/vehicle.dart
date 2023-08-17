@@ -23,24 +23,25 @@ class VehicleEntity extends Equatable {
   final CityEntity city;
   final VehicleTypeEntity type;
 
-  factory VehicleEntity.empty() => const VehicleEntity(
+  factory VehicleEntity.empty() => VehicleEntity(
         id: Constants.zero,
         makingYear: Constants.zero,
         licensePlate: Constants.empty,
         isHidden: false,
         alias: Constants.empty,
-        brand: VehicleBrandEntity(
+        brand: const VehicleBrandEntity(
             id: Constants.zero, name: Constants.empty, icon: Constants.empty),
-        model: VehicleModelEntity(
+        model: const VehicleModelEntity(
             id: Constants.zero,
             name: Constants.empty,
             vehicleBrandId: Constants.zero),
-        country: VehicleCountryEntity(
+        country: const VehicleCountryEntity(
             id: Constants.zero, name: Constants.empty, icon: Constants.empty),
-        ownershipType: VehicleOwnershipTypeEntity(
+        ownershipType: const VehicleOwnershipTypeEntity(
             id: Constants.zero, name: Constants.empty),
-        city: CityEntity(id: Constants.zero, name: Constants.empty),
-        type: VehicleTypeEntity(id: Constants.zero, name: Constants.empty),
+        city: CityEntity.empty(),
+        type:
+            const VehicleTypeEntity(id: Constants.zero, name: Constants.empty),
       );
 
   const VehicleEntity({

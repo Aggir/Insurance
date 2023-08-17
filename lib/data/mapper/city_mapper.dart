@@ -4,6 +4,11 @@ import 'package:insurance_app/domain/entities/city.dart';
 
 extension CityModelExtension on CityModel? {
   CityEntity toDomain() => this == null
-      ? const CityEntity(id: Constants.zero, name: Constants.empty)
-      : CityEntity(id: this!.id, name: this!.name);
+      ? CityEntity.empty()
+      : CityEntity(
+          id: this?.id ?? Constants.zero,
+          name: this?.name ?? Constants.empty,
+          lat: this!.lat != null ? double.parse(this!.lat!) : Constants.dZero,
+          lng: this!.lng != null ? double.parse(this!.lng!) : Constants.dZero,
+        );
 }

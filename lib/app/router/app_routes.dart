@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/companies/companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
@@ -170,7 +171,10 @@ class AppRoutes {
     path: AppScreen.companyBranches.toSubPath,
     name: AppScreen.companyBranches.toName,
     builder: (BuildContext context, GoRouterState state) {
-      return CompanyBranchesScreen(state.pathParameters['company_id'] ?? '0');
+      return BlocProvider(
+        create: (context) => CompanyBranchesCubit()..fetchCities(),
+        child: CompanyBranchesScreen(state.pathParameters['company_id'] ?? '0'),
+      );
     },
   );
 

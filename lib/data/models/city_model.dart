@@ -1,24 +1,28 @@
-import 'dart:convert';
-
 class CityModel {
-  final int id;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String name;
+  final int? id;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? name;
+  final String? lat;
+  final String? lng;
 
   CityModel({
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.name,
+    this.id,
+    this.createdAt,
+    this.updatedAt,
+    this.name,
+    this.lat,
+    this.lng,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'createdAt': createdAt.toIso8601String(),
-      'updatedAt': updatedAt.toIso8601String(),
+      'createdAt': createdAt?.toIso8601String(),
+      'updatedAt': updatedAt?.toIso8601String(),
       'name': name,
+      'lat': lat,
+      'lng': lng,
     };
   }
 
@@ -32,11 +36,8 @@ class CityModel {
           ? DateTime.parse(map['updated_at'])
           : DateTime.now(),
       name: map['name'] ?? '',
+      lat: map['lat'] ?? '',
+      lng: map['lng'] ?? '',
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory CityModel.fromJson(String source) =>
-      CityModel.fromMap(json.decode(source));
 }

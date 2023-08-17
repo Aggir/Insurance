@@ -42,8 +42,7 @@ extension VehicleModelExtension on VehicleModel? {
           ownershipType: this?.ownershipType?.toDomain() ??
               const VehicleOwnershipTypeEntity(
                   id: Constants.zero, name: Constants.empty),
-          city: this?.city?.toDomain() ??
-              const CityEntity(id: Constants.zero, name: Constants.empty),
+          city: this?.city?.toDomain() ?? CityEntity.empty(),
           type: this?.type?.toDomain() ??
               const VehicleTypeEntity(
                 id: Constants.zero,
