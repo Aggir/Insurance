@@ -14,6 +14,7 @@ class ApiConstants {
   static const String checkDoc = '/checkDoc';
   static const String updateSelf = '/update_self';
   static const String changePassword = '/change_password';
+  static const String deactivate = '/deactivate_self';
   // Vehicle
   static const String vehicleBrands = '/vehicle_brands';
   static const String vehicleCountries = '/vehicle_countries';
@@ -21,4 +22,8 @@ class ApiConstants {
   static const String vehicleOwnershipTypes = '/vehicle_ownership_types';
   static const String vehicleTypes = '/vehicle_types';
   static const String vehicles = '/vehicles';
+  // Insurance
+  static const String insuranceTypes = '/insurance_types';
+  static const String insurances = '/insurances';
+  static const String calculateInsurancePrice = '/insurances/calculatePrice';
 }

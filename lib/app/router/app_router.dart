@@ -10,6 +10,7 @@ import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
+import '../../presentation/blocs/companies/companies_cubit.dart';
 import '../di/dependency_injection.dart';
 import '../helpers/app_service.dart';
 
@@ -47,42 +48,45 @@ class AppRouter {
           AppRoutes.issueInsurance,
           AppRoutes.payment,
         ],
-        builder: (context, state, child) => Builder(builder: (context) {
-          if (BlocProvider.of<UserCubit>(context)
-              .state
-              .checkTokenStatus
-              .isInitial) {}
-          return BlocBuilder<InternetBloc, InternetState>(
-            builder: (context, state) {
-              if (state is DisconnectedState) {
-                return const NoConnectionScreen();
-              } else if (state is ConnectedState) {
-                return BlocListener<UserCubit, UserState>(
-                  listenWhen: (previous, current) =>
-                      previous.authStatus != current.authStatus,
-                  listener: (context, state) {
-                    if (state.checkTokenStatus.isFailure) {
-                      context.go(AppScreen.login.toPath);
-                    } else if (state.authStatus.isLoading &&
-                        state.checkTokenStatus.isLoading) {
-                      context.go(AppScreen.loading.toPath);
-                    } else if (state.user == null &&
-                        (state.authStatus.isInitial ||
-                            state.authStatus.isSuccess)) {
-                      context.go(AppScreen.login.toPath);
-                    } else if (state.user != null &&
-                        (state.authStatus.isSuccess)) {
-                      context.go(AppScreen.home.toPath);
-                    }
-                  },
-                  child: child,
-                );
-              } else {
-                return const LoadingScreen();
-              }
-            },
-          );
-        }),
+        builder: (context, state, child) => BlocProvider(
+          create: (context) => CompaniesCubit(),
+          child: Builder(builder: (context) {
+            if (BlocProvider.of<UserCubit>(context)
+                .state
+                .checkTokenStatus
+                .isInitial) {}
+            return BlocBuilder<InternetBloc, InternetState>(
+              builder: (context, state) {
+                if (state is DisconnectedState) {
+                  return const NoConnectionScreen();
+                } else if (state is ConnectedState) {
+                  return BlocListener<UserCubit, UserState>(
+                    listenWhen: (previous, current) =>
+                        previous.authStatus != current.authStatus,
+                    listener: (context, state) {
+                      if (state.checkTokenStatus.isFailure) {
+                        context.go(AppScreen.login.toPath);
+                      } else if (state.authStatus.isLoading &&
+                          state.checkTokenStatus.isLoading) {
+                        context.go(AppScreen.loading.toPath);
+                      } else if (state.user == null &&
+                          (state.authStatus.isInitial ||
+                              state.authStatus.isSuccess)) {
+                        context.go(AppScreen.login.toPath);
+                      } else if (state.user != null &&
+                          (state.authStatus.isSuccess)) {
+                        context.go(AppScreen.home.toPath);
+                      }
+                    },
+                    child: child,
+                  );
+                } else {
+                  return const LoadingScreen();
+                }
+              },
+            );
+          }),
+        ),
       ),
     ],
   );

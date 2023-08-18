@@ -9,6 +9,7 @@ import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/entities/user.dart';
+import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_in_usecase.dart';
@@ -131,6 +132,25 @@ class UserCubit extends Cubit<UserState> {
           editProfileStatus: Status.success,
           user: data,
         ));
+      },
+    );
+  }
+
+  void deactivate() async {
+    emit(state.copyWith(
+      deactivateStatus: Status.loading,
+      authStatus: Status.loading,
+    ));
+    initDeactivate();
+    (await instance<DeactivateUsecase>().execute(null)).fold(
+      (failure) {
+        emit(state.copyWith(
+            deactivateStatus: Status.failure,
+            authStatus: Status.success,
+            deactivateErrorMessage: failure.message));
+      },
+      (data) {
+        emit(const UserState());
       },
     );
   }

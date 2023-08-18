@@ -1,0 +1,13 @@
+import 'package:dartz/dartz.dart';
+import 'package:insurance_app/app/failure.dart';
+import 'package:insurance_app/data/requests/insurance_requests.dart';
+import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
+
+abstract class InsuranceRepository {
+  Future<Either<Failure, IssueInsuranceFormData>> getInsuranceFormData();
+
+  Future<Either<Failure, String>> calculateInsurancePrice(
+      CalculateInsurancePriceRequest request);
+
+  Future<Either<Failure, String>> issueInsurance(IssueInsuranceRequest request);
+}

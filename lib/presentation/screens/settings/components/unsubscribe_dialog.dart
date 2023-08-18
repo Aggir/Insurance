@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../../app/router/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -19,7 +19,8 @@ class UnsubscribeDialog extends StatelessWidget {
   const UnsubscribeDialog({super.key});
 
   _unsubscribeFunction(BuildContext context) {
-    context.go(AppScreen.login.toPath);
+    BlocProvider.of<UserCubit>(context).deactivate();
+    DialogService.dispose();
   }
 
   @override

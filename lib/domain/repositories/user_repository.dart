@@ -20,4 +20,6 @@ abstract class UserRepository {
   Future<Either<Failure, UserEntity>> editProfile(EditProfileRequest input);
 
   Future<Either<Failure, void>> changePassword(ChangePasswordRequest input);
+
+  Future<Either<Failure, void>> deactivate();
 }

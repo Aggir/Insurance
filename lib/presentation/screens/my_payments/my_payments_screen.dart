@@ -1,4 +1,4 @@
-import 'dart:math';
+// import 'dart:math';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
-import 'package:insurance_app/presentation/widgets/primary_button.dart';
+// import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../app/enums/payment_status_enum.dart';
 import '../../../app/router/routes.dart';
@@ -25,9 +25,9 @@ import '../../../app/router/routes.dart';
 class MyPaymentsScreen extends StatelessWidget {
   const MyPaymentsScreen({super.key});
 
-  void _insuranceServicesFunction(BuildContext context) {
-    context.go(AppScreen.home.toPath);
-  }
+  // void _insuranceServicesFunction(BuildContext context) {
+  //   context.go(AppScreen.home.toPath);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -67,66 +67,65 @@ class MyPaymentsScreen extends StatelessWidget {
   final String _insuranceType = 'سداد وثيقة تأمين سيارة اجباري';
   final String _date = 'السبت 9:30 م';
   Widget _getContent(BuildContext context) {
-    final random = Random();
-    if (random.nextBool()) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppValues.extraLarge).r,
-        child: Column(
-          children: [
-            Image.asset(
-              ImageAssets.emptyList,
-              width: AppSizes.s200.r,
-              height: AppSizes.s200.r,
-            ),
-            CustomSpacers.large(),
-            Text(
-              AppStrings.youDoNotHaveAnyPayments.tr(),
-              style: mediumHeadlineStyle(),
-            ),
-            CustomSpacers.medium(),
-            Text(
-              AppStrings.youDidNotPayAnyInsuranceYet.tr(),
-              style: grayBodyStyle(),
-            ),
-            CustomSpacers.large(),
-            PrimaryButton.fullWidth(
-              child: Text(
-                AppStrings.insuranceServices.tr(),
-              ),
-              onPressed: () => _insuranceServicesFunction(context),
-            )
-          ],
+    // final random = Random();
+    // if (false) {
+    //   return Padding(
+    //     padding: const EdgeInsets.symmetric(horizontal: AppValues.extraLarge).r,
+    //     child: Column(
+    //       children: [
+    //         Image.asset(
+    //           ImageAssets.emptyList,
+    //           width: AppSizes.s200.r,
+    //           height: AppSizes.s200.r,
+    //         ),
+    //         CustomSpacers.large(),
+    //         Text(
+    //           AppStrings.youDoNotHaveAnyPayments.tr(),
+    //           style: mediumHeadlineStyle(),
+    //         ),
+    //         CustomSpacers.medium(),
+    //         Text(
+    //           AppStrings.youDidNotPayAnyInsuranceYet.tr(),
+    //           style: grayBodyStyle(),
+    //         ),
+    //         CustomSpacers.large(),
+    //         PrimaryButton.fullWidth(
+    //           child: Text(
+    //             AppStrings.insuranceServices.tr(),
+    //           ),
+    //           onPressed: () => _insuranceServicesFunction(context),
+    //         )
+    //       ],
+    //     ),
+    //   );
+    // } else {
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: AppValues.mediumSmall).r,
+      children: [
+        myPaymentItem(
+          imgPath: ImageAssets.mobicash,
+          cost: 90,
+          paymentMethod: 'موبي كاش',
+          insuranceType: _insuranceType,
+          date: _date,
+          status: PaymentStatus.success,
         ),
-      );
-    } else {
-      return ListView(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        padding:
-            const EdgeInsets.symmetric(horizontal: AppValues.mediumSmall).r,
-        children: [
-          myPaymentItem(
-            imgPath: ImageAssets.mobicash,
-            cost: 90,
-            paymentMethod: 'موبي كاش',
-            insuranceType: _insuranceType,
-            date: _date,
-            status: PaymentStatus.success,
-          ),
-          CustomSpacers.medium(),
-          const CustomDivider(),
-          CustomSpacers.medium(),
-          myPaymentItem(
-            imgPath: ImageAssets.moamalat,
-            cost: 30,
-            paymentMethod: 'معاملات',
-            insuranceType: _insuranceType,
-            date: _date,
-            status: PaymentStatus.onProcess,
-          ),
-        ],
-      );
-    }
+        CustomSpacers.medium(),
+        const CustomDivider(),
+        CustomSpacers.medium(),
+        myPaymentItem(
+          imgPath: ImageAssets.moamalat,
+          cost: 30,
+          paymentMethod: 'معاملات',
+          insuranceType: _insuranceType,
+          date: _date,
+          status: PaymentStatus.onProcess,
+        ),
+      ],
+    );
+    // }
   }
 
   Widget myPaymentItem({

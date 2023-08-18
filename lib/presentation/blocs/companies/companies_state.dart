@@ -7,6 +7,7 @@ class CompaniesState extends Equatable {
   final String? fetchMoreCompaniesErrorMessage;
   final List<CompanyEntity>? companies;
   final List<CompanyEntity>? filteredCompanies;
+  final CompanyEntity? selectedCompany;
   final MetaEntity? meta;
 
   const CompaniesState({
@@ -16,6 +17,7 @@ class CompaniesState extends Equatable {
     this.fetchMoreCompaniesErrorMessage,
     this.companies,
     this.filteredCompanies,
+    this.selectedCompany,
     this.meta,
   });
 
@@ -27,6 +29,7 @@ class CompaniesState extends Equatable {
         fetchMoreCompaniesErrorMessage,
         companies,
         filteredCompanies,
+        selectedCompany,
         meta,
       ];
 
@@ -37,6 +40,7 @@ class CompaniesState extends Equatable {
     String? fetchMoreCompaniesErrorMessage,
     List<CompanyEntity>? companies,
     List<CompanyEntity>? filteredCompanies,
+    CompanyEntity? selectedCompany,
     MetaEntity? meta,
   }) {
     return CompaniesState(
@@ -49,6 +53,7 @@ class CompaniesState extends Equatable {
           fetchMoreCompaniesErrorMessage ?? this.fetchMoreCompaniesErrorMessage,
       companies: companies ?? this.companies,
       filteredCompanies: filteredCompanies ?? this.filteredCompanies,
+      selectedCompany: selectedCompany ?? this.selectedCompany,
       meta: meta ?? this.meta,
     );
   }

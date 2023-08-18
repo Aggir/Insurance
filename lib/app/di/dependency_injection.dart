@@ -2,25 +2,31 @@ import 'package:get_it/get_it.dart';
 import 'package:insurance_app/data/datasources/remote/api_constants.dart';
 import 'package:insurance_app/data/datasources/remote/remote_datasource_impl.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
+import 'package:insurance_app/data/repositories/insurance_repository_impl.dart';
 import 'package:insurance_app/data/repositories/repository_impl.dart';
 import 'package:insurance_app/data/repositories/user_repository_impl.dart';
 import 'package:insurance_app/data/repositories/vehicle_repository_impl.dart';
+import 'package:insurance_app/domain/repositories/insurance_repository.dart';
 import 'package:insurance_app/domain/repositories/repository.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
+import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
 import 'package:insurance_app/domain/usecases/change_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_branches_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
+import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
@@ -70,10 +76,14 @@ Future<void> initAppModule() async {
     () => VehicleRepositoryImpl(instance<RemoteDataSource>()),
   );
 
+  instance.registerLazySingleton<InsuranceRepository>(
+    () => InsuranceRepositoryImpl(instance<RemoteDataSource>()),
+  );
+
   // User Cubit
-  instance.registerFactory(() => UserCubit());
+  instance.registerLazySingleton(() => UserCubit());
   // internet Bloc
-  instance.registerFactory(() => InternetBloc());
+  instance.registerLazySingleton(() => InternetBloc());
 }
 
 void initSignIn() async {
@@ -188,9 +198,30 @@ void initGetMyVehicles() async {
   }
 }
 
-// void initEditProfile() async {
-//   if (!GetIt.I.isRegistered<EditProfileUsecase>()) {
-//     instance.registerFactory<EditProfileUsecase>(
-//         () => EditProfileUsecase(instance<Repository>()));
-//   }
-// }
+void initGetInsuranceFormData() async {
+  if (!GetIt.I.isRegistered<GetInsuranceFormData>()) {
+    instance.registerFactory<GetInsuranceFormData>(
+        () => GetInsuranceFormData(instance<InsuranceRepository>()));
+  }
+}
+
+void initCalculateInsurancePrice() async {
+  if (!GetIt.I.isRegistered<CalculateInsurancePriceUsecase>()) {
+    instance.registerFactory<CalculateInsurancePriceUsecase>(
+        () => CalculateInsurancePriceUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initIssueInsurance() async {
+  if (!GetIt.I.isRegistered<IssueInsuranceUsecase>()) {
+    instance.registerFactory<IssueInsuranceUsecase>(
+        () => IssueInsuranceUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initDeactivate() async {
+  if (!GetIt.I.isRegistered<DeactivateUsecase>()) {
+    instance.registerFactory<DeactivateUsecase>(
+        () => DeactivateUsecase(instance<UserRepository>()));
+  }
+}

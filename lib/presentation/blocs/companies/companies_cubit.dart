@@ -17,6 +17,16 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   final searchFocusNode = FocusNode();
   bool isDisposed = false;
 
+  selectCompany(CompanyEntity company) {
+    emit(state.copyWith(selectedCompany: company));
+  }
+
+  clearSearch() {
+    searchController.clear();
+    searchFocusNode.unfocus();
+    emit(state.copyWith(filteredCompanies: state.companies));
+  }
+
   fetchCompanies() async {
     emit(state.copyWith(fetchCompaniesStatus: Status.loading));
     initGetCompanies();
@@ -27,10 +37,10 @@ class CompaniesCubit extends Cubit<CompaniesState> {
       )),
       (companiesPage) => emit(state.copyWith(
         fetchCompaniesStatus: Status.success,
-        companies: companiesPage.companies
-          ..sort((a, b) => b.priority.compareTo(a.priority)),
+        companies: companiesPage.companies,
         filteredCompanies: companiesPage.companies
-          ..sort((a, b) => b.priority.compareTo(a.priority)),
+            .where((company) => company.name.contains(searchController.text))
+            .toList(),
         meta: companiesPage.meta,
       )),
     );
@@ -52,8 +62,14 @@ class CompaniesCubit extends Cubit<CompaniesState> {
             }, (data) {
               emit(state.copyWith(
                 fetchMoreCompaniesStatus: Status.success,
-                companies: [...state.companies!, ...data.companies]
-                  ..sort((a, b) => a.priority.compareTo(b.priority)),
+                companies: [...state.companies!, ...data.companies],
+                filteredCompanies: [
+                  ...state.filteredCompanies!,
+                  ...data.companies
+                      .where((company) =>
+                          company.name.contains(searchController.text))
+                      .toList()
+                ],
                 meta: data.meta,
               ));
             });

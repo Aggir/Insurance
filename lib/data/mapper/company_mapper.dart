@@ -9,5 +9,7 @@ extension CompanyModelExtension on CompanyModel? {
           id: this?.id ?? Constants.zero,
           name: this?.name ?? Constants.empty,
           priority: this?.priority ?? Constants.zero,
+          description: this?.description ?? Constants.empty,
+          photo: this?.photo ?? Constants.empty,
         );
 }

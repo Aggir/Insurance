@@ -114,4 +114,14 @@ class UserRepositoryImpl extends UserRepository {
       return const Right(null);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> deactivate() async {
+    final response = await _remoteDataSource.deactivate();
+    if (response.message != null) {
+      return Left(Failure(0, response.message!));
+    } else {
+      return const Right(null);
+    }
+  }
 }

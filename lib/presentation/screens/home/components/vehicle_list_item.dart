@@ -57,11 +57,16 @@ class VehicleListItem extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        vehicle.alias.isEmpty
-                            ? "${vehicle.brand.name} ${vehicle.model.name} - ${vehicle.makingYear}"
-                            : vehicle.alias,
-                        style: mediumSmallHeadlineStyle(),
+                      SizedBox(
+                        width: AppSizes.s200.r,
+                        child: Text(
+                          vehicle.alias.isEmpty
+                              ? "${vehicle.brand.name} ${vehicle.model.name} - ${vehicle.makingYear}"
+                              : vehicle.alias,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: mediumSmallHeadlineStyle(),
+                        ),
                       ),
                       CustomSpacers.extraSmall(),
                       Text(

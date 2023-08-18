@@ -1,7 +1,9 @@
+import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
+import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
@@ -52,4 +54,13 @@ abstract class RemoteDataSource {
   Future<CompaniesResponse> getCompanies(int? page);
 
   Future<BranchesResponse> getCompanyBranches(int? companyId);
+
+  Future<InsuranceTypesResponse> getInsuranceTypes();
+
+  Future<BasicResponse> calculateInsurancePrice(
+      CalculateInsurancePriceRequest request);
+
+  Future<BasicResponse> issueInsurance(IssueInsuranceRequest request);
+
+  Future<BasicResponse> deactivate();
 }

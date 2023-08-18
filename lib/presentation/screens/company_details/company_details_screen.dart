@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_segment/flutter_advanced_segment.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
@@ -8,14 +9,14 @@ import 'package:insurance_app/presentation/screens/company_details/pages/about_c
 import 'package:insurance_app/presentation/screens/company_details/pages/insurances_tab.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 
+import '../../blocs/companies/companies_cubit.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/text_style_manager.dart';
 import '../../widgets/custom_divider.dart';
 
 class CompanyDetailsScreen extends StatefulWidget {
-  const CompanyDetailsScreen(this.companyId, {super.key});
-  final String? companyId;
+  const CompanyDetailsScreen({super.key});
 
   @override
   State<CompanyDetailsScreen> createState() => _CompanyDetailsScreenState();
@@ -87,7 +88,14 @@ class _CompanyDetailsScreenState extends State<CompanyDetailsScreen>
         body: TabBarView(
           controller: _tabController,
           physics: const NeverScrollableScrollPhysics(),
-          children: [AboutCompanyTab(widget.companyId), const InsurancesTab()],
+          children: [
+            BlocBuilder<CompaniesCubit, CompaniesState>(
+              builder: (context, state) {
+                return AboutCompanyTab(state.selectedCompany);
+              },
+            ),
+            const InsurancesTab()
+          ],
         ));
   }
 }

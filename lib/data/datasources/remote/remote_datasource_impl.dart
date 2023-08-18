@@ -3,10 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/constants.dart';
+import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/helpers/app_service.dart';
 import 'package:insurance_app/data/datasources/remote/api_constants.dart';
 import 'package:insurance_app/data/datasources/remote/api_error_handler.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
+import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
@@ -14,6 +16,7 @@ import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/companies_response.dart';
+import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
 import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
@@ -21,6 +24,7 @@ import 'package:insurance_app/data/responses/vehicle_models_response.dart';
 import 'package:insurance_app/data/responses/vehicle_ownership_types_reponse.dart';
 import 'package:insurance_app/data/responses/vehicle_types_reponse.dart';
 import 'package:insurance_app/data/responses/vehicles_response.dart';
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   final Dio _dio;
@@ -42,10 +46,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   void _checkTokenValidation(DioException error) {
-    // Todo: use response code instead of message
     final String? message = error.response?.data['message'];
     if (message != null && message.contains('Unauthenticated.')) {
-      //Todo: Logout
+      instance<UserCubit>().logout();
     }
   }
 
@@ -59,6 +62,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           ApiConstants.me,
           options: _bearerToken(token),
         );
+        print(response);
         userResponse =
             UserResponse.fromMap(response.data as Map<String, dynamic>);
       } else {
@@ -67,6 +71,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (userResponse.user == null) {
         _appService.token = Constants.empty;
       }
+      print(userResponse);
       return (userResponse);
     } on DioException catch (error) {
       _appService.token = Constants.empty;
@@ -93,6 +98,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return (userResponse);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return UserResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
@@ -128,26 +134,31 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UserResponse> signUp(SignUpRequest request) async {
     try {
       final body = await request.toMap();
-
+      print(body);
       Response response = await _dio.post(
         ApiConstants.signup,
         data: FormData.fromMap(body),
         options: Options(
+          sendTimeout: const Duration(seconds: 30),
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         ),
       );
+      print(response);
+
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
+      print(userResponse);
       _appService.token = userResponse.token ?? Constants.empty;
       return (userResponse);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return UserResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
     } catch (err) {
-      return UserResponse(message: AppStrings.genericError);
+      return UserResponse(message: AppStrings.genericError.tr());
     }
   }
 
@@ -330,6 +341,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return BasicResponse(data: response);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return BasicResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
@@ -355,6 +367,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       final userResponse = UserResponse.fromMap({'user': response.data});
       return userResponse;
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return UserResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
@@ -374,6 +387,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       );
       return BasicResponse(data: response);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return BasicResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.changePassword(error));
@@ -390,6 +404,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           options: _bearerToken(_appService.token));
       return VehiclesResponse.fromMap(response.data);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return VehiclesResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
@@ -406,6 +421,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           options: _bearerToken(_appService.token));
       return CompaniesResponse.fromMap(response.data);
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return CompaniesResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.generic(error));
@@ -422,11 +438,89 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
       return BranchesResponse.fromMap({'branches': response.data});
     } on DioException catch (error) {
+      _checkTokenValidation(error);
       return BranchesResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return BranchesResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<InsuranceTypesResponse> getInsuranceTypes() async {
+    try {
+      var response = await _dio.get(ApiConstants.insuranceTypes,
+          options: _bearerToken(_appService.token));
+
+      return InsuranceTypesResponse.fromMap({'insuranceTypes': response.data});
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return InsuranceTypesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      print(error);
+      return InsuranceTypesResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> calculateInsurancePrice(
+      CalculateInsurancePriceRequest request) async {
+    final body = request.toMap();
+    try {
+      var response = await _dio.get(
+        ApiConstants.calculateInsurancePrice,
+        data: body,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> issueInsurance(IssueInsuranceRequest request) async {
+    final body = request.toMap();
+    try {
+      var response = await _dio.post(
+        ApiConstants.insurances,
+        data: body,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> deactivate() async {
+    try {
+      var response = await _dio.get(
+        ApiConstants.deactivate,
+        options: _bearerToken(_appService.token),
+      );
+      _appService.token = Constants.empty;
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
     }
   }
 }

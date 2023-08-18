@@ -1,8 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/domain/entities/company.dart';
 import 'package:insurance_app/presentation/screens/company_details/components/prices_modal.dart';
 
 import '../../../../app/app_strings.dart';
@@ -14,17 +16,12 @@ import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
 
 class AboutCompanyTab extends StatelessWidget {
-  const AboutCompanyTab(this.companyId, {super.key});
-  final companyId;
-
-  final _companyName = 'شركة تيبستي للتأمين';
-  final _companyDescription =
-      'شركة تيبستي للتأمين هي شركة ليبية مساهمة تأسست بموجب قرار  التأسيس المؤرخ 13/يناير/2011 وبرأس مال قدره 10,000,000 دينار ليبي،  وخاضعة لقانون رقم 3 لسنة 2005 بشأن الإشراف والرقابة على نشاط  التأمين و مسجلة بالسجل التجاري رقم 26681.2010 ، وقد بدأت في  توفير الخدمات للزبائن مباشرة بعد الأحداث التي مرت بها البلاد. حيث تقوم شركة تيبستي للتأمين بتوفير سلسلة واسعة من الخدمات   المتخصصة في تأمين المسؤوليات، الممتلكات، الكيانات العامة،  الشركات الكوارث.';
-  final _imagePath = ImageAssets.tibestyInsuranceCo;
+  const AboutCompanyTab(this.company, {super.key});
+  final CompanyEntity? company;
 
   void _branchesButtonFunction(BuildContext context) {
     context.go(
-        '${AppScreen.companyDetails.toPath}$companyId/${AppScreen.companyBranches.toSubPath}');
+        '${AppScreen.companyDetails.toPath}${company?.id}/${AppScreen.companyBranches.toSubPath}');
   }
 
   void _pricesButtonFunction(BuildContext context) {
@@ -52,15 +49,17 @@ class AboutCompanyTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppValues.mediumRadius.r),
               border: Border.all(color: AppColors.grayLight),
             ),
-            child: Image.asset(
-              _imagePath,
-              height: AppSizes.s64.r,
-              width: AppSizes.s64.r,
-            ),
+            child: company == null
+                ? Container()
+                : CachedNetworkImage(
+                    imageUrl: company!.photo,
+                    height: AppSizes.s64.r,
+                    width: AppSizes.s64.r,
+                  ),
           ),
           CustomSpacers.medium(),
           Text(
-            _companyName,
+            company?.name ?? '',
             style: mediumSmallHeadlineStyle(),
           ),
           CustomSpacers.large(),
@@ -75,7 +74,7 @@ class AboutCompanyTab extends StatelessWidget {
                 ),
                 CustomSpacers.medium(),
                 Text(
-                  _companyDescription,
+                  company?.description ?? '',
                   style: smallDarkGrayBodyStyle(),
                 ),
               ],

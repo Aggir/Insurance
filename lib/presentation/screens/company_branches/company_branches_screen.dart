@@ -6,7 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/entities/city.dart';
+import 'package:insurance_app/domain/entities/branch.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -62,6 +62,7 @@ class _CompanyBranchesScreenState extends State<CompanyBranchesScreen> {
                   return FlutterMap(
                     mapController: mapController,
                     options: MapOptions(
+                        maxZoom: 18.4,
                         center: const LatLng(
                             32.890683754591706, 13.192910130704213)),
                     children: [
@@ -106,21 +107,21 @@ class _CompanyBranchesScreenState extends State<CompanyBranchesScreen> {
                         builder: (context, state) {
                           return CustomDropDownField(
                             onChanged: (value) {
-                              if (value is CityEntity) {
+                              if (value is BranchEntity) {
                                 mapController.move(
                                     LatLng(value.lat, value.lng), 13);
                               }
                             },
                             hintText: AppStrings.selectCity.tr(),
                             defaultValidator: false,
-                            items: state.cities == null
+                            items: state.branches == null
                                 ? []
-                                : state.cities!
+                                : state.branches!
                                     .map(
-                                      (city) => DropdownMenuItem(
-                                        value: city,
+                                      (branch) => DropdownMenuItem(
+                                        value: branch,
                                         child: Text(
-                                          city.name,
+                                          branch.name,
                                           style: bodyStyle(),
                                         ),
                                       ),

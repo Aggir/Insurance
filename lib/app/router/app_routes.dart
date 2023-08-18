@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/routes.dart';
-import 'package:insurance_app/presentation/blocs/companies/companies_cubit.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
@@ -120,10 +119,7 @@ class AppRoutes {
     path: AppScreen.companies.toPath,
     name: AppScreen.companies.toName,
     builder: (BuildContext context, GoRouterState state) {
-      return BlocProvider(
-        create: (context) => CompaniesCubit()..fetchCompanies(),
-        child: const InsuranceCompaniesScreen(),
-      );
+      return const InsuranceCompaniesScreen();
     },
     routes: [_companyDetails],
   );
@@ -161,7 +157,7 @@ class AppRoutes {
     path: AppScreen.companyDetails.toSubPath,
     name: AppScreen.companyDetails.toName,
     builder: (BuildContext context, GoRouterState state) {
-      return CompanyDetailsScreen(state.pathParameters['company_id'] ?? '0');
+      return const CompanyDetailsScreen();
     },
     routes: [_companyBranches],
   );
@@ -172,7 +168,7 @@ class AppRoutes {
     name: AppScreen.companyBranches.toName,
     builder: (BuildContext context, GoRouterState state) {
       return BlocProvider(
-        create: (context) => CompanyBranchesCubit()..fetchCities(),
+        create: (context) => CompanyBranchesCubit(),
         child: CompanyBranchesScreen(state.pathParameters['company_id'] ?? '0'),
       );
     },
@@ -240,7 +236,7 @@ class AppRoutes {
   static final issueInsurance = StatefulShellRoute.indexedStack(
     builder: (context, state, child) {
       return BlocProvider(
-        create: (context) => IssueInsuranceCubit(),
+        create: (context) => IssueInsuranceCubit()..fetchInsuranceFormData(),
         child: IssueInsuranceStepsScreen(child, state.uri.toString()),
       );
     },

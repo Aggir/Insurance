@@ -117,7 +117,7 @@ class UserModel extends Equatable {
       gender: map['gender'],
       proofType: map['proof_type'],
       isActive: map['is_active'],
-      isLibyan: map['is_libyan'],
+      isLibyan: map['is_libyan'] == '1' || map['is_libyan'] == true,
       proofFile: map['proof_file'],
       proofId: map['proof_id'],
       proofIssuePlace: map['proof_issue_place'],
@@ -129,5 +129,10 @@ class UserModel extends Equatable {
       createdAt: map['created_at'],
       updatedAt: map['updated_at'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'UserModel(id: $id, firstName: $firstName, fatherName: $fatherName, lastName: $lastName, email: $email, phone: $phone, photo: $photo, dateOfBirth: $dateOfBirth, gender: $gender, proofType: $proofType, isActive: $isActive, isLibyan: $isLibyan, proofFile: $proofFile, proofId: $proofId, proofIssuePlace: $proofIssuePlace, proofIssueDate: $proofIssueDate, proofExpirationDate: $proofExpirationDate, nationalId: $nationalId, nationalFile: $nationalFile, emailVerifiedAt: $emailVerifiedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,15 +20,19 @@ import '../../blocs/companies/companies_cubit.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/custom_text_form_field.dart';
 
-class InsuranceCompaniesScreen extends StatelessWidget {
+class InsuranceCompaniesScreen extends StatefulWidget {
   const InsuranceCompaniesScreen({super.key});
 
-  final _companyDescription =
-      'هي شركة ليبية مساهمة تأسست بموجب قرار التأسيس المؤرخ 13\\يناير\\2011 وبرأس مال قدره 10,000,000 دينار';
-  final _imagePath = ImageAssets.tibestyInsuranceCo;
+  @override
+  State<InsuranceCompaniesScreen> createState() =>
+      _InsuranceCompaniesScreenState();
+}
 
-  void _issueAnInsuranceFunction(BuildContext context) {
-    context.go(AppScreen.issueInsurance.toPath);
+class _InsuranceCompaniesScreenState extends State<InsuranceCompaniesScreen> {
+  @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<CompaniesCubit>(context).fetchCompanies();
   }
 
   @override
@@ -41,6 +46,7 @@ class InsuranceCompaniesScreen extends StatelessWidget {
         appBar: CustomAppBar.basic(
           title: AppStrings.insuranceCompanies.tr(),
           backButton: () {
+            BlocProvider.of<CompaniesCubit>(context).clearSearch();
             context.go(AppScreen.carsInsurance.toPath);
           },
         ),
@@ -143,8 +149,8 @@ class InsuranceCompaniesScreen extends StatelessWidget {
                               BorderRadius.circular(AppValues.mediumRadius.r),
                           border: Border.all(color: AppColors.grayLight),
                         ),
-                        child: Image.asset(
-                          _imagePath,
+                        child: CachedNetworkImage(
+                          imageUrl: company.photo,
                           height: AppSizes.s64.r,
                           width: AppSizes.s64.r,
                         ),
@@ -181,8 +187,9 @@ class InsuranceCompaniesScreen extends StatelessWidget {
               ),
               CustomSpacers.medium(),
               Text(
-                _companyDescription,
+                company.description,
                 style: smallGrayBodyStyle(),
+                maxLines: 3,
               ),
             ],
           ),
@@ -195,7 +202,10 @@ class InsuranceCompaniesScreen extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 focusNode.unfocus();
-                context.go('${AppScreen.companyDetails.toPath}${company.id}');
+                BlocProvider.of<CompaniesCubit>(context).selectCompany(company);
+                context.go(
+                  '${AppScreen.companyDetails.toPath}${company.id}',
+                );
               },
             ),
           ),

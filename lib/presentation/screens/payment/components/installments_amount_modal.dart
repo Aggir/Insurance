@@ -84,8 +84,7 @@ class _InstallmentsAmountState extends State<InstallmentsAmountModal> {
               showModalBottomSheet(
                 context: context,
                 shape: AppValues.modalShape,
-                builder: (context) =>
-                    const PaymentMethodModal(isInstallments: true),
+                builder: (context) => const PaymentMethodModal(),
               );
             },
             child: Text(AppStrings.next.tr()),

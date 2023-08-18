@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:insurance_app/app/constants.dart';
+import 'package:insurance_app/domain/entities/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: non_constant_identifier_names
@@ -17,6 +18,15 @@ class AppService with ChangeNotifier {
 
   String get token => _token;
   bool get onboarding => _onboarding;
+
+  UserEntity? _user;
+
+  UserEntity? get user => _user;
+
+  set user(UserEntity? user) {
+    _user = user;
+    notifyListeners();
+  }
 
   set token(String value) {
     sharedPreferences.setString(TOKEN_KEY, value);
