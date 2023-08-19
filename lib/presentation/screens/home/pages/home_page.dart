@@ -12,6 +12,7 @@ import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
+import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -47,6 +48,16 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    if (BlocProvider.of<UserCubit>(context).state.isFirstLogin) {
+      SchedulerBinding.instance.addPostFrameCallback(
+        (_) async {
+          await DialogService.load(
+            context,
+            content: const FirstLoginDialog(),
+          );
+        },
+      );
+    }
     if (widget.dialog != null) {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(

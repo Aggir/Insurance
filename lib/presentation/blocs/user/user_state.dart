@@ -12,6 +12,7 @@ class UserState extends Equatable {
   final String? editProfileErrorMessage;
   final Status deactivateStatus;
   final String? deactivateErrorMessage;
+  final bool isFirstLogin;
 
   const UserState({
     this.user,
@@ -25,6 +26,7 @@ class UserState extends Equatable {
     this.editProfileErrorMessage,
     this.deactivateStatus = Status.initial,
     this.deactivateErrorMessage,
+    this.isFirstLogin = false,
   });
 
   @override
@@ -40,6 +42,7 @@ class UserState extends Equatable {
         editProfileErrorMessage,
         deactivateStatus,
         deactivateErrorMessage,
+        isFirstLogin,
       ];
 
   UserState copyWith({
@@ -54,6 +57,7 @@ class UserState extends Equatable {
     String? editProfileErrorMessage,
     Status? deactivateStatus,
     String? deactivateErrorMessage,
+    bool? isFirstLogin,
   }) {
     return UserState(
       user: user ?? this.user,
@@ -70,6 +74,7 @@ class UserState extends Equatable {
       editProfileStatus: editProfileStatus ?? this.editProfileStatus,
       editProfileErrorMessage:
           editProfileErrorMessage ?? this.editProfileErrorMessage,
+      isFirstLogin: isFirstLogin ?? this.isFirstLogin,
     );
   }
 }

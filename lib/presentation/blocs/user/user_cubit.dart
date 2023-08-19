@@ -57,9 +57,14 @@ class UserCubit extends Cubit<UserState> {
             authStatus: Status.failure, authErrorMessage: failure.message));
       },
       (data) {
-        emit(state.copyWith(authStatus: Status.success, user: data));
+        emit(state.copyWith(
+            authStatus: Status.success, user: data, isFirstLogin: true));
       },
     );
+  }
+
+  toggleIsFirstLogin() {
+    emit(state.copyWith(isFirstLogin: false));
   }
 
   void isLoggedIn() async {
@@ -78,9 +83,10 @@ class UserCubit extends Cubit<UserState> {
         },
         (data) {
           emit(state.copyWith(
-              checkTokenStatus: Status.success,
-              authStatus: Status.success,
-              user: data));
+            checkTokenStatus: Status.success,
+            authStatus: Status.success,
+            user: data,
+          ));
         },
       );
     }
