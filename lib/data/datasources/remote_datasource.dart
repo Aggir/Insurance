@@ -63,4 +63,11 @@ abstract class RemoteDataSource {
   Future<BasicResponse> issueInsurance(IssueInsuranceRequest request);
 
   Future<BasicResponse> deactivate();
+
+  Future<BasicResponse> forgotPassword(String email);
+
+  Future<BasicResponse> verifyForgotPasswordOtp(
+      VerifyOtpForgotPasswordRequest request);
+
+  Future<BasicResponse> resetPassword(ResetPasswordRequest request);
 }

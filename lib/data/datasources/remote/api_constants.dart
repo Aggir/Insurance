@@ -15,6 +15,8 @@ class ApiConstants {
   static const String updateSelf = '/update_self';
   static const String changePassword = '/change_password';
   static const String deactivate = '/deactivate_self';
+  static const String resetPassword = '/reset_password';
+  static const String validateResetOtp = '/validate_reset_otp';
   // Vehicle
   static const String vehicleBrands = '/vehicle_brands';
   static const String vehicleCountries = '/vehicle_countries';

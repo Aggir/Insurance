@@ -353,7 +353,7 @@ class AppStrings {
   static const editProfileSuccessMessage = 'edit_profile_success_message';
   static const passwordMinLength = 'password_min_length';
 
-  // Error messages
+  // messages
   static const genericError = 'generic_error';
   static const invalidCredentials = 'invalid_credentials';
   static const theEmailHasAlreadyBeenTaken = 'the_email_has_already_been_taken';
@@ -364,4 +364,6 @@ class AppStrings {
       'the_national_id_has_already_been_taken';
   static const wrongCurrentPassword = 'wrong_current_password';
   static const unauthenticated = 'unauthenticated';
+  static const wrongOtp = 'wrong_otp';
+  static const otpSentSuccessfully = 'otp_sent_successfully';
 }

@@ -22,4 +22,11 @@ abstract class UserRepository {
   Future<Either<Failure, void>> changePassword(ChangePasswordRequest input);
 
   Future<Either<Failure, void>> deactivate();
+
+  Future<Either<Failure, void>> forgotPassword(String email);
+
+  Future<Either<Failure, void>> verifyForgotPasswordOtp(
+      VerifyOtpForgotPasswordRequest input);
+
+  Future<Either<Failure, void>> resetPassword(ResetPasswordRequest input);
 }

@@ -51,11 +51,14 @@ class AppRouter {
         builder: (context, state, child) => BlocProvider(
           create: (context) => CompaniesCubit(),
           child: Builder(builder: (context) {
-            if (BlocProvider.of<UserCubit>(context)
-                .state
-                .checkTokenStatus
-                .isInitial) {}
-            return BlocBuilder<InternetBloc, InternetState>(
+            return BlocConsumer<InternetBloc, InternetState>(
+              listener: (context, state) {
+                if (state is DisconnectedState) {
+                  context.go(AppScreen.noConnection.toPath);
+                } else if (state is ConnectedState) {
+                  context.go(AppScreen.login.toPath);
+                }
+              },
               builder: (context, state) {
                 if (state is DisconnectedState) {
                   return const NoConnectionScreen();

@@ -17,6 +17,7 @@ import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
 import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
+import 'package:insurance_app/domain/usecases/forgot_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
@@ -27,7 +28,9 @@ import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
+import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
+import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -223,5 +226,26 @@ void initDeactivate() async {
   if (!GetIt.I.isRegistered<DeactivateUsecase>()) {
     instance.registerFactory<DeactivateUsecase>(
         () => DeactivateUsecase(instance<UserRepository>()));
+  }
+}
+
+void initForgotPassword() async {
+  if (!GetIt.I.isRegistered<ForgotPasswordUsecase>()) {
+    instance.registerFactory<ForgotPasswordUsecase>(
+        () => ForgotPasswordUsecase(instance<UserRepository>()));
+  }
+}
+
+void initVerifyForgotPasswordOtp() async {
+  if (!GetIt.I.isRegistered<VerifyForgotPasswordOtpUsecase>()) {
+    instance.registerFactory<VerifyForgotPasswordOtpUsecase>(
+        () => VerifyForgotPasswordOtpUsecase(instance<UserRepository>()));
+  }
+}
+
+void initResetPassword() async {
+  if (!GetIt.I.isRegistered<ResetPasswordUsecase>()) {
+    instance.registerFactory<ResetPasswordUsecase>(
+        () => ResetPasswordUsecase(instance<UserRepository>()));
   }
 }

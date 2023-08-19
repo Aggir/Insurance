@@ -8,6 +8,8 @@ import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password_cubit.dart';
 import 'package:insurance_app/presentation/screens/forgot_password/components/forgot_password_footer_row.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
@@ -45,7 +47,11 @@ class _ForgotPasswordSendOtpPageState extends State<ForgotPasswordSendOtpPage> {
 
   _nextButtonFunction(context) async {
     FocusScope.of(context).unfocus();
-    BlocProvider.of<ForgotPasswordCubit>(context).confirmSendOtpForm();
+    final cubit = BlocProvider.of<ForgotPasswordCubit>(context);
+    if (cubit.isEmailOrPhoneFieldValid()) {
+      DialogService.loadLoadingDialog(context);
+      cubit.sendOtp();
+    }
   }
 
   @override
@@ -132,11 +138,11 @@ class _ForgotPasswordSendOtpPageState extends State<ForgotPasswordSendOtpPage> {
           previous.sendOtpStatus != current.sendOtpStatus,
       listener: (context, state) {
         if (state.sendOtpStatus.isFailure) {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.sendOtpError!)));
+          DialogService.dispose();
+          SnackBars.error(context, state.sendOtpError!);
         } else if (state.sendOtpStatus.isSuccess) {
-          GoRouter.of(context).go(AppScreen.forgotPasswordVerifyOtpStep.toPath);
+          DialogService.dispose();
+          context.go(AppScreen.forgotPasswordVerifyOtpStep.toPath);
         }
       },
       builder: (context, state) {

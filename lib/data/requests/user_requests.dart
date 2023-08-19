@@ -167,3 +167,29 @@ class ChangePasswordRequest implements BaseRequest {
     };
   }
 }
+
+class VerifyOtpForgotPasswordRequest implements BaseRequest {
+  final String email;
+  final String otp;
+  VerifyOtpForgotPasswordRequest({
+    required this.email,
+    required this.otp,
+  });
+}
+
+class ResetPasswordRequest implements BaseRequest {
+  final String email;
+  final String otp;
+  final String password;
+
+  ResetPasswordRequest({
+    required this.email,
+    required this.otp,
+    required this.password,
+  });
+
+  Map<String, dynamic> toBody() => {
+        'password': password,
+        'password_confirmation': password,
+      };
+}

@@ -3,7 +3,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/usecases/forgot_password_usecase.dart';
+import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
+import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
 
 part 'forgot_password_state.dart';
 
@@ -23,7 +27,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
 
   Timer? resendOtpTimer;
   void startTimer() {
-    const timer = 10;
+    const timer = 120;
     emit(state.copyWith(
       resendCounterInSeconds: timer,
       isResendButtonActive: false,
@@ -47,56 +51,88 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState> {
     );
   }
 
-  Future<void> confirmSendOtpForm() async {
-    if (sendOtpForm.currentState!.validate()) {
-      emit(
-        state.copyWith(
-            emailOrPhoneNumber: emailOrPhoneNumberController.text,
-            sendOtpStatus: Status.loading),
-      );
-      // Todo: send Otp
-      await Future.delayed(const Duration(seconds: 1));
-      if (emailOrPhoneNumberController.text == "0921234567") {
-        emit(
-          state.copyWith(sendOtpStatus: Status.success),
-        );
-        startTimer();
-      } else {
-        emit(state.copyWith(
-            sendOtpStatus: Status.failure,
-            sendOtpError: "رقم الهاتف او البريد الالكتروني غير صحيح."));
-      }
-    }
+  bool isEmailOrPhoneFieldValid() =>
+      sendOtpForm.currentState?.validate() ?? false;
+
+  Future<void> sendOtp() async {
+    emit(
+      state.copyWith(
+          emailOrPhoneNumber: emailOrPhoneNumberController.text.trim(),
+          sendOtpStatus: Status.loading),
+    );
+    initForgotPassword();
+    (await instance<ForgotPasswordUsecase>()
+            .execute(emailOrPhoneNumberController.text.trim()))
+        .fold((failure) {
+      emit(state.copyWith(
+        sendOtpStatus: Status.failure,
+        sendOtpError: failure.message,
+      ));
+    }, (data) {
+      emit(state.copyWith(sendOtpStatus: Status.success));
+      startTimer();
+    });
   }
 
-  Future<void> confirmVerifyOtpForm() async {
-    if (verifyOtpForm.currentState!.validate()) {
-      emit(state.copyWith(verifyOtpStatus: Status.loading));
-      // Todo: verify Otp
-      await Future.delayed(const Duration(seconds: 1));
-      if (otpController.text == '1234') {
-        emit(state.copyWith(verifyOtpStatus: Status.success));
-      } else {
-        emit(state.copyWith(
-            verifyOtpStatus: Status.failure,
-            verifyOtpError: "رقم التحقق غير صحيح"));
-      }
-    }
+  bool isOtpFieldValid() => verifyOtpForm.currentState?.validate() ?? false;
+
+  Future<void> verifyOtp() async {
+    emit(state.copyWith(verifyOtpStatus: Status.loading));
+    initVerifyForgotPasswordOtp();
+    (await instance<VerifyForgotPasswordOtpUsecase>().execute(
+            VerifyForgotPasswordOtpUsecaseInput(
+                email: emailOrPhoneNumberController.text.trim(),
+                otp: otpController.text.trim())))
+        .fold((failure) {
+      emit(state.copyWith(
+        verifyOtpStatus: Status.failure,
+        verifyOtpError: failure.message,
+      ));
+    }, (data) {
+      emit(state.copyWith(verifyOtpStatus: Status.success));
+    });
   }
 
-  Future<void> confirmResetPasswordForm() async {
-    if (resetPasswordForm.currentState!.validate()) {
-      emit(state.copyWith(resetPasswordStatus: Status.loading));
-      // Todo: verify Otp
-      await Future.delayed(const Duration(seconds: 1));
-      if (true) {
-        emit(state.copyWith(resetPasswordStatus: Status.success));
-      }
-      //  else {
-      //   emit(state.copyWith(
-      //       resetPasswordStatus: Status.failure, resetPasswordError: ""));
-      // }
-    }
+  bool isResetPasswordFormValid() =>
+      resetPasswordForm.currentState?.validate() ?? false;
+
+  Future<void> resetPassword() async {
+    emit(state.copyWith(resetPasswordStatus: Status.loading));
+    initResetPassword();
+    (await instance<ResetPasswordUsecase>().execute(ResetPasswordUsecaseInput(
+      email: emailOrPhoneNumberController.text.trim(),
+      otp: otpController.text.trim(),
+      password: passwordController.text.trim(),
+    )))
+        .fold((failure) {
+      emit(state.copyWith(
+        resetPasswordStatus: Status.failure,
+        resetPasswordError: failure.message,
+      ));
+    }, (data) {
+      resendOtpTimer?.cancel();
+      emit(state.copyWith(resetPasswordStatus: Status.success));
+    });
+  }
+
+  Future<void> resendOtp() async {
+    emit(
+      state.copyWith(
+          isResendButtonActive: false, resendOtpStatus: Status.loading),
+    );
+    initForgotPassword();
+    (await instance<ForgotPasswordUsecase>()
+            .execute(emailOrPhoneNumberController.text.trim()))
+        .fold((failure) {
+      emit(state.copyWith(
+        resendOtpStatus: Status.failure,
+        resendOtpError: failure.message,
+        isResendButtonActive: true,
+      ));
+    }, (data) {
+      startTimer();
+      emit(state.copyWith(resendOtpStatus: Status.success));
+    });
   }
 
   backFromResetPasswordStep() {

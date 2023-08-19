@@ -124,4 +124,36 @@ class UserRepositoryImpl extends UserRepository {
       return const Right(null);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> forgotPassword(String email) async {
+    final response = await _remoteDataSource.forgotPassword(email);
+    if (response.message != null) {
+      return Left(Failure(0, response.message!));
+    } else {
+      return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> resetPassword(
+      ResetPasswordRequest input) async {
+    final response = await _remoteDataSource.resetPassword(input);
+    if (response.message != null) {
+      return Left(Failure(0, response.message!));
+    } else {
+      return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> verifyForgotPasswordOtp(
+      VerifyOtpForgotPasswordRequest input) async {
+    final response = await _remoteDataSource.verifyForgotPasswordOtp(input);
+    if (response.message != null) {
+      return Left(Failure(0, response.message!));
+    } else {
+      return const Right(null);
+    }
+  }
 }

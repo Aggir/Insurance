@@ -46,4 +46,18 @@ class ApiErrorHandler {
 
     return message ?? AppStrings.genericError.tr();
   }
+
+  static String otpVerification(DioException error) {
+    final message = error.response?.data['message'];
+
+    if (message != null) {
+      if (message.contains('Unauthenticated.')) {
+        return AppStrings.unauthenticated.tr();
+      } else if (message.contains('WRONT_OTP')) {
+        return AppStrings.wrongOtp.tr();
+      }
+    }
+
+    return message ?? AppStrings.genericError.tr();
+  }
 }

@@ -284,5 +284,7 @@
     "edit_profile_success_message": "لقد تم تعديل الحساب بنجاح.",
     "password_min_length": "كلمة المرور يجب ان تكون اطول من 8 حروف.",
     "wrong_current_password": "كلمة المرور الحالية غير صحيحة.",
-    "unauthenticated": "تم تسجيل خروجك."
+    "unauthenticated": "تم تسجيل خروجك.",
+    "wrong_otp": "رقم التحقق غير صحيح٫",
+    "otp_sent_successfully": "تم إعادة ارسال رقم التحقق بنجاح٫"
 }

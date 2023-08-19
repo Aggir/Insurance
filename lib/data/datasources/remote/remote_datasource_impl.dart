@@ -523,4 +523,52 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       return BasicResponse(message: AppStrings.genericError.tr());
     }
   }
+
+  @override
+  Future<BasicResponse> forgotPassword(String email) async {
+    try {
+      var response = await _dio.get("${ApiConstants.resetPassword}/$email");
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
+    }
+  }
+
+  @override
+  Future<BasicResponse> resetPassword(ResetPasswordRequest request) async {
+    try {
+      var response = await _dio.post(
+        "${ApiConstants.validateResetOtp}?email=${request.email}&otp=${request.otp}",
+        data: request.toBody(),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
+    }
+  }
+
+  @override
+  Future<BasicResponse> verifyForgotPasswordOtp(
+      VerifyOtpForgotPasswordRequest request) async {
+    try {
+      var response = await _dio.post(
+        "${ApiConstants.validateResetOtp}?email=${request.email}&otp=${request.otp}",
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.otpVerification(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
+    }
+  }
 }
