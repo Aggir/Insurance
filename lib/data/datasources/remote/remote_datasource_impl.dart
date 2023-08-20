@@ -493,7 +493,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         data: body,
         options: _bearerToken(_appService.token),
       );
-      return BasicResponse(data: response.data);
+      return BasicResponse(data: int.parse(response.data));
     } on DioException catch (error) {
       _checkTokenValidation(error);
       return BasicResponse(

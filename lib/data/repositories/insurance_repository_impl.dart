@@ -82,7 +82,7 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
   }
 
   @override
-  Future<Either<Failure, String>> issueInsurance(
+  Future<Either<Failure, int>> issueInsurance(
       IssueInsuranceRequest request) async {
     final response = await _remoteDataSource.issueInsurance(request);
 
@@ -93,7 +93,7 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
       ));
     } else {
       return Right(
-        response.data,
+        response.data as int,
       );
     }
   }

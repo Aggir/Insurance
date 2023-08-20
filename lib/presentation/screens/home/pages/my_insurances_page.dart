@@ -60,7 +60,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                 shape: AppValues.modalShape,
                 isScrollControlled: true,
                 builder: (context) =>
-                    PaymentMethodModal(widget.selectedInsuranceId!),
+                    PaymentMethodModal(widget.selectedInsuranceId ?? 1),
               ));
     }
   }

@@ -10,7 +10,7 @@ abstract class InsuranceRepository {
   Future<Either<Failure, String>> calculateInsurancePrice(
       CalculateInsurancePriceRequest request);
 
-  Future<Either<Failure, String>> issueInsurance(IssueInsuranceRequest request);
+  Future<Either<Failure, int>> issueInsurance(IssueInsuranceRequest request);
 
   Future<Either<Failure, InsurancesPage>> getMyInsurances({int? page});
 

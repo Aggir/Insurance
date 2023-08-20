@@ -68,6 +68,7 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
                 ), (data) {
       emit(state.copyWith(
         issueInsuranceStatus: Status.success,
+        insuranceId: data,
       ));
     });
   }

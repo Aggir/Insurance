@@ -7,13 +7,12 @@ import 'package:insurance_app/domain/usecases/base_usecase.dart';
 import '../repositories/insurance_repository.dart';
 
 class IssueInsuranceUsecase
-    implements BaseUsecase<IssueInsuranceUsecaseInput, void> {
+    implements BaseUsecase<IssueInsuranceUsecaseInput, int> {
   final InsuranceRepository _repository;
 
   IssueInsuranceUsecase(this._repository);
   @override
-  Future<Either<Failure, dynamic>> execute(
-      IssueInsuranceUsecaseInput input) async {
+  Future<Either<Failure, int>> execute(IssueInsuranceUsecaseInput input) async {
     return await _repository.issueInsurance(IssueInsuranceRequest(
       companyId: input.companyId,
       insuranceTypeId: input.insuranceTypeId,

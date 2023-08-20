@@ -28,5 +28,5 @@ class ApiConstants {
   static const String insuranceTypes = '/insurance_types';
   static const String insurances = '/insurances';
   static const String calculateInsurancePrice = '/insurances/calculatePrice';
-  static const String toggleInsurance = '/toggleInsurance';
+  static const String toggleInsurance = '/insurances/toggleInsurance';
 }
