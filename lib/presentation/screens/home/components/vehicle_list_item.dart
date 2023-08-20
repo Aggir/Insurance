@@ -183,26 +183,36 @@ class VehicleListItem extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: AppSizes.s12.r,
-                        backgroundColor: AppColors.primaryLight2,
+                        backgroundColor: vehicle.insurance == null
+                            ? AppColors.primaryLight2
+                            : AppColors.secondaryLight,
                         child: SvgPicture.asset(
-                          SvgAssets.xShield,
+                          vehicle.insurance == null
+                              ? SvgAssets.xShield
+                              : SvgAssets.shield,
                           width: AppSizes.s18.r,
                           height: AppSizes.s18.r,
                           colorFilter: ColorFilter.mode(
-                              AppColors.danger, BlendMode.srcIn),
+                              vehicle.insurance == null
+                                  ? AppColors.danger
+                                  : AppColors.secondary,
+                              BlendMode.srcIn),
                         ),
                       ),
                       CustomSpacers.small(),
                       Text(
-                        'غير مأمنة',
+                        vehicle.insurance == null
+                            ? AppStrings.notSecured.tr()
+                            : AppStrings.secured.tr(),
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
                   ),
-                  PrimaryButton(
-                    onPressed: () => _secureNowButtonFunction(context),
-                    child: Text(AppStrings.secureNow.tr()),
-                  )
+                  if (vehicle.insurance == null)
+                    PrimaryButton(
+                      onPressed: () => _secureNowButtonFunction(context),
+                      child: Text(AppStrings.secureNow.tr()),
+                    )
                 ],
               )
             ],

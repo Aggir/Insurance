@@ -19,7 +19,7 @@ class PaymentCompletedDialog extends StatelessWidget {
 
   _myInsurancesFunction(BuildContext context) {
     // Todo: make it dynamic
-    context.go(AppScreen.myInsurances.toPath, extra: 1);
+    context.go(AppScreen.myInsurances.toPath);
     DialogService.dispose();
   }
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,8 +8,8 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
 
-import 'package:insurance_app/presentation/screens/payment/components/payment_type_modal.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -20,7 +21,7 @@ import '../../../../app/router/routes.dart';
 
 class InsuranceListItem extends StatelessWidget {
   const InsuranceListItem(this.insurance, {super.key});
-  final Insurance insurance;
+  final InsuranceEntity insurance;
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +50,11 @@ class InsuranceListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          insurance.insuranceType,
+                          insurance.insuranceType.name,
                           style: mediumSmallHeadlineStyle(),
                         ),
                         Text(
-                          insurance.referenceNumber,
+                          insurance.referenceNumber.toString(),
                           style: smallGrayBodyStyle(),
                         ),
                         Row(
@@ -65,7 +66,7 @@ class InsuranceListItem extends StatelessWidget {
                             ),
                             CustomSpacers.extraSmall(),
                             Text(
-                              insurance.issuanceDate,
+                              insurance.startDate,
                               style: smallGrayBodyStyle(),
                             ),
                           ],
@@ -81,6 +82,7 @@ class InsuranceListItem extends StatelessWidget {
                   child: Wrap(
                     runSpacing: AppValues.medium,
                     spacing: AppValues.small,
+                    alignment: WrapAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,15 +106,15 @@ class InsuranceListItem extends StatelessWidget {
                                     ),
                                     border:
                                         Border.all(color: AppColors.grayLight)),
-                                child: Image.asset(
-                                  insurance.carBrandImgPath,
+                                child: CachedNetworkImage(
+                                  imageUrl: insurance.vehicle.photo,
                                   width: AppSizes.s24.r,
                                   height: AppSizes.s24.r,
                                 ),
                               ),
                               CustomSpacers.small(),
                               Text(
-                                insurance.carBrand,
+                                insurance.vehicle.alias,
                                 style: extraSmallHeadlineStyle(),
                               )
                             ],
@@ -128,7 +130,7 @@ class InsuranceListItem extends StatelessWidget {
                           ),
                           CustomSpacers.small(),
                           Text(
-                            insurance.insuredName,
+                            '${insurance.vehicle.ownerFirstName} ${insurance.vehicle.ownerFatherName} ${insurance.vehicle.ownerLastName}',
                             style: extraSmallHeadlineStyle(),
                           ),
                         ],
@@ -142,7 +144,7 @@ class InsuranceListItem extends StatelessWidget {
                           ),
                           CustomSpacers.small(),
                           Text(
-                            insurance.insuranceCompany,
+                            insurance.company.name,
                             style: extraSmallHeadlineStyle(),
                           ),
                         ],
@@ -165,18 +167,19 @@ class InsuranceListItem extends StatelessWidget {
                   CircleAvatar(
                     radius: AppSizes.s12.r,
                     backgroundColor:
-                        insurance.insuranceStatus.svgBackgroundColor,
+                        insurance.insuranceTypeStatus.svgBackgroundColor,
                     child: SvgPicture.asset(
-                      insurance.insuranceStatus.svgPath,
+                      insurance.insuranceTypeStatus.svgPath,
                       width: AppSizes.s18.r,
                       height: AppSizes.s18.r,
                       colorFilter: ColorFilter.mode(
-                          insurance.insuranceStatus.svgColor, BlendMode.srcIn),
+                          insurance.insuranceTypeStatus.svgColor,
+                          BlendMode.srcIn),
                     ),
                   ),
                   CustomSpacers.small(),
                   Text(
-                    insurance.insuranceStatus.string.tr(),
+                    insurance.insuranceTypeStatus.string.tr(),
                     style: extraSmallHeadlineStyle(),
                   )
                 ]),
@@ -190,31 +193,31 @@ class InsuranceListItem extends StatelessWidget {
   }
 
   String get textButton {
-    switch (insurance.insuranceStatus) {
-      case InsuranceStatus.underProcessing:
+    switch (insurance.insuranceTypeStatus) {
+      case InsuranceTypeStatus.underProcessing:
         return '';
-      case InsuranceStatus.issued:
+      case InsuranceTypeStatus.issued:
         return AppStrings.viewTheDocument;
-      case InsuranceStatus.notPaid:
+      case InsuranceTypeStatus.notPaid:
         return AppStrings.completeThePayment;
-      case InsuranceStatus.expired:
+      case InsuranceTypeStatus.expired:
         return AppStrings.renewal;
     }
   }
 
   Widget getButton(BuildContext context) {
     void Function()? onPressed;
-    if (insurance.insuranceStatus.isExpired ||
-        insurance.insuranceStatus.isNotPaid) {
+    if (insurance.insuranceTypeStatus.isExpired ||
+        insurance.insuranceTypeStatus.isNotPaid) {
       onPressed = () {
         showModalBottomSheet(
           context: context,
           shape: AppValues.modalShape,
           isScrollControlled: true,
-          builder: (context) => const PaymentTypeModal(),
+          builder: (context) => PaymentMethodModal(insurance.id),
         );
       };
-    } else if (insurance.insuranceStatus.isIssued) {
+    } else if (insurance.insuranceTypeStatus.isIssued) {
       onPressed = () {
         context.go(
             "${AppScreen.insuranceDocument.toPath}${insurance.referenceNumber}");

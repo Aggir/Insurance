@@ -1,5 +1,5 @@
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/app/enums/insurance_types_enum.dart';
+// import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 
@@ -167,37 +167,37 @@ const List<Map<String, String>> vehicleCountry = [
 //   {'id': '5', 'value': 'معاملات', 'imgPath': ImageAssets.moamalat},
 // ];
 
-const underProcessingInsurances = <Insurance>[];
-const issuedInsurances = <Insurance>[
-  Insurance(
-    id: '1',
-    insuranceTypeId: '1',
-    carBrandId: '5',
-    insuranceCompanyId: '1',
-    referenceNumber: '112233',
-    issuanceDate: '1-1-2023',
-    insuredName: 'حسين الشريف',
-    insuranceType: 'وثيقة تأمين سيارة إجباري',
-    insuranceCompany: 'شركة تيبستي للتأمين',
-    carBrand: 'هيونداي',
-    carBrandImgPath: ImageAssets.hyundai,
-    insuranceStatus: InsuranceStatus.issued,
-  ),
-];
-const notPaidInsurances = <Insurance>[
-  Insurance(
-    id: '2',
-    insuranceTypeId: '1',
-    carBrandId: '2',
-    insuranceCompanyId: '1',
-    referenceNumber: '008096',
-    issuanceDate: '1-11-2022',
-    insuredName: 'مرام عبدالباسط القدري',
-    insuranceType: 'وثيقة تأمين سيارة إجباري',
-    insuranceCompany: 'شركة تيبستي للتأمين',
-    carBrand: 'كيا',
-    carBrandImgPath: ImageAssets.kia,
-    insuranceStatus: InsuranceStatus.notPaid,
-  ),
-];
-const expiredInsurances = <Insurance>[];
+const underProcessingInsurances = <InsuranceEntity>[];
+// const issuedInsurances = <InsuranceEntity>[
+//   InsuranceEntity(
+//     id: '1',
+//     insuranceTypeId: '1',
+//     carBrandId: '5',
+//     insuranceCompanyId: '1',
+//     referenceNumber: '112233',
+//     issuanceDate: '1-1-2023',
+//     insuredName: 'حسين الشريف',
+//     insuranceType: 'وثيقة تأمين سيارة إجباري',
+//     insuranceCompany: 'شركة تيبستي للتأمين',
+//     carBrand: 'هيونداي',
+//     carBrandImgPath: ImageAssets.hyundai,
+//     insuranceStatus: InsuranceTypeStatus.issued,
+//   ),
+// ];
+// const notPaidInsurances = <InsuranceEntity>[
+//   InsuranceEntity(
+//     id: '2',
+//     insuranceTypeId: '1',
+//     carBrandId: '2',
+//     insuranceCompanyId: '1',
+//     referenceNumber: '008096',
+//     issuanceDate: '1-11-2022',
+//     insuredName: 'مرام عبدالباسط القدري',
+//     insuranceType: 'وثيقة تأمين سيارة إجباري',
+//     insuranceCompany: 'شركة تيبستي للتأمين',
+//     carBrand: 'كيا',
+//     carBrandImgPath: ImageAssets.kia,
+//     insuranceStatus: InsuranceTypeStatus.notPaid,
+//   ),
+// ];
+const expiredInsurances = <InsuranceEntity>[];

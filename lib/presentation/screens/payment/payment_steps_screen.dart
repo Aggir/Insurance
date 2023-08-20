@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/app_routes.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
@@ -34,7 +35,8 @@ class _PaymentStepsScreenState extends State<PaymentStepsScreen> {
                   widget.child.goBranch(widget.child.currentIndex - 1);
                 }
               //todo: make it dynamic
-              : () => context.go(AppScreen.myInsurances.toPath, extra: 2),
+              : () => context.go(AppScreen.myInsurances.toPath,
+                  extra: const MyInsurancesPageParameters(pageIndex: 2)),
         ),
       ),
       body: widget.child,

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
+import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
@@ -219,8 +221,13 @@ class AppRoutes {
 
   static final home = StatefulShellRoute.indexedStack(
     builder: (context, state, child) {
-      return BlocProvider(
-        create: (context) => MyVehiclesCubit()..init(),
+      return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => MyVehiclesCubit()..init()),
+          BlocProvider(
+            create: (context) => MyInsurancesCubit()..init(),
+          )
+        ],
         child: Builder(builder: (context) {
           return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
             builder: (context, cubitState) {
@@ -406,7 +413,18 @@ class AppRoutes {
     redirect: _authenticatedRoute,
     path: AppScreen.myInsurances.toPath,
     name: AppScreen.myInsurances.toName,
-    builder: (context, state) => MyInsurancesPage(state.extra as int? ?? 0),
+    builder: (context, state) {
+      final MyInsurancesPageParameters? extraParams =
+          state.extra is MyInsurancesPageParameters
+              ? state.extra as MyInsurancesPageParameters
+              : null;
+
+      return MyInsurancesPage(
+        pageIndex: extraParams?.pageIndex,
+        isPaymentModelShown: extraParams?.isPaymentModalShown,
+        selectedInsuranceId: extraParams?.selectedInsuranceId,
+      );
+    },
   );
 
   static final _more = GoRoute(

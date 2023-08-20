@@ -6,8 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
-import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'package:insurance_app/presentation/theme/styles_manager.dart';
@@ -70,11 +70,12 @@ class _InstallmentDetailsStepPageState
                 if (isPayLater) {
                   context.go(AppScreen.myVehicles.toPath, extra: true);
                 } else {
-                  showModalBottomSheet(
-                    context: context,
-                    shape: AppValues.modalShape,
-                    builder: (context) => const PaymentMethodModal(),
-                  );
+                  // TODO: take the created id
+                  context.go(AppScreen.myInsurances.toPath,
+                      extra: MyInsurancesPageParameters(
+                          pageIndex: 2,
+                          isPaymentModalShown: true,
+                          selectedInsuranceId: 5));
                 }
               }
             },

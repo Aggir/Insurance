@@ -17,6 +17,7 @@ import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/companies_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
+import 'package:insurance_app/data/responses/insurances_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
 import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
@@ -145,11 +146,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
-      print(response);
-
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
-      print(userResponse);
       _appService.token = userResponse.token ?? Constants.empty;
       return (userResponse);
     } on DioException catch (error) {
@@ -569,6 +567,25 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.otpVerification(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError.tr());
+    }
+  }
+
+  @override
+  Future<InsurancesResponse> getMyInsurances({int? page}) async {
+    try {
+      var response = await _dio.get(
+        ApiConstants.insurances,
+        data: page != null ? {'page': page} : null,
+        options: _bearerToken(_appService.token),
+      );
+      return InsurancesResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return InsurancesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return InsurancesResponse(message: AppStrings.genericError);
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
@@ -17,7 +18,8 @@ class IssueCompletedDialog extends StatelessWidget {
   const IssueCompletedDialog({super.key});
 
   _myInsurancesFunction(BuildContext context) {
-    context.go(AppScreen.myInsurances.toPath, extra: 2);
+    context.go(AppScreen.myInsurances.toPath,
+        extra: const MyInsurancesPageParameters(pageIndex: 2));
     DialogService.dispose();
   }
 

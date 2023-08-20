@@ -49,7 +49,6 @@ class IssueFormStepPage extends StatelessWidget {
                 previous.calculateInsurancePriceStatus !=
                 current.calculateInsurancePriceStatus,
             listener: (context, state) {
-              print(state.calculateInsurancePriceStatus);
               if (state.calculateInsurancePriceStatus.isFailure) {
                 DialogService.dispose();
                 SnackBars.error(
@@ -156,6 +155,7 @@ class IssueFormStepPage extends StatelessWidget {
                   items: state.insuranceFormData == null
                       ? []
                       : state.insuranceFormData!.vehicles
+                          .where((vehicle) => vehicle.insurance == null)
                           .map(
                             (type) => DropdownMenuItem(
                               value: type.id.toString(),

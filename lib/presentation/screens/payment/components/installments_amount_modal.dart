@@ -81,11 +81,11 @@ class _InstallmentsAmountState extends State<InstallmentsAmountModal> {
           PrimaryButton.fullWidth(
             onPressed: () {
               context.pop();
-              showModalBottomSheet(
-                context: context,
-                shape: AppValues.modalShape,
-                builder: (context) => const PaymentMethodModal(),
-              );
+              // showModalBottomSheet(
+              //   context: context,
+              //   shape: AppValues.modalShape,
+              //   builder: (context) => const PaymentMethodModal(),
+              // );
             },
             child: Text(AppStrings.next.tr()),
           ),

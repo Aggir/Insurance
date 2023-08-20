@@ -1,5 +1,6 @@
 import 'package:insurance_app/data/models/vehicle_brand_model.dart';
 import 'package:insurance_app/data/models/vehicle_country_model.dart';
+import 'package:insurance_app/data/models/vehicle_insurance_model.dart';
 import 'package:insurance_app/data/models/vehicle_model_model.dart';
 import 'package:insurance_app/data/models/vehicle_ownership_type_model.dart';
 import 'package:insurance_app/data/models/vehicle_type_model.dart';
@@ -24,6 +25,7 @@ class VehicleModel {
   final String? alias;
   final CityModel? ownerCity;
   final bool? isHidden;
+  final VehicleInsuranceModel? insurance;
   final VehicleBrandModel? brand;
   final VehicleModelModel? model;
   final VehicleCountryModel? country;
@@ -48,6 +50,7 @@ class VehicleModel {
     this.ownerLastName,
     this.ownerPhoneNumber,
     this.ownerCity,
+    this.insurance,
     this.brand,
     this.model,
     this.isHidden,
@@ -76,6 +79,7 @@ class VehicleModel {
       'is_hidden': isHidden,
       'alias': alias,
       'owner_city': ownerCity?.toMap(),
+      'insurance': insurance?.toMap(),
       'brand': brand?.toMap(),
       'model': model?.toMap(),
       'country': country?.toMap(),
@@ -103,6 +107,9 @@ class VehicleModel {
       ownerPhoneNumber: map['owner_phone_number'],
       isHidden: map['is_hidden'],
       alias: map['alias'],
+      insurance: map['insurance'] != null
+          ? VehicleInsuranceModel.fromMap(map['insurance'])
+          : null,
       brand:
           map['brand'] != null ? VehicleBrandModel.fromMap(map['brand']) : null,
       model:

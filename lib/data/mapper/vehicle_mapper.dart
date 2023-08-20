@@ -2,6 +2,7 @@ import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/data/mapper/city_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_brand_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_country_mapper.dart';
+import 'package:insurance_app/data/mapper/vehicle_insurance_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_model_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_ownership_type_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_type_mapper.dart';
@@ -24,6 +25,10 @@ extension VehicleModelExtension on VehicleModel? {
           licensePlate: this?.licensePlate ?? Constants.empty,
           isHidden: this?.isHidden ?? false,
           alias: this?.alias ?? Constants.empty,
+          ownerFirstName: this?.ownerFirstName ?? Constants.empty,
+          ownerFatherName: this?.ownerFatherName ?? Constants.empty,
+          ownerLastName: this?.ownerLastName ?? Constants.empty,
+          insurance: this?.insurance?.toDomain(),
           brand: this?.brand?.toDomain() ??
               const VehicleBrandEntity(
                   id: Constants.zero,

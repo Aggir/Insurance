@@ -24,6 +24,7 @@ import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_branches_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
+import 'package:insurance_app/domain/usecases/get_my_insurances_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
@@ -219,6 +220,13 @@ void initIssueInsurance() async {
   if (!GetIt.I.isRegistered<IssueInsuranceUsecase>()) {
     instance.registerFactory<IssueInsuranceUsecase>(
         () => IssueInsuranceUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initGetMyInsurances() async {
+  if (!GetIt.I.isRegistered<GetMyInsurancesUsecase>()) {
+    instance.registerFactory<GetMyInsurancesUsecase>(
+        () => GetMyInsurancesUsecase(instance<InsuranceRepository>()));
   }
 }
 

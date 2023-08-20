@@ -14,7 +14,8 @@ import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 import '../../../../app/router/routes.dart';
 
 class PaymentMethodModal extends StatelessWidget {
-  const PaymentMethodModal({super.key});
+  const PaymentMethodModal(this.insuranceId, {super.key});
+  final int insuranceId;
 
   void _selectPaymentMethodFunction(BuildContext context, method) {
     context.go(AppScreen.payment.toPath, extra: method);

@@ -18,11 +18,13 @@ class PaymentTypeModal extends StatelessWidget {
 
   void _instantPaymentFunction(BuildContext context) {
     context.pop();
-    showModalBottomSheet(
-      context: context,
-      shape: AppValues.modalShape,
-      builder: (context) => const PaymentMethodModal(),
-    );
+
+    //TODO : PAY!
+    // showModalBottomSheet(
+    //   context: context,
+    //   shape: AppValues.modalShape,
+    //   builder: (context) =>  PaymentMethodModal(),
+    // );
   }
 
   void _payInInstallmentsFunction(BuildContext context) {

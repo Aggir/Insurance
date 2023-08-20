@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_segment/flutter_advanced_segment.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
+import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/insurance_list_item.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -16,13 +19,18 @@ import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart'
     show CustomSpacers;
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../../app/router/routes.dart';
 
 class MyInsurancesPage extends StatefulWidget {
-  const MyInsurancesPage(this.pageIndex, {super.key});
-  final int pageIndex;
+  const MyInsurancesPage(
+      {this.pageIndex,
+      this.isPaymentModelShown = false,
+      this.selectedInsuranceId,
+      super.key});
+  final int? pageIndex;
+  final bool? isPaymentModelShown;
+  final int? selectedInsuranceId;
   @override
   State<MyInsurancesPage> createState() => _MyInsurancesPageState();
 }
@@ -35,7 +43,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   void initState() {
     super.initState();
     _tabController = TabController(
-      initialIndex: widget.pageIndex,
+      initialIndex: widget.pageIndex ?? 0,
       length: 4,
       vsync: this,
     );
@@ -43,6 +51,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     _currentIndex.addListener(() {
       _tabController.animateTo(int.parse(_currentIndex.value));
     });
+    if (widget.isPaymentModelShown ?? false) {}
   }
 
   final Map<String, String> _tabsMap = {
@@ -96,64 +105,122 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                     const CustomDivider()
                   ],
                 ))),
-        body: TabBarView(
-            controller: _tabController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              _underProcessing(),
-              _issued(),
-              _notPaid(),
-              _expired(),
-            ]),
+        body: BlocBuilder<MyInsurancesCubit, MyInsurancesState>(
+          builder: (context, state) {
+            return TabBarView(
+                controller: _tabController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _underProcessing(state),
+                  _issued(state),
+                  _notPaid(state),
+                  _expired(state),
+                ]);
+          },
+        ),
       ),
     );
   }
 
-  Widget _underProcessing() {
-    if (DUMMY.underProcessingInsurances.isEmpty) {
+  Widget _underProcessing(MyInsurancesState state) {
+    if (state.fetchInsurancesStatus.isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primary,
+        ),
+      );
+    } else if (state.processingInsurances?.isEmpty ?? true) {
       return _emptyState(AppStrings.underProcessing.tr());
     } else {
-      return _customListViewBuilder(DUMMY.underProcessingInsurances);
+      return _customListViewBuilder(
+          state.processingInsurances!,
+          BlocProvider.of<MyInsurancesCubit>(context)
+              .processingScrollController,
+          state);
     }
   }
 
-  Widget _issued() {
-    if (DUMMY.issuedInsurances.isEmpty) {
+  Widget _issued(MyInsurancesState state) {
+    if (state.fetchInsurancesStatus.isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primary,
+        ),
+      );
+    } else if (state.activeInsurances?.isEmpty ?? true) {
       return _emptyState(AppStrings.issued.tr());
     } else {
-      return _customListViewBuilder(DUMMY.issuedInsurances);
+      return _customListViewBuilder(
+          state.activeInsurances!,
+          BlocProvider.of<MyInsurancesCubit>(context).activeScrollController,
+          state);
     }
   }
 
-  Widget _notPaid() {
-    if (DUMMY.notPaidInsurances.isEmpty) {
+  Widget _notPaid(MyInsurancesState state) {
+    if (state.fetchInsurancesStatus.isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primary,
+        ),
+      );
+    } else if (state.notPaidInsurances?.isEmpty ?? true) {
       return _emptyState(AppStrings.notPaid.tr());
     } else {
-      return _customListViewBuilder(DUMMY.notPaidInsurances);
+      return _customListViewBuilder(
+          state.notPaidInsurances!,
+          BlocProvider.of<MyInsurancesCubit>(context).notPaidScrollController,
+          state);
     }
   }
 
-  Widget _expired() {
-    if (DUMMY.expiredInsurances.isEmpty) {
+  Widget _expired(MyInsurancesState state) {
+    if (state.fetchInsurancesStatus.isLoading) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: AppColors.primary,
+        ),
+      );
+    } else if (state.expiredInsurances?.isEmpty ?? true) {
       return _emptyState(AppStrings.expired.tr());
     } else {
-      return _customListViewBuilder(DUMMY.expiredInsurances);
+      return _customListViewBuilder(
+          state.expiredInsurances!,
+          BlocProvider.of<MyInsurancesCubit>(context).expiredScrollController,
+          state);
     }
   }
 
-  Widget _customListViewBuilder(List<Insurance> data) {
-    if (DUMMY.notPaidInsurances.isEmpty) {
-      return _emptyState(AppStrings.notPaid.tr());
-    } else {
-      return ListView.separated(
-        padding: const EdgeInsets.symmetric(
-                vertical: AppValues.large, horizontal: AppValues.medium)
-            .r,
-        separatorBuilder: (context, index) => CustomSpacers.medium(),
-        itemCount: data.length,
-        itemBuilder: (context, index) => InsuranceListItem(data[index]),
-      );
-    }
+  Widget _customListViewBuilder(List<InsuranceEntity> data,
+      ScrollController controller, MyInsurancesState state) {
+    return Stack(
+      children: [
+        ListView.separated(
+          controller: controller,
+          padding: const EdgeInsets.symmetric(
+                  vertical: AppValues.large, horizontal: AppValues.medium)
+              .r,
+          separatorBuilder: (context, index) => CustomSpacers.medium(),
+          itemCount: data.length,
+          itemBuilder: (context, index) => InsuranceListItem(data[index]),
+        ),
+        if (state.fetchInsurancesStatus.isLoading)
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CircleAvatar(
+              backgroundColor: AppColors.lightest,
+              radius: AppSizes.s20.r,
+              child: Padding(
+                padding: const EdgeInsets.all(AppValues.small).r,
+                child: CircularProgressIndicator(
+                  color: AppColors.primary,
+                  strokeWidth: AppSizes.s4.r,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
   }
 
   Widget _emptyState(String text) {

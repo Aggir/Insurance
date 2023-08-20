@@ -95,6 +95,8 @@ class AppStrings {
   static const iWillCreateItLater = 'i_will_create_it_later';
   static const home = 'home';
   static const myVehicles = 'my_vehicles';
+  static const secured = 'secured';
+  static const notSecured = 'not_secured';
   static const myInsurances = 'my_insurances';
   static const more = 'more';
   static const welcome = 'welcome';

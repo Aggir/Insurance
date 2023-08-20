@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -87,7 +88,8 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
             ),
           ),
           backButton: () {
-            context.go(AppScreen.myInsurances.toPath, extra: 1);
+            context.go(AppScreen.myInsurances.toPath,
+                extra: const MyInsurancesPageParameters(pageIndex: 1));
           }),
       body: Padding(
         padding: const EdgeInsets.symmetric(

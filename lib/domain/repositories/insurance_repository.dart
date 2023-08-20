@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
+import 'package:insurance_app/domain/data_classes/insurances_page.dart';
 import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
 
 abstract class InsuranceRepository {
@@ -10,4 +11,6 @@ abstract class InsuranceRepository {
       CalculateInsurancePriceRequest request);
 
   Future<Either<Failure, String>> issueInsurance(IssueInsuranceRequest request);
+
+  Future<Either<Failure, InsurancesPage>> getMyInsurances({int? page});
 }

@@ -2,9 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/mapper/company_mapper.dart';
+import 'package:insurance_app/data/mapper/insurance_mapper.dart';
 import 'package:insurance_app/data/mapper/insurance_type_mapper.dart';
+import 'package:insurance_app/data/mapper/meta_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_mapper.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
+import 'package:insurance_app/domain/data_classes/insurances_page.dart';
 import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
 import 'package:insurance_app/domain/repositories/insurance_repository.dart';
 
@@ -91,6 +94,26 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
     } else {
       return Right(
         response.data,
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, InsurancesPage>> getMyInsurances({int? page}) async {
+    final response = await _remoteDataSource.getMyInsurances(page: page);
+    if (response.message != null) {
+      return Left(Failure(
+        response.code ?? Constants.zero,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return Right(
+        InsurancesPage(
+          insurances: response.insurances
+              ?.map((insurance) => insurance.toDomain())
+              .toList(),
+          meta: response.meta.toDomain(),
+        ),
       );
     }
   }
