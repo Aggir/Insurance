@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/domain/data_classes/insurance_document_parameters.dart';
 import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
+import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
-import '../../domain/entities/payment_method.dart';
 import '../../presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import '../../presentation/blocs/change_password/change_password_cubit.dart';
 import '../../presentation/blocs/forgot_password/forgot_password_cubit.dart';
@@ -103,7 +104,7 @@ class AppRoutes {
     path: '${AppScreen.insuranceDocument.toPath}:reference_number',
     name: AppScreen.insuranceDocument.toName,
     builder: (BuildContext context, GoRouterState state) {
-      return InsuranceDocument(state.pathParameters['reference_number'] ?? '0');
+      return InsuranceDocument(state.extra as InsuranceDocumentParameters);
     },
   );
 
@@ -450,7 +451,7 @@ class AppRoutes {
     path: AppScreen.payment.toPath,
     name: AppScreen.payment.toName,
     builder: (context, state) =>
-        PaymentSendOtpPage(state.extra as PaymentMethod?),
+        PaymentSendOtpPage(state.extra as PaymentStepParameters?),
   );
 
   static final _paymentVerifyOtpStep = GoRoute(

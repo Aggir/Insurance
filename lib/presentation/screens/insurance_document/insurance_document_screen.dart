@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/domain/data_classes/insurance_document_parameters.dart';
 import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -23,16 +24,14 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../app/router/routes.dart';
 
 class InsuranceDocument extends StatefulWidget {
-  const InsuranceDocument(this.referenceNumber, {super.key});
-  final String referenceNumber;
+  const InsuranceDocument(this.params, {super.key});
+  final InsuranceDocumentParameters params;
 
   @override
   State<InsuranceDocument> createState() => _InsuranceDocumentState();
 }
 
 class _InsuranceDocumentState extends State<InsuranceDocument> {
-  final String pdfUrlString =
-      'https://static.aviva.io/content/dam/aviva-public/gb/pdfs/personal/insurance/motor/car/insurance_motor_car_motor_policy_booklet_241017_NMDMG10249_v3.pdf';
   late final Uri pdfUrlUri;
 
   bool _isLoading = true;
@@ -42,12 +41,12 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
   @override
   void initState() {
     super.initState();
-    pdfUrlUri = Uri.parse(pdfUrlString);
+    pdfUrlUri = Uri.parse(widget.params.fileUrl);
     loadDocument();
   }
 
   loadDocument() async {
-    _document = await PDFDocument.fromURL(pdfUrlString);
+    _document = await PDFDocument.fromURL(widget.params.fileUrl);
     _firstPage = await _document.get(page: 1);
     if (!mounted) return;
     setState(() {
@@ -81,7 +80,7 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
               style: smallHeadlineStyle(),
               children: [
                 TextSpan(
-                  text: widget.referenceNumber,
+                  text: widget.params.referenceNumber.toString(),
                   style: smallGrayHeadlineStyle(),
                 )
               ],

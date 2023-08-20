@@ -77,43 +77,47 @@ class MyInsurancesCubit extends Cubit<MyInsurancesState> {
           (await instance<GetMyInsurancesUsecase>()
                   .execute(state.meta!.currentPage + 1))
               .fold((failure) {
-            emit(state.copyWith(
-                fetchMoreInsurancesStatus: Status.failure,
-                fetchMoreInsurancesErrorMessage: failure.message));
+            if (!isDisposed) {
+              emit(state.copyWith(
+                  fetchMoreInsurancesStatus: Status.failure,
+                  fetchMoreInsurancesErrorMessage: failure.message));
+            }
           }, (data) {
-            emit(state.copyWith(
-              fetchMoreInsurancesStatus: Status.success,
-              insurances: [...state.insurances!, ...data.insurances!],
-              processingInsurances: [
-                ...state.insurances!,
-                ...data.insurances!
-                    .where((insurance) =>
-                        insurance.insuranceTypeStatus.isUnderProcessing)
-                    .toList()
-              ],
-              activeInsurances: [
-                ...state.insurances!,
-                ...data.insurances!
-                    .where(
-                        (insurance) => insurance.insuranceTypeStatus.isIssued)
-                    .toList()
-              ],
-              notPaidInsurances: [
-                ...state.insurances!,
-                ...data.insurances!
-                    .where(
-                        (insurance) => insurance.insuranceTypeStatus.isNotPaid)
-                    .toList()
-              ],
-              expiredInsurances: [
-                ...state.insurances!,
-                ...data.insurances!
-                    .where(
-                        (insurance) => insurance.insuranceTypeStatus.isExpired)
-                    .toList()
-              ],
-              meta: data.meta,
-            ));
+            if (!isDisposed) {
+              emit(state.copyWith(
+                fetchMoreInsurancesStatus: Status.success,
+                insurances: [...state.insurances!, ...data.insurances!],
+                processingInsurances: [
+                  ...state.insurances!,
+                  ...data.insurances!
+                      .where((insurance) =>
+                          insurance.insuranceTypeStatus.isUnderProcessing)
+                      .toList()
+                ],
+                activeInsurances: [
+                  ...state.insurances!,
+                  ...data.insurances!
+                      .where(
+                          (insurance) => insurance.insuranceTypeStatus.isIssued)
+                      .toList()
+                ],
+                notPaidInsurances: [
+                  ...state.insurances!,
+                  ...data.insurances!
+                      .where((insurance) =>
+                          insurance.insuranceTypeStatus.isNotPaid)
+                      .toList()
+                ],
+                expiredInsurances: [
+                  ...state.insurances!,
+                  ...data.insurances!
+                      .where((insurance) =>
+                          insurance.insuranceTypeStatus.isExpired)
+                      .toList()
+                ],
+                meta: data.meta,
+              ));
+            }
           });
         }
       }

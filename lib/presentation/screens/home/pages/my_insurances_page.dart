@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_advanced_segment/flutter_advanced_segment.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,7 @@ import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/insurance_list_item.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -51,7 +53,16 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
     _currentIndex.addListener(() {
       _tabController.animateTo(int.parse(_currentIndex.value));
     });
-    if (widget.isPaymentModelShown ?? false) {}
+    if (widget.isPaymentModelShown ?? false) {
+      SchedulerBinding.instance
+          .addPostFrameCallback((_) => showModalBottomSheet(
+                context: context,
+                shape: AppValues.modalShape,
+                isScrollControlled: true,
+                builder: (context) =>
+                    PaymentMethodModal(widget.selectedInsuranceId!),
+              ));
+    }
   }
 
   final Map<String, String> _tabsMap = {

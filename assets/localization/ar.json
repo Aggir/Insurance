@@ -163,6 +163,8 @@
     "choose_the_payment_method_that_suits_you": "اختر طريقة الدفع المناسبة لك",
     "payment_by": "الدفع عن طريق ",
     "enter_phone_number": "ادخل رقم الهاتف",
+    "enter_id_number": "أدخل رقم التعريف",
+    "id_number": "رقم التعريف",
     "you_have_chosen_this_payment_method": "لقد قمت باختيار وسيلة الدفع عن طريق ",
     "payment_completed_successfully": "تمت عملية الدفع بنجاح",
     "payment_dialog_message": "تمت العملية بنجاح يمكنك مراحعة تاميناتي لايجاد الوثيقة",

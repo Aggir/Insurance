@@ -73,4 +73,6 @@ abstract class RemoteDataSource {
   Future<BasicResponse> resetPassword(ResetPasswordRequest request);
 
   Future<InsurancesResponse> getMyInsurances({int? page});
+
+  Future<BasicResponse> pay(int insuranceId);
 }

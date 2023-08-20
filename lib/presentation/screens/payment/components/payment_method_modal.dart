@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -18,7 +19,9 @@ class PaymentMethodModal extends StatelessWidget {
   final int insuranceId;
 
   void _selectPaymentMethodFunction(BuildContext context, method) {
-    context.go(AppScreen.payment.toPath, extra: method);
+    context.go(AppScreen.payment.toPath,
+        extra: PaymentStepParameters(
+            paymentMethod: method, insuranceId: insuranceId));
   }
 
   @override

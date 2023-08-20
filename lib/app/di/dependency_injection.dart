@@ -29,6 +29,7 @@ import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
+import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
 import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
@@ -227,6 +228,13 @@ void initGetMyInsurances() async {
   if (!GetIt.I.isRegistered<GetMyInsurancesUsecase>()) {
     instance.registerFactory<GetMyInsurancesUsecase>(
         () => GetMyInsurancesUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initPay() async {
+  if (!GetIt.I.isRegistered<PayUsecase>()) {
+    instance.registerFactory<PayUsecase>(
+        () => PayUsecase(instance<InsuranceRepository>()));
   }
 }
 

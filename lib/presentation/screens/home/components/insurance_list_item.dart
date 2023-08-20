@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
+import 'package:insurance_app/domain/data_classes/insurance_document_parameters.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
 
@@ -220,8 +221,15 @@ class InsuranceListItem extends StatelessWidget {
     } else if (insurance.insuranceTypeStatus.isIssued) {
       onPressed = () {
         context.go(
-            "${AppScreen.insuranceDocument.toPath}${insurance.referenceNumber}");
+            "${AppScreen.insuranceDocument.toPath}${insurance.referenceNumber}",
+            extra: InsuranceDocumentParameters(
+                insurance.referenceNumber, insurance.file));
       };
+    }
+    if (insurance.insuranceTypeStatus.isUnderProcessing) {
+      return SizedBox(
+        height: AppSizes.s50.r,
+      );
     }
     return PrimaryButton(
       onPressed: onPressed,

@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/entities/payment_method.dart';
+import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
-import 'package:insurance_app/presentation/widgets/custom_phone_form_field.dart';
+import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/router/routes.dart';
@@ -19,8 +19,8 @@ import '../../../widgets/page_content_padding.dart';
 import '../../../widgets/primary_button.dart';
 
 class PaymentSendOtpPage extends StatefulWidget {
-  const PaymentSendOtpPage(this.paymentMethod, {super.key});
-  final PaymentMethod? paymentMethod;
+  const PaymentSendOtpPage(this.paymentParams, {super.key});
+  final PaymentStepParameters? paymentParams;
   @override
   State<PaymentSendOtpPage> createState() => _PaymentSendOtpPageState();
 }
@@ -49,9 +49,9 @@ class _PaymentSendOtpPageState extends State<PaymentSendOtpPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.paymentMethod != null) {
+    if (widget.paymentParams != null) {
       BlocProvider.of<PaymentCubit>(context)
-          .setSelectedPaymentMethod(widget.paymentMethod!);
+          .setPaymentStepParams(widget.paymentParams!);
     }
   }
 
@@ -109,7 +109,7 @@ class _PaymentSendOtpPageState extends State<PaymentSendOtpPage> {
 
   Widget _headlineTextWidget() {
     return Text(
-      AppStrings.enterPhoneNumber,
+      AppStrings.enterIdNumber,
       style: largeHeadlineStyle(),
     ).tr();
   }
@@ -131,10 +131,11 @@ class _PaymentSendOtpPageState extends State<PaymentSendOtpPage> {
     return Form(
       key: cubit.sendOtpForm,
       onChanged: _checkIsFormEmpty,
-      child: CustomPhoneFormField(
-        hintText: AppStrings.phoneNumberExample.tr(),
+      child: CustomTextFormField(
+        keyboardType: TextInputType.number,
+        hintText: AppStrings.idNumber.tr(),
         controller: cubit.phoneNumberController,
-        label: AppStrings.phoneNumber.tr(),
+        label: AppStrings.idNumber.tr(),
       ),
     );
   }

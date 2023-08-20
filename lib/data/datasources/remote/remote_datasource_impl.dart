@@ -588,4 +588,22 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       return InsurancesResponse(message: AppStrings.genericError);
     }
   }
+
+  @override
+  Future<BasicResponse> pay(int insuranceId) async {
+    try {
+      var response = await _dio.put(
+        '${ApiConstants.toggleInsurance}/$insuranceId',
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
 }

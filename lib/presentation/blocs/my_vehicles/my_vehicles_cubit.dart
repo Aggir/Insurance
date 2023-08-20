@@ -47,15 +47,19 @@ class MyVehiclesCubit extends Cubit<MyVehiclesState> {
             (await instance<GetMyVehiclesUsecase>()
                     .execute(state.meta!.currentPage + 1))
                 .fold((failure) {
-              emit(state.copyWith(
-                  fetchMoreVehiclesStatus: Status.failure,
-                  fetchMoreVehiclesErrorMessage: failure.message));
+              if (!isDisposed) {
+                emit(state.copyWith(
+                    fetchMoreVehiclesStatus: Status.failure,
+                    fetchMoreVehiclesErrorMessage: failure.message));
+              }
             }, (data) {
-              emit(state.copyWith(
-                fetchMoreVehiclesStatus: Status.success,
-                myVehicles: [...state.myVehicles!, ...data.vehicles!],
-                meta: data.meta,
-              ));
+              if (!isDisposed) {
+                emit(state.copyWith(
+                  fetchMoreVehiclesStatus: Status.success,
+                  myVehicles: [...state.myVehicles!, ...data.vehicles!],
+                  meta: data.meta,
+                ));
+              }
             });
           }
         }

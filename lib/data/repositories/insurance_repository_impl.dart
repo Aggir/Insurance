@@ -117,4 +117,15 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, void>> pay(int insuranceId) async {
+    final response = await _remoteDataSource.pay(insuranceId);
+    if (response.message != null) {
+      return Left(Failure(response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr()));
+    } else {
+      return const Right(null);
+    }
+  }
 }

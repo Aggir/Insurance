@@ -3,16 +3,22 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
+import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 
 part 'payment_state.dart';
 
 class PaymentCubit extends Cubit<PaymentState> {
   PaymentCubit() : super(const PaymentState());
 
-  setSelectedPaymentMethod(PaymentMethod paymentMethod) {
-    emit(state.copyWith(paymentMethod: paymentMethod));
+  setPaymentStepParams(PaymentStepParameters paymentParams) {
+    emit(state.copyWith(
+      paymentMethod: paymentParams.paymentMethod,
+      insuranceId: paymentParams.insuranceId,
+    ));
   }
 
   final GlobalKey<FormState> sendOtpForm = GlobalKey<FormState>();
@@ -69,7 +75,6 @@ class PaymentCubit extends Cubit<PaymentState> {
       // Todo: verify Otp
       await Future.delayed(const Duration(seconds: 1));
       if (otpController.text == '1234') {
-        resendOtpTimer?.cancel();
         emit(state.copyWith(verifyOtpStatus: Status.success));
       } else {
         emit(state.copyWith(
@@ -77,6 +82,20 @@ class PaymentCubit extends Cubit<PaymentState> {
             verifyOtpError: "رقم التحقق غير صحيح"));
       }
     }
+  }
+
+  Future<void> pay() async {
+    //TODO: DELETE THIS FUNCTION!!
+    emit(state.copyWith(paymentStatus: Status.loading));
+    initPay();
+    (await instance<PayUsecase>().execute(state.insuranceId!)).fold(
+      (failure) => emit(state.copyWith(
+          paymentStatus: Status.failure, paymentErrorMessage: failure.message)),
+      (_) {
+        resendOtpTimer?.cancel();
+        emit(state.copyWith(paymentStatus: Status.success));
+      },
+    );
   }
 
   backFromVerifyOtpStep() {

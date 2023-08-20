@@ -13,4 +13,6 @@ abstract class InsuranceRepository {
   Future<Either<Failure, String>> issueInsurance(IssueInsuranceRequest request);
 
   Future<Either<Failure, InsurancesPage>> getMyInsurances({int? page});
+
+  Future<Either<Failure, void>> pay(int insuranceId);
 }
