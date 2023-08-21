@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/router/app_routes.dart';
-import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
+import 'package:insurance_app/presentation/blocs/add_reminder/add_reminder_cubit.dart';
 
 import '../../../app/router/routes.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -22,7 +22,7 @@ class ReminderStepsScreen extends StatefulWidget {
 class _ReminderStepsScreenState extends State<ReminderStepsScreen> {
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<ReminderCubit>(context);
+    final cubit = BlocProvider.of<AddReminderCubit>(context);
     return Scaffold(
       appBar: CustomAppBar.steps(
         currentIndex: widget.child.currentIndex,

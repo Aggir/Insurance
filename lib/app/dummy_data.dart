@@ -2,43 +2,13 @@ import 'package:insurance_app/app/assets_manager.dart';
 // import 'package:insurance_app/app/enums/insurance_types_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
+import 'package:insurance_app/domain/entities/remind_me_in.dart';
 
-String fistName = "مرام";
-String middleName = "محمد";
-String lastName = "العمامي";
-const id = "01015323";
-String email = "user@email.com";
-String phone = "0920000000";
-String birthDate = "18-1-1998";
-bool isLibyan = true;
-
-const List<Map<String, String>> cities = [
-  {'id': '1', 'value': 'طرابلس'},
-  {'id': '2', 'value': 'بنغازي'},
-  {'id': '3', 'value': 'مصراتة'},
-  {'id': '4', 'value': 'الزاوية'},
-  {'id': '5', 'value': 'زوارة'},
-  {'id': '6', 'value': 'سبها'},
-  {'id': '7', 'value': 'صبراتة'},
-];
-
-const List<Map<String, String>> insuranceCompanies = [
-  {'id': '1', 'value': 'شركة البركة للتأمين'},
-  {'id': '2', 'value': 'شركة تيبستي للتأمين'},
-  {'id': '3', 'value': 'الشركة العالمية للتأمين'},
-];
-
-const List<Map<String, String>> alarmTypes = [
-  {'id': '1', 'value': 'الفحص الفني'},
-  {'id': '2', 'value': 'التأمين الاجباري'},
-];
-
-const List<Map<String, String>> remindMeOptions = [
-  {'id': '1', 'value': 'قبل يوم'},
-  {'id': '2', 'value': 'قبل 3 ايام'},
-  {'id': '3', 'value': 'قبل اسبوع'},
-  {'id': '4', 'value': 'قبل اسبوعين'},
-  {'id': '5', 'value': 'قبل شهر'},
+const List<RemindMeInEntity> remindMeOptions = [
+  RemindMeInEntity(id: 1, days: 1, name: 'قبل يوم'),
+  RemindMeInEntity(id: 2, days: 3, name: 'قبل 3 أيام'),
+  RemindMeInEntity(id: 3, days: 7, name: 'قبل اسبوع'),
+  RemindMeInEntity(id: 4, days: 14, name: 'قبل اسبوعين'),
 ];
 
 const List<Map<String, String>> typesOfCarInsurance = [

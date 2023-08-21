@@ -7,13 +7,15 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
-import 'package:insurance_app/presentation/blocs/reminder/reminder_cubit.dart';
+import 'package:insurance_app/presentation/blocs/add_reminder/add_reminder_cubit.dart';
 import 'package:insurance_app/presentation/screens/reminder/components/reminder_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/identity_verification_image.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/router/routes.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -24,15 +26,16 @@ class ReminderInsuranceInfoStepPage extends StatelessWidget {
   const ReminderInsuranceInfoStepPage({super.key});
 
   void _uploadFunction(BuildContext context) {
-    BlocProvider.of<ReminderCubit>(context).uploadInsurancePicture();
+    BlocProvider.of<AddReminderCubit>(context).uploadInsurancePicture();
   }
 
   void _removeFunction(BuildContext context) {
-    BlocProvider.of<ReminderCubit>(context).removeInsurancePicture();
+    BlocProvider.of<AddReminderCubit>(context).removeInsurancePicture();
   }
 
   void _activateButtonFunction(BuildContext context) {
-    context.go(AppScreen.home.toPath, extra: const ReminderDialog());
+    DialogService.loadLoadingDialog(context);
+    BlocProvider.of<AddReminderCubit>(context).addReminder();
   }
 
   @override
@@ -61,7 +64,20 @@ class ReminderInsuranceInfoStepPage extends StatelessWidget {
               height: AppSizes.s250.r,
               child: SingleChildScrollView(
                 child: Column(children: [
-                  BlocBuilder<ReminderCubit, ReminderState>(
+                  BlocConsumer<AddReminderCubit, AddReminderState>(
+                    listenWhen: (previous, current) =>
+                        previous.addReminderStatus != current.addReminderStatus,
+                    listener: (context, state) {
+                      if (state.addReminderStatus.isFailure) {
+                        DialogService.dispose();
+                        SnackBars.error(
+                            context, state.addReminderErrorMessage!);
+                      } else if (state.addReminderStatus.isSuccess) {
+                        DialogService.dispose();
+                        context.go(AppScreen.home.toPath,
+                            extra: const ReminderDialog());
+                      }
+                    },
                     builder: (context, state) {
                       return SelectDocument(
                         selectFileStatus: state.insurancePictureStatus,
@@ -70,6 +86,7 @@ class ReminderInsuranceInfoStepPage extends StatelessWidget {
                             AppStrings.insurancePicture.tr(),
                         selectedDocumentSvgPath: SvgAssets.shield,
                         selectedDocumentSvgColor: AppColors.secondary,
+                        filename: state.insurancePictureName,
                         uploadFunction: () => _uploadFunction(context),
                         removeFunction: () => _removeFunction(context),
                       );
@@ -80,7 +97,7 @@ class ReminderInsuranceInfoStepPage extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            BlocBuilder<ReminderCubit, ReminderState>(
+            BlocBuilder<AddReminderCubit, AddReminderState>(
               builder: (context, state) {
                 return PrimaryButton.fullWidth(
                   onPressed: state.insurancePictureStatus.isSuccess

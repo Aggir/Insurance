@@ -2,14 +2,17 @@ import 'package:get_it/get_it.dart';
 import 'package:insurance_app/data/datasources/remote/api_constants.dart';
 import 'package:insurance_app/data/datasources/remote/remote_datasource_impl.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
+import 'package:insurance_app/data/repositories/alarm_repository_impl.dart';
 import 'package:insurance_app/data/repositories/insurance_repository_impl.dart';
 import 'package:insurance_app/data/repositories/repository_impl.dart';
 import 'package:insurance_app/data/repositories/user_repository_impl.dart';
 import 'package:insurance_app/data/repositories/vehicle_repository_impl.dart';
+import 'package:insurance_app/domain/repositories/alarm_repository.dart';
 import 'package:insurance_app/domain/repositories/insurance_repository.dart';
 import 'package:insurance_app/domain/repositories/repository.dart';
 import 'package:insurance_app/domain/repositories/user_repository.dart';
 import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
+import 'package:insurance_app/domain/usecases/add_alarm_usecase.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
 import 'package:insurance_app/domain/usecases/change_password_usecase.dart';
@@ -19,6 +22,7 @@ import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/forgot_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_add_vehicle_form_data_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_alarm_types_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
@@ -83,6 +87,10 @@ Future<void> initAppModule() async {
 
   instance.registerLazySingleton<InsuranceRepository>(
     () => InsuranceRepositoryImpl(instance<RemoteDataSource>()),
+  );
+
+  instance.registerLazySingleton<AlarmRepository>(
+    () => AlarmRepositoryImpl(instance<RemoteDataSource>()),
   );
 
   // User Cubit
@@ -263,5 +271,19 @@ void initResetPassword() async {
   if (!GetIt.I.isRegistered<ResetPasswordUsecase>()) {
     instance.registerFactory<ResetPasswordUsecase>(
         () => ResetPasswordUsecase(instance<UserRepository>()));
+  }
+}
+
+void initGetAlarmTypes() async {
+  if (!GetIt.I.isRegistered<GetAlarmTypesUsecase>()) {
+    instance.registerFactory<GetAlarmTypesUsecase>(
+        () => GetAlarmTypesUsecase(instance<AlarmRepository>()));
+  }
+}
+
+void initAddAlarm() async {
+  if (!GetIt.I.isRegistered<AddAlarmUsecase>()) {
+    instance.registerFactory<AddAlarmUsecase>(
+        () => AddAlarmUsecase(instance<AlarmRepository>()));
   }
 }

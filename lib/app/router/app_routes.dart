@@ -20,7 +20,7 @@ import '../../presentation/blocs/login/login_cubit.dart';
 import '../../presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 import '../../presentation/blocs/payment/payment_cubit.dart';
 import '../../presentation/blocs/profile/profile_cubit.dart';
-import '../../presentation/blocs/reminder/reminder_cubit.dart';
+import '../../presentation/blocs/add_reminder/add_reminder_cubit.dart';
 import '../../presentation/blocs/sign_up/sign_up_cubit.dart';
 
 class AppRoutes {
@@ -213,7 +213,7 @@ class AppRoutes {
   static final reminder = StatefulShellRoute.indexedStack(
     builder: (context, state, child) {
       return BlocProvider(
-        create: (context) => ReminderCubit(),
+        create: (context) => AddReminderCubit(),
         child: ReminderStepsScreen(child, state.uri.toString()),
       );
     },

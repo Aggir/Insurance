@@ -8,9 +8,11 @@ import 'package:insurance_app/app/helpers/app_service.dart';
 import 'package:insurance_app/data/datasources/remote/api_constants.dart';
 import 'package:insurance_app/data/datasources/remote/api_error_handler.dart';
 import 'package:insurance_app/data/datasources/remote_datasource.dart';
+import 'package:insurance_app/data/requests/alarm_requests.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
+import 'package:insurance_app/data/responses/alarm_types_response.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
@@ -27,6 +29,7 @@ import 'package:insurance_app/data/responses/vehicle_types_reponse.dart';
 import 'package:insurance_app/data/responses/vehicles_response.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
+//TODO: REFACTOR IT.
 class RemoteDataSourceImpl implements RemoteDataSource {
   final Dio _dio;
   final AppService _appService;
@@ -594,6 +597,45 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.put(
         '${ApiConstants.toggleInsurance}/$insuranceId',
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<AlarmTypesResponse> getAlarmTypes() async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.alarmTypes,
+        options: _bearerToken(_appService.token),
+      );
+      return AlarmTypesResponse.fromMap({'alarmTypes': response.data});
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return AlarmTypesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return AlarmTypesResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> addAlarm(AddAlarmRequest request) async {
+    try {
+      final body = await request.toMap();
+
+      Response response = await _dio.post(
+        ApiConstants.alarms,
+        data: FormData.fromMap(body),
         options: _bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);

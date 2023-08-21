@@ -29,4 +29,7 @@ class ApiConstants {
   static const String insurances = '/insurances';
   static const String calculateInsurancePrice = '/insurances/calculatePrice';
   static const String toggleInsurance = '/insurances/toggleInsurance';
+  // Alarms
+  static const String alarmTypes = '/alarm_types';
+  static const String alarms = '/alarms';
 }
