@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:insurance_app/app/constants.dart';
 
 class VehicleBrandEntity extends Equatable {
   final int id;
@@ -9,6 +10,9 @@ class VehicleBrandEntity extends Equatable {
     required this.name,
     required this.icon,
   });
+
+  factory VehicleBrandEntity.empty() => const VehicleBrandEntity(
+      id: Constants.zero, name: Constants.empty, icon: Constants.empty);
 
   @override
   List<Object> get props => [id, name, icon];

@@ -108,7 +108,7 @@ class InsuranceListItem extends StatelessWidget {
                                     border:
                                         Border.all(color: AppColors.grayLight)),
                                 child: CachedNetworkImage(
-                                  imageUrl: insurance.vehicle.photo,
+                                  imageUrl: insurance.vehicle.brand.icon,
                                   width: AppSizes.s24.r,
                                   height: AppSizes.s24.r,
                                 ),

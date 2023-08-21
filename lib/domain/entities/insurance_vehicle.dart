@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:insurance_app/app/constants.dart';
+import 'package:insurance_app/domain/entities/vehicle_brand.dart';
 
 class InsuranceVehicleEntity extends Equatable {
   final int id;
@@ -9,6 +10,7 @@ class InsuranceVehicleEntity extends Equatable {
   final String ownerFatherName;
   final String ownerLastName;
   final String photo;
+  final VehicleBrandEntity brand;
   const InsuranceVehicleEntity({
     required this.id,
     required this.isHidden,
@@ -17,9 +19,10 @@ class InsuranceVehicleEntity extends Equatable {
     required this.ownerFatherName,
     required this.ownerLastName,
     required this.photo,
+    required this.brand,
   });
 
-  factory InsuranceVehicleEntity.empty() => const InsuranceVehicleEntity(
+  factory InsuranceVehicleEntity.empty() => InsuranceVehicleEntity(
         id: Constants.zero,
         isHidden: false,
         alias: Constants.empty,
@@ -27,6 +30,7 @@ class InsuranceVehicleEntity extends Equatable {
         ownerFatherName: Constants.empty,
         ownerLastName: Constants.empty,
         photo: Constants.empty,
+        brand: VehicleBrandEntity.empty(),
       );
 
   @override

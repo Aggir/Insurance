@@ -1,4 +1,5 @@
 import 'package:insurance_app/data/models/city_model.dart';
+import 'package:insurance_app/data/models/vehicle_brand_model.dart';
 
 class InsuranceVehicleModel {
   final int? id;
@@ -28,36 +29,37 @@ class InsuranceVehicleModel {
   final int? vehicleTypeId;
   final int? insuranceId;
   final CityModel? city;
+  final VehicleBrandModel? brand;
 
-  InsuranceVehicleModel({
-    this.id,
-    this.createdAt,
-    this.updatedAt,
-    this.makingYear,
-    this.horsePower,
-    this.engineNumber,
-    this.alias,
-    this.maxPassengers,
-    this.photo,
-    this.licensePlate,
-    this.ownerFirstName,
-    this.ownerFatherName,
-    this.ownerLastName,
-    this.ownerPhoneNumber,
-    this.ownerCityId,
-    this.isHidden,
-    this.userId,
-    this.colorId,
-    this.cityId,
-    this.vehicleBrandId,
-    this.vehicleModelId,
-    this.vehicleOwnershipTypeId,
-    this.vehicleCountryId,
-    this.vehicleUsageId,
-    this.vehicleTypeId,
-    this.insuranceId,
-    this.city,
-  });
+  InsuranceVehicleModel(
+      {this.id,
+      this.createdAt,
+      this.updatedAt,
+      this.makingYear,
+      this.horsePower,
+      this.engineNumber,
+      this.alias,
+      this.maxPassengers,
+      this.photo,
+      this.licensePlate,
+      this.ownerFirstName,
+      this.ownerFatherName,
+      this.ownerLastName,
+      this.ownerPhoneNumber,
+      this.ownerCityId,
+      this.isHidden,
+      this.userId,
+      this.colorId,
+      this.cityId,
+      this.vehicleBrandId,
+      this.vehicleModelId,
+      this.vehicleOwnershipTypeId,
+      this.vehicleCountryId,
+      this.vehicleUsageId,
+      this.vehicleTypeId,
+      this.insuranceId,
+      this.city,
+      this.brand});
 
   factory InsuranceVehicleModel.fromMap(Map<String, dynamic> map) {
     return InsuranceVehicleModel(
@@ -88,6 +90,8 @@ class InsuranceVehicleModel {
       vehicleTypeId: map['vehicle_type_id'],
       insuranceId: map['insurance_id'],
       city: map['city'] != null ? CityModel.fromMap(map['city']) : null,
+      brand:
+          map['brand'] != null ? VehicleBrandModel.fromMap(map['brand']) : null,
     );
   }
 }
