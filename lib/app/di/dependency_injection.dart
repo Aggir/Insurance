@@ -27,6 +27,7 @@ import 'package:insurance_app/domain/usecases/get_cities_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_colors_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_branches_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_company_prices_form_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
 import 'package:insurance_app/domain/usecases/get_my_insurances_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
@@ -285,5 +286,12 @@ void initAddAlarm() async {
   if (!GetIt.I.isRegistered<AddAlarmUsecase>()) {
     instance.registerFactory<AddAlarmUsecase>(
         () => AddAlarmUsecase(instance<AlarmRepository>()));
+  }
+}
+
+void initGetCompanyPricesFormData() async {
+  if (!GetIt.I.isRegistered<GetCompanyPricesFormUsecase>()) {
+    instance.registerFactory<GetCompanyPricesFormUsecase>(
+        () => GetCompanyPricesFormUsecase(instance<Repository>()));
   }
 }

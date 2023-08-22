@@ -9,6 +9,16 @@ class CompaniesState extends Equatable {
   final List<CompanyEntity>? filteredCompanies;
   final CompanyEntity? selectedCompany;
   final MetaEntity? meta;
+  final Status fetchPricesFormDataStatus;
+  final String? fetchPricesFormDataErrorMessage;
+  final CompanyPricesFormData? companyPricesFormData;
+  final Status calculatePriceStatus;
+  final String? calculatePriceErrorMessage;
+  final String? price;
+  final int? insuranceTypeId;
+  final int? vehicleBrandId;
+  final int? horsePower;
+  final int? seatsCount;
 
   const CompaniesState({
     this.fetchCompaniesStatus = Status.initial,
@@ -19,6 +29,16 @@ class CompaniesState extends Equatable {
     this.filteredCompanies,
     this.selectedCompany,
     this.meta,
+    this.fetchPricesFormDataStatus = Status.initial,
+    this.fetchPricesFormDataErrorMessage,
+    this.companyPricesFormData,
+    this.calculatePriceStatus = Status.initial,
+    this.calculatePriceErrorMessage,
+    this.price,
+    this.insuranceTypeId,
+    this.vehicleBrandId,
+    this.horsePower,
+    this.seatsCount,
   });
 
   @override
@@ -31,6 +51,14 @@ class CompaniesState extends Equatable {
         filteredCompanies,
         selectedCompany,
         meta,
+        fetchPricesFormDataStatus,
+        fetchPricesFormDataErrorMessage,
+        companyPricesFormData,
+        calculatePriceStatus,
+        calculatePriceErrorMessage,
+        price,
+        insuranceTypeId,
+        vehicleBrandId,
       ];
 
   CompaniesState copyWith({
@@ -42,6 +70,16 @@ class CompaniesState extends Equatable {
     List<CompanyEntity>? filteredCompanies,
     CompanyEntity? selectedCompany,
     MetaEntity? meta,
+    Status? fetchPricesFormDataStatus,
+    String? fetchPricesFormDataErrorMessage,
+    CompanyPricesFormData? companyPricesFormData,
+    Status? calculatePriceStatus,
+    String? calculatePriceErrorMessage,
+    String? price,
+    int? insuranceTypeId,
+    int? vehicleBrandId,
+    int? horsePower,
+    int? seatsCount,
   }) {
     return CompaniesState(
       fetchCompaniesStatus: fetchCompaniesStatus ?? this.fetchCompaniesStatus,
@@ -55,6 +93,18 @@ class CompaniesState extends Equatable {
       filteredCompanies: filteredCompanies ?? this.filteredCompanies,
       selectedCompany: selectedCompany ?? this.selectedCompany,
       meta: meta ?? this.meta,
+      fetchPricesFormDataStatus:
+          fetchPricesFormDataStatus ?? this.fetchPricesFormDataStatus,
+      fetchPricesFormDataErrorMessage: fetchPricesFormDataErrorMessage ??
+          this.fetchPricesFormDataErrorMessage,
+      companyPricesFormData:
+          companyPricesFormData ?? this.companyPricesFormData,
+      calculatePriceStatus: calculatePriceStatus ?? this.calculatePriceStatus,
+      calculatePriceErrorMessage:
+          calculatePriceErrorMessage ?? this.calculatePriceErrorMessage,
+      price: price ?? this.price,
+      insuranceTypeId: insuranceTypeId ?? this.insuranceTypeId,
+      vehicleBrandId: vehicleBrandId ?? this.vehicleBrandId,
     );
   }
 

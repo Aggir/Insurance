@@ -3,9 +3,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/data_classes/company_prices_form_data.dart';
 import 'package:insurance_app/domain/entities/company.dart';
 import 'package:insurance_app/domain/entities/meta.dart';
+import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_company_prices_form_usecase.dart';
 
 part 'companies_state.dart';
 
@@ -25,6 +28,64 @@ class CompaniesCubit extends Cubit<CompaniesState> {
     searchController.clear();
     searchFocusNode.unfocus();
     emit(state.copyWith(filteredCompanies: state.companies));
+  }
+
+  fetchPricesFormData() async {
+    emit(state.copyWith(
+        calculatePriceStatus: Status.initial,
+        fetchPricesFormDataStatus: Status.loading));
+    initGetCompanyPricesFormData();
+    (await instance<GetCompanyPricesFormUsecase>().execute(null)).fold(
+        (failure) => emit(state.copyWith(
+            fetchPricesFormDataStatus: Status.failure,
+            fetchPricesFormDataErrorMessage: failure.message)),
+        (data) => emit(state.copyWith(
+            fetchPricesFormDataStatus: Status.success,
+            companyPricesFormData: data)));
+  }
+
+  calculatePrice() async {
+    emit(state.copyWith(calculatePriceStatus: Status.loading));
+    initCalculateInsurancePrice();
+    (await instance<CalculateInsurancePriceUsecase>().execute(
+            CalculateInsurancePriceUsecaseInput(
+                companyId: state.selectedCompany!.id,
+                insuranceTypeId: state.insuranceTypeId!,
+                vehicleId: state.insuranceTypeId!)))
+        .fold(
+            (failure) => emit(state.copyWith(
+                calculatePriceStatus: Status.failure,
+                calculatePriceErrorMessage: failure.message)),
+            (data) => emit(state.copyWith(
+                calculatePriceStatus: Status.success, price: data)));
+  }
+
+  selectVehicleBrand(int vehicleBrandId) {
+    emit(state.copyWith(
+      vehicleBrandId: vehicleBrandId,
+      calculatePriceStatus: Status.initial,
+    ));
+  }
+
+  selectInsuranceType(int insuranceTypeId) {
+    emit(state.copyWith(
+      insuranceTypeId: insuranceTypeId,
+      calculatePriceStatus: Status.initial,
+    ));
+  }
+
+  selectSeatsCount(int seatsCount) {
+    emit(state.copyWith(
+      seatsCount: seatsCount,
+      calculatePriceStatus: Status.initial,
+    ));
+  }
+
+  selectHorsePower(int horsePower) {
+    emit(state.copyWith(
+      horsePower: horsePower,
+      calculatePriceStatus: Status.initial,
+    ));
   }
 
   fetchCompanies() async {

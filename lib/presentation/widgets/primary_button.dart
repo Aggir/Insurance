@@ -9,6 +9,7 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     this.onPressed,
     required this.child,
+    this.isLoading = false,
     this.style,
     super.key,
   });
@@ -16,6 +17,7 @@ class PrimaryButton extends StatelessWidget {
   final void Function()? onPressed;
   final Widget child;
   final ButtonStyle? style;
+  final bool isLoading;
   static final customStyle = ElevatedButton.styleFrom(
     textStyle: smallHeadlineStyle(),
     minimumSize: AppValues.buttonMinSize,
@@ -30,19 +32,38 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: style ?? customStyle,
-      onPressed: onPressed,
-      child: child,
+      onPressed: isLoading ? () {} : onPressed,
+      child: isLoading
+          ? SizedBox(
+              height: AppSizes.s25.r,
+              width: AppSizes.s25.r,
+              child: CircularProgressIndicator(
+                color: AppColors.white,
+              ),
+            )
+          : child,
     );
   }
 
   static Widget fullWidth(
-      {void Function()? onPressed, required Widget child, ButtonStyle? style}) {
+      {void Function()? onPressed,
+      required Widget child,
+      ButtonStyle? style,
+      bool isLoading = false}) {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: style ?? customStyle,
-        onPressed: onPressed,
-        child: child,
+        onPressed: isLoading ? () {} : onPressed,
+        child: isLoading
+            ? SizedBox(
+                height: AppSizes.s25.r,
+                width: AppSizes.s25.r,
+                child: CircularProgressIndicator(
+                  color: AppColors.white,
+                ),
+              )
+            : child,
       ),
     );
   }
