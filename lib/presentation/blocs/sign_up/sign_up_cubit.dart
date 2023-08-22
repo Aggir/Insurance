@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:barcode_finder/barcode_finder.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -79,40 +80,36 @@ class SignUpCubit extends Cubit<SignUpState> {
   setGender(Gender gender) {
     emit(state.copyWith(gender: gender));
   }
-// // TODO: add check form
-//   bool
 
-  Future<bool> confirmUserInfoForm() async {
-    if (userInfoForm.currentState!.validate()) {
-      emit(state.copyWith(checkUserInfo: Status.loading));
-      initCheckUserInfo();
-      (await instance<CheckUserInfoUsecase>().execute(CheckUserInfoUsecaseInput(
-              email: emailController.text.trim(),
-              phone: phoneNumberController.text.trim())))
-          .fold((failure) {
-        emit(state.copyWith(
-          checkUserInfo: Status.failure,
-          checkUserInfoErrorMessage: failure.message,
-        ));
-      }, (r) {
-        emit(
-          state.copyWith(
-            checkUserInfo: Status.success,
-            userInfo: SignUpUserInfo(
-              firstName: firstNameController.text,
-              middleName: middleNameController.text,
-              lastName: lastNameController.text,
-              email: emailController.text,
-              phoneNumber: phoneNumberController.text,
-              birthDate: birthDateController.text,
-              gender: state.gender,
-            ),
+  bool isUserInfoFormValid() => userInfoForm.currentState?.validate() ?? false;
+
+  Future<void> confirmUserInfoForm() async {
+    emit(state.copyWith(checkUserInfo: Status.loading));
+    initCheckUserInfo();
+    (await instance<CheckUserInfoUsecase>().execute(CheckUserInfoUsecaseInput(
+            email: emailController.text.trim(),
+            phone: phoneNumberController.text.trim())))
+        .fold((failure) {
+      emit(state.copyWith(
+        checkUserInfo: Status.failure,
+        checkUserInfoErrorMessage: failure.message,
+      ));
+    }, (r) {
+      emit(
+        state.copyWith(
+          checkUserInfo: Status.success,
+          userInfo: SignUpUserInfo(
+            firstName: firstNameController.text,
+            middleName: middleNameController.text,
+            lastName: lastNameController.text,
+            email: emailController.text,
+            phoneNumber: phoneNumberController.text,
+            birthDate: birthDateController.text,
+            gender: state.gender,
           ),
-        );
-      });
-      return state.checkUserInfo.isSuccess;
-    }
-    return false;
+        ),
+      );
+    });
   }
 
   bool confirmPasswordForm() {
@@ -200,7 +197,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       final PlatformFile firstFile = result.files.first;
       String? scannedNationalId;
       if (firstFile.extension == 'pdf') {
-        //TODO: add pdf qr code scanner
+        final resp = await BarcodeFinder.scanFile(path: firstFile.path!);
+        scannedNationalId = extractValue(resp, 'NID');
       } else {
         final resp = await Scan.parse(firstFile.path!);
         scannedNationalId = extractValue(resp, 'NID');

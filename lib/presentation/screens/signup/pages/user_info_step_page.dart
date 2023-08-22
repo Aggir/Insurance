@@ -54,8 +54,10 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
   void _nextButtonFunction(BuildContext context) async {
     final cubit = BlocProvider.of<SignUpCubit>(context);
     cubit.unfocusUserInfoForm();
-    DialogService.loadLoadingDialog(context);
-    await cubit.confirmUserInfoForm();
+    if (cubit.isUserInfoFormValid()) {
+      DialogService.loadLoadingDialog(context);
+      await cubit.confirmUserInfoForm();
+    }
   }
 
   @override
