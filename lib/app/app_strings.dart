@@ -370,4 +370,5 @@ class AppStrings {
   static const unauthenticated = 'unauthenticated';
   static const wrongOtp = 'wrong_otp';
   static const otpSentSuccessfully = 'otp_sent_successfully';
+  static const invalidEmail = 'invalid_email';
 }

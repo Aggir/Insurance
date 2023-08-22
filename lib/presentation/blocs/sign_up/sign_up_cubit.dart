@@ -10,11 +10,13 @@ import 'package:insurance_app/app/enums/proof_type.dart';
 import 'package:insurance_app/app/enums/gender.dart';
 
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/app/functions.dart';
 import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:scan/scan.dart';
 
 part 'sign_up_state.dart';
 
@@ -77,6 +79,8 @@ class SignUpCubit extends Cubit<SignUpState> {
   setGender(Gender gender) {
     emit(state.copyWith(gender: gender));
   }
+// // TODO: add check form
+//   bool
 
   Future<bool> confirmUserInfoForm() async {
     if (userInfoForm.currentState!.validate()) {
@@ -130,7 +134,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(proofType: type));
   }
 
-  // Todo: add filePicker
   uploadVerificationDocument() async {
     emit(state.copyWith(proofStatus: Status.loading));
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -187,7 +190,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     return false;
   }
 
-  // Todo: add filePicker
   uploadNationalIdPicture() async {
     emit(state.copyWith(nationalIdStatus: Status.loading));
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -196,6 +198,14 @@ class SignUpCubit extends Cubit<SignUpState> {
     );
     if (result != null) {
       final PlatformFile firstFile = result.files.first;
+      String? scannedNationalId;
+      if (firstFile.extension == 'pdf') {
+        //TODO: add pdf qr code scanner
+      } else {
+        final resp = await Scan.parse(firstFile.path!);
+        scannedNationalId = extractValue(resp, 'NID');
+      }
+      nationalIdNumberController.text = scannedNationalId ?? Constants.empty;
       emit(state.copyWith(
         nationalFileName: firstFile.name,
         nationalIdStatus: Status.success,

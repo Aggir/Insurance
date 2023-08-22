@@ -13,3 +13,10 @@ Color colorFromHexString(String hexString) {
   buffer.write(hexString.replaceFirst('#', ''));
   return Color(int.parse(buffer.toString(), radix: 16));
 }
+
+String? extractValue(String? input, String key) {
+  RegExp regex = RegExp('$key:(\\w+)');
+  Match? match = regex.firstMatch(input ?? '');
+
+  return match?.group(1)!;
+}

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/gender.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/app/validators.dart';
 
 import 'package:insurance_app/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:insurance_app/presentation/screens/signup/components/signup_footer_row.dart';
@@ -187,6 +188,7 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
             controller: cubit.emailController,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
+            validator: emailValidator,
             onEditingComplete: () {
               cubit.phoneNumberFocusNode.requestFocus();
             },
