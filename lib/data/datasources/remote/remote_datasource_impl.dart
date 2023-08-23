@@ -398,10 +398,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<VehiclesResponse> getMyVehicles({int? page}) async {
+  Future<VehiclesResponse> getMyVehicles(
+      {int? page, bool isHidden = false}) async {
     try {
       var response = await _dio.get(ApiConstants.vehicles,
-          data: page != null ? {'page': page} : null,
+          data: {'page': page, 'is_hidden': isHidden ? isHidden : null},
           options: _bearerToken(_appService.token));
       return VehiclesResponse.fromMap(response.data);
     } on DioException catch (error) {

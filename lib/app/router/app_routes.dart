@@ -140,6 +140,13 @@ class AppRoutes {
     name: AppScreen.comparePrices.toName,
     builder: (context, state) => const ComparePricesScreen(),
   );
+
+  static final myHiddenVehicles = GoRoute(
+    redirect: _authenticatedRoute,
+    path: AppScreen.myHiddenVehicles.toPath,
+    name: AppScreen.myHiddenVehicles.toName,
+    builder: (context, state) => const MyHiddenVehiclesScreen(),
+  );
   // -------------------------------------------------------------------
   // sub routes
 

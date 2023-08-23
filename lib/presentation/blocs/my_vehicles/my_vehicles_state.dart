@@ -7,6 +7,12 @@ class MyVehiclesState extends Equatable {
   final String? fetchMoreVehiclesErrorMessage;
   final List<VehicleEntity>? myVehicles;
   final MetaEntity? meta;
+  final Status fetchMyHiddenVehiclesStatus;
+  final String? fetchMyHiddenVehiclesErrorMessage;
+  final Status fetchMoreHiddenVehiclesStatus;
+  final String? fetchMoreHiddenVehiclesErrorMessage;
+  final List<VehicleEntity>? myHiddenVehicles;
+  final MetaEntity? hiddenMeta;
   const MyVehiclesState({
     this.fetchMyVehiclesStatus = Status.initial,
     this.fetchMyVehiclesErrorMessage,
@@ -14,6 +20,12 @@ class MyVehiclesState extends Equatable {
     this.fetchMoreVehiclesErrorMessage,
     this.myVehicles,
     this.meta,
+    this.fetchMyHiddenVehiclesStatus = Status.initial,
+    this.fetchMyHiddenVehiclesErrorMessage,
+    this.fetchMoreHiddenVehiclesStatus = Status.initial,
+    this.fetchMoreHiddenVehiclesErrorMessage,
+    this.myHiddenVehicles,
+    this.hiddenMeta,
   });
 
   @override
@@ -24,6 +36,12 @@ class MyVehiclesState extends Equatable {
         fetchMoreVehiclesErrorMessage,
         myVehicles,
         meta,
+        fetchMyHiddenVehiclesStatus,
+        fetchMyHiddenVehiclesErrorMessage,
+        fetchMoreHiddenVehiclesStatus,
+        fetchMoreHiddenVehiclesErrorMessage,
+        myHiddenVehicles,
+        hiddenMeta,
       ];
 
   MyVehiclesState copyWith({
@@ -33,6 +51,12 @@ class MyVehiclesState extends Equatable {
     String? fetchMoreVehiclesErrorMessage,
     List<VehicleEntity>? myVehicles,
     MetaEntity? meta,
+    Status? fetchMyHiddenVehiclesStatus,
+    String? fetchMyHiddenVehiclesErrorMessage,
+    Status? fetchMoreHiddenVehiclesStatus,
+    String? fetchMoreHiddenVehiclesErrorMessage,
+    List<VehicleEntity>? myHiddenVehicles,
+    MetaEntity? hiddenMeta,
   }) {
     return MyVehiclesState(
       fetchMyVehiclesStatus:
@@ -45,6 +69,17 @@ class MyVehiclesState extends Equatable {
           fetchMoreVehiclesErrorMessage ?? this.fetchMoreVehiclesErrorMessage,
       myVehicles: myVehicles ?? this.myVehicles,
       meta: meta ?? this.meta,
+      fetchMyHiddenVehiclesStatus:
+          fetchMyHiddenVehiclesStatus ?? this.fetchMyHiddenVehiclesStatus,
+      fetchMyHiddenVehiclesErrorMessage: fetchMyHiddenVehiclesErrorMessage ??
+          this.fetchMyHiddenVehiclesErrorMessage,
+      fetchMoreHiddenVehiclesStatus:
+          fetchMoreHiddenVehiclesStatus ?? this.fetchMoreHiddenVehiclesStatus,
+      fetchMoreHiddenVehiclesErrorMessage:
+          fetchMoreHiddenVehiclesErrorMessage ??
+              this.fetchMoreHiddenVehiclesErrorMessage,
+      myHiddenVehicles: myHiddenVehicles ?? this.myHiddenVehicles,
+      hiddenMeta: hiddenMeta ?? this.hiddenMeta,
     );
   }
 

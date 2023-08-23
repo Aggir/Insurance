@@ -13,5 +13,6 @@ abstract class VehicleRepository {
 
   Future<Either<Failure, void>> addVehicle(AddVehicleRequest request);
 
-  Future<Either<Failure, VehiclesPage>> getMyVehicles({int? page});
+  Future<Either<Failure, VehiclesPage>> getMyVehicles(
+      {int? page, required bool isHidden});
 }

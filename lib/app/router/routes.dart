@@ -34,6 +34,7 @@ enum AppScreen {
   noConnection,
   home,
   myVehicles,
+  myHiddenVehicles,
   myInsurances,
   insuranceDocument,
   more,
@@ -110,6 +111,8 @@ extension AppScreenExtension on AppScreen {
         return "/home";
       case AppScreen.myVehicles:
         return "/my-vehicles";
+      case AppScreen.myHiddenVehicles:
+        return "/my-hidden-vehicles";
       case AppScreen.myInsurances:
         return "/my-insurances";
       case AppScreen.insuranceDocument:
@@ -193,6 +196,8 @@ extension AppScreenExtension on AppScreen {
         return "HOME";
       case AppScreen.myVehicles:
         return "MY VEHICLES";
+      case AppScreen.myHiddenVehicles:
+        return "MY HIDDEN VEHICLES";
       case AppScreen.myInsurances:
         return "MY INSURANCES";
       case AppScreen.insuranceDocument:

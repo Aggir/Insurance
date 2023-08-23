@@ -119,8 +119,10 @@ class VehicleRepositoryImpl extends VehicleRepository {
   }
 
   @override
-  Future<Either<Failure, VehiclesPage>> getMyVehicles({int? page}) async {
-    final response = await _remoteDataSource.getMyVehicles(page: page);
+  Future<Either<Failure, VehiclesPage>> getMyVehicles(
+      {int? page, required bool isHidden}) async {
+    final response =
+        await _remoteDataSource.getMyVehicles(page: page, isHidden: isHidden);
     if (response.message != null) {
       return Left(Failure(
         response.code ?? 0,

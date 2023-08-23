@@ -1,74 +1,42 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/vehicle_list_item.dart';
-import 'package:insurance_app/presentation/screens/issue_insurance/components/issue_completed_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
-import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import '../../blocs/my_vehicles/my_vehicles_cubit.dart';
 
-import '../../../../app/router/routes.dart';
-import '../../../blocs/my_vehicles/my_vehicles_cubit.dart';
-
-class MyVehiclesPage extends StatefulWidget {
-  const MyVehiclesPage(this.showIssueDialog, {super.key});
-  final bool showIssueDialog;
+class MyHiddenVehiclesScreen extends StatefulWidget {
+  const MyHiddenVehiclesScreen({super.key});
 
   @override
-  State<MyVehiclesPage> createState() => _MyVehiclesPageState();
+  State<MyHiddenVehiclesScreen> createState() => _MyHiddenVehiclesScreenState();
 }
 
-class _MyVehiclesPageState extends State<MyVehiclesPage> {
-  _addVehicleFunction(BuildContext context) {
-    context.go(AppScreen.addMyVehicle.toPath);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    if (widget.showIssueDialog) {
-      SchedulerBinding.instance.addPostFrameCallback((_) =>
-          DialogService.load(context, content: const IssueCompletedDialog()));
-    }
-  }
-
+class _MyHiddenVehiclesScreenState extends State<MyHiddenVehiclesScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.transparent,
-          centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () => _addVehicleFunction(context),
-              icon: SvgPicture.asset(
-                SvgAssets.plus,
-                height: AppSizes.s32.r,
-                width: AppSizes.s32.r,
-              ),
-            ),
-          ],
-          elevation: 0,
-          title: Text(
-            AppStrings.myVehicles.tr(),
-            style: smallHeadlineStyle(),
-          ),
-        ),
+        appBar: CustomAppBar.basic(title: AppStrings.myVehicles.tr()),
         body: _getContent(context),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    BlocProvider.of<MyVehiclesCubit>(context).fetchHiddenVehicles();
+    super.initState();
   }
 
   Widget _getContent(BuildContext context) {
@@ -143,11 +111,6 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
               textAlign: TextAlign.center,
               style: grayBodyStyle(),
             ),
-            CustomSpacers.large(),
-            PrimaryButton.fullWidth(
-              child: Text(AppStrings.addVehicle.tr()),
-              onPressed: () => _addVehicleFunction(context),
-            )
           ],
         ),
       ),

@@ -52,7 +52,7 @@ abstract class RemoteDataSource {
 
   Future<BasicResponse> addVehicle(AddVehicleRequest request);
 
-  Future<VehiclesResponse> getMyVehicles({int? page});
+  Future<VehiclesResponse> getMyVehicles({int? page, bool isHidden = false});
 
   Future<CompaniesResponse> getCompanies(int? page);
 
