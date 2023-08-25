@@ -20,27 +20,35 @@ class ReminderStepsScreen extends StatefulWidget {
 }
 
 class _ReminderStepsScreenState extends State<ReminderStepsScreen> {
+  void goBack(AddReminderCubit cubit) {
+    if (widget.child.currentIndex > 0) {
+      if (widget.child.currentIndex == 1) {
+        cubit.backFromUploadInsurancePicture();
+      }
+      widget.child.goBranch(widget.child.currentIndex - 1);
+    } else {
+      //todo: make it dynamic
+      context.go(AppScreen.carsInsurance.toPath);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<AddReminderCubit>(context);
-    return Scaffold(
-      appBar: CustomAppBar.steps(
-        currentIndex: widget.child.currentIndex,
-        title: AppStrings.setAnAlarmForYourInsurance.tr(),
-        pageCount: AppRoutes.reminderBranchesCount,
-        backButton: CustomBackButton(
-          onTap: widget.child.currentIndex > 0
-              ? () {
-                  if (widget.child.currentIndex == 1) {
-                    cubit.backFromUploadInsurancePicture();
-                  }
-                  widget.child.goBranch(widget.child.currentIndex - 1);
-                }
-              //todo: make it dynamic
-              : () => context.go(AppScreen.carsInsurance.toPath),
+    return WillPopScope(
+      onWillPop: () async {
+        goBack(cubit);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.steps(
+          currentIndex: widget.child.currentIndex,
+          title: AppStrings.setAnAlarmForYourInsurance.tr(),
+          pageCount: AppRoutes.reminderBranchesCount,
+          backButton: CustomBackButton(onTap: () => goBack(cubit)),
         ),
+        body: widget.child,
       ),
-      body: widget.child,
     );
   }
 }

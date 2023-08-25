@@ -35,85 +35,91 @@ class _InsuranceCompaniesScreenState extends State<InsuranceCompaniesScreen> {
     BlocProvider.of<CompaniesCubit>(context).fetchCompanies();
   }
 
+  void goBack() {
+    BlocProvider.of<CompaniesCubit>(context).clearSearch();
+    context.go(AppScreen.carsInsurance.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<CompaniesCubit>(context);
-    return GestureDetector(
-      onTap: () {
-        cubit.searchFocusNode.unfocus();
+    return WillPopScope(
+      onWillPop: () async {
+        goBack();
+        return false;
       },
-      child: Scaffold(
-        appBar: CustomAppBar.basic(
-          title: AppStrings.insuranceCompanies.tr(),
-          backButton: () {
-            BlocProvider.of<CompaniesCubit>(context).clearSearch();
-            context.go(AppScreen.carsInsurance.toPath);
-          },
-        ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(AppValues.medium).r,
-              child: CustomTextFormField(
-                controller: cubit.searchController,
-                onChanged: cubit.setFilterCompanies,
-                focusNode: cubit.searchFocusNode,
-                hintText: AppStrings.search.tr(),
-                prefixIcon: SvgPicture.asset(
-                  SvgAssets.search,
-                  height: AppSizes.s24.r,
-                  width: AppSizes.s24.r,
-                  fit: BoxFit.fill,
+      child: GestureDetector(
+        onTap: () {
+          cubit.searchFocusNode.unfocus();
+        },
+        child: Scaffold(
+          appBar: CustomAppBar.basic(
+              title: AppStrings.insuranceCompanies.tr(), backButton: goBack),
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(AppValues.medium).r,
+                child: CustomTextFormField(
+                  controller: cubit.searchController,
+                  onChanged: cubit.setFilterCompanies,
+                  focusNode: cubit.searchFocusNode,
+                  hintText: AppStrings.search.tr(),
+                  prefixIcon: SvgPicture.asset(
+                    SvgAssets.search,
+                    height: AppSizes.s24.r,
+                    width: AppSizes.s24.r,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: BlocBuilder<CompaniesCubit, CompaniesState>(
-                builder: (context, state) {
-                  if (state.fetchCompaniesStatus.isLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
-                    );
-                  } else {
-                    return Stack(
-                      children: [
-                        ListView.separated(
-                          controller: cubit.scrollController,
-                          separatorBuilder: (context, index) =>
-                              CustomSpacers.medium(),
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.all(AppValues.medium).r,
-                          itemCount: state.filteredCompanies?.length ?? 0,
-                          itemBuilder: (context, index) => _companyCardWidget(
-                              cubit.searchFocusNode, context,
-                              company: state.filteredCompanies![index]),
+              Expanded(
+                child: BlocBuilder<CompaniesCubit, CompaniesState>(
+                  builder: (context, state) {
+                    if (state.fetchCompaniesStatus.isLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
                         ),
-                        if (state.fetchMoreCompaniesStatus.isLoading)
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: CircleAvatar(
-                              backgroundColor: AppColors.lightest,
-                              radius: AppSizes.s20.r,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.all(AppValues.small).r,
-                                child: CircularProgressIndicator(
-                                  color: AppColors.primary,
-                                  strokeWidth: AppSizes.s4.r,
+                      );
+                    } else {
+                      return Stack(
+                        children: [
+                          ListView.separated(
+                            controller: cubit.scrollController,
+                            separatorBuilder: (context, index) =>
+                                CustomSpacers.medium(),
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.all(AppValues.medium).r,
+                            itemCount: state.filteredCompanies?.length ?? 0,
+                            itemBuilder: (context, index) => _companyCardWidget(
+                                cubit.searchFocusNode, context,
+                                company: state.filteredCompanies![index]),
+                          ),
+                          if (state.fetchMoreCompaniesStatus.isLoading)
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: CircleAvatar(
+                                backgroundColor: AppColors.lightest,
+                                radius: AppSizes.s20.r,
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.all(AppValues.small).r,
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.primary,
+                                    strokeWidth: AppSizes.s4.r,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                      ],
-                    );
-                  }
-                },
+                        ],
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

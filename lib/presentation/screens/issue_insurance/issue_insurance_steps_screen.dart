@@ -15,9 +15,11 @@ import '../../widgets/custom_back_button.dart';
 import '../../widgets/dialog_service.dart';
 
 class IssueInsuranceStepsScreen extends StatefulWidget {
-  const IssueInsuranceStepsScreen(this.child, this.location, {super.key});
+  const IssueInsuranceStepsScreen(this.child, this.location, this.comingFrom,
+      {super.key});
   final StatefulNavigationShell child;
   final String location;
+  final String? comingFrom;
   @override
   State<IssueInsuranceStepsScreen> createState() =>
       _IssueInsuranceStepsScreenState();
@@ -32,34 +34,43 @@ class _IssueInsuranceStepsScreenState extends State<IssueInsuranceStepsScreen> {
     );
   }
 
+  void goBack() {
+    if (widget.child.currentIndex > 0) {
+      widget.child.goBranch(widget.child.currentIndex - 1);
+    } else {
+      context.go(widget.comingFrom ?? AppScreen.carsInsurance.toPath);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.steps(
-        title: AppStrings.requestInsurancePolicy.tr(),
-        currentIndex: widget.child.currentIndex,
-        pageCount: AppRoutes.paymentBranchesCount,
-        backButton: CustomBackButton(
-          onTap: widget.child.currentIndex > 0
-              ? () {
-                  widget.child.goBranch(widget.child.currentIndex - 1);
-                }
-              : () => context.go(AppScreen.carsInsurance.toPath),
+    return WillPopScope(
+      onWillPop: () async {
+        goBack();
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.steps(
+          title: AppStrings.requestInsurancePolicy.tr(),
+          currentIndex: widget.child.currentIndex,
+          pageCount: AppRoutes.paymentBranchesCount,
+          backButton: CustomBackButton(onTap: goBack),
         ),
-      ),
-      body: BlocListener<IssueInsuranceCubit, IssueInsuranceState>(
-        listenWhen: (previous, current) =>
-            previous.fetchInsuranceFormDataStatus !=
-            current.fetchInsuranceFormDataStatus,
-        listener: (context, state) {
-          if (state.fetchInsuranceFormDataStatus.isFailure) {
-            DialogService.dispose();
-            SnackBars.error(context, state.fetchInsuranceFormDataErrorMessage!);
-          } else if (state.fetchInsuranceFormDataStatus.isSuccess) {
-            DialogService.dispose();
-          }
-        },
-        child: widget.child,
+        body: BlocListener<IssueInsuranceCubit, IssueInsuranceState>(
+          listenWhen: (previous, current) =>
+              previous.fetchInsuranceFormDataStatus !=
+              current.fetchInsuranceFormDataStatus,
+          listener: (context, state) {
+            if (state.fetchInsuranceFormDataStatus.isFailure) {
+              DialogService.dispose();
+              SnackBars.error(
+                  context, state.fetchInsuranceFormDataErrorMessage!);
+            } else if (state.fetchInsuranceFormDataStatus.isSuccess) {
+              DialogService.dispose();
+            }
+          },
+          child: widget.child,
+        ),
       ),
     );
   }

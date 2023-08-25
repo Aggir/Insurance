@@ -77,57 +77,63 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            backgroundColor: AppColors.transparent,
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              AppStrings.myInsurances.tr(),
-              style: smallHeadlineStyle(),
-            ),
-            bottom: PreferredSize(
-                preferredSize: Size(double.infinity, AppSizes.s64.r),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                              vertical: AppValues.small,
-                              horizontal: AppValues.small)
-                          .r,
-                      child: AdvancedSegment(
-                        controller: _currentIndex,
-                        segments: _tabsMap,
-                        backgroundColor: AppColors.white,
-                        activeStyle: extraSmallHeadlineStyle(),
-                        inactiveStyle: smallDarkGrayBodyStyle(),
-                        sliderColor: AppColors.grayLight,
-                        sliderDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            AppValues.mediumRadius.r,
+    return WillPopScope(
+            onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+              backgroundColor: AppColors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                AppStrings.myInsurances.tr(),
+                style: smallHeadlineStyle(),
+              ),
+              bottom: PreferredSize(
+                  preferredSize: Size(double.infinity, AppSizes.s64.r),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                                vertical: AppValues.small,
+                                horizontal: AppValues.small)
+                            .r,
+                        child: AdvancedSegment(
+                          controller: _currentIndex,
+                          segments: _tabsMap,
+                          backgroundColor: AppColors.white,
+                          activeStyle: extraSmallHeadlineStyle(),
+                          inactiveStyle: smallDarkGrayBodyStyle(),
+                          sliderColor: AppColors.grayLight,
+                          sliderDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              AppValues.mediumRadius.r,
+                            ),
+                            color: AppColors.lightest,
+                            border: Border.all(color: AppColors.lightGray),
                           ),
-                          color: AppColors.lightest,
-                          border: Border.all(color: AppColors.lightGray),
+                          shadow: const [],
                         ),
-                        shadow: const [],
                       ),
-                    ),
-                    const CustomDivider()
-                  ],
-                ))),
-        body: BlocBuilder<MyInsurancesCubit, MyInsurancesState>(
-          builder: (context, state) {
-            return TabBarView(
-                controller: _tabController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _underProcessing(state),
-                  _issued(state),
-                  _notPaid(state),
-                  _expired(state),
-                ]);
-          },
+                      const CustomDivider()
+                    ],
+                  ))),
+          body: BlocBuilder<MyInsurancesCubit, MyInsurancesState>(
+            builder: (context, state) {
+              return TabBarView(
+                  controller: _tabController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    _underProcessing(state),
+                    _issued(state),
+                    _notPaid(state),
+                    _expired(state),
+                  ]);
+            },
+          ),
         ),
       ),
     );

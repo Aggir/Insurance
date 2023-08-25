@@ -57,32 +57,37 @@ class TermsAndConditionsScreen extends StatelessWidget {
         'description': AppStrings.conditionSixDescription.tr()
       },
     ];
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-                  vertical: AppValues.large,
-                  horizontal: AppValues.medium + AppValues.small)
-              .r,
-          child: Column(
-            children: [
-              _headerWidget(),
-              CustomSpacers.large(),
-              _contentWidget(termsAndConditionsList),
-              const Divider(),
-              CustomSpacers.medium(),
-              PrimaryButton.fullWidth(
-                onPressed: () => _acceptButtonFunction(context),
-                child: Text(
-                  (navigateFromSettings
-                          ? AppStrings.backToThePreviousPage
-                          : AppStrings.acceptTermsAndConditions)
-                      .tr()
-                      .toUpperCase(),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                    vertical: AppValues.large,
+                    horizontal: AppValues.medium + AppValues.small)
+                .r,
+            child: Column(
+              children: [
+                _headerWidget(),
+                CustomSpacers.large(),
+                _contentWidget(termsAndConditionsList),
+                const Divider(),
+                CustomSpacers.medium(),
+                PrimaryButton.fullWidth(
+                  onPressed: () => _acceptButtonFunction(context),
+                  child: Text(
+                    (navigateFromSettings
+                            ? AppStrings.backToThePreviousPage
+                            : AppStrings.acceptTermsAndConditions)
+                        .tr()
+                        .toUpperCase(),
+                  ),
                 ),
-              ),
-              CustomSpacers.medium(),
-            ],
+                CustomSpacers.medium(),
+              ],
+            ),
           ),
         ),
       ),

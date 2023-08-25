@@ -29,48 +29,56 @@ class ComparePricesScreen extends StatelessWidget {
     context.go(AppScreen.issueInsurance.toPath);
   }
 
+  void goBack(BuildContext context) {
+    context.go(AppScreen.carsInsurance.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-          title: AppStrings.insurancePolicyPrices.tr(),
-          backButton: () {
-            context.go(AppScreen.carsInsurance.toPath);
-          },
-          actions: [_filterButton(context)]),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(AppValues.medium).r,
-            child: CustomTextFormField(
-              hintText: AppStrings.search.tr(),
-              prefixIcon: SvgPicture.asset(
-                SvgAssets.search,
-                height: AppSizes.s24.r,
-                width: AppSizes.s24.r,
-                fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async {
+        goBack(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+            title: AppStrings.insurancePolicyPrices.tr(),
+            backButton: () => goBack(context),
+            actions: [_filterButton(context)]),
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(AppValues.medium).r,
+              child: CustomTextFormField(
+                hintText: AppStrings.search.tr(),
+                prefixIcon: SvgPicture.asset(
+                  SvgAssets.search,
+                  height: AppSizes.s24.r,
+                  width: AppSizes.s24.r,
+                  fit: BoxFit.fill,
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(AppValues.medium).r,
-              children: [
-                _companyCardWidget(context,
-                    name: _companyName,
-                    imagePath: _imagePath,
-                    description: _companyDescription,
-                    price: _price),
-                CustomSpacers.medium(),
-                _companyCardWidget(context,
-                    name: _companyName,
-                    imagePath: _imagePath,
-                    description: _companyDescription,
-                    price: _price),
-              ],
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.all(AppValues.medium).r,
+                children: [
+                  _companyCardWidget(context,
+                      name: _companyName,
+                      imagePath: _imagePath,
+                      description: _companyDescription,
+                      price: _price),
+                  CustomSpacers.medium(),
+                  _companyCardWidget(context,
+                      name: _companyName,
+                      imagePath: _imagePath,
+                      description: _companyDescription,
+                      price: _price),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

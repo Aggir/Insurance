@@ -26,7 +26,8 @@ class VehicleListItem extends StatelessWidget {
   final VehicleEntity vehicle;
 
   void _secureNowButtonFunction(BuildContext context) {
-    context.go(AppScreen.issueInsurance.toPath);
+    context.go(AppScreen.issueInsurance.toPath,
+        extra: AppScreen.myVehicles.toPath);
   }
 
   @override

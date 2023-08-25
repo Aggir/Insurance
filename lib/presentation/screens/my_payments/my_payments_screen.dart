@@ -29,36 +29,44 @@ class MyPaymentsScreen extends StatelessWidget {
   //   context.go(AppScreen.home.toPath);
   // }
 
+  void goBack(BuildContext context) {
+    context.go(AppScreen.more.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.myPayments.tr(),
-        backButton: () {
-          context.go(AppScreen.more.toPath);
-        },
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppValues.large,
-                horizontal: AppValues.mediumLarge,
-              ).r,
-              child: CustomTextFormField(
-                hintText: AppStrings.search.tr(),
-                prefixIcon: SvgPicture.asset(
-                  SvgAssets.search,
-                  height: AppSizes.s24.r,
-                  width: AppSizes.s24.r,
-                  fit: BoxFit.fill,
+    return WillPopScope(
+      onWillPop: () async {
+        goBack(context);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.myPayments.tr(),
+          backButton: () => goBack(context),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppValues.large,
+                  horizontal: AppValues.mediumLarge,
+                ).r,
+                child: CustomTextFormField(
+                  hintText: AppStrings.search.tr(),
+                  prefixIcon: SvgPicture.asset(
+                    SvgAssets.search,
+                    height: AppSizes.s24.r,
+                    width: AppSizes.s24.r,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-            ),
-            CustomSpacers.large(),
-            _getContent(context)
-          ],
+              CustomSpacers.large(),
+              _getContent(context)
+            ],
+          ),
         ),
       ),
     );

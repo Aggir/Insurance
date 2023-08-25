@@ -19,27 +19,34 @@ class PaymentStepsScreen extends StatefulWidget {
 }
 
 class _PaymentStepsScreenState extends State<PaymentStepsScreen> {
+  void goBack() {
+    final cubit = BlocProvider.of<PaymentCubit>(context);
+    if (widget.child.currentIndex > 0) {
+      if (widget.child.currentIndex == 1) {
+        cubit.backFromVerifyOtpStep();
+      }
+      widget.child.goBranch(widget.child.currentIndex - 1);
+    } else {
+      context.go(AppScreen.myInsurances.toPath,
+          extra: const MyInsurancesPageParameters(pageIndex: 2));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<PaymentCubit>(context);
-    return Scaffold(
-      appBar: CustomAppBar.steps(
-        currentIndex: widget.child.currentIndex,
-        pageCount: AppRoutes.paymentBranchesCount,
-        backButton: CustomBackButton(
-          onTap: widget.child.currentIndex > 0
-              ? () {
-                  if (widget.child.currentIndex == 1) {
-                    cubit.backFromVerifyOtpStep();
-                  }
-                  widget.child.goBranch(widget.child.currentIndex - 1);
-                }
-              //todo: make it dynamic
-              : () => context.go(AppScreen.myInsurances.toPath,
-                  extra: const MyInsurancesPageParameters(pageIndex: 2)),
+    return WillPopScope(
+      onWillPop: () async {
+        goBack();
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.steps(
+          currentIndex: widget.child.currentIndex,
+          pageCount: AppRoutes.paymentBranchesCount,
+          backButton: CustomBackButton(onTap: goBack),
         ),
+        body: widget.child,
       ),
-      body: widget.child,
     );
   }
 }

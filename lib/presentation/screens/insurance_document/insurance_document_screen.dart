@@ -70,10 +70,20 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
     }
   }
 
+  void goBack() {
+    context.go(AppScreen.myInsurances.toPath,
+        extra: const MyInsurancesPageParameters(pageIndex: 1));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
+    return WillPopScope(
+      onWillPop: () async {
+        goBack();
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
           customTitle: Text.rich(
             TextSpan(
               text: '${AppStrings.document.tr()} ',
@@ -86,64 +96,65 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
               ],
             ),
           ),
-          backButton: () {
-            context.go(AppScreen.myInsurances.toPath,
-                extra: const MyInsurancesPageParameters(pageIndex: 1));
-          }),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: AppValues.mediumLarge, vertical: AppValues.extraLarge),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  color: AppColors.lightGray,
-                  borderRadius: BorderRadius.circular(AppValues.smallRadius)),
-              height: AppSizes.s270.r,
-              width: double.infinity,
-              child: Stack(
-                alignment: Alignment.topCenter,
-                // fit: StackFit.expand,
-                clipBehavior: Clip.none,
-                children: [
-                  _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                                  horizontal: AppValues.extraLarge)
-                              .r,
-                          child: Image.file(
-                            File(_firstPage.imgPath!),
-                            fit: BoxFit.fitWidth,
-                            alignment: Alignment.topCenter,
+          backButton: goBack,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppValues.mediumLarge,
+              vertical: AppValues.extraLarge),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: AppColors.lightGray,
+                    borderRadius: BorderRadius.circular(AppValues.smallRadius)),
+                height: AppSizes.s270.r,
+                width: double.infinity,
+                child: Stack(
+                  alignment: Alignment.topCenter,
+                  // fit: StackFit.expand,
+                  clipBehavior: Clip.none,
+                  children: [
+                    _isLoading
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                                    horizontal: AppValues.extraLarge)
+                                .r,
+                            child: Image.file(
+                              File(_firstPage.imgPath!),
+                              fit: BoxFit.fitWidth,
+                              alignment: Alignment.topCenter,
+                            ),
                           ),
+                    Positioned(
+                      bottom: AppSizes.s16.r,
+                      left: AppSizes.s24.r,
+                      child: SecondaryButton(
+                        onPressed:
+                            _isLoading ? null : () => _openDocument(context),
+                        child: SvgPicture.asset(
+                          SvgAssets.expand,
+                          height: AppSizes.s24.r,
+                          width: AppSizes.s24.r,
                         ),
-                  Positioned(
-                    bottom: AppSizes.s16.r,
-                    left: AppSizes.s24.r,
-                    child: SecondaryButton(
-                      onPressed:
-                          _isLoading ? null : () => _openDocument(context),
-                      child: SvgPicture.asset(
-                        SvgAssets.expand,
-                        height: AppSizes.s24.r,
-                        width: AppSizes.s24.r,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const Spacer(),
-            PrimaryButton.fullWidth(
-                child: Text(
-                  AppStrings.download.tr().toUpperCase(),
+                  ],
                 ),
-                onPressed: _isLoading ? null : () => _downloadDocument(context))
-          ],
+              ),
+              const Spacer(),
+              PrimaryButton.fullWidth(
+                  child: Text(
+                    AppStrings.download.tr().toUpperCase(),
+                  ),
+                  onPressed:
+                      _isLoading ? null : () => _downloadDocument(context))
+            ],
+          ),
         ),
       ),
     );

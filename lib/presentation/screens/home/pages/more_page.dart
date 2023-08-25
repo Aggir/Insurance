@@ -48,79 +48,85 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-                  vertical: AppValues.large, horizontal: AppValues.medium)
-              .r,
-          child: Column(
-            children: [
-              _profileRowWidget(context),
-              CustomSpacers.extraLarge(),
-              Text(
-                AppStrings.moreServices.tr(),
-                style: darkGrayBodyStyle(),
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.myPaymentsListTile,
-                title: AppStrings.myPayments.tr(),
-                description: AppStrings.myPaymentsListTileDescription.tr(),
-                onTap: _myPaymentsFunction,
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.termsAndConditions,
-                title: AppStrings.termsAndConditions.tr(),
-                description:
-                    AppStrings.termsAndConditionsListTileDescription.tr(),
-                onTap: _termsAndConditionsFunction,
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.settingsListTile,
-                title: AppStrings.settings.tr(),
-                description: AppStrings.settingsListTileDescription.tr(),
-                onTap: _settingsFunction,
-              ),
-              CustomSpacers.extraLarge(),
-              BlocListener<UserCubit, UserState>(
-                listenWhen: (previous, current) =>
-                    previous.logoutStatus != current.logoutStatus,
-                listener: (context, state) {
-                  if (state.logoutStatus.isFailure) {
-                    DialogService.dispose();
-                    SnackBars.error(context, state.logoutErrorMessage!);
-                  } else if (state.logoutStatus.isInitial) {
-                    DialogService.dispose();
-                  }
-                },
-                child: SecondaryButton.fullWidth(
-                    onPressed: () => _logoutFunction(context),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(
-                          SvgAssets.logout,
-                          height: AppSizes.s28.r,
-                          width: AppSizes.s28.r,
-                        ),
-                        CustomSpacers.medium(),
-                        Text(
-                          AppStrings.logout.tr(),
-                          style: smallHeadlineStyle()
-                              .copyWith(color: AppColors.gray),
-                        ),
-                      ],
-                    )),
-              )
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                    vertical: AppValues.large, horizontal: AppValues.medium)
+                .r,
+            child: Column(
+              children: [
+                _profileRowWidget(context),
+                CustomSpacers.extraLarge(),
+                Text(
+                  AppStrings.moreServices.tr(),
+                  style: darkGrayBodyStyle(),
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.myPaymentsListTile,
+                  title: AppStrings.myPayments.tr(),
+                  description: AppStrings.myPaymentsListTileDescription.tr(),
+                  onTap: _myPaymentsFunction,
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.termsAndConditions,
+                  title: AppStrings.termsAndConditions.tr(),
+                  description:
+                      AppStrings.termsAndConditionsListTileDescription.tr(),
+                  onTap: _termsAndConditionsFunction,
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.settingsListTile,
+                  title: AppStrings.settings.tr(),
+                  description: AppStrings.settingsListTileDescription.tr(),
+                  onTap: _settingsFunction,
+                ),
+                CustomSpacers.extraLarge(),
+                BlocListener<UserCubit, UserState>(
+                  listenWhen: (previous, current) =>
+                      previous.logoutStatus != current.logoutStatus,
+                  listener: (context, state) {
+                    if (state.logoutStatus.isFailure) {
+                      DialogService.dispose();
+                      SnackBars.error(context, state.logoutErrorMessage!);
+                    } else if (state.logoutStatus.isInitial) {
+                      DialogService.dispose();
+                    }
+                  },
+                  child: SecondaryButton.fullWidth(
+                      onPressed: () => _logoutFunction(context),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            SvgAssets.logout,
+                            height: AppSizes.s28.r,
+                            width: AppSizes.s28.r,
+                          ),
+                          CustomSpacers.medium(),
+                          Text(
+                            AppStrings.logout.tr(),
+                            style: smallHeadlineStyle()
+                                .copyWith(color: AppColors.gray),
+                          ),
+                        ],
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),

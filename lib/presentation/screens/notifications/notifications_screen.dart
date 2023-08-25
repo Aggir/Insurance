@@ -39,16 +39,22 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final random = Random();
 
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.notifications.tr(),
-        backButton: () {
-          context.go(AppScreen.home.toPath);
-        },
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.notifications.tr(),
+          backButton: () {
+            context.go(AppScreen.home.toPath);
+          },
+        ),
+        body: random.nextBool()
+            ? _emptyNotifications(context)
+            : _dummyNotificationsList(context),
       ),
-      body: random.nextBool()
-          ? _emptyNotifications(context)
-          : _dummyNotificationsList(context),
     );
   }
 

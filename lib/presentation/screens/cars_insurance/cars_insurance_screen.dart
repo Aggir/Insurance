@@ -40,54 +40,62 @@ class CarsInsuranceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.carsInsurance.tr(),
-        backButton: () => context.go(AppScreen.home.toPath),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(AppValues.medium).r,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
-            child: Text(
-              AppStrings.carInsuranceScreenDescription.tr(),
-              style: smallGrayBodyStyle(),
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.carsInsurance.tr(),
+          backButton: () => context.go(AppScreen.home.toPath),
+        ),
+        body: ListView(
+          padding: const EdgeInsets.all(AppValues.medium).r,
+          children: [
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
+              child: Text(
+                AppStrings.carInsuranceScreenDescription.tr(),
+                style: smallGrayBodyStyle(),
+              ),
             ),
-          ),
-          CustomSpacers.extraLarge(),
-          _customListTile(
-            context,
-            title: AppStrings.issuingACarInsurance.tr(),
-            description: AppStrings.issuingACarInsuranceDescription.tr(),
-            imgPath: ImageAssets.issuing,
-            onTap: _issueCarInsurance,
-          ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            title: AppStrings.reminderAboutExpirationDate.tr(),
-            description: AppStrings.reminderAboutExpirationDateDescription.tr(),
-            imgPath: ImageAssets.reminder,
-            onTap: _reminderAboutExpiration,
-          ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            title: AppStrings.insurancePolicyPrices.tr(),
-            description: AppStrings.insurancePolicyPricesDescription.tr(),
-            imgPath: ImageAssets.insurancePrices,
-            onTap: _insurancePolicyPrices,
-          ),
-          CustomSpacers.large(),
-          _customListTile(
-            context,
-            title: AppStrings.insuranceCompanies.tr(),
-            description: AppStrings.insuranceCompaniesDescription.tr(),
-            imgPath: ImageAssets.insuranceCompanies,
-            onTap: _insuranceCompanies,
-          ),
-        ],
+            CustomSpacers.extraLarge(),
+            _customListTile(
+              context,
+              title: AppStrings.issuingACarInsurance.tr(),
+              description: AppStrings.issuingACarInsuranceDescription.tr(),
+              imgPath: ImageAssets.issuing,
+              onTap: _issueCarInsurance,
+            ),
+            CustomSpacers.large(),
+            _customListTile(
+              context,
+              title: AppStrings.reminderAboutExpirationDate.tr(),
+              description:
+                  AppStrings.reminderAboutExpirationDateDescription.tr(),
+              imgPath: ImageAssets.reminder,
+              onTap: _reminderAboutExpiration,
+            ),
+            CustomSpacers.large(),
+            _customListTile(
+              context,
+              title: AppStrings.insurancePolicyPrices.tr(),
+              description: AppStrings.insurancePolicyPricesDescription.tr(),
+              imgPath: ImageAssets.insurancePrices,
+              onTap: _insurancePolicyPrices,
+            ),
+            CustomSpacers.large(),
+            _customListTile(
+              context,
+              title: AppStrings.insuranceCompanies.tr(),
+              description: AppStrings.insuranceCompaniesDescription.tr(),
+              imgPath: ImageAssets.insuranceCompanies,
+              onTap: _insuranceCompanies,
+            ),
+          ],
+        ),
       ),
     );
   }

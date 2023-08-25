@@ -254,7 +254,8 @@ class AppRoutes {
     builder: (context, state, child) {
       return BlocProvider(
         create: (context) => IssueInsuranceCubit()..fetchInsuranceFormData(),
-        child: IssueInsuranceStepsScreen(child, state.uri.toString()),
+        child: IssueInsuranceStepsScreen(
+            child, state.uri.toString(), state.extra as String?),
       );
     },
     branches: _issueInsuranceBranches,

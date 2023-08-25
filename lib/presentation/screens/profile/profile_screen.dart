@@ -29,80 +29,88 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  void goBack() {
+    final cubit = BlocProvider.of<ProfileCubit>(context);
+    cubit.state.isEditing
+        ? cubit.toggleIsEditing()
+        : context.go(AppScreen.more.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.myAccount.tr(),
-        backButton: () {
-          final cubit = BlocProvider.of<ProfileCubit>(context);
-          cubit.state.isEditing
-              ? cubit.toggleIsEditing()
-              : context.go(AppScreen.more.toPath);
-        },
-        actions: [
-          BlocBuilder<ProfileCubit, ProfileState>(
-            builder: (context, state) {
-              if (state.isEditing) return Container();
-              return FittedBox(
-                fit: BoxFit.scaleDown,
-                child: SizedBox(
-                  height: AppSizes.s48.r,
-                  width: AppSizes.s48.r,
-                  child: BlocBuilder<UserCubit, UserState>(
-                    builder: (context, state) {
-                      return InkWell(
-                        borderRadius: BorderRadius.circular(100),
-                        onTap: () {
-                          BlocProvider.of<ProfileCubit>(context).init(
-                            state.user!.firstName,
-                            state.user!.fatherName,
-                            state.user!.lastName,
-                            state.user!.email,
-                            state.user!.phone,
-                            state.user!.dateOfBirth,
-                          );
-                          BlocProvider.of<ProfileCubit>(context)
-                              .toggleIsEditing();
-                        },
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: SvgPicture.asset(
-                            SvgAssets.edit,
-                            height: AppSizes.s32.r,
-                            width: AppSizes.s32.r,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height -
-              AppValues.appBarHeight.r -
-              AppSizes.s30.r,
-          padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
-          width: double.infinity,
-          child: Column(children: [
-            CustomSpacers.large(),
-            _profileMainInfo(),
-            CustomSpacers.extraLarge(),
+    return WillPopScope(
+      onWillPop: () async {
+        goBack();
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.myAccount.tr(),
+          backButton: goBack,
+          actions: [
             BlocBuilder<ProfileCubit, ProfileState>(
               builder: (context, state) {
-                if (state.isEditing) {
-                  return const ProfileEditingState();
-                } else {
-                  return const ProfileDetailsState();
-                }
+                if (state.isEditing) return Container();
+                return FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: SizedBox(
+                    height: AppSizes.s48.r,
+                    width: AppSizes.s48.r,
+                    child: BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return InkWell(
+                          borderRadius: BorderRadius.circular(100),
+                          onTap: () {
+                            BlocProvider.of<ProfileCubit>(context).init(
+                              state.user!.firstName,
+                              state.user!.fatherName,
+                              state.user!.lastName,
+                              state.user!.email,
+                              state.user!.phone,
+                              state.user!.dateOfBirth,
+                            );
+                            BlocProvider.of<ProfileCubit>(context)
+                                .toggleIsEditing();
+                          },
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: SvgPicture.asset(
+                              SvgAssets.edit,
+                              height: AppSizes.s32.r,
+                              width: AppSizes.s32.r,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
               },
-            )
-          ]),
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            height: MediaQuery.of(context).size.height -
+                AppValues.appBarHeight.r -
+                AppSizes.s30.r,
+            padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
+            width: double.infinity,
+            child: Column(children: [
+              CustomSpacers.large(),
+              _profileMainInfo(),
+              CustomSpacers.extraLarge(),
+              BlocBuilder<ProfileCubit, ProfileState>(
+                builder: (context, state) {
+                  if (state.isEditing) {
+                    return const ProfileEditingState();
+                  } else {
+                    return const ProfileDetailsState();
+                  }
+                },
+              )
+            ]),
+          ),
         ),
       ),
     );

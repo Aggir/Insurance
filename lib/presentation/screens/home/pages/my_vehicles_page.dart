@@ -45,39 +45,46 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.transparent,
-          centerTitle: true,
-          leading: IconButton(
-            onPressed: () {
-              context.push(AppScreen.myHiddenVehicles.toPath);
-            },
-            icon: SvgPicture.asset(
-              SvgAssets.visible,
-              height: AppSizes.s28.r,
-              width: AppSizes.s28.r,
-              colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () => _addVehicleFunction(context),
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: AppColors.transparent,
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                context.push(AppScreen.myHiddenVehicles.toPath);
+              },
               icon: SvgPicture.asset(
-                SvgAssets.plus,
-                height: AppSizes.s32.r,
-                width: AppSizes.s32.r,
+                SvgAssets.visible,
+                height: AppSizes.s28.r,
+                width: AppSizes.s28.r,
+                colorFilter:
+                    ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
               ),
             ),
-          ],
-          elevation: 0,
-          title: Text(
-            AppStrings.myVehicles.tr(),
-            style: smallHeadlineStyle(),
+            actions: [
+              IconButton(
+                onPressed: () => _addVehicleFunction(context),
+                icon: SvgPicture.asset(
+                  SvgAssets.plus,
+                  height: AppSizes.s32.r,
+                  width: AppSizes.s32.r,
+                ),
+              ),
+            ],
+            elevation: 0,
+            title: Text(
+              AppStrings.myVehicles.tr(),
+              style: smallHeadlineStyle(),
+            ),
           ),
+          body: _getContent(context),
         ),
-        body: _getContent(context),
       ),
     );
   }

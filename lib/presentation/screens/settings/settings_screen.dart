@@ -28,28 +28,34 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.settings.tr(),
-        backButton: () => context.go(AppScreen.more.toPath),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-                vertical: AppValues.large, horizontal: AppValues.medium)
-            .r,
-        child: Column(children: [
-          _settingListTile(
-            imgPath: ImageAssets.newPassword,
-            title: AppStrings.changePassword.tr(),
-            onTap: () => _changePasswordFunction(context),
-          ),
-          CustomSpacers.medium(),
-          _settingListTile(
-            imgPath: ImageAssets.unsubscribe,
-            title: AppStrings.unsubscribeFormTheApp.tr(),
-            onTap: () => _unsubscribeFunction(context),
-          ),
-        ]),
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.more.toPath);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.settings.tr(),
+          backButton: () => context.go(AppScreen.more.toPath),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+                  vertical: AppValues.large, horizontal: AppValues.medium)
+              .r,
+          child: Column(children: [
+            _settingListTile(
+              imgPath: ImageAssets.newPassword,
+              title: AppStrings.changePassword.tr(),
+              onTap: () => _changePasswordFunction(context),
+            ),
+            CustomSpacers.medium(),
+            _settingListTile(
+              imgPath: ImageAssets.unsubscribe,
+              title: AppStrings.unsubscribeFormTheApp.tr(),
+              onTap: () => _unsubscribeFunction(context),
+            ),
+          ]),
+        ),
       ),
     );
   }

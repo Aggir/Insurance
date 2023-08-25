@@ -18,53 +18,64 @@ class SignUpStepsScreen extends StatefulWidget {
 }
 
 class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
+  void goBack(SignUpState state, SignUpCubit cubit) {
+    if (widget.child.currentIndex == 2) {
+      if (widget.location == AppScreen.signupNationalInfoStep.toPath &&
+          state.isLibyan) {
+        context.go(
+          AppScreen.signupProofInfoStep.toPath,
+        );
+        cubit.backFromNationalIdNumberPage();
+      } else if (widget.location == AppScreen.signupProofInfoStep.toPath &&
+          state.isLibyan) {
+        context.go(
+          AppScreen.signupSelectProofTypeStep.toPath,
+        );
+        cubit.backFromVerificationStepPage();
+      } else {
+        widget.child.goBranch(widget.child.currentIndex - 1);
+        cubit.backFromSelectDocumentTypePage();
+      }
+    } else if (widget.location == AppScreen.signupPasswordStep.toPath) {
+      widget.child.goBranch(widget.child.currentIndex - 1);
+      cubit.backFromPasswordPage();
+    } else {
+      widget.child.goBranch(widget.child.currentIndex - 1);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final cubit = BlocProvider.of<SignUpCubit>(context);
-    return Scaffold(
-      appBar: widget.child.currentIndex == 0
-          ? null
-          : CustomAppBar.steps(
-              currentIndex: widget.child.currentIndex,
-              pageCount: AppRoutes.signupBranchesCount,
-              backButton: BlocBuilder<SignUpCubit, SignUpState>(
-                builder: (context, state) {
-                  void goBack() {
-                    if (widget.child.currentIndex == 2) {
-                      if (widget.location ==
-                              AppScreen.signupNationalInfoStep.toPath &&
-                          state.isLibyan) {
-                        context.go(
-                          AppScreen.signupProofInfoStep.toPath,
-                        );
-                        cubit.backFromNationalIdNumberPage();
-                      } else if (widget.location ==
-                              AppScreen.signupProofInfoStep.toPath &&
-                          state.isLibyan) {
-                        context.go(
-                          AppScreen.signupSelectProofTypeStep.toPath,
-                        );
-                        cubit.backFromVerificationStepPage();
-                      } else {
-                        widget.child.goBranch(widget.child.currentIndex - 1);
-                        cubit.backFromSelectDocumentTypePage();
-                      }
-                    } else if (widget.location ==
-                        AppScreen.signupPasswordStep.toPath) {
-                      widget.child.goBranch(widget.child.currentIndex - 1);
-                      cubit.backFromPasswordPage();
-                    } else {
-                      widget.child.goBranch(widget.child.currentIndex - 1);
-                    }
-                  }
 
-                  return CustomBackButton(
-                    onTap: widget.child.currentIndex > 0 ? goBack : null,
-                  );
-                },
-              ),
-            ),
-      body: widget.child,
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      builder: (context, state) {
+        return WillPopScope(
+          onWillPop: () async {
+            if (widget.child.currentIndex == 0) {
+              context.go(AppScreen.login.toPath);
+            } else {
+              goBack(state, cubit);
+            }
+
+            return false;
+          },
+          child: Scaffold(
+            appBar: widget.child.currentIndex == 0
+                ? null
+                : CustomAppBar.steps(
+                    currentIndex: widget.child.currentIndex,
+                    pageCount: AppRoutes.signupBranchesCount,
+                    backButton: CustomBackButton(
+                      onTap: widget.child.currentIndex > 0
+                          ? () => goBack(state, cubit)
+                          : null,
+                    ),
+                  ),
+            body: widget.child,
+          ),
+        );
+      },
     );
   }
 }
