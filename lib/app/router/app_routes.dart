@@ -9,6 +9,7 @@ import 'package:insurance_app/domain/data_classes/insurance_document_parameters.
 import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
+import 'package:insurance_app/presentation/blocs/my_alarms/my_alarms_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
@@ -148,6 +149,17 @@ class AppRoutes {
     name: AppScreen.myHiddenVehicles.toName,
     pageBuilder: (context, state) =>
         const CupertinoPage(child: MyHiddenVehiclesScreen()),
+  );
+
+  static final myAlarms = GoRoute(
+    redirect: _authenticatedRoute,
+    path: AppScreen.myAlarms.toPath,
+    name: AppScreen.myAlarms.toName,
+    pageBuilder: (context, state) => CupertinoPage(
+        child: BlocProvider(
+      create: (context) => MyAlarmsCubit()..init(),
+      child: const MyAlarmsScreen(),
+    )),
   );
   // -------------------------------------------------------------------
   // sub routes

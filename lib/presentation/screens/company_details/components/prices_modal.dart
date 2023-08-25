@@ -186,7 +186,7 @@ class _PricesModalState extends State<PricesModal> {
               CustomDropDownField(
                 hintText: AppStrings.selectSeatsNumber.tr(),
                 onChanged: (value) => cubit.selectSeatsCount(int.parse(value)),
-                items: DUMMY.seatsNumber
+                items: DUMMY.seatsNumberWithoutTheDriver
                     .map(
                       (type) => DropdownMenuItem(
                         value: type['value'],

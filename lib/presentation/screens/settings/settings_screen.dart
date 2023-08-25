@@ -26,6 +26,10 @@ class SettingsScreen extends StatelessWidget {
     DialogService.load(context, content: const UnsubscribeDialog());
   }
 
+  void _myAlarmsFunction(BuildContext context) {
+    context.push(AppScreen.myAlarms.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -53,6 +57,12 @@ class SettingsScreen extends StatelessWidget {
               imgPath: ImageAssets.unsubscribe,
               title: AppStrings.unsubscribeFormTheApp.tr(),
               onTap: () => _unsubscribeFunction(context),
+            ),
+            CustomSpacers.medium(),
+            _settingListTile(
+              imgPath: ImageAssets.alarmClock,
+              title: AppStrings.myAlarms.tr(),
+              onTap: () => _myAlarmsFunction(context),
             ),
           ]),
         ),

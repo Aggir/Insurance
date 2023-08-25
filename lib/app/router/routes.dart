@@ -38,6 +38,7 @@ enum AppScreen {
   myInsurances,
   insuranceDocument,
   more,
+  myAlarms
 }
 
 extension AppScreenExtension on AppScreen {
@@ -119,6 +120,8 @@ extension AppScreenExtension on AppScreen {
         return "/insurance-document";
       case AppScreen.more:
         return "/more";
+      case AppScreen.myAlarms:
+        return "/my-alarms";
       default:
         return "/";
     }
@@ -204,6 +207,8 @@ extension AppScreenExtension on AppScreen {
         return "INSURANCE DOCUMENT";
       case AppScreen.more:
         return "MORE";
+      case AppScreen.myAlarms:
+        return "MY ALARMS";
     }
   }
 

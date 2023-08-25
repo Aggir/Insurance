@@ -158,6 +158,15 @@ class AppStrings {
   static const deactivateAccount = 'deactivate_account';
   static const back = 'back';
 
+  static const myAlarms = 'my_alarms';
+  static const youDoNotHaveAnyAlarmsYet = 'you_do_not_have_any_alarms_yet';
+  static const youCanAddAlarms = 'you_can_add_alarms';
+  static const startsBefore = 'starts_before';
+  static const days = 'days';
+  static const status = 'status';
+  static const near = 'near';
+  static const active = 'active';
+
   static const currentPassword = 'current_password';
   static const passwordChangedSuccessfully = 'password_changed_successfully';
   static const useTheNewPasswordToLogin = 'use_the_new_password_to_login';

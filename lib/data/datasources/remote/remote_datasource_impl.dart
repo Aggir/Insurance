@@ -13,6 +13,7 @@ import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/alarm_types_response.dart';
+import 'package:insurance_app/data/responses/alarms_reponse.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
@@ -661,6 +662,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<AlarmsResponse> getMyAlarms({int? page}) async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.alarms,
+        options: _bearerToken(_appService.token),
+      );
+      return AlarmsResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return AlarmsResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return AlarmsResponse(message: AppStrings.genericError);
     }
   }
 }

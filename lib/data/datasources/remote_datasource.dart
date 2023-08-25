@@ -2,6 +2,7 @@ import 'package:insurance_app/data/requests/alarm_requests.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/alarm_types_response.dart';
+import 'package:insurance_app/data/responses/alarms_reponse.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
@@ -83,4 +84,6 @@ abstract class RemoteDataSource {
   Future<AlarmTypesResponse> getAlarmTypes();
 
   Future<BasicResponse> addAlarm(AddAlarmRequest request);
+
+  Future<AlarmsResponse> getMyAlarms({int? page});
 }

@@ -25,3 +25,4 @@ export 'package:insurance_app/presentation/screens/signup/index.dart';
 export 'package:insurance_app/presentation/screens/add_my_vehicle/index.dart';
 export 'package:insurance_app/presentation/screens/terms_and_conditions/terms_and_conditions_screen.dart';
 export 'package:insurance_app/presentation/screens/my_hidden_vehicles/my_hidden_vehicles_screen.dart';
+export 'package:insurance_app/presentation/screens/my_alarms/my_alarms_screen.dart';

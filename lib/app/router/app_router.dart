@@ -48,6 +48,7 @@ class AppRouter {
           AppRoutes.home,
           AppRoutes.issueInsurance,
           AppRoutes.payment,
+          AppRoutes.myAlarms,
         ],
         builder: (context, state, child) => BlocProvider(
           create: (context) => CompaniesCubit(),
