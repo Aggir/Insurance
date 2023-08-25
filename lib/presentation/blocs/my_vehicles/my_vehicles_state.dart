@@ -13,6 +13,9 @@ class MyVehiclesState extends Equatable {
   final String? fetchMoreHiddenVehiclesErrorMessage;
   final List<VehicleEntity>? myHiddenVehicles;
   final MetaEntity? hiddenMeta;
+  final int? selectedVehicleToHide;
+  final Status toggleIsVehicleHiddenStatus;
+  final String? toggleIsVehicleHiddenErrorMessage;
   const MyVehiclesState({
     this.fetchMyVehiclesStatus = Status.initial,
     this.fetchMyVehiclesErrorMessage,
@@ -26,6 +29,9 @@ class MyVehiclesState extends Equatable {
     this.fetchMoreHiddenVehiclesErrorMessage,
     this.myHiddenVehicles,
     this.hiddenMeta,
+    this.selectedVehicleToHide,
+    this.toggleIsVehicleHiddenStatus = Status.initial,
+    this.toggleIsVehicleHiddenErrorMessage,
   });
 
   @override
@@ -42,6 +48,9 @@ class MyVehiclesState extends Equatable {
         fetchMoreHiddenVehiclesErrorMessage,
         myHiddenVehicles,
         hiddenMeta,
+        selectedVehicleToHide,
+        toggleIsVehicleHiddenStatus,
+        toggleIsVehicleHiddenErrorMessage,
       ];
 
   MyVehiclesState copyWith({
@@ -57,6 +66,9 @@ class MyVehiclesState extends Equatable {
     String? fetchMoreHiddenVehiclesErrorMessage,
     List<VehicleEntity>? myHiddenVehicles,
     MetaEntity? hiddenMeta,
+    int? selectedVehicleToHide,
+    Status? toggleIsVehicleHiddenStatus,
+    String? toggleIsVehicleHiddenErrorMessage,
   }) {
     return MyVehiclesState(
       fetchMyVehiclesStatus:
@@ -80,11 +92,17 @@ class MyVehiclesState extends Equatable {
               this.fetchMoreHiddenVehiclesErrorMessage,
       myHiddenVehicles: myHiddenVehicles ?? this.myHiddenVehicles,
       hiddenMeta: hiddenMeta ?? this.hiddenMeta,
+      selectedVehicleToHide:
+          selectedVehicleToHide ?? this.selectedVehicleToHide,
+      toggleIsVehicleHiddenStatus:
+          toggleIsVehicleHiddenStatus ?? this.toggleIsVehicleHiddenStatus,
+      toggleIsVehicleHiddenErrorMessage: toggleIsVehicleHiddenErrorMessage ??
+          this.toggleIsVehicleHiddenErrorMessage,
     );
   }
 
   @override
   String toString() {
-    return 'MyVehiclesState(fetchMyVehiclesStatus: $fetchMyVehiclesStatus, fetchMyVehiclesErrorMessage: $fetchMyVehiclesErrorMessage, myVehicles: $myVehicles, meta: $meta)';
+    return 'MyVehiclesState(fetchMyVehiclesStatus: $fetchMyVehiclesStatus, fetchMyVehiclesErrorMessage: $fetchMyVehiclesErrorMessage, fetchMoreVehiclesStatus: $fetchMoreVehiclesStatus, fetchMoreVehiclesErrorMessage: $fetchMoreVehiclesErrorMessage, myVehicles: ${myVehicles?.length}, meta: $meta, fetchMyHiddenVehiclesStatus: $fetchMyHiddenVehiclesStatus, fetchMyHiddenVehiclesErrorMessage: $fetchMyHiddenVehiclesErrorMessage, fetchMoreHiddenVehiclesStatus: $fetchMoreHiddenVehiclesStatus, fetchMoreHiddenVehiclesErrorMessage: $fetchMoreHiddenVehiclesErrorMessage, myHiddenVehicles: ${myHiddenVehicles?.length}, hiddenMeta: $hiddenMeta, selectedVehicleToHide: $selectedVehicleToHide, toggleIsVehicleHiddenStatus: $toggleIsVehicleHiddenStatus, toggleIsVehicleHiddenErrorMessage: $toggleIsVehicleHiddenErrorMessage)';
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -145,7 +146,8 @@ class AppRoutes {
     redirect: _authenticatedRoute,
     path: AppScreen.myHiddenVehicles.toPath,
     name: AppScreen.myHiddenVehicles.toName,
-    builder: (context, state) => const MyHiddenVehiclesScreen(),
+    pageBuilder: (context, state) =>
+        const CupertinoPage(child: MyHiddenVehiclesScreen()),
   );
   // -------------------------------------------------------------------
   // sub routes

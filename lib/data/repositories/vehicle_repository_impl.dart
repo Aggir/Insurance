@@ -134,4 +134,15 @@ class VehicleRepositoryImpl extends VehicleRepository {
           meta: response.meta?.toDomain()));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> toggleIsVehicleHidden(int vehicleId) async {
+    final response = await _remoteDataSource.toggleIsVehicleHidden(vehicleId);
+    if (response.message != null) {
+      return Left(Failure(response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr()));
+    } else {
+      return const Right(null);
+    }
+  }
 }

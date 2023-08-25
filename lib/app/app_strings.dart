@@ -357,6 +357,15 @@ class AppStrings {
   static const editProfileSuccessMessage = 'edit_profile_success_message';
   static const passwordMinLength = 'password_min_length';
 
+  static const myHiddenVehicles = 'my_hidden_vehicles';
+  static const youDoNotHaveAnyHiddenVehicles =
+      'you_do_not_have_any_hidden_vehicles';
+  static const youCanHideVehicleBy = 'you_can_hide_vehicle_by';
+  static const hideVehicle = 'hide_vehicle';
+  static const hideVehicleSuccessMessage = 'hide_vehicle_success_message';
+  static const showVehicle = 'show_vehicle';
+  static const showVehicleSuccessMessage = 'show_vehicle_success_message';
+
   // messages
   static const genericError = 'generic_error';
   static const invalidCredentials = 'invalid_credentials';

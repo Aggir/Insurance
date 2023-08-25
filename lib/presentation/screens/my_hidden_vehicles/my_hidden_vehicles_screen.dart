@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -27,7 +28,12 @@ class _MyHiddenVehiclesScreenState extends State<MyHiddenVehiclesScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: CustomAppBar.basic(title: AppStrings.myVehicles.tr()),
+        appBar: CustomAppBar.basic(
+          title: AppStrings.myHiddenVehicles.tr(),
+          backButton: () {
+            context.pop();
+          },
+        ),
         body: _getContent(context),
       ),
     );
@@ -43,27 +49,27 @@ class _MyHiddenVehiclesScreenState extends State<MyHiddenVehiclesScreen> {
     final cubit = BlocProvider.of<MyVehiclesCubit>(context);
     return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
       builder: (context, state) {
-        if (state.fetchMyVehiclesStatus.isLoading) {
+        if (state.fetchMyHiddenVehiclesStatus.isLoading) {
           return Center(
             child: CircularProgressIndicator(
               color: AppColors.primary,
             ),
           );
-        } else if (state.fetchMyVehiclesStatus.isSuccess &&
-            state.myVehicles!.isNotEmpty) {
+        } else if (state.fetchMyHiddenVehiclesStatus.isSuccess &&
+            state.myHiddenVehicles!.isNotEmpty) {
           return Stack(
             children: [
               ListView.separated(
-                controller: cubit.myVehiclesScrollController,
+                controller: cubit.hiddenVehiclesScrollController,
                 padding: const EdgeInsets.all(AppValues.medium).r,
                 separatorBuilder: (context, index) => CustomSpacers.medium(),
                 shrinkWrap: true,
-                itemCount: state.myVehicles?.length ?? 0,
+                itemCount: state.myHiddenVehicles?.length ?? 0,
                 itemBuilder: (context, index) => VehicleListItem(
-                  state.myVehicles![index],
+                  state.myHiddenVehicles![index],
                 ),
               ),
-              if (state.fetchMoreVehiclesStatus.isLoading)
+              if (state.fetchMoreHiddenVehiclesStatus.isLoading)
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: CircleAvatar(
@@ -101,13 +107,13 @@ class _MyHiddenVehiclesScreenState extends State<MyHiddenVehiclesScreen> {
             ),
             CustomSpacers.large(),
             Text(
-              AppStrings.youDoNotHaveVehicles.tr(),
+              AppStrings.youDoNotHaveAnyHiddenVehicles.tr(),
               textAlign: TextAlign.center,
               style: mediumHeadlineStyle(),
             ),
             CustomSpacers.medium(),
             Text(
-              AppStrings.youDidNotAddAnyVehicle.tr(),
+              AppStrings.youCanHideVehicleBy.tr(),
               textAlign: TextAlign.center,
               style: grayBodyStyle(),
             ),

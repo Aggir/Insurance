@@ -37,6 +37,7 @@ import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
 import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
+import 'package:insurance_app/domain/usecases/toggle_is_vehicle_hidden_usecase.dart';
 import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
@@ -209,6 +210,13 @@ void initGetMyVehicles() async {
   if (!GetIt.I.isRegistered<GetMyVehiclesUsecase>()) {
     instance.registerFactory<GetMyVehiclesUsecase>(
         () => GetMyVehiclesUsecase(instance<VehicleRepository>()));
+  }
+}
+
+void initToggleIsVehicleHidden() async {
+  if (!GetIt.I.isRegistered<ToggleIsVehicleHiddenUsecase>()) {
+    instance.registerFactory<ToggleIsVehicleHiddenUsecase>(
+        () => ToggleIsVehicleHiddenUsecase(instance<VehicleRepository>()));
   }
 }
 

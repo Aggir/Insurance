@@ -15,4 +15,6 @@ abstract class VehicleRepository {
 
   Future<Either<Failure, VehiclesPage>> getMyVehicles(
       {int? page, required bool isHidden});
+
+  Future<Either<Failure, void>> toggleIsVehicleHidden(int vehicleId);
 }

@@ -54,6 +54,8 @@ abstract class RemoteDataSource {
 
   Future<VehiclesResponse> getMyVehicles({int? page, bool isHidden = false});
 
+  Future<BasicResponse> toggleIsVehicleHidden(int vehicleId);
+
   Future<CompaniesResponse> getCompanies(int? page);
 
   Future<BranchesResponse> getCompanyBranches(int? companyId);

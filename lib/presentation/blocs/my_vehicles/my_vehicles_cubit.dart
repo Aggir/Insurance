@@ -5,6 +5,7 @@ import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/domain/entities/meta.dart';
 import 'package:insurance_app/domain/entities/vehicle.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
+import 'package:insurance_app/domain/usecases/toggle_is_vehicle_hidden_usecase.dart';
 
 import '../../../app/enums/status_enum.dart';
 
@@ -128,6 +129,21 @@ class MyVehiclesCubit extends Cubit<MyVehiclesState> {
           }
         }
       }
+    });
+  }
+
+  toggleIsVehicleHidden(int vehicleId) async {
+    emit(state.copyWith(
+        toggleIsVehicleHiddenStatus: Status.loading,
+        selectedVehicleToHide: vehicleId));
+    initToggleIsVehicleHidden();
+    (await instance<ToggleIsVehicleHiddenUsecase>().execute(vehicleId)).fold(
+        (failure) => emit(state.copyWith(
+            toggleIsVehicleHiddenStatus: Status.failure,
+            toggleIsVehicleHiddenErrorMessage: failure.message)), (r) {
+      emit(state.copyWith(toggleIsVehicleHiddenStatus: Status.success));
+      init();
+      fetchHiddenVehicles();
     });
   }
 

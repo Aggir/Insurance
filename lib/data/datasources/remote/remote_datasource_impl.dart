@@ -66,7 +66,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           ApiConstants.me,
           options: _bearerToken(token),
         );
-        print(response);
         userResponse =
             UserResponse.fromMap(response.data as Map<String, dynamic>);
       } else {
@@ -75,7 +74,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (userResponse.user == null) {
         _appService.token = Constants.empty;
       }
-      print(userResponse);
       return (userResponse);
     } on DioException catch (error) {
       _appService.token = Constants.empty;
@@ -138,7 +136,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UserResponse> signUp(SignUpRequest request) async {
     try {
       final body = await request.toMap();
-      print(body);
       Response response = await _dio.post(
         ApiConstants.signup,
         data: FormData.fromMap(body),
@@ -462,7 +459,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           code: error.response?.statusCode,
           message: ApiErrorHandler.generic(error));
     } catch (error) {
-      print(error);
       return InsuranceTypesResponse(message: AppStrings.genericError);
     }
   }
@@ -637,6 +633,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       Response response = await _dio.post(
         ApiConstants.alarms,
         data: FormData.fromMap(body),
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> toggleIsVehicleHidden(int vehicleId) async {
+    try {
+      Response response = await _dio.put(
+        '${ApiConstants.toggleIsVehicleHidden}/$vehicleId',
         options: _bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);

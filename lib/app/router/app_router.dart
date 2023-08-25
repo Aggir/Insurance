@@ -42,6 +42,7 @@ class AppRouter {
           AppRoutes.comparePrices,
           AppRoutes.signUp,
           AppRoutes.addMyVehicle,
+          AppRoutes.myHiddenVehicles,
           AppRoutes.forgotPassword,
           AppRoutes.reminder,
           AppRoutes.home,

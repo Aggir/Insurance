@@ -24,6 +24,7 @@ class ApiConstants {
   static const String vehicleOwnershipTypes = '/vehicle_ownership_types';
   static const String vehicleTypes = '/vehicle_types';
   static const String vehicles = '/vehicles';
+  static const String toggleIsVehicleHidden = '/vehicles/toggleHidden';
   // Insurance
   static const String insuranceTypes = '/insurance_types';
   static const String insurances = '/insurances';

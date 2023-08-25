@@ -50,6 +50,17 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
         appBar: AppBar(
           backgroundColor: AppColors.transparent,
           centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              context.push(AppScreen.myHiddenVehicles.toPath);
+            },
+            icon: SvgPicture.asset(
+              SvgAssets.visible,
+              height: AppSizes.s28.r,
+              width: AppSizes.s28.r,
+              colorFilter: ColorFilter.mode(AppColors.primary, BlendMode.srcIn),
+            ),
+          ),
           actions: [
             IconButton(
               onPressed: () => _addVehicleFunction(context),
