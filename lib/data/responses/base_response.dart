@@ -1,4 +1,4 @@
 abstract class BaseResponse {
-  late int? code;
-  late String? message;
+  late final int? code;
+  late final String? message;
 }

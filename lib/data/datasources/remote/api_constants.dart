@@ -1,6 +1,11 @@
 class ApiConstants {
   static const String baseUrl = 'https://insurance-api-mf0n.onrender.com/api';
 
+  static const String notifications = '/notification';
+  static const String notificationToggleSeen = '/notification/toggleSeen';
+  static const String notificationToggleRead = '/notification/toggleRead';
+  static const String notificationCountUnseen = '/notification/countUnseen';
+
   static const String cities = '/cities';
   static const String colors = '/colors';
   static const String companies = '/companies';

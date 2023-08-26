@@ -10,6 +10,7 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
+import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
 
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
 import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   _notificationButtonFunction(BuildContext context) {
-    context.go(AppScreen.notifications.toPath);
+    context.push(AppScreen.notifications.toPath);
   }
 
   _createVehicleFunction(BuildContext context) {
@@ -169,11 +170,37 @@ class _HomePageState extends State<HomePage> {
                 ),
                 IconButton(
                   onPressed: () => _notificationButtonFunction(context),
-                  icon: SvgPicture.asset(
-                    SvgAssets.bell,
-                    height: AppSizes.s32.r,
-                    width: AppSizes.s32.r,
-                  ),
+                  icon: Stack(children: [
+                    SvgPicture.asset(
+                      SvgAssets.bell,
+                      height: AppSizes.s32.r,
+                      width: AppSizes.s32.r,
+                    ),
+                    BlocBuilder<NotificationsCubit, NotificationsState>(
+                      builder: (context, state) {
+                        if (state.countUnseen > 0) {
+                          return Align(
+                            alignment: Alignment.topRight,
+                            child: CircleAvatar(
+                              radius: AppSizes.s8.r,
+                              backgroundColor: AppColors.danger,
+                              child: Center(
+                                child: Text(
+                                  state.countUnseen > 9
+                                      ? '9+'
+                                      : state.countUnseen.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: boldExtraSmallWhiteStyle(),
+                                ),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  ]),
                 ),
               ],
             );

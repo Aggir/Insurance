@@ -21,6 +21,7 @@ import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/companies_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/insurances_response.dart';
+import 'package:insurance_app/data/responses/notifications_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
 import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
@@ -680,6 +681,78 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return AlarmsResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<NotificationsResponse> getNotifications() async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.notifications,
+        options: _bearerToken(_appService.token),
+      );
+      return NotificationsResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return NotificationsResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return NotificationsResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> toggleNotificationsIsSeen() async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.notificationToggleSeen,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> toggleNotificationIsRead(int id) async {
+    try {
+      Response response = await _dio.get(
+        '${ApiConstants.notificationToggleRead}/$id',
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> countUnseenNotifications() async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.notificationCountUnseen,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
     }
   }
 }

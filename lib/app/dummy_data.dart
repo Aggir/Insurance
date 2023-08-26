@@ -1,6 +1,4 @@
 import 'package:insurance_app/app/assets_manager.dart';
-// import 'package:insurance_app/app/enums/insurance_types_enum.dart';
-import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/domain/entities/remind_me_in.dart';
 
@@ -34,37 +32,11 @@ const List<Map<String, String>> seatsNumberWithoutTheDriver = [
   {'id': '6', 'value': '7'},
 ];
 
-const List<Map<String, String>> colors = [
-  {'id': '1', 'value': 'أحمر'},
-  {'id': '2', 'value': 'أزرق'},
-  {'id': '3', 'value': 'أخضر'},
-  {'id': '4', 'value': 'أصفر'},
-  {'id': '5', 'value': 'أسود'},
-  {'id': '6', 'value': 'أبيض'},
-];
-
 const List<Map<String, String>> test = [
   {'id': '1', 'value': 'تجربة 1'},
   {'id': '2', 'value': 'تجربة 2'},
   {'id': '3', 'value': 'تجربة 3'},
   {'id': '4', 'value': 'تجربة 4'},
-];
-
-const List<Map<String, String>> carBrands = [
-  {'id': '1', 'value': 'فولسفاغن', 'imgPath': ImageAssets.volkswagen},
-  {'id': '2', 'value': 'كيا', 'imgPath': ImageAssets.kia},
-  {'id': '3', 'value': 'مرسيدس', 'imgPath': ImageAssets.mercedes},
-  {'id': '4', 'value': 'جيب', 'imgPath': ImageAssets.jeep},
-  {'id': '5', 'value': 'هيونداي', 'imgPath': ImageAssets.hyundai},
-  {'id': '6', 'value': 'ليكسز', 'imgPath': ImageAssets.lexus},
-  {'id': '7', 'value': 'بورش', 'imgPath': ImageAssets.porsche},
-  {'id': '8', 'value': 'تويوتا', 'imgPath': ImageAssets.toyota},
-  {'id': '9', 'value': 'اودي', 'imgPath': ImageAssets.audi},
-];
-
-const List<Map<String, String>> myVehicles = [
-  {'id': '1', 'value': 'كيا أوبتما 2007', 'imgPath': ImageAssets.kia},
-  {'id': '2', 'value': 'هيونداي اكسنت 2012', 'imgPath': ImageAssets.hyundai},
 ];
 
 const List<Map<String, String>> vehicleYears = [
@@ -120,45 +92,3 @@ const List<Map<String, String>> vehicleCountry = [
   {'id': '1', 'value': 'ليبيا', 'svgPath': SvgAssets.libya},
   {'id': '2', 'value': 'المانيا', 'svgPath': SvgAssets.germany},
 ];
-// const List<Map<String, String>> paymentMethods = [
-//   {'id': '1', 'value': 'موبي كاش', 'imgPath': ImageAssets.mobicash},
-//   {'id': '2', 'value': 'ناب 4 باي', 'imgPath': ImageAssets.nab4pay},
-//   {'id': '3', 'value': 'سداد', 'imgPath': ImageAssets.sadad},
-//   {'id': '4', 'value': 'تداول', 'imgPath': ImageAssets.tadawul},
-//   {'id': '5', 'value': 'معاملات', 'imgPath': ImageAssets.moamalat},
-// ];
-
-const underProcessingInsurances = <InsuranceEntity>[];
-// const issuedInsurances = <InsuranceEntity>[
-//   InsuranceEntity(
-//     id: '1',
-//     insuranceTypeId: '1',
-//     carBrandId: '5',
-//     insuranceCompanyId: '1',
-//     referenceNumber: '112233',
-//     issuanceDate: '1-1-2023',
-//     insuredName: 'حسين الشريف',
-//     insuranceType: 'وثيقة تأمين سيارة إجباري',
-//     insuranceCompany: 'شركة تيبستي للتأمين',
-//     carBrand: 'هيونداي',
-//     carBrandImgPath: ImageAssets.hyundai,
-//     insuranceStatus: InsuranceTypeStatus.issued,
-//   ),
-// ];
-// const notPaidInsurances = <InsuranceEntity>[
-//   InsuranceEntity(
-//     id: '2',
-//     insuranceTypeId: '1',
-//     carBrandId: '2',
-//     insuranceCompanyId: '1',
-//     referenceNumber: '008096',
-//     issuanceDate: '1-11-2022',
-//     insuredName: 'مرام عبدالباسط القدري',
-//     insuranceType: 'وثيقة تأمين سيارة إجباري',
-//     insuranceCompany: 'شركة تيبستي للتأمين',
-//     carBrand: 'كيا',
-//     carBrandImgPath: ImageAssets.kia,
-//     insuranceStatus: InsuranceTypeStatus.notPaid,
-//   ),
-// ];
-const expiredInsurances = <InsuranceEntity>[];

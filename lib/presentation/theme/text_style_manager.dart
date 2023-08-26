@@ -76,6 +76,10 @@ TextStyle boldExtraSmallDarkGrayStyle() {
   return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s10);
 }
 
+TextStyle boldExtraSmallWhiteStyle() {
+  return getBoldStyle(color: AppColors.whiteText, fontSize: FontSize.s10);
+}
+
 TextStyle textFieldErrorMessageStyle() {
   return getRegularStyle(color: AppColors.danger, fontSize: FontSize.s10);
 }

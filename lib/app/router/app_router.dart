@@ -17,6 +17,8 @@ import '../helpers/app_service.dart';
 class NavigatorKeys {
   static GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey(debugLabel: 'root');
+  static GlobalKey<NavigatorState> appNavigatorKey =
+      GlobalKey(debugLabel: 'app');
 }
 
 class AppRouter {
@@ -26,6 +28,7 @@ class AppRouter {
     redirect: _redirectToOnboarding,
     routes: <RouteBase>[
       ShellRoute(
+        navigatorKey: NavigatorKeys.appNavigatorKey,
         routes: [
           AppRoutes.onboarding,
           AppRoutes.termsAndConditions,

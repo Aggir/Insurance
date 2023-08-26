@@ -220,6 +220,8 @@ class AppStrings {
   static const homeScreen = 'home_screen';
 
   static const notifications = 'notifications';
+  static const unreadNotifications = 'unread_notifications';
+  static const readNotifications = 'read_notifications';
   static const youHaveNoNotifications = 'you_have_no_notifications';
   static const youHaveNoNotificationsMessage =
       'you_have_no_notifications_message';

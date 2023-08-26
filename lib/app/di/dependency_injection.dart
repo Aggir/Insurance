@@ -18,6 +18,7 @@ import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.
 import 'package:insurance_app/domain/usecases/change_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/count_unseen_notifications_usecase.dart';
 import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/forgot_password_usecase.dart';
@@ -32,9 +33,12 @@ import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
 import 'package:insurance_app/domain/usecases/get_my_alarms_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_insurances_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_notifications_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_vehicle_models_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
 import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
+import 'package:insurance_app/domain/usecases/notification_read_usecase.dart';
+import 'package:insurance_app/domain/usecases/notifications_seen_usecase.dart';
 import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
@@ -309,5 +313,33 @@ void initGetCompanyPricesFormData() async {
   if (!GetIt.I.isRegistered<GetCompanyPricesFormUsecase>()) {
     instance.registerFactory<GetCompanyPricesFormUsecase>(
         () => GetCompanyPricesFormUsecase(instance<Repository>()));
+  }
+}
+
+void initGetNotifications() async {
+  if (!GetIt.I.isRegistered<GetNotificationsUsecase>()) {
+    instance.registerFactory<GetNotificationsUsecase>(
+        () => GetNotificationsUsecase(instance<Repository>()));
+  }
+}
+
+void initNotificationsSeen() async {
+  if (!GetIt.I.isRegistered<NotificationsSeenUsecase>()) {
+    instance.registerFactory<NotificationsSeenUsecase>(
+        () => NotificationsSeenUsecase(instance<Repository>()));
+  }
+}
+
+void initNotificationsRead() async {
+  if (!GetIt.I.isRegistered<NotificationReadUsecase>()) {
+    instance.registerFactory<NotificationReadUsecase>(
+        () => NotificationReadUsecase(instance<Repository>()));
+  }
+}
+
+void initCountUnseenNotifications() async {
+  if (!GetIt.I.isRegistered<CountUnseenNotificationsUsecase>()) {
+    instance.registerFactory<CountUnseenNotificationsUsecase>(
+        () => CountUnseenNotificationsUsecase(instance<Repository>()));
   }
 }

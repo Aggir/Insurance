@@ -8,6 +8,7 @@ import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/insurances_response.dart';
+import 'package:insurance_app/data/responses/notifications_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
@@ -86,4 +87,12 @@ abstract class RemoteDataSource {
   Future<BasicResponse> addAlarm(AddAlarmRequest request);
 
   Future<AlarmsResponse> getMyAlarms({int? page});
+
+  Future<NotificationsResponse> getNotifications();
+
+  Future<BasicResponse> toggleNotificationsIsSeen();
+
+  Future<BasicResponse> toggleNotificationIsRead(int id);
+
+  Future<BasicResponse> countUnseenNotifications();
 }

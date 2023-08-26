@@ -11,6 +11,7 @@ import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_alarms/my_alarms_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
+import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
 
@@ -114,8 +115,8 @@ class AppRoutes {
     redirect: _authenticatedRoute,
     path: AppScreen.notifications.toPath,
     name: AppScreen.notifications.toName,
-    builder: (BuildContext context, GoRouterState state) {
-      return const NotificationsScreen();
+    pageBuilder: (BuildContext context, GoRouterState state) {
+      return const CupertinoPage(child: NotificationsScreen());
     },
   );
 
@@ -246,9 +247,10 @@ class AppRoutes {
       return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => MyVehiclesCubit()..init()),
+          BlocProvider(create: (context) => MyInsurancesCubit()..init()),
           BlocProvider(
-            create: (context) => MyInsurancesCubit()..init(),
-          )
+              create: (context) =>
+                  NotificationsCubit()..startUnseenNotificationsTimer()),
         ],
         child: Builder(builder: (context) {
           return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(

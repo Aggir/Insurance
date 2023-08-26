@@ -8,6 +8,7 @@ import 'package:insurance_app/data/mapper/color_mapper.dart';
 import 'package:insurance_app/data/mapper/company_mapper.dart';
 import 'package:insurance_app/data/mapper/insurance_type_mapper.dart';
 import 'package:insurance_app/data/mapper/meta_mapper.dart';
+import 'package:insurance_app/data/mapper/notification_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_brand_mapper.dart';
 import 'package:insurance_app/data/responses/base_response.dart';
 import 'package:insurance_app/domain/data_classes/companies_page.dart';
@@ -15,6 +16,7 @@ import 'package:insurance_app/domain/data_classes/company_prices_form_data.dart'
 import 'package:insurance_app/domain/entities/branch.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/color.dart';
+import 'package:insurance_app/domain/entities/notification.dart';
 import 'package:insurance_app/domain/repositories/repository.dart';
 
 import '../../app/app_strings.dart';
@@ -117,6 +119,67 @@ class RepositoryImpl extends Repository {
         Constants.zero,
         AppStrings.genericError.tr(),
       ));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<NotificationEntity>>> getNotifications() async {
+    final response = await _remoteDataSource.getNotifications();
+    if (response.notifications == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      // Remove Take Function
+      return Right(
+          response.notifications?.map((e) => e.toDomain()).toList() ?? []);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> toggleNotificationsIsSeen() async {
+    final response = await _remoteDataSource.toggleNotificationsIsSeen();
+    if (response.message != null) {
+      return Left(
+        Failure(
+          response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr(),
+        ),
+      );
+    } else {
+      return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> toggleNotificationIsRead(int id) async {
+    final response = await _remoteDataSource.toggleNotificationIsRead(id);
+    if (response.message != null) {
+      return Left(
+        Failure(
+          response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr(),
+        ),
+      );
+    } else {
+      return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> countUnseenNotifications() async {
+    print('call');
+    final response = await _remoteDataSource.countUnseenNotifications();
+    if (response.message != null) {
+      return Left(
+        Failure(
+          response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr(),
+        ),
+      );
+    } else {
+      return Right(int.parse(response.data));
     }
   }
 }

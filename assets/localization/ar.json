@@ -178,6 +178,8 @@
     "payment_dialog_message": "تمت العملية بنجاح يمكنك مراحعة تاميناتي لايجاد الوثيقة",
     "home_screen": "الصفحة الرئيسية",
     "notifications": "الإشعارات",
+    "unread_notifications": "إشعارات جديدة",
+    "read_notifications": "إشعارات قديمة",
     "you_have_no_notifications": "لا يوجد لديك إشعارات",
     "you_have_no_notifications_message": "لا يوجد لديك أي إشعارات بعد. ستصلك إشعارات بكافة التبيهات بالنظام.",
     "back_to_home_screen": "عودة للرئيسية",
