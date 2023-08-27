@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/mapper/company_mapper.dart';
+import 'package:insurance_app/data/mapper/company_price_mapper.dart';
 import 'package:insurance_app/data/mapper/insurance_mapper.dart';
 import 'package:insurance_app/data/mapper/insurance_type_mapper.dart';
 import 'package:insurance_app/data/mapper/meta_mapper.dart';
@@ -9,6 +10,8 @@ import 'package:insurance_app/data/mapper/vehicle_mapper.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/domain/data_classes/insurances_page.dart';
 import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
+import 'package:insurance_app/domain/entities/company_price.dart';
+import 'package:insurance_app/domain/entities/insurance_type.dart';
 import 'package:insurance_app/domain/repositories/insurance_repository.dart';
 
 import '../../app/app_strings.dart';
@@ -126,6 +129,33 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
           response.message ?? AppStrings.genericError.tr()));
     } else {
       return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<InsuranceTypeEntity>>> getInsuranceTypes() async {
+    final response = await _remoteDataSource.getInsuranceTypes();
+    if (response.message != null) {
+      return Left(Failure(response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr()));
+    } else {
+      return Right(
+        response.insuranceTypes?.map((e) => e.toDomain()).toList() ?? [],
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<CompanyPriceEntity>>> getCompaniesPrices(
+      CompaniesPricesRequest request) async {
+    final response = await _remoteDataSource.getCompaniesPrices(request);
+    if (response.message != null) {
+      return Left(Failure(response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr()));
+    } else {
+      return Right(
+        response.companiesPrices?.map((e) => e.toDomain()).toList() ?? [],
+      );
     }
   }
 }

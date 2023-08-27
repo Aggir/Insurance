@@ -18,6 +18,7 @@ import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
+import 'package:insurance_app/data/responses/companies_prices_response.dart';
 import 'package:insurance_app/data/responses/companies_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/insurances_response.dart';
@@ -753,6 +754,27 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<CompaniesPricesResponse> getCompaniesPrices(
+      CompaniesPricesRequest request) async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.companiesPrices,
+        options: _bearerToken(_appService.token),
+        queryParameters: request.toMap(),
+      );
+      return CompaniesPricesResponse.fromMap(
+          {'companiesPrices': response.data});
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return CompaniesPricesResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return CompaniesPricesResponse(message: AppStrings.genericError);
     }
   }
 }

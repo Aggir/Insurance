@@ -44,3 +44,22 @@ class IssueInsuranceRequest implements BaseRequest {
     };
   }
 }
+
+class CompaniesPricesRequest implements BaseRequest {
+  final int insuranceTypeId;
+  final int horsePower;
+  final int maxPassengers;
+  CompaniesPricesRequest({
+    required this.insuranceTypeId,
+    required this.horsePower,
+    required this.maxPassengers,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'insurance_type_id': insuranceTypeId,
+      'horsepower': horsePower,
+      'max_passengers': maxPassengers,
+    };
+  }
+}

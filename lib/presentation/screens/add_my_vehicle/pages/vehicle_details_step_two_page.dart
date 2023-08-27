@@ -126,10 +126,10 @@ class _AddMyVehicleDetailsStepTwoPageState
           hintText: AppStrings.selectTheHorsepowerOfTheEngine.tr(),
           items: DUMMY.horsePower
               .map(
-                (type) => DropdownMenuItem(
-                  value: type['value'],
+                (value) => DropdownMenuItem(
+                  value: value.toString(),
                   child: Text(
-                    type['value'] ?? '',
+                    value.toString(),
                     style: bodyStyle(),
                   ),
                 ),
@@ -184,10 +184,10 @@ class _AddMyVehicleDetailsStepTwoPageState
           hintText: AppStrings.seatsWithoutTheDriver.tr(),
           items: DUMMY.seatsNumberWithoutTheDriver
               .map(
-                (type) => DropdownMenuItem(
-                  value: type['value'],
+                (value) => DropdownMenuItem(
+                  value: value.toString(),
                   child: Text(
-                    type['value'] ?? '',
+                    value.toString(),
                     style: bodyStyle(),
                   ),
                 ),

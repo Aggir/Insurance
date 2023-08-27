@@ -1,10 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/screens/compare_companies/components/filter_insurance_companies_modal.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -26,11 +29,15 @@ class CarsInsuranceScreen extends StatelessWidget {
   }
 
   void _insurancePolicyPrices(BuildContext context) {
+    initCompareCompaniesCubit();
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       shape: AppValues.modalShape,
-      builder: (context) => const FilterInsuranceCompaniesModal(),
+      builder: (context) => BlocProvider.value(
+        value: instance<CompareCompaniesCubit>(),
+        child: const FilterInsuranceCompaniesModal(),
+      ),
     );
   }
 

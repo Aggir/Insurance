@@ -18,6 +18,7 @@ import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.
 import 'package:insurance_app/domain/usecases/change_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/compare_companies_prices_usecase.dart';
 import 'package:insurance_app/domain/usecases/count_unseen_notifications_usecase.dart';
 import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
@@ -30,6 +31,7 @@ import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_branches_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_prices_form_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
+import 'package:insurance_app/domain/usecases/get_insurance_types_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_alarms_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_insurances_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_vehicles_usecase.dart';
@@ -44,6 +46,7 @@ import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
 import 'package:insurance_app/domain/usecases/toggle_is_vehicle_hidden_usecase.dart';
 import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,6 +107,13 @@ Future<void> initAppModule() async {
   instance.registerLazySingleton(() => UserCubit());
   // internet Bloc
   instance.registerLazySingleton(() => InternetBloc());
+}
+
+void initCompareCompaniesCubit() async {
+  if (!GetIt.I.isRegistered<CompareCompaniesCubit>()) {
+    instance.registerLazySingleton<CompareCompaniesCubit>(
+        () => CompareCompaniesCubit());
+  }
 }
 
 void initSignIn() async {
@@ -250,6 +260,20 @@ void initGetMyInsurances() async {
   if (!GetIt.I.isRegistered<GetMyInsurancesUsecase>()) {
     instance.registerFactory<GetMyInsurancesUsecase>(
         () => GetMyInsurancesUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initGetInsuranceTypes() async {
+  if (!GetIt.I.isRegistered<GetInsuranceTypesUsecase>()) {
+    instance.registerFactory<GetInsuranceTypesUsecase>(
+        () => GetInsuranceTypesUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initCompareCompaniesPrices() async {
+  if (!GetIt.I.isRegistered<CompareCompaniesPricesUsecase>()) {
+    instance.registerFactory<CompareCompaniesPricesUsecase>(
+        () => CompareCompaniesPricesUsecase(instance<InsuranceRepository>()));
   }
 }
 

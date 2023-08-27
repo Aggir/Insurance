@@ -172,10 +172,10 @@ class _PricesModalState extends State<PricesModal> {
                 onChanged: (value) => cubit.selectHorsePower(int.parse(value)),
                 items: DUMMY.horsePower
                     .map(
-                      (type) => DropdownMenuItem(
-                        value: type['value'],
+                      (value) => DropdownMenuItem(
+                        value: value.toString(),
                         child: Text(
-                          type['value'] ?? '',
+                          value.toString(),
                           style: bodyStyle(),
                         ),
                       ),
@@ -188,10 +188,10 @@ class _PricesModalState extends State<PricesModal> {
                 onChanged: (value) => cubit.selectSeatsCount(int.parse(value)),
                 items: DUMMY.seatsNumberWithoutTheDriver
                     .map(
-                      (type) => DropdownMenuItem(
-                        value: type['value'],
+                      (value) => DropdownMenuItem(
+                        value: value.toString(),
                         child: Text(
-                          type['value'] ?? '',
+                          value.toString(),
                           style: bodyStyle(),
                         ),
                       ),

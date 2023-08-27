@@ -196,6 +196,7 @@ class _InsuranceCompaniesScreenState extends State<InsuranceCompaniesScreen> {
                 company.description,
                 style: smallGrayBodyStyle(),
                 maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
