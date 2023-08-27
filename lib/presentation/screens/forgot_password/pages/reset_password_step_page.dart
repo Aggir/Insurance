@@ -4,12 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../blocs/forgot_password/forgot_password_cubit.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
@@ -45,7 +48,11 @@ class _ForgotPasswordRestPasswordPageState
 
   _nextButtonFunction(BuildContext context) {
     FocusScope.of(context).unfocus();
-    BlocProvider.of<ForgotPasswordCubit>(context).confirmResetPasswordForm();
+    final cubit = BlocProvider.of<ForgotPasswordCubit>(context);
+    if (cubit.isResetPasswordFormValid()) {
+      DialogService.loadLoadingDialog(context);
+      cubit.resetPassword();
+    }
   }
 
   @override
@@ -116,6 +123,8 @@ class _ForgotPasswordRestPasswordPageState
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.confirmPasswordController.text) {
                 return "";
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -131,6 +140,8 @@ class _ForgotPasswordRestPasswordPageState
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.passwordController.text) {
                 return AppStrings.passwordAndConfirmPasswordDoNotMatch.tr();
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -146,8 +157,15 @@ class _ForgotPasswordRestPasswordPageState
       listenWhen: (previous, current) =>
           previous.resetPasswordStatus != current.resetPasswordStatus,
       listener: (context, state) {
+        if (state.resetPasswordStatus.isFailure) {
+          DialogService.dispose();
+          SnackBars.error(context, state.resetPasswordError!);
+        }
         if (state.resetPasswordStatus.isSuccess) {
-          context.go(Routes.homeRoute);
+          DialogService.dispose();
+          SnackBars.success(
+              context, AppStrings.passwordChangedSuccessfully.tr());
+          context.go(AppScreen.login.toPath);
         }
       },
       builder: (context, state) {

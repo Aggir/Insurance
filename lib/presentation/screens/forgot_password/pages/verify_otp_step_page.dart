@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
@@ -16,6 +17,7 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 
 import '../../../../app/functions.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_text_button.dart';
 import '../../../widgets/page_content_padding.dart';
@@ -31,12 +33,15 @@ class ForgotPasswordVerifyOtpPage extends StatefulWidget {
 class _ForgotPasswordVerifyOtpPageState
     extends State<ForgotPasswordVerifyOtpPage> {
   _otpOnComplete(ForgotPasswordCubit cubit) {
-    cubit.confirmVerifyOtpForm();
+    if (cubit.isOtpFieldValid()) {
+      DialogService.loadLoadingDialog(context);
+      cubit.verifyOtp();
+    }
   }
 
   bool isResendButtonActive = false;
   _resendOtp() {
-    BlocProvider.of<ForgotPasswordCubit>(context).startTimer();
+    BlocProvider.of<ForgotPasswordCubit>(context).resendOtp();
   }
 
   @override
@@ -122,17 +127,12 @@ class _ForgotPasswordVerifyOtpPageState
         listenWhen: (previous, current) =>
             current.verifyOtpStatus != previous.verifyOtpStatus,
         listener: (context, state) {
-          if (state.verifyOtpStatus.isLoading) {
-            DialogService.loadLoadingDialog(context);
+          if (state.verifyOtpStatus.isFailure) {
+            DialogService.dispose();
+            SnackBars.error(context, state.verifyOtpError!);
           } else if (state.verifyOtpStatus.isSuccess) {
             DialogService.dispose();
-            GoRouter.of(context)
-                .go(Routes.forgotPasswordResetPasswordStepRoute);
-          } else if (state.verifyOtpStatus.isFailure) {
-            DialogService.dispose();
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.verifyOtpError!)));
+            context.go(AppScreen.forgotPasswordResetStep.toPath);
           }
         },
         child: Form(
@@ -140,7 +140,7 @@ class _ForgotPasswordVerifyOtpPageState
           child: Directionality(
             textDirection: ui.TextDirection.ltr,
             child: Pinput(
-              length: 4,
+              length: 5,
               controller: cubit.otpController,
               onCompleted: (value) => _otpOnComplete(cubit),
               defaultPinTheme: PinTheme(
@@ -170,6 +170,10 @@ class _ForgotPasswordVerifyOtpPageState
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(
+          height: AppSizes.s20.r,
+          width: AppSizes.s20.r,
+        ),
         Text(
           AppStrings.left.tr(),
           style: grayBodyStyle(),
@@ -188,11 +192,30 @@ class _ForgotPasswordVerifyOtpPageState
           style: grayBodyStyle(),
         ),
         CustomSpacers.small(),
-        BlocBuilder<ForgotPasswordCubit, ForgotPasswordState>(
+        BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+          listenWhen: (previous, current) =>
+              previous.resendOtpStatus != current.resendOtpStatus,
+          listener: (context, state) {
+            if (state.resendOtpStatus.isFailure) {
+              SnackBars.error(context, state.resendOtpError!);
+            } else if (state.resendOtpStatus.isSuccess) {
+              SnackBars.success(context, AppStrings.otpSentSuccessfully.tr());
+            }
+          },
           builder: (context, state) {
-            return CustomTextButton(
-              onPressed: state.isResendButtonActive ? _resendOtp : null,
-              text: AppStrings.resend.tr(),
+            return Row(
+              children: [
+                CustomTextButton(
+                  onPressed: state.isResendButtonActive ? _resendOtp : null,
+                  text: AppStrings.resend.tr(),
+                ),
+                SizedBox(
+                    height: AppSizes.s20.r,
+                    width: AppSizes.s20.r,
+                    child: state.resendOtpStatus.isLoading
+                        ? const CircularProgressIndicator()
+                        : null),
+              ],
             );
           },
         )

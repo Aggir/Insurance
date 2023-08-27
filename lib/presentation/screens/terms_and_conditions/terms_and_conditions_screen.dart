@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+
+import '../../../app/router/routes.dart';
 
 class TermsAndConditionsScreen extends StatelessWidget {
   const TermsAndConditionsScreen(this.navigateFromSettings, {super.key});
@@ -17,12 +19,12 @@ class TermsAndConditionsScreen extends StatelessWidget {
 
   void _acceptButtonFunction(BuildContext context) async {
     if (navigateFromSettings) {
-      context.go(Routes.moreRoute);
+      context.go(AppScreen.more.toPath);
     } else {
-      context.push(Routes.loadingRoute);
+      context.push(AppScreen.loading.toPath);
       Future.delayed(const Duration(seconds: 2), () {
         context.pop();
-        context.go(Routes.loginRoute);
+        context.go(AppScreen.login.toPath);
       });
     }
   }
@@ -55,32 +57,37 @@ class TermsAndConditionsScreen extends StatelessWidget {
         'description': AppStrings.conditionSixDescription.tr()
       },
     ];
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-                  vertical: AppValues.large,
-                  horizontal: AppValues.medium + AppValues.small)
-              .r,
-          child: Column(
-            children: [
-              _headerWidget(),
-              CustomSpacers.large(),
-              _contentWidget(termsAndConditionsList),
-              const Divider(),
-              CustomSpacers.medium(),
-              PrimaryButton.fullWidth(
-                onPressed: () => _acceptButtonFunction(context),
-                child: Text(
-                  (navigateFromSettings
-                          ? AppStrings.backToThePreviousPage
-                          : AppStrings.acceptTermsAndConditions)
-                      .tr()
-                      .toUpperCase(),
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                    vertical: AppValues.large,
+                    horizontal: AppValues.medium + AppValues.small)
+                .r,
+            child: Column(
+              children: [
+                _headerWidget(),
+                CustomSpacers.large(),
+                _contentWidget(termsAndConditionsList),
+                const Divider(),
+                CustomSpacers.medium(),
+                PrimaryButton.fullWidth(
+                  onPressed: () => _acceptButtonFunction(context),
+                  child: Text(
+                    (navigateFromSettings
+                            ? AppStrings.backToThePreviousPage
+                            : AppStrings.acceptTermsAndConditions)
+                        .tr()
+                        .toUpperCase(),
+                  ),
                 ),
-              ),
-              CustomSpacers.medium(),
-            ],
+                CustomSpacers.medium(),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,32 +1,87 @@
 part of './issue_insurance_cubit.dart';
 
 class IssueInsuranceState extends Equatable {
-  final String? selectedCompany;
-  final String? selectedType;
-  final String? selectedVehicle;
+  final Status fetchInsuranceFormDataStatus;
+  final String? fetchInsuranceFormDataErrorMessage;
+  final IssueInsuranceFormData? insuranceFormData;
+  final Status calculateInsurancePriceStatus;
+  final String? calculateInsurancePriceErrorMessage;
+  final String? insurancePrice;
+  final Status issueInsuranceStatus;
+  final String? issueInsuranceErrorMessage;
+  final int? selectedCompanyId;
+  final int? selectedTypeId;
+  final int? selectedVehicleId;
+  final int? insuranceId;
 
   const IssueInsuranceState({
-    this.selectedCompany,
-    this.selectedType,
-    this.selectedVehicle,
+    this.fetchInsuranceFormDataStatus = Status.initial,
+    this.fetchInsuranceFormDataErrorMessage,
+    this.insuranceFormData,
+    this.calculateInsurancePriceStatus = Status.initial,
+    this.calculateInsurancePriceErrorMessage,
+    this.insurancePrice,
+    this.issueInsuranceStatus = Status.initial,
+    this.issueInsuranceErrorMessage,
+    this.selectedCompanyId,
+    this.selectedTypeId,
+    this.selectedVehicleId,
+    this.insuranceId,
   });
 
   @override
-  List<Object?> get props => [selectedCompany, selectedType, selectedVehicle];
+  List<Object?> get props => [
+        selectedCompanyId,
+        selectedTypeId,
+        selectedVehicleId,
+        fetchInsuranceFormDataStatus,
+        fetchInsuranceFormDataErrorMessage,
+        insuranceFormData,
+        calculateInsurancePriceStatus,
+        calculateInsurancePriceErrorMessage,
+        issueInsuranceStatus,
+        issueInsuranceErrorMessage,
+        insurancePrice,
+        insuranceId,
+      ];
 
   IssueInsuranceState copyWith({
-    String? selectedCompany,
-    String? selectedType,
-    String? selectedVehicle,
+    Status? fetchInsuranceFormDataStatus,
+    String? fetchInsuranceFormDataErrorMessage,
+    IssueInsuranceFormData? insuranceFormData,
+    Status? calculateInsurancePriceStatus,
+    String? calculateInsurancePriceErrorMessage,
+    String? insurancePrice,
+    Status? issueInsuranceStatus,
+    String? issueInsuranceErrorMessage,
+    int? selectedCompanyId,
+    int? selectedTypeId,
+    int? selectedVehicleId,
+    int? insuranceId,
   }) {
     return IssueInsuranceState(
-      selectedCompany: selectedCompany ?? this.selectedCompany,
-      selectedType: selectedType ?? this.selectedType,
-      selectedVehicle: selectedVehicle ?? this.selectedVehicle,
+      fetchInsuranceFormDataStatus:
+          fetchInsuranceFormDataStatus ?? this.fetchInsuranceFormDataStatus,
+      fetchInsuranceFormDataErrorMessage: fetchInsuranceFormDataErrorMessage ??
+          this.fetchInsuranceFormDataErrorMessage,
+      insuranceFormData: insuranceFormData ?? this.insuranceFormData,
+      selectedCompanyId: selectedCompanyId ?? this.selectedCompanyId,
+      calculateInsurancePriceStatus:
+          calculateInsurancePriceStatus ?? this.calculateInsurancePriceStatus,
+      calculateInsurancePriceErrorMessage:
+          calculateInsurancePriceErrorMessage ??
+              this.calculateInsurancePriceErrorMessage,
+      insurancePrice: insurancePrice ?? this.insurancePrice,
+      issueInsuranceStatus: issueInsuranceStatus ?? this.issueInsuranceStatus,
+      issueInsuranceErrorMessage:
+          issueInsuranceErrorMessage ?? this.issueInsuranceErrorMessage,
+      selectedTypeId: selectedTypeId ?? this.selectedTypeId,
+      selectedVehicleId: selectedVehicleId ?? this.selectedVehicleId,
+      insuranceId: insuranceId ?? this.insuranceId,
     );
   }
 
   @override
   String toString() =>
-      'IssueInsuranceState(selectedCompany: $selectedCompany, selectedType: $selectedType, selectedVehicle: $selectedVehicle)';
+      'IssueInsuranceState(selectedCompany: $selectedCompanyId, selectedType: $selectedTypeId, selectedVehicle: $selectedVehicleId)';
 }

@@ -80,6 +80,8 @@
     "i_will_create_it_later": "",
     "home": "",
     "my_vehicles": "",
+    "secured": "",
+    "not_secured": "",
     "my_insurances": "",
     "more": "",
     "welcome": "",
@@ -238,5 +240,8 @@
     "registered_authority": "",
     "save_vehicle_file": "",
     "you_have_successfully_added_your_vehicle": "",
-    "you_can_now_get_insurance_for_your_vehicle": ""
+    "you_can_now_get_insurance_for_your_vehicle": "",
+    "edit_profile_success_message": "",
+    "password_min_length": "",
+    "wrong_current_password": ""
 }

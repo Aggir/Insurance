@@ -8,6 +8,8 @@ class ForgotPasswordState extends Equatable {
   final String? verifyOtpError;
   final Status resetPasswordStatus;
   final String? resetPasswordError;
+  final Status resendOtpStatus;
+  final String? resendOtpError;
   final int resendCounterInSeconds;
   final bool isResendButtonActive;
   const ForgotPasswordState({
@@ -18,6 +20,8 @@ class ForgotPasswordState extends Equatable {
     this.verifyOtpError,
     this.resetPasswordStatus = Status.initial,
     this.resetPasswordError,
+    this.resendOtpStatus = Status.initial,
+    this.resendOtpError,
     this.resendCounterInSeconds = 0,
     this.isResendButtonActive = false,
   });
@@ -30,6 +34,8 @@ class ForgotPasswordState extends Equatable {
     String? verifyOtpError,
     Status? resetPasswordStatus,
     String? resetPasswordError,
+    Status? resendOtpStatus,
+    String? resendOtpError,
     int? resendCounterInSeconds,
     bool? isResendButtonActive,
   }) {
@@ -41,6 +47,8 @@ class ForgotPasswordState extends Equatable {
       verifyOtpError: verifyOtpError ?? this.verifyOtpError,
       resetPasswordStatus: resetPasswordStatus ?? this.resetPasswordStatus,
       resetPasswordError: resetPasswordError ?? this.resetPasswordError,
+      resendOtpStatus: resendOtpStatus ?? this.resendOtpStatus,
+      resendOtpError: resendOtpError ?? this.resendOtpError,
       resendCounterInSeconds:
           resendCounterInSeconds ?? this.resendCounterInSeconds,
       isResendButtonActive: isResendButtonActive ?? this.isResendButtonActive,
@@ -57,6 +65,8 @@ class ForgotPasswordState extends Equatable {
       verifyOtpError,
       resetPasswordStatus,
       resetPasswordError,
+      resendOtpStatus,
+      resendOtpError,
       resendCounterInSeconds,
       isResendButtonActive,
     ];

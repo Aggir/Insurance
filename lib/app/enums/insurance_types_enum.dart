@@ -3,67 +3,67 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 
-enum InsuranceStatus {
+enum InsuranceTypeStatus {
   underProcessing,
   issued,
   notPaid,
   expired,
 }
 
-extension InsuranceStatusExtension on InsuranceStatus {
-  bool get isUnderProcessing => this == InsuranceStatus.underProcessing;
-  bool get isIssued => this == InsuranceStatus.issued;
-  bool get isNotPaid => this == InsuranceStatus.notPaid;
-  bool get isExpired => this == InsuranceStatus.expired;
+extension InsuranceStatusExtension on InsuranceTypeStatus {
+  bool get isUnderProcessing => this == InsuranceTypeStatus.underProcessing;
+  bool get isIssued => this == InsuranceTypeStatus.issued;
+  bool get isNotPaid => this == InsuranceTypeStatus.notPaid;
+  bool get isExpired => this == InsuranceTypeStatus.expired;
 
   String get string {
     switch (this) {
-      case InsuranceStatus.underProcessing:
+      case InsuranceTypeStatus.underProcessing:
         return AppStrings.underProcessing;
-      case InsuranceStatus.issued:
+      case InsuranceTypeStatus.issued:
         return AppStrings.issuedInsurance;
-      case InsuranceStatus.notPaid:
+      case InsuranceTypeStatus.notPaid:
         return AppStrings.notPaid;
-      case InsuranceStatus.expired:
+      case InsuranceTypeStatus.expired:
         return AppStrings.expiredInsurance;
     }
   }
 
   String get svgPath {
     switch (this) {
-      case InsuranceStatus.underProcessing:
+      case InsuranceTypeStatus.underProcessing:
         return SvgAssets.search;
-      case InsuranceStatus.issued:
+      case InsuranceTypeStatus.issued:
         return SvgAssets.shield;
-      case InsuranceStatus.notPaid:
+      case InsuranceTypeStatus.notPaid:
         return SvgAssets.creditCard;
-      case InsuranceStatus.expired:
+      case InsuranceTypeStatus.expired:
         return SvgAssets.clock;
     }
   }
 
   Color get svgColor {
     switch (this) {
-      case InsuranceStatus.underProcessing:
+      case InsuranceTypeStatus.underProcessing:
         return AppColors.gray;
-      case InsuranceStatus.issued:
+      case InsuranceTypeStatus.issued:
         return AppColors.secondary;
-      case InsuranceStatus.notPaid:
+      case InsuranceTypeStatus.notPaid:
         return AppColors.primary;
-      case InsuranceStatus.expired:
+      case InsuranceTypeStatus.expired:
         return AppColors.danger;
     }
   }
 
   Color get svgBackgroundColor {
     switch (this) {
-      case InsuranceStatus.underProcessing:
+      case InsuranceTypeStatus.underProcessing:
         return AppColors.grayLight;
-      case InsuranceStatus.issued:
+      case InsuranceTypeStatus.issued:
         return AppColors.secondaryLight;
-      case InsuranceStatus.notPaid:
+      case InsuranceTypeStatus.notPaid:
         return AppColors.primaryLight;
-      case InsuranceStatus.expired:
+      case InsuranceTypeStatus.expired:
         return AppColors.primaryLight2;
     }
   }

@@ -33,6 +33,9 @@ class CustomTextFormField extends StatefulWidget {
     this.hideErrorMessage = false,
     this.label,
     this.onChanged,
+    this.onFieldSubmitted,
+    this.onEditingComplete,
+    this.textInputAction,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -53,6 +56,9 @@ class CustomTextFormField extends StatefulWidget {
   final bool hideErrorMessage;
   final String? label;
   final void Function(String?)? onChanged;
+  final void Function(String)? onFieldSubmitted;
+  final void Function()? onEditingComplete;
+  final TextInputAction? textInputAction;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -162,7 +168,10 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           height: AppValues.textFieldHeight.r,
           child: TextFormField(
             onChanged: widget.onChanged,
+            textInputAction: widget.textInputAction,
             focusNode: widget.focusNode ?? _focusNode,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            onEditingComplete: widget.onEditingComplete,
             controller: widget.controller,
             keyboardType: widget.keyboardType,
             maxLength: widget.maxLength,

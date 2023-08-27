@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+
 import 'package:insurance_app/presentation/screens/settings/components/unsubscribe_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -14,40 +14,58 @@ import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 
+import '../../../app/router/routes.dart';
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
   void _changePasswordFunction(BuildContext context) {
-    context.push(Routes.settingsChangePasswordRoute);
+    context.push(AppScreen.changePassword.toPath);
   }
 
   void _unsubscribeFunction(BuildContext context) {
     DialogService.load(context, content: const UnsubscribeDialog());
   }
 
+  void _myAlarmsFunction(BuildContext context) {
+    context.push(AppScreen.myAlarms.toPath);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.basic(
-        title: AppStrings.settings.tr(),
-        backButton: () => context.go(Routes.moreRoute),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-                vertical: AppValues.large, horizontal: AppValues.medium)
-            .r,
-        child: Column(children: [
-          _settingListTile(
-            imgPath: ImageAssets.newPassword,
-            title: AppStrings.changePassword.tr(),
-            onTap: () => _changePasswordFunction(context),
-          ),
-          CustomSpacers.medium(),
-          _settingListTile(
-            imgPath: ImageAssets.unsubscribe,
-            title: AppStrings.unsubscribeFormTheApp.tr(),
-            onTap: () => _unsubscribeFunction(context),
-          ),
-        ]),
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.more.toPath);
+        return false;
+      },
+      child: Scaffold(
+        appBar: CustomAppBar.basic(
+          title: AppStrings.settings.tr(),
+          backButton: () => context.go(AppScreen.more.toPath),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+                  vertical: AppValues.large, horizontal: AppValues.medium)
+              .r,
+          child: Column(children: [
+            _settingListTile(
+              imgPath: ImageAssets.newPassword,
+              title: AppStrings.changePassword.tr(),
+              onTap: () => _changePasswordFunction(context),
+            ),
+            CustomSpacers.medium(),
+            _settingListTile(
+              imgPath: ImageAssets.unsubscribe,
+              title: AppStrings.unsubscribeFormTheApp.tr(),
+              onTap: () => _unsubscribeFunction(context),
+            ),
+            CustomSpacers.medium(),
+            _settingListTile(
+              imgPath: ImageAssets.alarmClock,
+              title: AppStrings.myAlarms.tr(),
+              onTap: () => _myAlarmsFunction(context),
+            ),
+          ]),
+        ),
       ),
     );
   }

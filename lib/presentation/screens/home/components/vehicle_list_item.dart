@@ -1,37 +1,37 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/entities/vehicle.dart';
+import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
+
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/app_theme.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class VehicleListItem extends StatelessWidget {
-  const VehicleListItem(this.title, this.imgPath, {super.key});
-  final String title;
-  final String imgPath;
-
-  final _licensePlateNumber = "5 -7888 98 00";
-  final _vehicleType = "سيارة خاصة ملاكي";
-  final _usage = "شخصي";
-  final _address = "طرابلس";
+  const VehicleListItem(this.vehicle, {super.key});
+  final VehicleEntity vehicle;
 
   void _secureNowButtonFunction(BuildContext context) {
-    context.go(Routes.issueInsuranceRoute);
+    context.go(AppScreen.issueInsurance.toPath,
+        extra: AppScreen.myVehicles.toPath);
   }
 
   @override
   Widget build(BuildContext context) {
-    final countryOfManufacture = DUMMY.vehicleCountry[1];
     return Container(
       decoration: BoxDecoration(
         boxShadow: [AppValues.boxShadow],
@@ -56,49 +56,107 @@ class VehicleListItem extends StatelessWidget {
                           BorderRadius.circular(AppValues.mediumRadius.r),
                     ),
                     padding: const EdgeInsets.all(AppValues.extraSmall).r,
-                    child: Image.asset(imgPath),
+                    child: CachedNetworkImage(imageUrl: vehicle.brand.icon),
                   ),
                   CustomSpacers.small(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        title,
-                        style: mediumSmallHeadlineStyle(),
+                      SizedBox(
+                        width: AppSizes.s180.r,
+                        child: Text(
+                          vehicle.alias.isEmpty
+                              ? "${vehicle.brand.name} ${vehicle.model.name} - ${vehicle.makingYear}"
+                              : vehicle.alias,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: mediumSmallHeadlineStyle(),
+                        ),
                       ),
                       CustomSpacers.extraSmall(),
                       Text(
-                        _licensePlateNumber,
+                        vehicle.licensePlate,
                         style: smallGrayBodyStyle(),
                       ),
                     ],
                   ),
                   const Spacer(),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                            vertical: AppValues.medium,
-                            horizontal: AppValues.small)
-                        .r,
-                    decoration: BoxDecoration(
+                  BlocConsumer<MyVehiclesCubit, MyVehiclesState>(
+                    listenWhen: (previous, current) =>
+                        previous.toggleIsVehicleHiddenStatus !=
+                        current.toggleIsVehicleHiddenStatus,
+                    listener: (context, state) {
+                      if (state.toggleIsVehicleHiddenStatus.isFailure) {
+                        SnackBars.error(
+                            context, state.toggleIsVehicleHiddenErrorMessage!);
+                      } else if (state.toggleIsVehicleHiddenStatus.isSuccess) {
+                        SnackBars.success(
+                            context,
+                            (vehicle.isHidden
+                                    ? AppStrings.showVehicleSuccessMessage
+                                    : AppStrings.hideVehicleSuccessMessage)
+                                .tr());
+                      }
+                    },
+                    builder: (context, state) {
+                      final bool isLoading =
+                          state.toggleIsVehicleHiddenStatus.isLoading &&
+                              state.selectedVehicleToHide == vehicle.id;
+                      return Material(
                         color: AppColors.lightest,
-                        borderRadius:
-                            BorderRadius.circular(AppValues.mediumRadius),
-                        border: Border.all(color: AppColors.grayLight)),
-                    child: SvgPicture.asset(
-                      SvgAssets.chevronLeft,
-                      height: AppSizes.s22.r,
-                      width: AppSizes.s22.r,
-                      colorFilter:
-                          ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
-                    ),
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            color: AppColors.grayLight,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(AppValues.mediumRadius),
+                        ),
+                        clipBehavior: Clip.antiAlias,
+                        child: InkWell(
+                          onTap: state.toggleIsVehicleHiddenStatus.isLoading
+                              ? null
+                              : () => BlocProvider.of<MyVehiclesCubit>(context)
+                                  .toggleIsVehicleHidden(vehicle.id),
+                          child: Container(
+                            width: AppSizes.s72.r,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: AppValues.mediumSmall,
+                            ).r,
+                            alignment: Alignment.center,
+                            child: isLoading
+                                ? SizedBox(
+                                    height: AppSizes.s16.r,
+                                    width: AppSizes.s16.r,
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.primary,
+                                      strokeWidth: 2.r,
+                                    ),
+                                  )
+                                : Text(
+                                    vehicle.isHidden
+                                        ? AppStrings.showVehicle.tr()
+                                        : AppStrings.hideVehicle.tr(),
+                                    style: boldExtraSmallDarkGrayStyle(),
+                                  ),
+                            // child: SvgPicture.asset(
+                            //   SvgAssets.chevronLeft,
+                            //   height: AppSizes.s22.r,
+                            //   width: AppSizes.s22.r,
+                            //   colorFilter:
+                            //       ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
+                            // ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
               CustomSpacers.medium(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // spacing: AppValues.small.r,
-                // runSpacing: AppValues.small.r,
+              Wrap(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                spacing: AppValues.small.r,
+                runSpacing: AppValues.small.r,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +166,7 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _vehicleType,
+                        vehicle.type.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
@@ -121,7 +179,7 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _usage,
+                        vehicle.ownershipType.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
@@ -134,15 +192,21 @@ class VehicleListItem extends StatelessWidget {
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SvgPicture.asset(
-                            countryOfManufacture['svgPath'] as String,
-                            width: AppSizes.s22.r,
-                            height: AppSizes.s18.r,
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.grayLight, width: 0.5.r)),
+                            child: CachedNetworkImage(
+                              imageUrl: vehicle.country.icon,
+                              width: AppSizes.s22.r,
+                              height: AppSizes.s18.r,
+                            ),
                           ),
                           CustomSpacers.small(),
                           Text(
-                            countryOfManufacture['value'] as String,
+                            vehicle.country.name,
                             style: extraSmallHeadlineStyle(),
                           ),
                         ],
@@ -153,11 +217,11 @@ class VehicleListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.selectAddress.tr(),
+                        AppStrings.city.tr(),
                         style: extraSmallDarkGrayBodyStyle(),
                       ),
                       Text(
-                        _address,
+                        vehicle.city.name,
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
@@ -175,26 +239,36 @@ class VehicleListItem extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: AppSizes.s12.r,
-                        backgroundColor: AppColors.primaryLight2,
+                        backgroundColor: vehicle.insurance == null
+                            ? AppColors.primaryLight2
+                            : AppColors.secondaryLight,
                         child: SvgPicture.asset(
-                          SvgAssets.xShield,
+                          vehicle.insurance == null
+                              ? SvgAssets.xShield
+                              : SvgAssets.shield,
                           width: AppSizes.s18.r,
                           height: AppSizes.s18.r,
                           colorFilter: ColorFilter.mode(
-                              AppColors.danger, BlendMode.srcIn),
+                              vehicle.insurance == null
+                                  ? AppColors.danger
+                                  : AppColors.secondary,
+                              BlendMode.srcIn),
                         ),
                       ),
                       CustomSpacers.small(),
                       Text(
-                        'غير مأمنة',
+                        vehicle.insurance == null
+                            ? AppStrings.notSecured.tr()
+                            : AppStrings.secured.tr(),
                         style: extraSmallHeadlineStyle(),
                       ),
                     ],
                   ),
-                  PrimaryButton(
-                    onPressed: () => _secureNowButtonFunction(context),
-                    child: Text(AppStrings.secureNow.tr()),
-                  )
+                  if (vehicle.insurance == null)
+                    PrimaryButton(
+                      onPressed: () => _secureNowButtonFunction(context),
+                      child: Text(AppStrings.secureNow.tr()),
+                    )
                 ],
               )
             ],

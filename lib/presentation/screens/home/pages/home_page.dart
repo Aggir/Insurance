@@ -1,13 +1,19 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
+import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
+
 import 'package:insurance_app/presentation/screens/home/components/ads_slider.dart';
+import 'package:insurance_app/presentation/screens/home/components/first_login_dialog.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -16,7 +22,9 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+
+import '../../../../app/router/routes.dart';
+import '../../../blocs/user/user_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({this.dialog, super.key});
@@ -27,20 +35,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   _notificationButtonFunction(BuildContext context) {
-    context.go(Routes.notificationsRoute);
+    context.push(AppScreen.notifications.toPath);
   }
 
   _createVehicleFunction(BuildContext context) {
-    context.go(Routes.addMyVehicleRoute);
+    context.go(AppScreen.addMyVehicle.toPath);
   }
 
   _carsInsuranceFunction(BuildContext context) {
-    context.go(Routes.carsInsuranceRoute);
+    context.go(AppScreen.carsInsurance.toPath);
   }
 
   @override
   void initState() {
     super.initState();
+    if (BlocProvider.of<UserCubit>(context).state.isFirstLogin) {
+      SchedulerBinding.instance.addPostFrameCallback(
+        (_) async {
+          await DialogService.load(
+            context,
+            content: const FirstLoginDialog(),
+          );
+        },
+      );
+    }
     if (widget.dialog != null) {
       SchedulerBinding.instance.addPostFrameCallback(
         (_) => DialogService.load(
@@ -58,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       ImageAssets.adTwo,
       ImageAssets.adThree
     ];
-    const bool showCreateVehicle = true;
+
     return SafeArea(
       child: Scaffold(
         appBar: _customAppBar(context),
@@ -76,12 +94,24 @@ class _HomePageState extends State<HomePage> {
                   CustomSpacers.mediumLarge(),
                   const CustomDivider(),
                   CustomSpacers.mediumLarge(),
-                  if (showCreateVehicle) ...[
-                    _createVehicleFirstWidget(context),
-                    CustomSpacers.mediumLarge(),
-                    const CustomDivider(),
-                    CustomSpacers.mediumLarge(),
-                  ],
+                  BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
+                    builder: (context, state) {
+                      if (state.fetchMyVehiclesStatus.isSuccess &&
+                          (state.myVehicles == null ||
+                              state.myVehicles!.isEmpty)) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _createVehicleFirstWidget(context),
+                            CustomSpacers.mediumLarge(),
+                            const CustomDivider(),
+                            CustomSpacers.mediumLarge(),
+                          ],
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
                   _insuranceServicesSection(context),
                 ],
               ),
@@ -101,32 +131,80 @@ class _HomePageState extends State<HomePage> {
           vertical: AppValues.small,
           horizontal: AppValues.small,
         ).r,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+        child: BlocBuilder<UserCubit, UserState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  backgroundColor: AppColors.primaryLight,
-                  radius: AppSizes.s24.r,
-                  foregroundImage: const AssetImage(ImageAssets.profilePicture),
+                Row(
+                  children: [
+                    Container(
+                      height: AppSizes.s48.r,
+                      width: AppSizes.s48.r,
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryLight,
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: state.user != null
+                          ? state.user!.imageUrl.isNotEmpty
+                              ? CachedNetworkImage(
+                                  cacheKey: state.user?.updatedAt,
+                                  imageUrl: state.user!.imageUrl,
+                                  fit: BoxFit.cover,
+                                )
+                              : Center(
+                                  child: Text(
+                                    state.user!.firstName[0],
+                                    style: boldBlackLargeStyle(),
+                                  ),
+                                )
+                          : Container(),
+                    ),
+                    CustomSpacers.medium(),
+                    Text(
+                      '${AppStrings.welcome.tr()}${state.user?.firstName}!',
+                      style: mediumSmallHeadlineStyle(),
+                    ),
+                  ],
                 ),
-                CustomSpacers.medium(),
-                Text(
-                  '${AppStrings.welcome.tr()}${DUMMY.fistName}!',
-                  style: mediumSmallHeadlineStyle(),
+                IconButton(
+                  onPressed: () => _notificationButtonFunction(context),
+                  icon: Stack(children: [
+                    SvgPicture.asset(
+                      SvgAssets.bell,
+                      height: AppSizes.s32.r,
+                      width: AppSizes.s32.r,
+                    ),
+                    BlocBuilder<NotificationsCubit, NotificationsState>(
+                      builder: (context, state) {
+                        if (state.countUnseen > 0) {
+                          return Align(
+                            alignment: Alignment.topRight,
+                            child: CircleAvatar(
+                              radius: AppSizes.s8.r,
+                              backgroundColor: AppColors.danger,
+                              child: Center(
+                                child: Text(
+                                  state.countUnseen > 9
+                                      ? '9+'
+                                      : state.countUnseen.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: boldExtraSmallWhiteStyle(),
+                                ),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    )
+                  ]),
                 ),
               ],
-            ),
-            IconButton(
-              onPressed: () => _notificationButtonFunction(context),
-              icon: SvgPicture.asset(
-                SvgAssets.bell,
-                height: AppSizes.s32.r,
-                width: AppSizes.s32.r,
-              ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -251,59 +329,64 @@ class _HomePageState extends State<HomePage> {
   Widget _createVehicleFirstWidget(BuildContext context) {
     final BorderRadius borderRadius =
         BorderRadius.circular(AppValues.largeRadius.r);
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(AppValues.mediumSmall).r,
-          decoration: BoxDecoration(
-            boxShadow: [AppValues.boxShadow],
-            borderRadius: borderRadius,
-            color: AppColors.primary,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
+    return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
+      builder: (context, state) {
+        return Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppValues.mediumSmall).r,
+              decoration: BoxDecoration(
+                boxShadow: [AppValues.boxShadow],
+                borderRadius: borderRadius,
+                color: AppColors.primary,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryLight,
+                        borderRadius: borderRadius),
+                    child: ClipRRect(
+                      child: Image.asset(ImageAssets.newVehicleFile),
+                    ),
+                  ),
+                  Text(
+                    AppStrings.createVehicleFileFirst.tr(),
+                    style: smallHeadlineStyle()
+                        .copyWith(color: AppColors.whiteText),
+                  ),
+                  Container(
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(AppValues.mediumRadius.r),
+                          color: AppColors.black.withOpacity(0.14)),
+                      padding: const EdgeInsets.symmetric(
+                              horizontal: AppValues.small,
+                              vertical: AppValues.medium)
+                          .r,
+                      child: SvgPicture.asset(
+                        SvgAssets.chevronLeft,
+                        height: AppSizes.s22.r,
+                        width: AppSizes.s22.r,
+                      )),
+                ],
+              ),
+            ),
+            Positioned.fill(
+              child: Material(
+                borderRadius: borderRadius,
                 clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                    color: AppColors.primaryLight, borderRadius: borderRadius),
-                child: ClipRRect(
-                  child: Image.asset(ImageAssets.newVehicleFile),
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () => _createVehicleFunction(context),
                 ),
               ),
-              Text(
-                AppStrings.createVehicleFileFirst.tr(),
-                style:
-                    smallHeadlineStyle().copyWith(color: AppColors.whiteText),
-              ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(AppValues.mediumRadius.r),
-                      color: AppColors.black.withOpacity(0.14)),
-                  padding: const EdgeInsets.symmetric(
-                          horizontal: AppValues.small,
-                          vertical: AppValues.medium)
-                      .r,
-                  child: SvgPicture.asset(
-                    SvgAssets.chevronLeft,
-                    height: AppSizes.s22.r,
-                    width: AppSizes.s22.r,
-                  )),
-            ],
-          ),
-        ),
-        Positioned.fill(
-          child: Material(
-            borderRadius: borderRadius,
-            clipBehavior: Clip.antiAlias,
-            color: Colors.transparent,
-            child: InkWell(
-              onTap: () => _createVehicleFunction(context),
             ),
-          ),
-        ),
-      ],
+          ],
+        );
+      },
     );
   }
 
@@ -313,9 +396,10 @@ class _HomePageState extends State<HomePage> {
   ) {
     return Container(
       decoration: BoxDecoration(
-          color: AppColors.lightGray,
-          boxShadow: [AppValues.innerShadow],
-          borderRadius: BorderRadius.circular(AppValues.largeRadius.r)),
+        color: AppColors.lightGray,
+        boxShadow: [AppValues.innerShadow],
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

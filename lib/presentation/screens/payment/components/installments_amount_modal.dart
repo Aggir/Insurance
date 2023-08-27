@@ -1,8 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/screens/payment/components/payment_method_modal.dart';
+import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../../app/app_strings.dart';
@@ -81,12 +83,8 @@ class _InstallmentsAmountState extends State<InstallmentsAmountModal> {
           PrimaryButton.fullWidth(
             onPressed: () {
               context.pop();
-              showModalBottomSheet(
-                context: context,
-                shape: AppValues.modalShape,
-                builder: (context) =>
-                    const PaymentMethodModal(isInstallments: true),
-              );
+              DialogService.loadLoadingDialog(context);
+              BlocProvider.of<PaymentCubit>(context).pay();
             },
             child: Text(AppStrings.next.tr()),
           ),

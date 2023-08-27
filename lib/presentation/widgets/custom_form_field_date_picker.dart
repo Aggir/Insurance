@@ -44,7 +44,7 @@ class CustomFormFieldDatePicker extends StatelessWidget {
     DateTime getInitialDate() {
       if (initialDate == null) {
         if (controller != null && controller!.text.isNotEmpty) {
-          return DateFormat('dd-M-yyyy').parse(controller!.text);
+          return DateFormat('yyyy-MM-dd').parse(controller!.text);
         } else {
           return DateTime.now();
         }
@@ -58,7 +58,7 @@ class CustomFormFieldDatePicker extends StatelessWidget {
         firstDate: firstDate ?? DateTime(DateTime.now().year - 100),
         lastDate: lastDate ?? DateTime.now());
     if (pickedDate != null) {
-      String formattedDate = DateFormat('dd-M-yyyy').format(pickedDate);
+      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
       controller?.text = formattedDate;
       if (onChanged != null) {
         onChanged!(formattedDate);

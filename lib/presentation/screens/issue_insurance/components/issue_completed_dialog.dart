@@ -2,10 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
-import '../../../app_router.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
@@ -17,12 +18,13 @@ class IssueCompletedDialog extends StatelessWidget {
   const IssueCompletedDialog({super.key});
 
   _myInsurancesFunction(BuildContext context) {
-    context.go(Routes.myInsurancesRoute, extra: 2);
+    context.go(AppScreen.myInsurances.toPath,
+        extra: const MyInsurancesPageParameters(pageIndex: 2));
     DialogService.dispose();
   }
 
   _homeScreenFunction(BuildContext context) {
-    context.go(Routes.homeRoute);
+    context.go(AppScreen.home.toPath);
     DialogService.dispose();
   }
 

@@ -9,14 +9,14 @@ class DialogService {
 
   static IDialog? _current;
 
-  static Future<void> load(BuildContext context,
+  static Future<dynamic> load(BuildContext context,
       {required Widget content, List<Widget>? actions}) async {
     _current = CustomDialog(
       content: content,
       actions: actions,
     );
 
-    await showDialog(
+    return await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => WillPopScope(
@@ -41,7 +41,7 @@ class DialogService {
       ),
     );
 
-    await showDialog(
+    return await showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) => WillPopScope(
@@ -58,10 +58,11 @@ class DialogService {
     );
   }
 
-  static void dispose() {
+  static dynamic dispose() {
     if (_current != null) {
-      _current!.dismiss();
+      final response = _current!.dismiss();
       _current = null;
+      return response;
     }
   }
 }
@@ -94,7 +95,7 @@ class CustomDialog extends IDialog {
   }
 
   @override
-  void dismiss() {
-    Navigator.pop(_context!);
+  dynamic dismiss({result}) {
+    Navigator.pop(_context!, result);
   }
 }

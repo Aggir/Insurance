@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/screens/payment/components/payment_completed_dialog.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_type_modal.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -36,55 +39,59 @@ class _PaymentVerifyOtpPageState extends State<PaymentVerifyOtpPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: SizedBox(
         height: MediaQuery.of(context).size.height -
             AppValues.appBarHeight.r -
             AppSizes.s30.r,
-        child: PageContentPadding(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // CustomSpacers.large(),
-              BlocBuilder<PaymentCubit, PaymentState>(
-                builder: (context, state) {
-                  return Container(
-                    height: AppSizes.s104.r,
-                    width: AppSizes.s104.r,
-                    padding: const EdgeInsets.all(AppValues.medium).r,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightest,
-                      borderRadius: BorderRadius.circular(100),
-                      border: Border.all(color: AppColors.grayLight),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    child: Image.asset(
-                      state.paymentMethod!.imagePath,
-                    ),
-                  );
-                },
-              ),
-              CustomSpacers.medium(),
-              CustomSpacers.small(),
-              _headlineTextWidget(),
-              CustomSpacers.medium(),
-              _bodyTextWidget(),
-              CustomSpacers.large(),
-              _otpForm(context),
-              CustomSpacers.large(),
-              _resendFooterRow(),
-            ],
+        child: BlocListener<PaymentCubit, PaymentState>(
+          listenWhen: (previous, current) =>
+              previous.paymentStatus != current.paymentStatus,
+          listener: (context, state) {
+            if (state.paymentStatus.isFailure) {
+              DialogService.dispose();
+              SnackBars.error(context, state.paymentErrorMessage!);
+            } else if (state.paymentStatus.isSuccess) {
+              DialogService.dispose();
+              DialogService.load(context,
+                  content: const PaymentCompletedDialog());
+            }
+          },
+          child: PageContentPadding(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // CustomSpacers.large(),
+                BlocBuilder<PaymentCubit, PaymentState>(
+                  builder: (context, state) {
+                    return Container(
+                      height: AppSizes.s104.r,
+                      width: AppSizes.s104.r,
+                      padding: const EdgeInsets.all(AppValues.medium).r,
+                      decoration: BoxDecoration(
+                        color: AppColors.lightest,
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(color: AppColors.grayLight),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      child: Image.asset(
+                        state.paymentMethod!.imagePath,
+                      ),
+                    );
+                  },
+                ),
+                CustomSpacers.medium(),
+                CustomSpacers.small(),
+                _headlineTextWidget(),
+                CustomSpacers.medium(),
+                _bodyTextWidget(),
+                CustomSpacers.large(),
+                _otpForm(context),
+                CustomSpacers.large(),
+                _resendFooterRow(),
+              ],
+            ),
           ),
         ),
       ),
@@ -109,7 +116,8 @@ class _PaymentVerifyOtpPageState extends State<PaymentVerifyOtpPage> {
               style: darkGrayBodyStyle(),
               children: [
                 TextSpan(
-                    text: state.phoneNumber ?? '', style: smallHeadlineStyle())
+                    text: state.phoneNumber ?? Constants.empty,
+                    style: smallHeadlineStyle())
               ]),
         );
       },
@@ -126,13 +134,15 @@ class _PaymentVerifyOtpPageState extends State<PaymentVerifyOtpPage> {
             DialogService.loadLoadingDialog(context);
           } else if (state.verifyOtpStatus.isSuccess) {
             DialogService.dispose();
-            DialogService.load(context,
-                content: const PaymentCompletedDialog());
+            showModalBottomSheet(
+              context: context,
+              shape: AppValues.modalShape,
+              isScrollControlled: true,
+              builder: (context) => const PaymentTypeModal(),
+            );
           } else if (state.verifyOtpStatus.isFailure) {
             DialogService.dispose();
-            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.verifyOtpError!)));
+            SnackBars.error(context, state.verifyOtpError!);
           }
         },
         child: Form(

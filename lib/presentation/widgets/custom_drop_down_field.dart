@@ -23,11 +23,12 @@ class CustomDropDownField extends StatefulWidget {
     this.value,
     this.focusedStyleEnabled = true,
     this.hideErrorMessage = false,
+    this.isLoading = false,
   }) : super(key: key);
   final List<DropdownMenuItem> items;
   final void Function(dynamic)? onChanged;
   final void Function()? onTap;
-  final String? Function(String? value)? validator;
+  final String? Function(dynamic value)? validator;
   final bool defaultValidator;
   final bool enabled;
   final dynamic initialValue;
@@ -35,6 +36,7 @@ class CustomDropDownField extends StatefulWidget {
   final String? hintText;
   final bool focusedStyleEnabled;
   final bool hideErrorMessage;
+  final bool isLoading;
 
   @override
   State<CustomDropDownField> createState() => _CustomDropDownFieldState();
@@ -54,6 +56,11 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isLoading) {
+      setState(() {
+        selectedValue = null;
+      });
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -70,8 +77,8 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
               height: AppSizes.s22.r,
               width: AppSizes.s22.r,
             ),
-            items: widget.items,
-            value: widget.value ?? selectedValue,
+            items: widget.isLoading ? [] : widget.items,
+            value: widget.isLoading ? null : widget.value ?? selectedValue,
             onChanged: (value) {
               if (widget.onChanged != null) {
                 widget.onChanged!(value);
@@ -118,7 +125,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
   }
 
   String? _defaultValidator(
-      String? value, String? Function(String? value)? validator) {
+      dynamic value, String? Function(dynamic value)? validator) {
     // check if there is a custom Validator
     if (validator != null) {
       String? errorMessage = validator(value);

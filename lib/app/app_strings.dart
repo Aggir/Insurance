@@ -95,6 +95,8 @@ class AppStrings {
   static const iWillCreateItLater = 'i_will_create_it_later';
   static const home = 'home';
   static const myVehicles = 'my_vehicles';
+  static const secured = 'secured';
+  static const notSecured = 'not_secured';
   static const myInsurances = 'my_insurances';
   static const more = 'more';
   static const welcome = 'welcome';
@@ -156,6 +158,15 @@ class AppStrings {
   static const deactivateAccount = 'deactivate_account';
   static const back = 'back';
 
+  static const myAlarms = 'my_alarms';
+  static const youDoNotHaveAnyAlarmsYet = 'you_do_not_have_any_alarms_yet';
+  static const youCanAddAlarms = 'you_can_add_alarms';
+  static const startsBefore = 'starts_before';
+  static const days = 'days';
+  static const status = 'status';
+  static const near = 'near';
+  static const active = 'active';
+
   static const currentPassword = 'current_password';
   static const passwordChangedSuccessfully = 'password_changed_successfully';
   static const useTheNewPasswordToLogin = 'use_the_new_password_to_login';
@@ -200,6 +211,8 @@ class AppStrings {
       'choose_the_payment_method_that_suits_you';
   static const paymentBy = 'payment_by';
   static const enterPhoneNumber = 'enter_phone_number';
+  static const enterIdNumber = 'enter_id_number';
+  static const idNumber = 'id_number';
   static const youHaveChosenThisPaymentMethod =
       'you_have_chosen_this_payment_method';
   static const paymentCompletedSuccessfully = 'payment_completed_successfully';
@@ -207,6 +220,8 @@ class AppStrings {
   static const homeScreen = 'home_screen';
 
   static const notifications = 'notifications';
+  static const unreadNotifications = 'unread_notifications';
+  static const readNotifications = 'read_notifications';
   static const youHaveNoNotifications = 'you_have_no_notifications';
   static const youHaveNoNotificationsMessage =
       'you_have_no_notifications_message';
@@ -306,6 +321,7 @@ class AppStrings {
   static const chooseOrSearchForTheNearestBranchToYou =
       'choose_or_search_for_the_nearest_branch_to_you';
   static const selectCity = 'select_city';
+  static const city = 'city';
   static const engineSerialNumber = 'engine_serial_number';
   static const chassisNumber = 'chassis_number';
   static const carColor = 'car_color';
@@ -347,4 +363,32 @@ class AppStrings {
   static const address = 'address';
   static const countryOfManufacture = 'country_of_manufacture';
   static const secureNow = 'secure_now';
+
+  static const alias = 'alias';
+  static const editProfileSuccessMessage = 'edit_profile_success_message';
+  static const passwordMinLength = 'password_min_length';
+
+  static const myHiddenVehicles = 'my_hidden_vehicles';
+  static const youDoNotHaveAnyHiddenVehicles =
+      'you_do_not_have_any_hidden_vehicles';
+  static const youCanHideVehicleBy = 'you_can_hide_vehicle_by';
+  static const hideVehicle = 'hide_vehicle';
+  static const hideVehicleSuccessMessage = 'hide_vehicle_success_message';
+  static const showVehicle = 'show_vehicle';
+  static const showVehicleSuccessMessage = 'show_vehicle_success_message';
+
+  // messages
+  static const genericError = 'generic_error';
+  static const invalidCredentials = 'invalid_credentials';
+  static const theEmailHasAlreadyBeenTaken = 'the_email_has_already_been_taken';
+  static const thePhoneHasAlreadyBeenTaken = 'the_phone_has_already_been_taken';
+  static const theProofIdHasAlreadyBeenTaken =
+      'the_proof_id_has_already_been_taken';
+  static const theNationalIdHasAlreadyBeenTaken =
+      'the_national_id_has_already_been_taken';
+  static const wrongCurrentPassword = 'wrong_current_password';
+  static const unauthenticated = 'unauthenticated';
+  static const wrongOtp = 'wrong_otp';
+  static const otpSentSuccessfully = 'otp_sent_successfully';
+  static const invalidEmail = 'invalid_email';
 }

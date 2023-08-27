@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
-import 'package:insurance_app/presentation/blocs/signup/signup_cubit.dart';
+import 'package:insurance_app/app/router/routes.dart';
+
+import 'package:insurance_app/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
@@ -44,9 +45,11 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
   void _nextButtonFunction(BuildContext context, SignUpState state) {
     if (BlocProvider.of<SignUpCubit>(context).confirmPasswordForm()) {
       FocusScope.of(context).unfocus();
-      context.go(state.isLibyan
-          ? Routes.signupSelectVerificationMethodStepRoute
-          : Routes.signupVerificationStepRoute);
+      context.go(
+        state.isLibyan
+            ? AppScreen.signupSelectProofTypeStep.toPath
+            : AppScreen.signupProofInfoStep.toPath,
+      );
     }
   }
 
@@ -121,6 +124,8 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.confirmPasswordController.text) {
                 return "";
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }
@@ -136,6 +141,8 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
                 return AppStrings.thisFieldIsRequired.tr();
               } else if (value != cubit.passwordController.text) {
                 return AppStrings.passwordAndConfirmPasswordDoNotMatch.tr();
+              } else if (value.trim().length < 8) {
+                return AppStrings.passwordMinLength.tr();
               } else {
                 return null;
               }

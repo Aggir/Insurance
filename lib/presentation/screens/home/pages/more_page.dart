@@ -1,104 +1,132 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
-import 'package:insurance_app/presentation/app_router.dart';
+import 'package:insurance_app/app/constants.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
+
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
+
+import '../../../../app/router/routes.dart';
+import '../../../widgets/snackBars.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({super.key});
 
   void _profileWidgetFunction(BuildContext context) {
-    context.go(Routes.profileRoute);
+    context.go(AppScreen.profile.toPath);
   }
 
   void _myPaymentsFunction(BuildContext context) {
-    context.go(Routes.myPaymentsRoute);
+    context.go(AppScreen.myPayments.toPath);
   }
 
   void _termsAndConditionsFunction(BuildContext context) {
-    context.go(Routes.termsAndConditionsRoute, extra: true);
+    context.go(AppScreen.termsAndConditions.toPath, extra: true);
   }
 
   void _settingsFunction(BuildContext context) {
-    context.go(Routes.settingsRoute);
+    context.go(AppScreen.settings.toPath);
   }
 
   void _logoutFunction(BuildContext context) {
-    context.go(Routes.loginRoute);
+    final cubit = BlocProvider.of<UserCubit>(context);
+    DialogService.loadLoadingDialog(context);
+    cubit.logout();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-                  vertical: AppValues.large, horizontal: AppValues.medium)
-              .r,
-          child: Column(
-            children: [
-              _profileRowWidget(context),
-              CustomSpacers.extraLarge(),
-              Text(
-                AppStrings.moreServices.tr(),
-                style: darkGrayBodyStyle(),
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.myPaymentsListTile,
-                title: AppStrings.myPayments.tr(),
-                description: AppStrings.myPaymentsListTileDescription.tr(),
-                onTap: _myPaymentsFunction,
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.termsAndConditions,
-                title: AppStrings.termsAndConditions.tr(),
-                description:
-                    AppStrings.termsAndConditionsListTileDescription.tr(),
-                onTap: _termsAndConditionsFunction,
-              ),
-              CustomSpacers.large(),
-              _customListTile(
-                context,
-                imgPath: ImageAssets.settingsListTile,
-                title: AppStrings.settings.tr(),
-                description: AppStrings.settingsListTileDescription.tr(),
-                onTap: _settingsFunction,
-              ),
-              CustomSpacers.extraLarge(),
-              SecondaryButton.fullWidth(
-                  onPressed: () => _logoutFunction(context),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset(
-                        SvgAssets.logout,
-                        height: AppSizes.s28.r,
-                        width: AppSizes.s28.r,
-                      ),
-                      CustomSpacers.medium(),
-                      Text(
-                        AppStrings.logout.tr(),
-                        style: smallHeadlineStyle()
-                            .copyWith(color: AppColors.gray),
-                      ),
-                    ],
-                  ))
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        context.go(AppScreen.home.toPath);
+        return false;
+      },
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                    vertical: AppValues.large, horizontal: AppValues.medium)
+                .r,
+            child: Column(
+              children: [
+                _profileRowWidget(context),
+                CustomSpacers.extraLarge(),
+                Text(
+                  AppStrings.moreServices.tr(),
+                  style: darkGrayBodyStyle(),
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.myPaymentsListTile,
+                  title: AppStrings.myPayments.tr(),
+                  description: AppStrings.myPaymentsListTileDescription.tr(),
+                  onTap: _myPaymentsFunction,
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.termsAndConditions,
+                  title: AppStrings.termsAndConditions.tr(),
+                  description:
+                      AppStrings.termsAndConditionsListTileDescription.tr(),
+                  onTap: _termsAndConditionsFunction,
+                ),
+                CustomSpacers.large(),
+                _customListTile(
+                  context,
+                  imgPath: ImageAssets.settingsListTile,
+                  title: AppStrings.settings.tr(),
+                  description: AppStrings.settingsListTileDescription.tr(),
+                  onTap: _settingsFunction,
+                ),
+                CustomSpacers.extraLarge(),
+                BlocListener<UserCubit, UserState>(
+                  listenWhen: (previous, current) =>
+                      previous.logoutStatus != current.logoutStatus,
+                  listener: (context, state) {
+                    if (state.logoutStatus.isFailure) {
+                      DialogService.dispose();
+                      SnackBars.error(context, state.logoutErrorMessage!);
+                    } else if (state.logoutStatus.isInitial) {
+                      DialogService.dispose();
+                    }
+                  },
+                  child: SecondaryButton.fullWidth(
+                      onPressed: () => _logoutFunction(context),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset(
+                            SvgAssets.logout,
+                            height: AppSizes.s28.r,
+                            width: AppSizes.s28.r,
+                          ),
+                          CustomSpacers.medium(),
+                          Text(
+                            AppStrings.logout.tr(),
+                            style: smallHeadlineStyle()
+                                .copyWith(color: AppColors.gray),
+                          ),
+                        ],
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -122,54 +150,76 @@ class MorePage extends StatelessWidget {
                     vertical: AppValues.mediumSmall,
                     horizontal: AppValues.medium)
                 .r,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+            child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: AppSizes.s32.r,
-                      backgroundColor: AppColors.transparent,
-                      foregroundImage:
-                          const AssetImage(ImageAssets.profilePicture),
-                    ),
-                    CustomSpacers.medium(),
-                    SizedBox(
-                      width: AppSizes.s200.r,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${DUMMY.fistName} ${DUMMY.middleName} ${DUMMY.lastName}',
-                            style: smallHeadlineStyle(),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                    Row(
+                      children: [
+                        Container(
+                          height: AppSizes.s64.r,
+                          width: AppSizes.s64.r,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryLight,
+                            borderRadius: BorderRadius.circular(100),
                           ),
-                          Row(
+                          clipBehavior: Clip.antiAlias,
+                          child: state.user != null
+                              ? state.user!.imageUrl.isNotEmpty
+                                  ? CachedNetworkImage(
+                                      cacheKey: state.user?.updatedAt,
+                                      imageUrl: state.user!.imageUrl,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Center(
+                                      child: Text(
+                                        state.user!.firstName[0],
+                                        style: boldBlackLargeStyle(),
+                                      ),
+                                    )
+                              : Container(),
+                        ),
+                        CustomSpacers.medium(),
+                        SizedBox(
+                          width: AppSizes.s200.r,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                AppStrings.userId.tr(),
-                                style: smallGrayBodyStyle(),
+                                '${state.user?.firstName} ${state.user?.fatherName} ${state.user?.lastName}',
+                                style: smallHeadlineStyle(),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
-                                DUMMY.id,
-                                style: extraSmallHeadlineStyle(),
+                              Row(
+                                children: [
+                                  Text(
+                                    AppStrings.userId.tr(),
+                                    style: smallGrayBodyStyle(),
+                                  ),
+                                  Text(
+                                    state.user?.userId.toString() ??
+                                        Constants.empty,
+                                    style: extraSmallHeadlineStyle(),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
+                    SvgPicture.asset(
+                      SvgAssets.chevronLeft,
+                      height: AppSizes.s22.r,
+                      width: AppSizes.s22.r,
+                      colorFilter:
+                          ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                     ),
                   ],
-                ),
-                SvgPicture.asset(
-                  SvgAssets.chevronLeft,
-                  height: AppSizes.s22.r,
-                  width: AppSizes.s22.r,
-                  colorFilter:
-                      ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),

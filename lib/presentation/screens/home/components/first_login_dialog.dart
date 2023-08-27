@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/presentation/app_router.dart' show Routes;
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
+
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
@@ -12,15 +14,19 @@ import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
+import '../../../../app/router/routes.dart';
+
 class FirstLoginDialog extends StatelessWidget {
   const FirstLoginDialog({super.key});
 
   _createMyVehicleFunction(BuildContext context) {
-    context.go(Routes.addMyVehicleRoute);
+    DialogService.dispose();
+    context.go(AppScreen.addMyVehicle.toPath);
   }
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserCubit>(context).toggleIsFirstLogin();
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

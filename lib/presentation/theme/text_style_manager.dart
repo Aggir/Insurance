@@ -72,10 +72,26 @@ TextStyle extraSmallDarkGrayBodyStyle() {
   return getRegularStyle(color: AppColors.darkGray, fontSize: FontSize.s10);
 }
 
+TextStyle boldExtraSmallDarkGrayStyle() {
+  return getBoldStyle(color: AppColors.darkGray, fontSize: FontSize.s10);
+}
+
+TextStyle boldExtraSmallWhiteStyle() {
+  return getBoldStyle(color: AppColors.whiteText, fontSize: FontSize.s10);
+}
+
 TextStyle textFieldErrorMessageStyle() {
   return getRegularStyle(color: AppColors.danger, fontSize: FontSize.s10);
 }
 
 TextStyle mediumExBoldStyle() {
   return getExtraBoldStyle(color: AppColors.black, fontSize: FontSize.s16);
+}
+
+TextStyle boldBlackLargeStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s18);
+}
+
+TextStyle boldBlackExtraLargeStyle() {
+  return getBoldStyle(color: AppColors.blackText, fontSize: FontSize.s22);
 }

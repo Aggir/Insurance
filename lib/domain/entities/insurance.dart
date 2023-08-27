@@ -1,80 +1,100 @@
 import 'package:equatable/equatable.dart';
+import 'package:insurance_app/app/constants.dart';
 
+import 'package:insurance_app/app/enums/insurance_status.dart';
 import 'package:insurance_app/app/enums/insurance_types_enum.dart';
+import 'package:insurance_app/domain/entities/company.dart';
+import 'package:insurance_app/domain/entities/insurance_type.dart';
+import 'package:insurance_app/domain/entities/insurance_vehicle.dart';
 
-class Insurance extends Equatable {
-  final String id;
-  final String insuranceTypeId;
-  final String carBrandId;
-  final String insuranceCompanyId;
-  final String referenceNumber;
-  final String issuanceDate;
-  final String insuredName;
-  final String insuranceType;
-  final String carBrand;
-  final String carBrandImgPath;
-  final String insuranceCompany;
-  final InsuranceStatus insuranceStatus;
-  const Insurance({
+class InsuranceEntity extends Equatable {
+  final int id;
+  final String startDate;
+  final String endDate;
+  final String cost;
+  final String file;
+  final bool isPaid;
+  final InsuranceStatus status;
+  final InsuranceVehicleEntity vehicle;
+  final InsuranceTypeEntity insuranceType;
+  final CompanyEntity company;
+  final int referenceNumber;
+  final InsuranceTypeStatus insuranceTypeStatus;
+  const InsuranceEntity({
     required this.id,
-    required this.insuranceTypeId,
-    required this.carBrandId,
-    required this.insuranceCompanyId,
-    required this.referenceNumber,
-    required this.issuanceDate,
-    required this.insuredName,
+    required this.startDate,
+    required this.endDate,
+    required this.cost,
+    required this.file,
+    required this.isPaid,
+    required this.status,
+    required this.vehicle,
     required this.insuranceType,
-    required this.carBrand,
-    required this.carBrandImgPath,
-    required this.insuranceCompany,
-    required this.insuranceStatus,
+    required this.company,
+    required this.referenceNumber,
+    required this.insuranceTypeStatus,
   });
-
-  Insurance copyWith({
-    String? id,
-    String? insuranceTypeId,
-    String? carBrandId,
-    String? insuranceCompanyId,
-    String? referenceNumber,
-    String? issuanceDate,
-    String? insuredName,
-    String? insuranceType,
-    String? carBrand,
-    String? carBrandImgPath,
-    String? insuranceCompany,
-    InsuranceStatus? insuranceStatus,
-  }) {
-    return Insurance(
-      id: id ?? this.id,
-      insuranceTypeId: insuranceTypeId ?? this.insuranceTypeId,
-      carBrandId: carBrandId ?? this.carBrandId,
-      insuranceCompanyId: insuranceCompanyId ?? this.insuranceCompanyId,
-      referenceNumber: referenceNumber ?? this.referenceNumber,
-      issuanceDate: issuanceDate ?? this.issuanceDate,
-      insuredName: insuredName ?? this.insuredName,
-      insuranceType: insuranceType ?? this.insuranceType,
-      carBrand: carBrand ?? this.carBrand,
-      carBrandImgPath: carBrandImgPath ?? this.carBrandImgPath,
-      insuranceCompany: insuranceCompany ?? this.insuranceCompany,
-      insuranceStatus: insuranceStatus ?? this.insuranceStatus,
-    );
-  }
 
   @override
   List<Object> get props {
     return [
       id,
-      insuranceTypeId,
-      carBrandId,
-      insuranceCompanyId,
-      referenceNumber,
-      issuanceDate,
-      insuredName,
+      startDate,
+      endDate,
+      cost,
+      file,
+      isPaid,
+      status,
+      vehicle,
       insuranceType,
-      carBrand,
-      carBrandImgPath,
-      insuranceCompany,
-      insuranceStatus,
+      company,
+      referenceNumber,
+      insuranceTypeStatus,
     ];
+  }
+
+  factory InsuranceEntity.empty() => InsuranceEntity(
+        id: Constants.zero,
+        startDate: Constants.empty,
+        endDate: Constants.empty,
+        cost: Constants.empty,
+        file: Constants.empty,
+        isPaid: false,
+        status: InsuranceStatus.processing,
+        vehicle: InsuranceVehicleEntity.empty(),
+        insuranceType: InsuranceTypeEntity.empty(),
+        company: CompanyEntity.empty(),
+        referenceNumber: Constants.zero,
+        insuranceTypeStatus: InsuranceTypeStatus.underProcessing,
+      );
+
+  InsuranceEntity copyWith({
+    int? id,
+    String? startDate,
+    String? endDate,
+    String? cost,
+    String? file,
+    bool? isPaid,
+    InsuranceStatus? status,
+    InsuranceVehicleEntity? vehicle,
+    InsuranceTypeEntity? insuranceType,
+    CompanyEntity? company,
+    int? referenceNumber,
+    InsuranceTypeStatus? insuranceTypeStatus,
+  }) {
+    return InsuranceEntity(
+      id: id ?? this.id,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      cost: cost ?? this.cost,
+      file: file ?? this.file,
+      isPaid: isPaid ?? this.isPaid,
+      status: status ?? this.status,
+      vehicle: vehicle ?? this.vehicle,
+      insuranceType: insuranceType ?? this.insuranceType,
+      company: company ?? this.company,
+      referenceNumber: referenceNumber ?? this.referenceNumber,
+      insuranceTypeStatus: insuranceTypeStatus ?? this.insuranceTypeStatus,
+    );
   }
 }

@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:insurance_app/presentation/app_router.dart';
-import 'package:insurance_app/presentation/blocs/signup/signup_cubit.dart';
+import 'package:insurance_app/app/enums/gender.dart';
+import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/app/validators.dart';
+
+import 'package:insurance_app/presentation/blocs/sign_up/sign_up_cubit.dart';
 import 'package:insurance_app/presentation/screens/signup/components/signup_footer_row.dart';
 import 'package:insurance_app/presentation/widgets/card_page_container.dart';
 import 'package:insurance_app/presentation/widgets/custom_form_field_date_picker.dart';
@@ -11,11 +14,14 @@ import 'package:insurance_app/presentation/widgets/custom_phone_form_field.dart'
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
+import '../../../../app/router/routes.dart';
 import '../../../theme/app_colors.dart';
 import '../../../theme/text_style_manager.dart';
+import '../../../widgets/dialog_service.dart';
 
 class SignUpUserInfoStepPage extends StatefulWidget {
   const SignUpUserInfoStepPage({super.key});
@@ -45,10 +51,12 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
     }
   }
 
-  void _nextButtonFunction(BuildContext context) {
-    FocusScope.of(context).unfocus();
-    if (BlocProvider.of<SignUpCubit>(context).confirmUserInfoForm()) {
-      context.go(Routes.signupPasswordStepRoute);
+  void _nextButtonFunction(BuildContext context) async {
+    final cubit = BlocProvider.of<SignUpCubit>(context);
+    cubit.unfocusUserInfoForm();
+    if (cubit.isUserInfoFormValid()) {
+      DialogService.loadLoadingDialog(context);
+      await cubit.confirmUserInfoForm();
     }
   }
 
@@ -62,7 +70,7 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus();
+        BlocProvider.of<SignUpCubit>(context).unfocusUserInfoForm();
       },
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -85,19 +93,35 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
             Align(
               alignment: Alignment.bottomCenter,
               child: CardPageContainer(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _headlineTextWidget(),
-                    CustomSpacers.medium(),
-                    _bodyTextWidget(),
-                    CustomSpacers.large(),
-                    _loginForm(context),
-                    CustomSpacers.large(),
-                    _nextButton(context),
-                    CustomSpacers.medium(),
-                    const SignUpFooterRow(),
-                  ],
+                child: BlocListener<SignUpCubit, SignUpState>(
+                  listenWhen: (previous, current) =>
+                      previous.checkUserInfo != current.checkUserInfo,
+                  listener: (context, state) {
+                    if (state.checkUserInfo.isSuccess) {
+                      DialogService.dispose();
+                      context.go(AppScreen.signupPasswordStep.toPath);
+                    } else if (state.checkUserInfo.isFailure) {
+                      DialogService.dispose();
+                      SnackBars.error(
+                        context,
+                        state.checkUserInfoErrorMessage!,
+                      );
+                    }
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _headlineTextWidget(),
+                      CustomSpacers.medium(),
+                      _bodyTextWidget(),
+                      CustomSpacers.large(),
+                      _loginForm(context),
+                      CustomSpacers.large(),
+                      _nextButton(context),
+                      CustomSpacers.medium(),
+                      const SignUpFooterRow(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -133,36 +157,51 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
             children: [
               Flexible(
                 child: CustomTextFormField(
+                  focusNode: cubit.firstNameFocusNode,
                   hintText: AppStrings.firstName.tr(),
                   controller: cubit.firstNameController,
+                  textInputAction: TextInputAction.next,
                 ),
               ),
               CustomSpacers.extraSmall(),
               Flexible(
                 child: CustomTextFormField(
+                  focusNode: cubit.middleNameFocusNode,
                   hintText: AppStrings.middleName.tr(),
                   controller: cubit.middleNameController,
+                  textInputAction: TextInputAction.next,
                 ),
               ),
               CustomSpacers.extraSmall(),
               Flexible(
                 child: CustomTextFormField(
+                  focusNode: cubit.lastNameFocusNode,
                   hintText: AppStrings.lastName.tr(),
                   controller: cubit.lastNameController,
+                  textInputAction: TextInputAction.next,
                 ),
               ),
             ],
           ),
           CustomSpacers.medium(),
           CustomTextFormField(
+            focusNode: cubit.emailFocusNode,
             hintText: AppStrings.emailAddress.tr(),
             controller: cubit.emailController,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
+            validator: emailValidator,
+            onEditingComplete: () {
+              cubit.phoneNumberFocusNode.requestFocus();
+            },
           ),
           CustomSpacers.medium(),
           CustomPhoneFormField(
+            focusNode: cubit.phoneNumberFocusNode,
             hintText: AppStrings.phoneNumberExample.tr(),
             label: AppStrings.phoneNumber.tr(),
             controller: cubit.phoneNumberController,
+            textInputAction: TextInputAction.next,
           ),
           CustomSpacers.medium(),
           CustomFormFieldDatePicker(
@@ -176,9 +215,10 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
           ),
           Row(
             children: [
-              _customRadioRow(value: true, title: AppStrings.male.tr()),
+              _customRadioRow(value: Gender.male, title: Gender.male.name.tr()),
               CustomSpacers.medium(),
-              _customRadioRow(value: false, title: AppStrings.female.tr()),
+              _customRadioRow(
+                  value: Gender.female, title: Gender.female.name.tr()),
             ],
           ),
         ],
@@ -193,29 +233,29 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
     );
   }
 
-  bool _isMale = true;
-  Widget _customRadioRow({required bool value, required String title}) {
-    return InkWell(
-      onTap: () => setState(() {
-        _isMale = value;
-      }),
-      child: Row(
-        children: [
-          Radio(
-              visualDensity: VisualDensity.compact,
-              value: value,
-              groupValue: _isMale,
-              onChanged: (_) {
-                setState(() {
-                  _isMale = value;
-                });
-              }),
-          Text(
-            title,
-            style: darkGrayBodyStyle(),
-          )
-        ],
-      ),
+  Widget _customRadioRow({required Gender value, required String title}) {
+    final cubit = BlocProvider.of<SignUpCubit>(context);
+    return BlocBuilder<SignUpCubit, SignUpState>(
+      builder: (context, state) {
+        return InkWell(
+          onTap: () => cubit.setGender(value),
+          child: Row(
+            children: [
+              Radio(
+                visualDensity: VisualDensity.compact,
+                value: value,
+                groupValue: state.gender,
+                onChanged: (value) =>
+                    value != null ? cubit.setGender(value) : null,
+              ),
+              Text(
+                title,
+                style: darkGrayBodyStyle(),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
