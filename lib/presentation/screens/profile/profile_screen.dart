@@ -67,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               state.user!.lastName,
                               state.user!.email,
                               state.user!.phone,
+                              state.user!.phoneCode,
                               state.user!.dateOfBirth,
                             );
                             BlocProvider.of<ProfileCubit>(context)
@@ -150,9 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ? userState.user!.imageUrl.isNotEmpty
                                         ? CachedNetworkImage(
                                             cacheKey: userState.user!.updatedAt,
-                                            imageUrl:
-                                                "${userState.user!.imageUrl}",
-                                            fit: BoxFit.cover,
+                                            imageUrl: userState.user!.imageUrl,
                                           )
                                         : Center(
                                             child: Text(
@@ -196,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       style: smallGrayBodyStyle(),
                     ),
                     Text(
-                      userState.user?.userId.toString() ?? Constants.empty,
+                      userState.user?.uniqueId.toString() ?? Constants.empty,
                       style: extraSmallHeadlineStyle(),
                     ),
                   ],

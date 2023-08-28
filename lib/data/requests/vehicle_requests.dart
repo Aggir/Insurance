@@ -9,6 +9,7 @@ class AddVehicleRequest implements BaseRequest {
   final String ownerFatherName;
   final String ownerLastName;
   final String ownerPhoneNumber;
+  final String ownerPhoneCode;
   final int ownerLocation;
   final int typeId;
   final int brandId;
@@ -31,6 +32,7 @@ class AddVehicleRequest implements BaseRequest {
     required this.ownerLastName,
     required this.ownerPhoneNumber,
     required this.ownerLocation,
+    required this.ownerPhoneCode,
     required this.typeId,
     required this.brandId,
     required this.modelId,
@@ -53,7 +55,9 @@ class AddVehicleRequest implements BaseRequest {
       'owner_first_name': ownerFirstName,
       'owner_father_name': ownerFatherName,
       'owner_last_name': ownerLastName,
-      'owner_phone_number': ownerPhoneNumber,
+      'owner_phone_number':
+          (ownerPhoneCode + ownerPhoneNumber).replaceFirst('+', ''),
+      'owner_phone_code': ownerPhoneCode,
       'owner_city_id': ownerLocation,
       'vehicle_type_id': typeId,
       'vehicle_brand_id': brandId,

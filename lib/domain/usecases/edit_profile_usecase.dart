@@ -21,6 +21,7 @@ class EditProfileUsecase
       lastName: input.lastName,
       email: input.email,
       phone: input.phone,
+      phoneCode: input.phoneCode,
       dob: input.dob,
       photo: input.photo,
     ));
@@ -33,6 +34,7 @@ class EditProfileUsecaseInput {
   final String lastName;
   final String email;
   final String phone;
+  final String phoneCode;
   final String dob;
   final File? photo;
 
@@ -42,6 +44,7 @@ class EditProfileUsecaseInput {
     required this.lastName,
     required this.email,
     required this.phone,
+    required this.phoneCode,
     required this.dob,
     this.photo,
   });

@@ -196,12 +196,17 @@ class _SignUpUserInfoStepPageState extends State<SignUpUserInfoStepPage> {
             },
           ),
           CustomSpacers.medium(),
-          CustomPhoneFormField(
-            focusNode: cubit.phoneNumberFocusNode,
-            hintText: AppStrings.phoneNumberExample.tr(),
-            label: AppStrings.phoneNumber.tr(),
-            controller: cubit.phoneNumberController,
-            textInputAction: TextInputAction.next,
+          BlocBuilder<SignUpCubit, SignUpState>(
+            builder: (context, state) {
+              return CustomPhoneFormField(
+                focusNode: cubit.phoneNumberFocusNode,
+                hintText: AppStrings.phoneNumberExample.tr(),
+                label: AppStrings.phoneNumber.tr(),
+                controller: cubit.phoneNumberController,
+                textInputAction: TextInputAction.next,
+                setCode: (value) => cubit.selectPhoneCode(value!),
+              );
+            },
           ),
           CustomSpacers.medium(),
           CustomFormFieldDatePicker(

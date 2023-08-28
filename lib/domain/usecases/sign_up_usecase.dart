@@ -21,6 +21,7 @@ class SignUpUsecase implements BaseUsecase<SignUpUsecaseInput, UserEntity> {
       lastName: input.userInfo.lastName,
       email: input.userInfo.email,
       phone: input.userInfo.phoneNumber,
+      phoneCode: input.userInfo.phoneCode,
       dateOfBirth: input.userInfo.birthDate,
       gender: input.userInfo.gender.name.toUpperCase(),
       password: input.password,

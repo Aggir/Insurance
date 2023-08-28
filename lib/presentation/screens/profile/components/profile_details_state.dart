@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insurance_app/app/constants.dart';
-
+import 'dart:ui' as ui;
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
 import '../../../blocs/user/user_cubit.dart';
@@ -23,24 +23,29 @@ class ProfileDetailsState extends StatelessWidget {
         return Column(
           children: [
             _infoCardWidget(
+              context,
               SvgAssets.envelope,
               AppStrings.emailAddress.tr(),
               state.user?.email ?? Constants.empty,
             ),
             CustomSpacers.medium(),
             _infoCardWidget(
+              context,
               SvgAssets.phone,
               AppStrings.phoneNumber.tr(),
-              state.user?.phone ?? Constants.empty,
+              '${state.user?.phoneCode}${state.user?.phone}',
+              isLTR: true,
             ),
             CustomSpacers.medium(),
             _infoCardWidget(
+              context,
               SvgAssets.calendar,
               AppStrings.birthDate.tr(),
               state.user?.dateOfBirth ?? Constants.empty,
             ),
             CustomSpacers.medium(),
             _infoCardWidget(
+              context,
               SvgAssets.idCard,
               AppStrings.nationality.tr(),
               ((state.user?.isLibyan ?? false)
@@ -54,7 +59,9 @@ class ProfileDetailsState extends StatelessWidget {
     );
   }
 
-  Widget _infoCardWidget(String svgPath, String title, String text) {
+  Widget _infoCardWidget(
+      BuildContext context, String svgPath, String title, String text,
+      {bool? isLTR}) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppValues.mediumSmall).r,
@@ -88,11 +95,18 @@ class ProfileDetailsState extends StatelessWidget {
                   title,
                   style: extraSmallGrayBodyStyle(),
                 ),
-                Text(
-                  text,
-                  style: smallBodyStyle(),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Directionality(
+                  textDirection: isLTR != null
+                      ? isLTR
+                          ? ui.TextDirection.ltr
+                          : ui.TextDirection.rtl
+                      : Directionality.of(context),
+                  child: Text(
+                    text,
+                    style: smallBodyStyle(),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 )
               ],
             ),

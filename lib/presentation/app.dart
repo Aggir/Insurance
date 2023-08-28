@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:insurance_app/app/language_manager.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import '../app/constants.dart';
 import '../app/di/dependency_injection.dart';
@@ -32,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         statusBarColor: AppColors.transparent,
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.dark));
+    Intl.defaultLocale = LanguageType.english.getLocale().countryCode;
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,

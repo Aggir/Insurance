@@ -26,10 +26,12 @@ class NotificationModel {
   factory NotificationModel.fromMap(Map<String, dynamic> map) {
     return NotificationModel(
       id: map['id'],
-      createdAt:
-          map['created_at'] != null ? DateTime.parse(map['created_at']) : null,
-      updatedAt:
-          map['updated_at'] != null ? DateTime.parse(map['updated_at']) : null,
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at']).toLocal()
+          : null,
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at']).toLocal()
+          : null,
       isRead: map['is_read'],
       isSeen: map['is_seen'],
       icon: map['icon'],

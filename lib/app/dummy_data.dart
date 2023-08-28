@@ -15,7 +15,7 @@ const List<Map<String, String>> typesOfCarInsurance = [
   {'id': '3', 'value': 'وثيقة تأمين المنافع الإضافية'},
 ];
 
-const List<int> horsePower = [8, 10, 12, 14, 16, 18, 20];
+const List<int> horsePower = [8, 10, 12, 14, 16];
 
 const List<int> seatsNumberWithoutTheDriver = [1, 3, 4, 5, 6, 7];
 

@@ -88,7 +88,9 @@ class SignUpCubit extends Cubit<SignUpState> {
     initCheckUserInfo();
     (await instance<CheckUserInfoUsecase>().execute(CheckUserInfoUsecaseInput(
             email: emailController.text.trim(),
-            phone: phoneNumberController.text.trim())))
+            phone: ((state.phoneCode ?? Constants.empty) +
+                    phoneNumberController.text.trim())
+                .replaceFirst('+', ''))))
         .fold((failure) {
       emit(state.copyWith(
         checkUserInfo: Status.failure,
@@ -104,12 +106,17 @@ class SignUpCubit extends Cubit<SignUpState> {
             lastName: lastNameController.text,
             email: emailController.text,
             phoneNumber: phoneNumberController.text,
+            phoneCode: state.phoneCode!,
             birthDate: birthDateController.text,
             gender: state.gender,
           ),
         ),
       );
     });
+  }
+
+  selectPhoneCode(String phoneCode) {
+    emit(state.copyWith(phoneCode: phoneCode));
   }
 
   bool confirmPasswordForm() {

@@ -17,26 +17,19 @@ extension UserEntityExtension on UserEntity {
 
 extension UserModelExtension on UserModel? {
   UserEntity toDomain() => this == null
-      ? const UserEntity(
-          userId: Constants.zero,
-          firstName: Constants.empty,
-          fatherName: Constants.empty,
-          lastName: Constants.empty,
-          email: Constants.empty,
-          phone: Constants.empty,
-          imageUrl: Constants.empty,
-          dateOfBirth: Constants.empty,
-          isLibyan: true,
-          gender: Gender.female,
-          updatedAt: Constants.empty,
-        )
+      ? UserEntity.empty()
       : UserEntity(
           userId: this!.id ?? Constants.zero,
+          uniqueId: this!.uniqueId ?? Constants.empty,
           firstName: this!.firstName ?? Constants.empty,
           fatherName: this!.fatherName ?? Constants.empty,
           lastName: this!.lastName ?? Constants.empty,
           email: this!.email ?? Constants.empty,
-          phone: this!.phone ?? Constants.empty,
+          phone: (this!.phone?.replaceFirst(
+                  (this!.phoneCode ?? Constants.empty).replaceFirst('+', ''),
+                  '')) ??
+              Constants.empty,
+          phoneCode: this!.phoneCode ?? Constants.empty,
           imageUrl: this!.photo ?? Constants.empty,
           isLibyan: this!.isLibyan ?? false,
           dateOfBirth: this!.dateOfBirth ?? Constants.empty,

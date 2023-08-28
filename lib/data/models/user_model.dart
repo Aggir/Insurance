@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:insurance_app/app/constants.dart';
 
 class UserModel extends Equatable {
   final int? id;
+  final String? uniqueId;
   final String? firstName;
   final String? fatherName;
   final String? lastName;
   final String? email;
   final String? phone;
+  final String? phoneCode;
   final String? photo;
   final String? dateOfBirth;
   final String? gender;
@@ -26,11 +29,13 @@ class UserModel extends Equatable {
 
   const UserModel({
     this.id,
+    this.uniqueId,
     this.firstName,
     this.fatherName,
     this.lastName,
     this.email,
     this.phone,
+    this.phoneCode,
     this.photo,
     this.dateOfBirth,
     this.gender,
@@ -53,11 +58,13 @@ class UserModel extends Equatable {
   List<Object?> get props {
     return [
       id,
+      uniqueId,
       firstName,
       fatherName,
       lastName,
       email,
       phone,
+      phoneCode,
       photo,
       dateOfBirth,
       gender,
@@ -80,11 +87,14 @@ class UserModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'unique_id': id,
       'first_name': firstName,
       'father_name': fatherName,
       'last_name': lastName,
       'email': email,
-      'phone': phone,
+      'phone': ((phoneCode ?? Constants.empty) + (phone ?? Constants.empty))
+          .replaceFirst('+', ''),
+      'phone_code': phoneCode,
       'photo': photo,
       'dob': dateOfBirth,
       'gender': gender,
@@ -107,11 +117,13 @@ class UserModel extends Equatable {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'],
+      uniqueId: map['unique_id'],
       firstName: map['first_name'],
       fatherName: map['father_name'],
       lastName: map['last_name'],
       email: map['email'],
       phone: map['phone'],
+      phoneCode: map['phone_code'],
       photo: map['photo'],
       dateOfBirth: map['dob'],
       gender: map['gender'],

@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/app/language_manager.dart';
 import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
 import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
@@ -86,10 +87,13 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
   }
 
   setEndDate() {
-    DateTime startDateTime =
-        DateFormat('yyyy-MM-dd').parse(startDateController.text);
-    endDateController.text = DateFormat('yyyy-MM-dd').format(DateTime(
-        startDateTime.year + 1, startDateTime.month, startDateTime.day));
+    DateTime startDateTime = Intl.withLocale(
+        LanguageType.english.getLocale().countryCode,
+        () => DateFormat('yyyy-MM-dd').parse(startDateController.text));
+    endDateController.text = Intl.withLocale(
+        LanguageType.english.getLocale().countryCode,
+        () => DateFormat('yyyy-MM-dd').format(DateTime(
+            startDateTime.year + 1, startDateTime.month, startDateTime.day)));
   }
 
   confirmStepOne() => formKey.currentState!.validate();

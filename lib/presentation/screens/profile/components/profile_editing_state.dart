@@ -28,6 +28,7 @@ class ProfileEditingState extends StatelessWidget {
         cubit.emailController.text.trim(),
         cubit.phoneNumberController.text.trim(),
         cubit.birthDateController.text.trim(),
+        state.phoneCode!,
         photo: state.photoFile,
       );
     }
@@ -91,10 +92,16 @@ class ProfileEditingState extends StatelessWidget {
                     controller: cubit.emailController,
                   ),
                   CustomSpacers.medium(),
-                  CustomPhoneFormField(
-                    hintText: AppStrings.phoneNumberExample.tr(),
-                    label: AppStrings.phoneNumber.tr(),
-                    controller: cubit.phoneNumberController,
+                  BlocBuilder<ProfileCubit, ProfileState>(
+                    builder: (context, state) {
+                      return CustomPhoneFormField(
+                        initialCodeValue: state.phoneCode,
+                        setCode: (value) => cubit.selectPhoneCode(value!),
+                        hintText: AppStrings.phoneNumberExample.tr(),
+                        label: AppStrings.phoneNumber.tr(),
+                        controller: cubit.phoneNumberController,
+                      );
+                    },
                   ),
                   CustomSpacers.medium(),
                   CustomFormFieldDatePicker(

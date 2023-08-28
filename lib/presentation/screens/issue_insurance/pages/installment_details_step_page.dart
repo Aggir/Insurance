@@ -104,7 +104,7 @@ class _InstallmentDetailsStepPageState
                       AppStrings.pleaseAcceptToContinue.tr(),
                       style: extraSmallHeadlineStyle(),
                     ),
-                    RadioListTile.adaptive(
+                    RadioListTile(
                       title: Text(
                         AppStrings.iAcceptTheGeneralTermsOfTheInsurancePolicy
                             .tr(),

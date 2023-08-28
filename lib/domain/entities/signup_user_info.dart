@@ -8,6 +8,7 @@ class SignUpUserInfo extends Equatable {
   final String lastName;
   final String email;
   final String phoneNumber;
+  final String phoneCode;
   final String birthDate;
   final Gender gender;
   const SignUpUserInfo({
@@ -16,6 +17,7 @@ class SignUpUserInfo extends Equatable {
     required this.lastName,
     required this.email,
     required this.phoneNumber,
+    required this.phoneCode,
     required this.birthDate,
     required this.gender,
   });
@@ -26,6 +28,7 @@ class SignUpUserInfo extends Equatable {
     String? lastName,
     String? email,
     String? phoneNumber,
+    String? phoneCode,
     String? birthDate,
     Gender? gender,
   }) {
@@ -35,6 +38,7 @@ class SignUpUserInfo extends Equatable {
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      phoneCode: phoneCode ?? this.phoneCode,
       birthDate: birthDate ?? this.birthDate,
       gender: gender ?? this.gender,
     );
@@ -47,6 +51,7 @@ class SignUpUserInfo extends Equatable {
         lastName,
         email,
         phoneNumber,
+        phoneCode,
         birthDate,
         gender,
       ];

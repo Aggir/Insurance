@@ -20,7 +20,7 @@ class ApiErrorHandler {
       }
     }
 
-    return message ?? AppStrings.genericError.tr();
+    return message?.toString() ?? AppStrings.genericError.tr();
   }
 
   static String changePassword(DioException error) {

@@ -27,9 +27,10 @@ class ProfileCubit extends Cubit<ProfileState> {
     String lastName,
     String email,
     String phone,
+    String phoneCode,
     String dateOfBirth,
   ) {
-    emit(state.copyWith(removePickedPhoto: true));
+    emit(state.copyWith(removePickedPhoto: true, phoneCode: phoneCode));
     firstNameController.text = firstName;
     middleNameController.text = fatherName;
     lastNameController.text = lastName;
@@ -43,6 +44,11 @@ class ProfileCubit extends Cubit<ProfileState> {
       isEditing: !state.isEditing,
       removePickedPhoto: state.isEditing,
     ));
+  }
+
+  selectPhoneCode(String phoneCode) {
+    print(phoneCode);
+    emit(state.copyWith(phoneCode: phoneCode));
   }
 
   bool isFormValid() {

@@ -11,6 +11,7 @@ class CheckUserInfoUsecase
   const CheckUserInfoUsecase(this._repository);
   @override
   Future<Either<Failure, void>> execute(CheckUserInfoUsecaseInput input) async {
+    print(input.phone);
     return await _repository.checkUserInfo(
         CheckUserInfoRequest(email: input.email, phone: input.phone));
   }

@@ -19,6 +19,7 @@ class AddVehicleUsecase implements BaseUsecase<AddVehicleUsecaseInput, void> {
       ownerFatherName: input.ownerFatherName,
       ownerLastName: input.ownerLastName,
       ownerPhoneNumber: input.ownerPhoneNumber,
+      ownerPhoneCode: input.ownerPhoneCode,
       ownerLocation: input.ownerLocation,
       typeId: input.typeId,
       brandId: input.brandId,
@@ -44,6 +45,7 @@ class AddVehicleUsecaseInput {
   final String ownerFatherName;
   final String ownerLastName;
   final String ownerPhoneNumber;
+  final String ownerPhoneCode;
   final int ownerLocation;
   final int typeId;
   final int brandId;
@@ -65,6 +67,7 @@ class AddVehicleUsecaseInput {
     required this.ownerFatherName,
     required this.ownerLastName,
     required this.ownerPhoneNumber,
+    required this.ownerPhoneCode,
     required this.ownerLocation,
     required this.typeId,
     required this.brandId,

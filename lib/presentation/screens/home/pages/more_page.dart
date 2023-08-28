@@ -199,7 +199,7 @@ class MorePage extends StatelessWidget {
                                     style: smallGrayBodyStyle(),
                                   ),
                                   Text(
-                                    state.user?.userId.toString() ??
+                                    state.user?.uniqueId.toString() ??
                                         Constants.empty,
                                     style: extraSmallHeadlineStyle(),
                                   ),

@@ -5,6 +5,7 @@ class SignUpState extends Equatable {
   final Gender gender;
   final SignUpUserInfo? userInfo;
   final Status checkUserInfo;
+  final String? phoneCode;
   final String? checkUserInfoErrorMessage;
   final String? password;
   final bool isLibyan;
@@ -24,6 +25,7 @@ class SignUpState extends Equatable {
     this.gender = Gender.male,
     this.userInfo,
     this.checkUserInfo = Status.initial,
+    this.phoneCode,
     this.checkUserInfoErrorMessage,
     this.password,
     this.isLibyan = true,
@@ -47,6 +49,7 @@ class SignUpState extends Equatable {
       userInfo,
       checkUserInfo,
       checkUserInfoErrorMessage,
+      phoneCode,
       password,
       isLibyan,
       proofType,
@@ -68,6 +71,7 @@ class SignUpState extends Equatable {
     SignUpUserInfo? userInfo,
     Status? checkUserInfo,
     String? checkUserInfoErrorMessage,
+    String? phoneCode,
     String? password,
     bool? isLibyan,
     ProofType? proofType,
@@ -90,6 +94,7 @@ class SignUpState extends Equatable {
       checkUserInfo: checkUserInfo ?? this.checkUserInfo,
       checkUserInfoErrorMessage:
           checkUserInfoErrorMessage ?? this.checkUserInfoErrorMessage,
+      phoneCode: phoneCode ?? this.phoneCode,
       password: password ?? this.password,
       isLibyan: isLibyan ?? this.isLibyan,
       proofType: proofType ?? this.proofType,

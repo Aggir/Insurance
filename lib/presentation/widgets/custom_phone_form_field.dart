@@ -28,6 +28,7 @@ class CustomPhoneFormField extends StatefulWidget {
     this.focusNode,
     this.textInputAction,
     this.setCode,
+    this.initialCodeValue,
   });
   final String? Function(String? value)? validator;
   final TextEditingController? controller;
@@ -43,6 +44,7 @@ class CustomPhoneFormField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final void Function(String? value)? setCode;
+  final String? initialCodeValue;
 
   @override
   State<CustomPhoneFormField> createState() => _CustomPhoneFormFieldState();
@@ -114,10 +116,15 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                   ),
                   // Todo: get CountryCodePicker Value
                   child: CountryCodePicker(
-                    initialSelection: 'ly',
+                    initialSelection: widget.initialCodeValue ?? 'ly',
+                    onInit: (value) {
+                      if (widget.setCode != null) {
+                        widget.setCode!(value?.dialCode);
+                      }
+                    },
                     onChanged: (value) {
                       if (widget.setCode != null) {
-                        widget.setCode!(value.dialCode?.replaceAll('+', ''));
+                        widget.setCode!(value.dialCode);
                       }
                     },
                     textStyle:

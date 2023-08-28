@@ -5,6 +5,7 @@ class ProfileState extends Equatable {
     this.photoFile,
     this.isEditing = false,
     this.isLibyan,
+    this.phoneCode,
     this.editStatus = Status.initial,
     this.editError,
   });
@@ -12,6 +13,7 @@ class ProfileState extends Equatable {
   final File? photoFile;
   final bool isEditing;
   final bool? isLibyan;
+  final String? phoneCode;
   final Status editStatus;
   final String? editError;
 
@@ -19,6 +21,7 @@ class ProfileState extends Equatable {
   List<Object?> get props => [
         photoFile,
         isEditing,
+        phoneCode,
         editStatus,
         editError,
         isLibyan,
@@ -27,6 +30,7 @@ class ProfileState extends Equatable {
   ProfileState copyWith({
     File? photoFile,
     bool? isEditing,
+    String? phoneCode,
     bool? isLibyan,
     Status? editStatus,
     String? editError,
@@ -35,6 +39,7 @@ class ProfileState extends Equatable {
     return ProfileState(
       photoFile: removePickedPhoto ? null : photoFile ?? this.photoFile,
       isEditing: isEditing ?? this.isEditing,
+      phoneCode: phoneCode ?? this.phoneCode,
       isLibyan: isLibyan ?? this.isLibyan,
       editStatus: editStatus ?? this.editStatus,
       editError: editError ?? this.editError,

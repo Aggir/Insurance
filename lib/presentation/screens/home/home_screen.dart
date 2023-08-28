@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -46,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: widget.child,
       bottomNavigationBar: SizedBox(
-        height: AppSizes.s72.r,
+        height: AppSizes.s86.r,
         child: BottomNavigationBar(
           backgroundColor: AppColors.white,
           currentIndex: widget.child.currentIndex,
@@ -58,7 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
           unselectedLabelStyle:
               getRegularStyle(color: AppColors.gray, fontSize: FontSize.s10),
           onTap: (value) {
-            widget.child.goBranch(value);
+            if (value == 0) {
+              context.go(AppScreen.home.toPath);
+            } else {
+              widget.child.goBranch(value);
+            }
           },
           items: _navBarItems
               .map((item) => navBarItem(

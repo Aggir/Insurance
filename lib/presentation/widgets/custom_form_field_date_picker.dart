@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/language_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:intl/intl.dart';
 
@@ -44,7 +45,8 @@ class CustomFormFieldDatePicker extends StatelessWidget {
     DateTime getInitialDate() {
       if (initialDate == null) {
         if (controller != null && controller!.text.isNotEmpty) {
-          return DateFormat('yyyy-MM-dd').parse(controller!.text);
+          return Intl.withLocale(LanguageType.english.getLocale().countryCode,
+              () => DateFormat('yyyy-MM-dd').parse(controller!.text));
         } else {
           return DateTime.now();
         }
@@ -58,7 +60,9 @@ class CustomFormFieldDatePicker extends StatelessWidget {
         firstDate: firstDate ?? DateTime(DateTime.now().year - 100),
         lastDate: lastDate ?? DateTime.now());
     if (pickedDate != null) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+      String formattedDate = Intl.withLocale(
+          LanguageType.english.getLocale().countryCode,
+          () => DateFormat('yyyy-MM-dd').format(pickedDate));
       controller?.text = formattedDate;
       if (onChanged != null) {
         onChanged!(formattedDate);

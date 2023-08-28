@@ -54,11 +54,13 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
   fetchCompaniesPrices() async {
     emit(state.copyWith(fetchCompaniesPricesStatus: Status.loading));
     initCompareCompaniesPrices();
-    (await instance<CompareCompaniesPricesUsecase>().execute(
-            CompareCompaniesPricesUsecaseInput(
-                insuranceTypeId: state.insuranceTypeId!,
-                horsePower: state.horsePower!,
-                maxPassengers: state.maxPassengers!)))
+    (await instance<CompareCompaniesPricesUsecase>()
+            .execute(CompareCompaniesPricesUsecaseInput(
+      insuranceTypeId: state.insuranceTypeId!,
+      horsePower: state.horsePower!,
+      maxPassengers: state.maxPassengers!,
+      isSortByMinimum: state.isSortByMinimum,
+    )))
         .fold(
       (failure) => emit(state.copyWith(
           fetchCompaniesPricesStatus: Status.failure,

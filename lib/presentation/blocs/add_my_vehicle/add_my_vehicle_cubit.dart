@@ -100,6 +100,7 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     initAddVehicle();
     (await instance<AddVehicleUsecase>().execute(AddVehicleUsecaseInput(
             ownerFirstName: firstNameController.text,
+            ownerPhoneCode: state.ownerPhoneCode!,
             alias: vehicleAliasController.text,
             ownerFatherName: middleNameController.text,
             ownerLastName: lastNameController.text,
@@ -132,6 +133,10 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
         ));
       },
     );
+  }
+
+  setPhoneCode(String phoneCode) {
+    emit(state.copyWith(ownerPhoneCode: phoneCode));
   }
 
   setOwnerCity(int cityId) {

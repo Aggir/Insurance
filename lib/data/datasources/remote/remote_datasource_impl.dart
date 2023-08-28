@@ -13,7 +13,7 @@ import 'package:insurance_app/data/requests/insurance_requests.dart';
 import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/requests/vehicle_requests.dart';
 import 'package:insurance_app/data/responses/alarm_types_response.dart';
-import 'package:insurance_app/data/responses/alarms_reponse.dart';
+import 'package:insurance_app/data/responses/alarms_response.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
@@ -27,8 +27,8 @@ import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
 import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
 import 'package:insurance_app/data/responses/vehicle_models_response.dart';
-import 'package:insurance_app/data/responses/vehicle_ownership_types_reponse.dart';
-import 'package:insurance_app/data/responses/vehicle_types_reponse.dart';
+import 'package:insurance_app/data/responses/vehicle_ownership_types_response.dart';
+import 'package:insurance_app/data/responses/vehicle_types_response.dart';
 import 'package:insurance_app/data/responses/vehicles_response.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
@@ -85,7 +85,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.auth(error));
     } catch (error) {
       _appService.token = Constants.empty;
-      return UserResponse(message: AppStrings.genericError);
+      return UserResponse(message: AppStrings.genericError.tr());
     }
   }
 
@@ -108,7 +108,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
     } catch (error) {
-      return UserResponse(message: AppStrings.genericError);
+      return UserResponse(message: AppStrings.genericError.tr());
     }
   }
 
@@ -131,7 +131,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.auth(error));
     } catch (error) {
       _appService.token = token;
-      return BasicResponse(message: AppStrings.genericError);
+      return BasicResponse(message: AppStrings.genericError.tr());
     }
   }
 
@@ -149,6 +149,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
+      print(response.data);
+
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
       _appService.token = userResponse.token ?? Constants.empty;
@@ -339,7 +341,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           options: _bearerToken(_appService.token, header: {
             'Content-Type': 'multipart/form-data',
           }));
-
       return BasicResponse(data: response);
     } on DioException catch (error) {
       _checkTokenValidation(error);
@@ -365,6 +366,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
+      print(response.data);
       final userResponse = UserResponse.fromMap({'user': response.data});
       return userResponse;
     } on DioException catch (error) {
@@ -496,8 +498,10 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         data: body,
         options: _bearerToken(_appService.token),
       );
+      print(response.data);
       return BasicResponse(data: int.parse(response.data));
     } on DioException catch (error) {
+      print(error.response);
       _checkTokenValidation(error);
       return BasicResponse(
           code: error.response?.statusCode,
@@ -760,15 +764,18 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<CompaniesPricesResponse> getCompaniesPrices(
       CompaniesPricesRequest request) async {
+    print(request.toMap());
     try {
       Response response = await _dio.get(
         ApiConstants.companiesPrices,
         options: _bearerToken(_appService.token),
         queryParameters: request.toMap(),
       );
+      print(response);
       return CompaniesPricesResponse.fromMap(
           {'companiesPrices': response.data});
     } on DioException catch (error) {
+      print(error.response);
       _checkTokenValidation(error);
       return CompaniesPricesResponse(
           code: error.response?.statusCode,

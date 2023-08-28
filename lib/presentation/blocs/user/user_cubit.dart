@@ -112,7 +112,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void editProfile(String firstName, String fatherName, String lastName,
-      String email, String phone, String dateOfBirth,
+      String email, String phone, String dateOfBirth, String phoneCode,
       {File? photo}) async {
     emit(state.copyWith(editProfileStatus: Status.loading));
 
@@ -123,6 +123,7 @@ class UserCubit extends Cubit<UserState> {
       lastName: lastName,
       email: email,
       phone: phone,
+      phoneCode: phoneCode,
       dob: dateOfBirth,
       photo: photo,
     )))

@@ -169,7 +169,6 @@ class RepositoryImpl extends Repository {
 
   @override
   Future<Either<Failure, int>> countUnseenNotifications() async {
-    print('call');
     final response = await _remoteDataSource.countUnseenNotifications();
     if (response.message != null) {
       return Left(

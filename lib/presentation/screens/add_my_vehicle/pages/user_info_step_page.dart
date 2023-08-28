@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
@@ -148,6 +149,7 @@ class _AddMyVehicleUserInfoStepPageState
             hintText: AppStrings.phoneNumberExample.tr(),
             label: AppStrings.phoneNumber.tr(),
             controller: cubit.phoneNumberController,
+            setCode: (value) => cubit.setPhoneCode(value ?? Constants.empty),
           ),
           CustomSpacers.medium(),
           BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(

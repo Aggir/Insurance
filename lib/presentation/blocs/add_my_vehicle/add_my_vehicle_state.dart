@@ -5,6 +5,7 @@ class AddMyVehicleState extends Equatable {
   final VehicleOwnerInfo? userInfo;
   final Status getCitiesStatus;
   final String? getCitiesErrorMessage;
+  final String? ownerPhoneCode;
   final Status getAddVehicleFormDataStatus;
   final String? getAddVehicleFormDataErrorMessage;
   final AddVehicleFormData? addVehicleFormData;
@@ -33,6 +34,7 @@ class AddMyVehicleState extends Equatable {
   const AddMyVehicleState({
     this.userInfo,
     this.vehiclePictureStatus = Status.initial,
+    this.ownerPhoneCode,
     this.getCitiesStatus = Status.initial,
     this.getCitiesErrorMessage,
     this.getAddVehicleFormDataStatus = Status.initial,
@@ -64,6 +66,7 @@ class AddMyVehicleState extends Equatable {
   List<Object?> get props => [
         userInfo,
         vehiclePictureStatus,
+        ownerPhoneCode,
         getCitiesStatus,
         getCitiesErrorMessage,
         getAddVehicleFormDataStatus,
@@ -95,6 +98,7 @@ class AddMyVehicleState extends Equatable {
     VehicleOwnerInfo? userInfo,
     Status? vehiclePictureStatus,
     Status? getCitiesStatus,
+    String? ownerPhoneCode,
     String? getCitiesErrorMessage,
     Status? getAddVehicleFormDataStatus,
     String? getAddVehicleFormDataErrorMessage,
@@ -125,6 +129,7 @@ class AddMyVehicleState extends Equatable {
       addVehicleStatus: addVehicleStatus ?? this.addVehicleStatus,
       addVehicleErrorMessage:
           addVehicleErrorMessage ?? this.addVehicleErrorMessage,
+      ownerPhoneCode: ownerPhoneCode ?? this.ownerPhoneCode,
       vehiclePictureFile: removeVehiclePicture
           ? null
           : vehiclePictureFile ?? this.vehiclePictureFile,

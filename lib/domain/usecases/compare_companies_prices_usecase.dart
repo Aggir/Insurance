@@ -16,9 +16,11 @@ class CompareCompaniesPricesUsecase
   Future<Either<Failure, List<CompanyPriceEntity>>> execute(
       CompareCompaniesPricesUsecaseInput input) async {
     return await _repository.getCompaniesPrices(CompaniesPricesRequest(
-        insuranceTypeId: input.insuranceTypeId,
-        horsePower: input.horsePower,
-        maxPassengers: input.maxPassengers));
+      insuranceTypeId: input.insuranceTypeId,
+      horsePower: input.horsePower,
+      maxPassengers: input.maxPassengers,
+      isSortByMinimum: input.isSortByMinimum,
+    ));
   }
 }
 
@@ -26,9 +28,11 @@ class CompareCompaniesPricesUsecaseInput {
   final int insuranceTypeId;
   final int horsePower;
   final int maxPassengers;
+  final bool isSortByMinimum;
   CompareCompaniesPricesUsecaseInput({
     required this.insuranceTypeId,
     required this.horsePower,
     required this.maxPassengers,
+    required this.isSortByMinimum,
   });
 }

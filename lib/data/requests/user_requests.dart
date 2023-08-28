@@ -34,6 +34,7 @@ class SignUpRequest implements BaseRequest {
   final String lastName;
   final String email;
   final String phone;
+  final String phoneCode;
   final String dateOfBirth;
   final String gender;
   final String password;
@@ -53,6 +54,7 @@ class SignUpRequest implements BaseRequest {
     required this.lastName,
     required this.email,
     required this.phone,
+    required this.phoneCode,
     required this.dateOfBirth,
     required this.gender,
     required this.password,
@@ -73,7 +75,8 @@ class SignUpRequest implements BaseRequest {
       'father_name': middleName,
       'last_name': lastName,
       'email': email,
-      'phone': phone,
+      'phone': (phoneCode + phone).replaceFirst('+', ''),
+      'phone_code': phoneCode,
       'dob': dateOfBirth,
       'gender': gender,
       'password': password,
@@ -91,8 +94,6 @@ class SignUpRequest implements BaseRequest {
           : nationalFile,
     };
   }
-
-  String toJson() => json.encode(toMap());
 
   @override
   String toString() {
@@ -122,6 +123,7 @@ class EditProfileRequest implements BaseRequest {
   final String lastName;
   final String email;
   final String phone;
+  final String phoneCode;
   final String dob;
   final File? photo;
 
@@ -131,6 +133,7 @@ class EditProfileRequest implements BaseRequest {
     required this.lastName,
     required this.email,
     required this.phone,
+    required this.phoneCode,
     required this.dob,
     this.photo,
   });
@@ -141,7 +144,8 @@ class EditProfileRequest implements BaseRequest {
       'father_name': fatherName,
       'last_name': lastName,
       'email': email,
-      'phone': phone,
+      'phone': (phoneCode + phone).replaceFirst('+', ''),
+      'phone_code': phoneCode,
       'dob': dob,
     };
     if (photo != null) {
