@@ -32,6 +32,13 @@ class _SignUpStepsScreenState extends State<SignUpStepsScreen> {
           AppScreen.signupSelectProofTypeStep.toPath,
         );
         cubit.backFromVerificationStepPage();
+      } else if (widget.child.currentIndex == 3) {
+        cubit.backFromOtpPage();
+        if (state.isLibyan) {
+          context.go(AppScreen.signupNationalInfoStep.toPath);
+        } else {
+          context.go(AppScreen.signupProofInfoStep.toPath);
+        }
       } else {
         widget.child.goBranch(widget.child.currentIndex - 1);
         cubit.backFromSelectDocumentTypePage();

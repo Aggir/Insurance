@@ -10,7 +10,7 @@ import 'package:insurance_app/domain/data_classes/insurance_document_parameters.
 import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_alarms/my_alarms_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
@@ -132,15 +132,15 @@ class AppRoutes {
     routes: [_companyDetails],
   );
 
-  static final carsInsurance = GoRoute(
+  static final vehiclesInsurance = GoRoute(
     redirect: _authenticatedRoute,
-    path: AppScreen.carsInsurance.toPath,
-    name: AppScreen.carsInsurance.toName,
+    path: AppScreen.vehiclesInsurance.toPath,
+    name: AppScreen.vehiclesInsurance.toName,
     builder: (context, state) {
       initCompareCompaniesCubit();
       return BlocProvider(
         create: (context) => instance<CompareCompaniesCubit>(),
-        child: const CarsInsuranceScreen(),
+        child: const VehiclesInsuranceScreen(),
       );
     },
   );
@@ -341,6 +341,13 @@ class AppRoutes {
     ),
   );
 
+  static final _signupOtpStep = GoRoute(
+    redirect: _nonAuthenticatedRoute,
+    path: AppScreen.signupOtpStep.toPath,
+    name: AppScreen.signupOtpStep.toName,
+    builder: (context, state) => const SignUpOtpStepPage(),
+  );
+
   static final _signupBranches = [
     StatefulShellBranch(routes: [_signup]),
     StatefulShellBranch(routes: [_signupPasswordStep]),
@@ -349,6 +356,7 @@ class AppRoutes {
       _signupProofInfoStep,
       _signupNationalInfoStep,
     ]),
+    StatefulShellBranch(routes: [_signupOtpStep]),
   ];
 
   static int get signupBranchesCount => _signupBranches.length;

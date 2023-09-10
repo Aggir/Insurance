@@ -28,7 +28,7 @@ class _ReminderStepsScreenState extends State<ReminderStepsScreen> {
       widget.child.goBranch(widget.child.currentIndex - 1);
     } else {
       //todo: make it dynamic
-      context.go(AppScreen.carsInsurance.toPath);
+      context.go(AppScreen.vehiclesInsurance.toPath);
     }
   }
 

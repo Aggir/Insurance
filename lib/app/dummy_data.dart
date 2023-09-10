@@ -9,22 +9,9 @@ const List<RemindMeInEntity> remindMeOptions = [
   RemindMeInEntity(id: 4, days: 14, name: 'قبل اسبوعين'),
 ];
 
-const List<Map<String, String>> typesOfCarInsurance = [
-  {'id': '1', 'value': 'وثيقة تأمين سيارة إجباري'},
-  {'id': '2', 'value': 'وثيقة تأمين سيارة شامل'},
-  {'id': '3', 'value': 'وثيقة تأمين المنافع الإضافية'},
-];
-
 const List<int> horsePower = [8, 10, 12, 14, 16];
 
 const List<int> seatsNumberWithoutTheDriver = [1, 3, 4, 5, 6, 7];
-
-const List<Map<String, String>> test = [
-  {'id': '1', 'value': 'تجربة 1'},
-  {'id': '2', 'value': 'تجربة 2'},
-  {'id': '3', 'value': 'تجربة 3'},
-  {'id': '4', 'value': 'تجربة 4'},
-];
 
 const List<Map<String, String>> vehicleYears = [
   {'id': '1', 'value': '2000'},
@@ -73,9 +60,4 @@ const List<PaymentMethod> paymentMethods = [
   PaymentMethod(id: '3', name: 'سداد', imagePath: ImageAssets.sadad),
   PaymentMethod(id: '4', name: 'تداول', imagePath: ImageAssets.tadawul),
   PaymentMethod(id: '5', name: 'معاملات', imagePath: ImageAssets.moamalat),
-];
-
-const List<Map<String, String>> vehicleCountry = [
-  {'id': '1', 'value': 'ليبيا', 'svgPath': SvgAssets.libya},
-  {'id': '2', 'value': 'المانيا', 'svgPath': SvgAssets.germany},
 ];

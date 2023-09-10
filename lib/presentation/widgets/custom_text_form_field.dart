@@ -36,6 +36,7 @@ class CustomTextFormField extends StatefulWidget {
     this.onFieldSubmitted,
     this.onEditingComplete,
     this.textInputAction,
+    this.acceptsDot = false,
   });
   final TextInputType keyboardType;
   final String? Function(String? value)? validator;
@@ -59,6 +60,7 @@ class CustomTextFormField extends StatefulWidget {
   final void Function(String)? onFieldSubmitted;
   final void Function()? onEditingComplete;
   final TextInputAction? textInputAction;
+  final bool acceptsDot;
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
 }
@@ -247,6 +249,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   List<TextInputFormatter> getFormatters() {
     switch (widget.keyboardType) {
       case TextInputType.number:
+        if (widget.acceptsDot) {
+          return [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))];
+        }
         return [FilteringTextInputFormatter.digitsOnly];
       case TextInputType.phone:
         return [FilteringTextInputFormatter.allow(RegExp(r'^\+?\d+'))];

@@ -31,11 +31,12 @@ class AddVehicleUsecase implements BaseUsecase<AddVehicleUsecaseInput, void> {
       chassisNumber: input.chassisNumber,
       colorId: input.colorId,
       maxPassengers: input.maxPassengers,
+      withAttachment: input.withAttachment,
+      weight: input.weight,
       pictureFile: input.pictureFile,
       alias: input.alias,
       licensePlateNumber: input.licensePlateNumber,
       cityId: input.cityId,
-      ownership: input.ownership,
     ));
   }
 }
@@ -52,16 +53,17 @@ class AddVehicleUsecaseInput {
   final int modelId;
   final int countryId;
   final int makingYear;
-  final String horsePower;
+  final String? horsePower;
   final String engineNumber;
   final String chassisNumber;
   final int colorId;
-  final String maxPassengers;
+  final String? maxPassengers;
+  final String? weight;
+  final bool? withAttachment;
   final File pictureFile;
   final String? alias;
   final String licensePlateNumber;
   final int cityId;
-  final int ownership;
   AddVehicleUsecaseInput({
     required this.ownerFirstName,
     required this.ownerFatherName,
@@ -74,15 +76,16 @@ class AddVehicleUsecaseInput {
     required this.modelId,
     required this.countryId,
     required this.makingYear,
-    required this.horsePower,
+    this.horsePower,
     required this.engineNumber,
     required this.chassisNumber,
     required this.colorId,
-    required this.maxPassengers,
+    this.maxPassengers,
     required this.pictureFile,
     this.alias,
+    this.weight,
+    this.withAttachment,
     required this.licensePlateNumber,
     required this.cityId,
-    required this.ownership,
   });
 }

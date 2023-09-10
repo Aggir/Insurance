@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:insurance_app/domain/entities/insurance_type.dart';
-import 'package:insurance_app/domain/entities/vehicle_brand.dart';
+import 'package:insurance_app/domain/entities/vehicle_type.dart';
 
 class CompanyPricesFormData extends Equatable {
   final List<InsuranceTypeEntity> insuranceTypes;
-  final List<VehicleBrandEntity> vehicleBrands;
+  final List<VehicleTypeEntity> vehicleTypes;
 
   const CompanyPricesFormData({
     required this.insuranceTypes,
-    required this.vehicleBrands,
+    required this.vehicleTypes,
   });
 
   @override
-  List<Object> get props => [insuranceTypes, vehicleBrands];
+  List<Object> get props => [insuranceTypes, vehicleTypes];
 }

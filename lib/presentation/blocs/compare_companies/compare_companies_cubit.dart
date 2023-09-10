@@ -15,6 +15,12 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
 
   final TextEditingController searchController = TextEditingController();
   final searchFocusNode = FocusNode();
+
+  final GlobalKey<FormState> filterFormKey = GlobalKey<FormState>();
+  final TextEditingController horsepowerController = TextEditingController();
+  final TextEditingController maxPassengersController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+
   bool isDisposed = false;
 
   fetchInsuranceTypes() async {
@@ -30,16 +36,12 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
             )));
   }
 
-  selectHorsePower(int horsePower) {
-    emit(state.copyWith(horsePower: horsePower));
+  toggleWithAttachment() {
+    emit(state.copyWith(withAttachment: !(state.withAttachment ?? false)));
   }
 
   selectInsuranceType(int insuranceTypeId) {
-    emit(state.copyWith(insuranceTypeId: insuranceTypeId));
-  }
-
-  selectMaxPassengers(int maxPassengers) {
-    emit(state.copyWith(maxPassengers: maxPassengers));
+    emit(state.copyWith(selectedInsuranceTypeId: insuranceTypeId));
   }
 
   setIsSortByMinimum(bool value) {
@@ -56,9 +58,9 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
     initCompareCompaniesPrices();
     (await instance<CompareCompaniesPricesUsecase>()
             .execute(CompareCompaniesPricesUsecaseInput(
-      insuranceTypeId: state.insuranceTypeId!,
-      horsePower: state.horsePower!,
-      maxPassengers: state.maxPassengers!,
+      insuranceTypeId: state.selectedInsuranceTypeId!,
+      horsePower: horsepowerController.text.trim(),
+      maxPassengers: maxPassengersController.text.trim(),
       isSortByMinimum: state.isSortByMinimum,
     )))
         .fold(

@@ -2,8 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
+import 'package:insurance_app/app/router/routes.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
@@ -30,18 +31,12 @@ class SignUpNationalInfoPage extends StatefulWidget {
 }
 
 class _SignUpNationalInfoPageState extends State<SignUpNationalInfoPage> {
-  void _createAccountButtonFunction(BuildContext context) {
+  void _verifyPhoneNumberButtonFunction(BuildContext context) async {
     FocusScope.of(context).unfocus();
     final cubit = BlocProvider.of<SignUpCubit>(context);
-    if (cubit.confirmNationalIdNumberForm()) {
-      DialogService.loadLoadingDialog(context);
-      BlocProvider.of<UserCubit>(context).signUp(
-        cubit.state.userInfo!,
-        cubit.state.password!,
-        cubit.state.isLibyan,
-        cubit.state.proofDocumentInfo!,
-        nationalDocument: cubit.state.nationalDocumentInfo,
-      );
+    DialogService.loadLoadingDialog(context);
+    if (await cubit.confirmNationalIdNumberForm()) {
+      cubit.sendVerifyPhoneOtp();
     }
   }
 
@@ -84,15 +79,24 @@ class _SignUpNationalInfoPageState extends State<SignUpNationalInfoPage> {
             AppValues.appBarHeight.r -
             AppSizes.s30.r,
         child: PageContentPadding(
-          child: BlocListener<UserCubit, UserState>(
+          child: BlocListener<SignUpCubit, SignUpState>(
             listenWhen: (previous, current) =>
-                previous.authStatus != current.authStatus,
+                (previous.sendVerifyPhoneOtpStatus !=
+                        current.sendVerifyPhoneOtpStatus ||
+                    previous.checkNationalIdStatus !=
+                        current.checkNationalIdStatus),
             listener: (context, state) {
-              if (state.authStatus.isFailure) {
+              if (state.checkNationalIdStatus.isFailure) {
                 DialogService.dispose();
-                SnackBars.error(context, state.authErrorMessage!);
-              } else if (state.authStatus.isSuccess) {
+                SnackBars.error(context, state.checkNationalIdErrorMessage!);
+              } else if (state.sendVerifyPhoneOtpStatus.isFailure &&
+                  state.checkNationalIdStatus.isSuccess) {
                 DialogService.dispose();
+                SnackBars.error(context, state.sendVerifyPhoneOtpErrorMessage!);
+              } else if (state.sendVerifyPhoneOtpStatus.isSuccess &&
+                  state.checkNationalIdStatus.isSuccess) {
+                DialogService.dispose();
+                context.go(AppScreen.signupOtpStep.toPath);
               }
             },
             child: Column(
@@ -167,11 +171,9 @@ class _SignUpNationalInfoPageState extends State<SignUpNationalInfoPage> {
       builder: (context, state) {
         return PrimaryButton.fullWidth(
           onPressed: (formIsNotEmpty && state.nationalIdStatus.isSuccess)
-              ? () => _createAccountButtonFunction(context)
+              ? () => _verifyPhoneNumberButtonFunction(context)
               : null,
-          child: Text(
-            AppStrings.createAccount.tr(),
-          ),
+          child: Text(AppStrings.next.tr()),
         );
       },
     );

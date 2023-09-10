@@ -14,8 +14,10 @@ import 'package:insurance_app/domain/repositories/user_repository.dart';
 import 'package:insurance_app/domain/repositories/vehicle_repository.dart';
 import 'package:insurance_app/domain/usecases/add_alarm_usecase.dart';
 import 'package:insurance_app/domain/usecases/add_vehicle_usecase.dart';
+import 'package:insurance_app/domain/usecases/calculate_insurance_price_by_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
 import 'package:insurance_app/domain/usecases/change_password_usecase.dart';
+import 'package:insurance_app/domain/usecases/check_national_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
 import 'package:insurance_app/domain/usecases/compare_companies_prices_usecase.dart';
@@ -43,10 +45,11 @@ import 'package:insurance_app/domain/usecases/notification_read_usecase.dart';
 import 'package:insurance_app/domain/usecases/notifications_seen_usecase.dart';
 import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 import 'package:insurance_app/domain/usecases/reset_password_usecase.dart';
+import 'package:insurance_app/domain/usecases/send_verify_phone_otp_usecase.dart';
 import 'package:insurance_app/domain/usecases/sign_out_usecase.dart';
 import 'package:insurance_app/domain/usecases/toggle_is_vehicle_hidden_usecase.dart';
 import 'package:insurance_app/domain/usecases/verify_forgot_password_otp_usecase.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,6 +58,7 @@ import 'package:dio/dio.dart';
 import '../../domain/usecases/sign_in_usecase.dart';
 import '../../domain/usecases/sign_up_usecase.dart';
 import '../helpers/app_service.dart';
+// TODO: ADD EXPORT FILE FOR USECASES
 
 final instance = GetIt.instance;
 
@@ -73,6 +77,7 @@ Future<void> initAppModule() async {
       baseUrl: ApiConstants.baseUrl,
       connectTimeout: const Duration(seconds: 15),
       receiveTimeout: const Duration(seconds: 15),
+      //TODO: DYNAMIC LOCALE
       headers: {'Accept': 'application/json', 'locale': 'ar'});
   final Dio dio = Dio(dioOptions);
 
@@ -158,6 +163,13 @@ void initCheckProofId() async {
   }
 }
 
+void initCheckNationalId() async {
+  if (!GetIt.I.isRegistered<CheckNationalIdUsecase>()) {
+    instance.registerFactory<CheckNationalIdUsecase>(
+        () => CheckNationalIdUsecase(instance<UserRepository>()));
+  }
+}
+
 void initEditProfile() async {
   if (!GetIt.I.isRegistered<EditProfileUsecase>()) {
     instance.registerFactory<EditProfileUsecase>(
@@ -239,6 +251,14 @@ void initGetInsuranceFormData() async {
   if (!GetIt.I.isRegistered<GetInsuranceFormData>()) {
     instance.registerFactory<GetInsuranceFormData>(
         () => GetInsuranceFormData(instance<InsuranceRepository>()));
+  }
+}
+
+void initCalculateInsurancePriceByVehicle() async {
+  if (!GetIt.I.isRegistered<CalculateInsurancePriceByVehicleUsecase>()) {
+    instance.registerFactory<CalculateInsurancePriceByVehicleUsecase>(() =>
+        CalculateInsurancePriceByVehicleUsecase(
+            instance<InsuranceRepository>()));
   }
 }
 
@@ -365,5 +385,12 @@ void initCountUnseenNotifications() async {
   if (!GetIt.I.isRegistered<CountUnseenNotificationsUsecase>()) {
     instance.registerFactory<CountUnseenNotificationsUsecase>(
         () => CountUnseenNotificationsUsecase(instance<Repository>()));
+  }
+}
+
+void initSignUpSendVerifyPhoneOtp() async {
+  if (!GetIt.I.isRegistered<SendVerifyPhoneOtpUsecase>()) {
+    instance.registerFactory<SendVerifyPhoneOtpUsecase>(
+        () => SendVerifyPhoneOtpUsecase(instance<UserRepository>()));
   }
 }

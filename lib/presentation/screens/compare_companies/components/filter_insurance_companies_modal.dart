@@ -6,7 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/routes.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
@@ -158,37 +158,37 @@ class _FilterInsuranceCompaniesModalState
             },
           ),
           CustomSpacers.medium(),
-          CustomDropDownField(
-            onChanged: (value) => cubit.selectHorsePower(int.parse(value)),
-            hintText: AppStrings.selectTheHorsepowerOfTheEngine.tr(),
-            items: DUMMY.horsePower
-                .map(
-                  (value) => DropdownMenuItem(
-                    value: value.toString(),
-                    child: Text(
-                      value.toString(),
-                      style: bodyStyle(),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
-          CustomSpacers.medium(),
-          CustomDropDownField(
-            onChanged: (value) => cubit.selectMaxPassengers(int.parse(value)),
-            hintText: AppStrings.seatsWithoutTheDriver.tr(),
-            items: DUMMY.seatsNumberWithoutTheDriver
-                .map(
-                  (value) => DropdownMenuItem(
-                    value: value.toString(),
-                    child: Text(
-                      value.toString(),
-                      style: bodyStyle(),
-                    ),
-                  ),
-                )
-                .toList(),
-          ),
+          // CustomDropDownField(
+          //   onChanged: (value) => cubit.selectHorsePower(int.parse(value)),
+          //   hintText: AppStrings.horsepower.tr(),
+          //   items: DUMMY.horsePower
+          //       .map(
+          //         (value) => DropdownMenuItem(
+          //           value: value.toString(),
+          //           child: Text(
+          //             value.toString(),
+          //             style: bodyStyle(),
+          //           ),
+          //         ),
+          //       )
+          //       .toList(),
+          // ),
+          // CustomSpacers.medium(),
+          // CustomDropDownField(
+          //   onChanged: (value) => cubit.selectMaxPassengers(int.parse(value)),
+          //   hintText: AppStrings.seatsWithoutTheDriver.tr(),
+          //   items: DUMMY.seatsNumberWithoutTheDriver
+          //       .map(
+          //         (value) => DropdownMenuItem(
+          //           value: value.toString(),
+          //           child: Text(
+          //             value.toString(),
+          //             style: bodyStyle(),
+          //           ),
+          //         ),
+          //       )
+          //       .toList(),
+          // ),
         ],
       ),
     );

@@ -12,7 +12,7 @@ import '../theme/app_theme.dart';
 class CustomDropDownField extends StatefulWidget {
   const CustomDropDownField({
     Key? key,
-    required this.items,
+    this.items,
     this.validator,
     this.onChanged,
     this.enabled = true,
@@ -24,8 +24,9 @@ class CustomDropDownField extends StatefulWidget {
     this.focusedStyleEnabled = true,
     this.hideErrorMessage = false,
     this.isLoading = false,
+    this.selectedItemBuilder,
   }) : super(key: key);
-  final List<DropdownMenuItem> items;
+  final List<DropdownMenuItem>? items;
   final void Function(dynamic)? onChanged;
   final void Function()? onTap;
   final String? Function(dynamic value)? validator;
@@ -37,6 +38,7 @@ class CustomDropDownField extends StatefulWidget {
   final bool focusedStyleEnabled;
   final bool hideErrorMessage;
   final bool isLoading;
+  final List<Widget> Function(BuildContext context)? selectedItemBuilder;
 
   @override
   State<CustomDropDownField> createState() => _CustomDropDownFieldState();
@@ -65,7 +67,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: double.infinity,
+          // width: double.infinity,
           height: AppValues.textFieldHeight.r,
           child: DropdownButtonFormField(
             onTap: widget.onTap,
@@ -87,6 +89,8 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
                 selectedValue = value;
               });
             },
+            selectedItemBuilder: widget.selectedItemBuilder,
+            isExpanded: true,
             decoration: InputDecoration(
               errorStyle: const TextStyle(height: 0),
               border: OutlineInputBorder(

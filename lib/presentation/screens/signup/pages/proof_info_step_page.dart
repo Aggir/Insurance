@@ -5,9 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/proof_type.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/data_classes/proof_document.dart';
 
-import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
@@ -39,30 +37,11 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
   void _mainButtonFunction(BuildContext context, SignUpState state) async {
     FocusScope.of(context).unfocus();
     final signUpCubit = BlocProvider.of<SignUpCubit>(context);
-    final userCubit = BlocProvider.of<UserCubit>(context);
     if (signUpCubit.proofInfoForm.currentState?.validate() ?? false) {
       DialogService.loadLoadingDialog(context);
-      if (state.isLibyan) {
-        bool isFormValid = await signUpCubit.confirmProofInfoForm();
-        if (isFormValid) {
-          signUpCubit.confirmProofInfoForm();
-        }
-      } else {
-        userCubit.signUp(
-          signUpCubit.state.userInfo!,
-          signUpCubit.state.password!,
-          signUpCubit.state.isLibyan,
-          ProofDocument(
-            proofType: state.proofType!,
-            proofFile: state.proofFile!,
-            proofId: signUpCubit.documentNumberController.text.trim(),
-            issuePlace: signUpCubit.documentIssuingPlaceController.text.trim(),
-            issueDate: signUpCubit.documentDateOfIssueController.text.trim(),
-            expirationDate:
-                signUpCubit.documentDateOfExpiryController.text.trim(),
-          ),
-        );
-        // context.go(AppScreen.homeRoute, extra: const FirstLoginDialog());
+      bool isFormValid = await signUpCubit.confirmProofInfoForm();
+      if (isFormValid) {
+        signUpCubit.sendVerifyPhoneOtp();
       }
     }
   }
@@ -109,15 +88,21 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
         height: MediaQuery.of(context).size.height -
             AppValues.appBarHeight.r -
             AppSizes.s30.r,
-        child: BlocListener<UserCubit, UserState>(
+        child: BlocListener<SignUpCubit, SignUpState>(
           listenWhen: (previous, current) =>
-              previous.authStatus != current.authStatus,
+              previous.sendVerifyPhoneOtpStatus !=
+              current.sendVerifyPhoneOtpStatus,
           listener: (context, state) {
-            if (state.authStatus.isFailure) {
+            if (state.sendVerifyPhoneOtpStatus.isFailure) {
               DialogService.dispose();
-              SnackBars.error(context, state.authErrorMessage!);
-            } else if (state.authStatus.isSuccess) {
+              SnackBars.error(context, state.sendVerifyPhoneOtpErrorMessage!);
+            } else if (state.sendVerifyPhoneOtpStatus.isSuccess) {
               DialogService.dispose();
+              if (state.isLibyan) {
+                context.go(AppScreen.signupNationalInfoStep.toPath);
+              } else {
+                context.go(AppScreen.signupOtpStep.toPath);
+              }
             }
           },
           child: PageContentPadding(
@@ -139,16 +124,10 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
                         listenWhen: (previous, current) =>
                             previous.checkProofId != current.checkProofId,
                         listener: (context, state) {
-                          if (state.isLibyan) {
-                            if (state.checkProofId.isFailure) {
-                              DialogService.dispose();
-                              SnackBars.error(
-                                  context, state.checkProofIdErrorMessage!);
-                            } else if (state.checkProofId.isSuccess) {
-                              DialogService.dispose();
-                              context
-                                  .go(AppScreen.signupNationalInfoStep.toPath);
-                            }
+                          if (state.checkProofId.isFailure) {
+                            DialogService.dispose();
+                            SnackBars.error(
+                                context, state.checkProofIdErrorMessage!);
                           }
                         },
                         builder: (context, state) {
@@ -254,11 +233,7 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
           onPressed: (formIsNotEmpty && state.proofStatus.isSuccess)
               ? () => _mainButtonFunction(context, state)
               : null,
-          child: Text(
-            state.isLibyan
-                ? AppStrings.next.tr()
-                : AppStrings.createAccount.tr(),
-          ),
+          child: Text(AppStrings.next.tr()),
         );
       },
     );

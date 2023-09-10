@@ -17,6 +17,8 @@ abstract class UserRepository {
 
   Future<Either<Failure, void>> checkProofId(String proofId);
 
+  Future<Either<Failure, void>> checkNationalId(String nationalId);
+
   Future<Either<Failure, UserEntity>> editProfile(EditProfileRequest input);
 
   Future<Either<Failure, void>> changePassword(ChangePasswordRequest input);
@@ -29,4 +31,6 @@ abstract class UserRepository {
       VerifyOtpForgotPasswordRequest input);
 
   Future<Either<Failure, void>> resetPassword(ResetPasswordRequest input);
+
+  Future<Either<Failure, void>> sendVerifyPhoneOtp(String phone);
 }

@@ -56,6 +56,7 @@ class AppStrings {
   static const uploadNationalIdPicture = "upload_national_id_picture";
   static const nationalIdPicture = "national_id_picture";
   static const nationalIdNumber = "national_id_number";
+  static const verifyYourPhoneNumber = "verify_your_phone_number";
 
   static const termsAndConditions = 'terms_and_conditions';
   static const lastUpdate = 'last_update';
@@ -101,7 +102,7 @@ class AppStrings {
   static const more = 'more';
   static const welcome = 'welcome';
   static const insuranceServices = 'insurance_services';
-  static const carsInsurance = 'cars_insurance';
+  static const vehiclesInsurance = 'vehicles_insurance';
   static const company = 'company';
   static const propertiesInsurance = 'properties_insurance';
   static const travelersInsurance = 'travelers_insurance';
@@ -252,6 +253,7 @@ class AppStrings {
       'cars_insurance_policy_description';
   static const selectTheInsuranceCompany = 'select_the_insurance_company';
   static const selectInsuranceType = 'select_insurance_type';
+  static const selectVehicleBrand = 'select_vehicle_brand';
   static const selectTheVehicle = 'select_the_vehicle';
   static const startDate = 'start_date';
   static const endDate = 'end_date';
@@ -296,8 +298,7 @@ class AppStrings {
   static const youCanFindOutThePricesByFiltering =
       'you_can_find_out_the_prices_by_filtering';
   static const selectInsurancePolicy = 'select_insurance_policy';
-  static const selectTheHorsepowerOfTheEngine =
-      'select_the_horsepower_of_the_engine';
+  static const horsepower = 'horsepower';
   static const sortBy = 'sort_by';
   static const lowestPrice = 'lowest_price';
   static const highestPrice = 'highest_price';
@@ -311,8 +312,9 @@ class AppStrings {
   static const insurances = 'insurances';
   static const pricesModalDescription = 'pricesDialogDescription';
   static const selectVehicleType = 'select_vehicle_type';
-  static const selectSeatsNumber = 'select_seats_number';
-  static const publicUse = 'public_use';
+  static const maxPassengers = 'max_passengers';
+  static const weight = 'weight';
+  static const withAttachment = 'with_attachment';
   static const knowThePrice = 'know_the_price';
   static const personalInsurances = 'personal_insurances';
   static const medicalLiability = 'medical_liability';

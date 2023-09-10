@@ -184,16 +184,18 @@ class _InstallmentDetailsStepPageState
                   .r,
               child: Column(
                 children: [
-                  _detailRow(AppStrings.netInstallment.tr(),
-                      state.insurancePrice ?? ''),
+                  _detailRow(
+                      AppStrings.netInstallment.tr(),
+                      double.parse(state.insurancePrice ?? '')
+                          .toStringAsFixed(3)),
                   CustomSpacers.medium(),
-                  _detailRow(AppStrings.tax.tr(), '0.500'),
+                  _detailRow(AppStrings.tax.tr(), '1.000'),
                   CustomSpacers.medium(),
                   _detailRow(AppStrings.stampDuty.tr(), '0.500'),
                   CustomSpacers.medium(),
-                  _detailRow(AppStrings.supervision.tr(), '0.750'),
+                  _detailRow(AppStrings.supervision.tr(), '0.320'),
                   CustomSpacers.medium(),
-                  _detailRow(AppStrings.issuanceFee.tr(), '1.250'),
+                  _detailRow(AppStrings.issuanceFee.tr(), '1.000'),
                   CustomSpacers.mediumLarge(),
                   Container(
                     color: AppColors.primaryLight,
@@ -209,7 +211,7 @@ class _InstallmentDetailsStepPageState
                         style: mediumSmallHeadlineStyle(),
                       ),
                       Text(
-                        '${int.parse(state.insurancePrice!) + 3} ${AppStrings.currency.tr()}',
+                        '${(double.parse(state.insurancePrice!) + 2.820).toStringAsFixed(3)} ${AppStrings.currency.tr()}',
                         style: getExtraBoldStyle(
                             fontSize: FontSize.s16, color: AppColors.black),
                       ),

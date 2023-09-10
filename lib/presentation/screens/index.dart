@@ -1,5 +1,5 @@
 export 'package:insurance_app/presentation/screens/add_my_vehicle/pages/vehicle_picture_step_page.dart';
-export 'package:insurance_app/presentation/screens/cars_insurance/cars_insurance_screen.dart';
+export 'package:insurance_app/presentation/screens/vehicles_insurance/vehicles_insurance_screen.dart';
 export 'package:insurance_app/presentation/screens/change_password/change_password_screen.dart';
 export 'package:insurance_app/presentation/screens/company_branches/company_branches_screen.dart';
 export 'package:insurance_app/presentation/screens/company_details/company_details_screen.dart';

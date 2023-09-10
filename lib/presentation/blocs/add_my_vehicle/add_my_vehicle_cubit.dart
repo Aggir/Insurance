@@ -38,6 +38,11 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
   final TextEditingController vehicleCountryController =
       TextEditingController();
   final TextEditingController vehicleYearController = TextEditingController();
+  final TextEditingController vehicleWeightController = TextEditingController();
+  final TextEditingController vehicleHorsePowerController =
+      TextEditingController();
+  final TextEditingController vehicleMaxPassengerController =
+      TextEditingController();
 
   final GlobalKey<FormState> vehicleDetailsTwoForm = GlobalKey<FormState>();
   final TextEditingController vehicleEngineNumberController =
@@ -99,27 +104,29 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     ));
     initAddVehicle();
     (await instance<AddVehicleUsecase>().execute(AddVehicleUsecaseInput(
-            ownerFirstName: firstNameController.text,
-            ownerPhoneCode: state.ownerPhoneCode!,
-            alias: vehicleAliasController.text,
-            ownerFatherName: middleNameController.text,
-            ownerLastName: lastNameController.text,
-            ownerPhoneNumber: phoneNumberController.text,
-            ownerLocation: state.selectedOwnerCityId!,
-            typeId: state.selectedVehicleTypeId!,
-            brandId: state.selectedVehicleBrand!.id,
-            modelId: state.selectedVehicleModelId!,
-            countryId: state.selectedVehicleCountryId!,
-            makingYear: state.selectedVehicleYearId!,
-            horsePower: state.selectedVehicleHorsePower!.toString(),
-            engineNumber: vehicleEngineNumberController.text,
-            chassisNumber: vehicleChassisNumberController.text,
-            colorId: state.selectedVehicleColorId!,
-            maxPassengers: state.selectedVehicleSeats!.toString(),
-            pictureFile: state.vehiclePictureFile!,
-            licensePlateNumber: vehicleLicensePlateNumberController.text,
-            cityId: state.selectedVehicleCityId!,
-            ownership: state.selectedVehicleOwnershipTypeId!)))
+      ownerFirstName: firstNameController.text,
+      ownerPhoneCode: state.ownerPhoneCode!,
+      alias: vehicleAliasController.text,
+      ownerFatherName: middleNameController.text,
+      ownerLastName: lastNameController.text,
+      ownerPhoneNumber: phoneNumberController.text,
+      ownerLocation: state.selectedOwnerCityId!,
+      typeId: state.selectedVehicleTypeId!,
+      brandId: state.selectedVehicleBrand!.id,
+      modelId: state.selectedVehicleModelId!,
+      countryId: state.selectedVehicleCountryId!,
+      makingYear: state.selectedVehicleYearId!,
+      weight: vehicleWeightController.text,
+      horsePower: vehicleHorsePowerController.text,
+      withAttachment: state.selectedVehicleWithAttachment,
+      engineNumber: vehicleEngineNumberController.text,
+      chassisNumber: vehicleChassisNumberController.text,
+      colorId: state.selectedVehicleColorId!,
+      maxPassengers: vehicleMaxPassengerController.text,
+      pictureFile: state.vehiclePictureFile!,
+      licensePlateNumber: vehicleLicensePlateNumberController.text,
+      cityId: state.selectedVehicleCityId!,
+    )))
         .fold(
       (failure) {
         emit(state.copyWith(
@@ -162,24 +169,18 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     emit(state.copyWith(selectedVehicleYearId: vehicleYearId));
   }
 
-  setVehicleHorsePower(int vehicleHorsePower) {
-    emit(state.copyWith(selectedVehicleHorsePower: vehicleHorsePower));
-  }
-
   setVehicleColorId(int vehicleColorId) {
     emit(state.copyWith(selectedVehicleColorId: vehicleColorId));
   }
 
-  setVehicleSeats(int vehicleSeats) {
-    emit(state.copyWith(selectedVehicleSeats: vehicleSeats));
+  toggleVehicleWithAttachment() {
+    emit(state.copyWith(
+        selectedVehicleWithAttachment:
+            !(state.selectedVehicleWithAttachment ?? false)));
   }
 
   setVehicleCityId(int vehicleCityId) {
     emit(state.copyWith(selectedVehicleCityId: vehicleCityId));
-  }
-
-  setVehicleOwnershipTypeId(int vehicleUsageId) {
-    emit(state.copyWith(selectedVehicleOwnershipTypeId: vehicleUsageId));
   }
 
   uploadVehiclePicture() async {

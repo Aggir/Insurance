@@ -182,25 +182,6 @@ class _AddMyVehiclePictureStepPageState
                         .toList(),
               ),
               CustomSpacers.medium(),
-              CustomDropDownField(
-                hintText: AppStrings.usage.tr(),
-                onChanged: (value) =>
-                    cubit.setVehicleOwnershipTypeId(int.parse(value)),
-                items: (state.addVehicleFormData?.vehicleOwnershipTypes == null)
-                    ? []
-                    : state.addVehicleFormData!.vehicleOwnershipTypes!
-                        .map(
-                          (type) => DropdownMenuItem(
-                            value: type.id.toString(),
-                            child: Text(
-                              type.name,
-                              style: bodyStyle(),
-                            ),
-                          ),
-                        )
-                        .toList(),
-              ),
-              CustomSpacers.medium(),
             ],
           ),
         );

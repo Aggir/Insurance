@@ -38,7 +38,7 @@ class _IssueInsuranceStepsScreenState extends State<IssueInsuranceStepsScreen> {
     if (widget.child.currentIndex > 0) {
       widget.child.goBranch(widget.child.currentIndex - 1);
     } else {
-      context.go(widget.comingFrom ?? AppScreen.carsInsurance.toPath);
+      context.go(widget.comingFrom ?? AppScreen.vehiclesInsurance.toPath);
     }
   }
 

@@ -37,7 +37,7 @@ class _InsuranceCompaniesScreenState extends State<InsuranceCompaniesScreen> {
 
   void goBack() {
     BlocProvider.of<CompaniesCubit>(context).clearSearch();
-    context.go(AppScreen.carsInsurance.toPath);
+    context.go(AppScreen.vehiclesInsurance.toPath);
   }
 
   @override

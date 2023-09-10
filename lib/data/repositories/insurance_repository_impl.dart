@@ -68,9 +68,10 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
   }
 
   @override
-  Future<Either<Failure, String>> calculateInsurancePrice(
-      CalculateInsurancePriceRequest request) async {
-    final response = await _remoteDataSource.calculateInsurancePrice(request);
+  Future<Either<Failure, String>> calculateInsurancePriceByVehicle(
+      CalculateInsurancePriceByVehicleRequest request) async {
+    final response =
+        await _remoteDataSource.calculateInsurancePriceByVehicle(request);
 
     if (response.data == null) {
       return Left(Failure(
@@ -155,6 +156,23 @@ class InsuranceRepositoryImpl implements InsuranceRepository {
     } else {
       return Right(
         response.companiesPrices?.map((e) => e.toDomain()).toList() ?? [],
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> calculateInsurancePrice(
+      CalculateInsurancePriceRequest request) async {
+    final response = await _remoteDataSource.calculateInsurancePrice(request);
+
+    if (response.data == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return Right(
+        response.data,
       );
     }
   }

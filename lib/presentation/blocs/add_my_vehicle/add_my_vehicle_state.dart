@@ -19,15 +19,13 @@ class AddMyVehicleState extends Equatable {
   final String? selectedVehicleModel;
   final int? selectedVehicleCountryId;
   final int? selectedVehicleYearId;
-  final int? selectedVehicleHorsePower;
+  final bool? selectedVehicleWithAttachment;
   final int? selectedVehicleColorId;
-  final int? selectedVehicleSeats;
   final VehicleBrandEntity? selectedVehicleBrand;
   final List<CityEntity>? cities;
   final Status vehiclePictureStatus;
   final File? vehiclePictureFile;
   final String? vehiclePictureFileName;
-  final int? selectedVehicleOwnershipTypeId;
   final Status addVehicleStatus;
   final String? addVehicleErrorMessage;
 
@@ -50,14 +48,12 @@ class AddMyVehicleState extends Equatable {
     this.selectedVehicleModel,
     this.selectedVehicleCountryId,
     this.selectedVehicleYearId,
-    this.selectedVehicleHorsePower,
+    this.selectedVehicleWithAttachment,
     this.selectedVehicleColorId,
-    this.selectedVehicleSeats,
     this.selectedVehicleBrand,
     this.vehiclePictureFile,
     this.vehiclePictureFileName,
     this.cities,
-    this.selectedVehicleOwnershipTypeId,
     this.addVehicleStatus = Status.initial,
     this.addVehicleErrorMessage,
   });
@@ -82,13 +78,11 @@ class AddMyVehicleState extends Equatable {
         selectedVehicleModel,
         selectedVehicleCountryId,
         selectedVehicleYearId,
-        selectedVehicleHorsePower,
+        selectedVehicleWithAttachment,
         selectedVehicleColorId,
-        selectedVehicleSeats,
         cities,
         vehiclePictureFile,
         vehiclePictureFileName,
-        selectedVehicleOwnershipTypeId,
         selectedVehicleBrand,
         addVehicleStatus,
         addVehicleErrorMessage,
@@ -113,13 +107,11 @@ class AddMyVehicleState extends Equatable {
     int? selectedVehicleYearId,
     int? selectedOwnerCityId,
     int? selectedVehicleCityId,
-    int? selectedVehicleHorsePower,
+    bool? selectedVehicleWithAttachment,
     int? selectedVehicleColorId,
-    int? selectedVehicleSeats,
     List<CityEntity>? cities,
     File? vehiclePictureFile,
     String? vehiclePictureFileName,
-    int? selectedVehicleOwnershipTypeId,
     VehicleBrandEntity? selectedVehicleBrand,
     bool removeVehiclePicture = false,
     Status? addVehicleStatus,
@@ -138,11 +130,10 @@ class AddMyVehicleState extends Equatable {
       vehiclePictureFileName: removeVehiclePicture
           ? null
           : vehiclePictureFileName ?? this.vehiclePictureFileName,
-      selectedVehicleHorsePower:
-          selectedVehicleHorsePower ?? this.selectedVehicleHorsePower,
+      selectedVehicleWithAttachment:
+          selectedVehicleWithAttachment ?? this.selectedVehicleWithAttachment,
       selectedVehicleColorId:
           selectedVehicleColorId ?? this.selectedVehicleColorId,
-      selectedVehicleSeats: selectedVehicleSeats ?? this.selectedVehicleSeats,
       selectedVehicleTypeId:
           selectedVehicleTypeId ?? this.selectedVehicleTypeId,
       selectedVehicleModelId:
@@ -158,8 +149,6 @@ class AddMyVehicleState extends Equatable {
           getColorsErrorMessage ?? this.getColorsErrorMessage,
       colors: colors ?? this.colors,
       vehiclePictureStatus: vehiclePictureStatus ?? this.vehiclePictureStatus,
-      selectedVehicleOwnershipTypeId:
-          selectedVehicleOwnershipTypeId ?? this.selectedVehicleOwnershipTypeId,
       getCitiesStatus: getCitiesStatus ?? this.getCitiesStatus,
       getAddVehicleFormDataStatus:
           getAddVehicleFormDataStatus ?? this.getAddVehicleFormDataStatus,

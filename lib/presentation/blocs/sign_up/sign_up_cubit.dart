@@ -15,8 +15,10 @@ import 'package:insurance_app/app/functions.dart';
 import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
+import 'package:insurance_app/domain/usecases/check_national_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
+import 'package:insurance_app/domain/usecases/send_verify_phone_otp_usecase.dart';
 import 'package:scan/scan.dart';
 
 part 'sign_up_state.dart';
@@ -56,6 +58,9 @@ class SignUpCubit extends Cubit<SignUpState> {
   final GlobalKey<FormState> nationalIdNumberForm = GlobalKey<FormState>();
   final TextEditingController nationalIdNumberController =
       TextEditingController();
+
+  final GlobalKey<FormState> otpForm = GlobalKey();
+  final TextEditingController otpController = TextEditingController();
 
   unfocusUserInfoForm() {
     firstNameFocusNode.unfocus();
@@ -228,17 +233,45 @@ class SignUpCubit extends Cubit<SignUpState> {
     ));
   }
 
-  bool confirmNationalIdNumberForm() {
+  Future<bool> confirmNationalIdNumberForm() async {
     if (nationalIdNumberForm.currentState!.validate() &&
-        state.isLibyan &&
         state.nationalFile != null) {
-      emit(state.copyWith(
+      emit(state.copyWith(checkNationalIdStatus: Status.loading));
+      initCheckNationalId();
+      (await instance<CheckNationalIdUsecase>()
+              .execute(nationalIdNumberController.text.trim()))
+          .fold(
+        (failure) => emit(state.copyWith(
+            checkNationalIdStatus: Status.failure,
+            checkNationalIdErrorMessage: failure.message)),
+        (_) => emit(state.copyWith(
+          checkNationalIdStatus: Status.success,
           nationalDocumentInfo: NationalDocument(
-              nationalId: nationalIdNumberController.text,
-              nationalFile: state.nationalFile!)));
-      return true;
+            nationalId: nationalIdNumberController.text,
+            nationalFile: state.nationalFile!,
+          ),
+        )),
+      );
     }
-    return false;
+    return state.checkNationalIdStatus.isSuccess;
+  }
+
+  void sendVerifyPhoneOtp() async {
+    emit(state.copyWith(sendVerifyPhoneOtpStatus: Status.loading));
+    // Future.delayed(const Duration(seconds: 2)).then(
+    //   (value) {
+    //     emit(state.copyWith(sendVerifyPhoneOtpStatus: Status.success));
+    //   },
+    // );
+    initSignUpSendVerifyPhoneOtp();
+    (await instance<SendVerifyPhoneOtpUsecase>().execute(
+            '${state.phoneCode?.replaceFirst('+', '')}${phoneNumberController.text}'))
+        .fold(
+            (failure) => emit(state.copyWith(
+                sendVerifyPhoneOtpStatus: Status.failure,
+                sendVerifyPhoneOtpErrorMessage: failure.message)),
+            (right) =>
+                emit(state.copyWith(sendVerifyPhoneOtpStatus: Status.success)));
   }
 
   backFromUserInfoPage() {
@@ -267,6 +300,13 @@ class SignUpCubit extends Cubit<SignUpState> {
   backFromNationalIdNumberPage() {
     nationalIdNumberController.clear();
     emit(state.copyWith(nationalIdStatus: Status.initial));
+  }
+
+  backFromOtpPage() {
+    otpController.clear();
+    emit(state.copyWith(
+        sendVerifyPhoneOtpStatus: Status.initial,
+        checkNationalIdStatus: Status.initial));
   }
 
   _clearContent() {

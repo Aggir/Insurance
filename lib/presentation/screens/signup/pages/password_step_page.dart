@@ -158,7 +158,7 @@ class _SignUpPasswordStepPageState extends State<SignUpPasswordStepPage> {
       builder: (context, state) => CupertinoSwitchTile(
         text: AppStrings.iamLibyan.tr(),
         value: state.isLibyan,
-        onTap: () => BlocProvider.of<SignUpCubit>(context).toggleIsLibyan(),
+        onTap: (_) => BlocProvider.of<SignUpCubit>(context).toggleIsLibyan(),
       ),
     );
   }

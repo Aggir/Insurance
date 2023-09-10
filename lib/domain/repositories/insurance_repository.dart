@@ -9,6 +9,9 @@ import 'package:insurance_app/domain/entities/insurance_type.dart';
 abstract class InsuranceRepository {
   Future<Either<Failure, IssueInsuranceFormData>> getInsuranceFormData();
 
+  Future<Either<Failure, String>> calculateInsurancePriceByVehicle(
+      CalculateInsurancePriceByVehicleRequest request);
+
   Future<Either<Failure, String>> calculateInsurancePrice(
       CalculateInsurancePriceRequest request);
 

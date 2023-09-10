@@ -16,7 +16,7 @@ import '../../../widgets/secondary_button.dart';
 class VehicleSuccessDialog extends StatelessWidget {
   const VehicleSuccessDialog({super.key});
   _carsInsuranceFunction(BuildContext context) {
-    context.go(AppScreen.carsInsurance.toPath);
+    context.go(AppScreen.vehiclesInsurance.toPath);
     DialogService.dispose();
   }
 
@@ -47,7 +47,7 @@ class VehicleSuccessDialog extends StatelessWidget {
         ),
         CustomSpacers.extraLarge(),
         PrimaryButton.fullWidth(
-          child: Text(AppStrings.carsInsurance.tr()),
+          child: Text(AppStrings.vehiclesInsurance.tr()),
           onPressed: () => _carsInsuranceFunction(context),
         ),
         CustomSpacers.medium(),

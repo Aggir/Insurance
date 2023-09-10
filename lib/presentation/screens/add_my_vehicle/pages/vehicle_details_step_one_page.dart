@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -146,19 +147,31 @@ class _AddMyVehicleDetailsStepOnePageState
               hintText: AppStrings.vehicleType.tr(),
               onChanged: (vehicleType) =>
                   cubit.setVehicleType(int.parse(vehicleType)),
+              selectedItemBuilder: (context) =>
+                  (state.addVehicleFormData?.vehicleTypes == null)
+                      ? []
+                      : state.addVehicleFormData!.vehicleTypes!
+                          .map(
+                            (type) => Text(
+                              type.name,
+                              style: bodyStyle(),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                          .toList(),
               items: (state.addVehicleFormData?.vehicleTypes == null)
                   ? []
-                  : state.addVehicleFormData!.vehicleTypes!
-                      .map(
-                        (type) => DropdownMenuItem(
+                  : state.addVehicleFormData!.vehicleTypes!.map(
+                      (type) {
+                        return DropdownMenuItem(
                           value: type.id.toString(),
                           child: Text(
                             type.name,
                             style: bodyStyle(),
                           ),
-                        ),
-                      )
-                      .toList(),
+                        );
+                      },
+                    ).toList(),
             ),
             CustomSpacers.medium(),
             _carBrandField(
@@ -274,7 +287,7 @@ class _AddMyVehicleDetailsStepOnePageState
                   children: [
                     if (state.selectedVehicleBrand == null)
                       Text(
-                        AppStrings.selectTheVehicle.tr(),
+                        AppStrings.selectVehicleBrand.tr(),
                         style: grayBodyStyle(),
                       ),
                     if (state.selectedVehicleBrand != null)
@@ -291,8 +304,8 @@ class _AddMyVehicleDetailsStepOnePageState
                                     AppValues.smallRadius.r)),
                             child: state.selectedVehicleBrand == null
                                 ? Image.asset(ImageAssets.image)
-                                : Image.network(
-                                    state.selectedVehicleBrand!.icon,
+                                : CachedNetworkImage(
+                                    imageUrl: state.selectedVehicleBrand!.icon,
                                   ),
                           ),
                           CustomSpacers.small(),

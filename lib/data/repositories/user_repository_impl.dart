@@ -156,4 +156,27 @@ class UserRepositoryImpl extends UserRepository {
       return const Right(null);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> sendVerifyPhoneOtp(String phone) async {
+    final response = await _remoteDataSource.sendVerifyPhoneOtp(phone);
+    if (response.message != null) {
+      return Left(Failure(0, response.message!));
+    } else {
+      return const Right(null);
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> checkNationalId(String nationalId) async {
+    final response = await _remoteDataSource.checkNationalId(nationalId);
+    if (response.data == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return const Right(null);
+    }
+  }
 }

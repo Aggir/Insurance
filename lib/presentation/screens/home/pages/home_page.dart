@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _carsInsuranceFunction(BuildContext context) {
-    context.go(AppScreen.carsInsurance.toPath);
+    context.go(AppScreen.vehiclesInsurance.toPath);
   }
 
   @override
@@ -291,7 +291,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppStrings.carsInsurance.tr(),
+              AppStrings.vehiclesInsurance.tr(),
               style: largeHeadlineStyle(),
             ),
             CustomSpacers.medium(),

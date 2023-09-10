@@ -9,7 +9,7 @@ import 'package:insurance_app/data/mapper/company_mapper.dart';
 import 'package:insurance_app/data/mapper/insurance_type_mapper.dart';
 import 'package:insurance_app/data/mapper/meta_mapper.dart';
 import 'package:insurance_app/data/mapper/notification_mapper.dart';
-import 'package:insurance_app/data/mapper/vehicle_brand_mapper.dart';
+import 'package:insurance_app/data/mapper/vehicle_type_mapper.dart';
 import 'package:insurance_app/data/responses/base_response.dart';
 import 'package:insurance_app/domain/data_classes/companies_page.dart';
 import 'package:insurance_app/domain/data_classes/company_prices_form_data.dart';
@@ -89,10 +89,10 @@ class RepositoryImpl extends Repository {
   @override
   Future<Either<Failure, CompanyPricesFormData>>
       getCompanyPricesFormData() async {
-    final vehicleBrandsResponse = await _remoteDataSource.getVehicleBrands();
+    final vehicleTypesResponse = await _remoteDataSource.getVehicleTypes();
     try {
-      if (vehicleBrandsResponse.vehicleBrands == null) {
-        throw vehicleBrandsResponse;
+      if (vehicleTypesResponse.vehicleTypes == null) {
+        throw vehicleTypesResponse;
       }
       final insuranceTypesResponse =
           await _remoteDataSource.getInsuranceTypes();
@@ -100,7 +100,7 @@ class RepositoryImpl extends Repository {
         throw insuranceTypesResponse;
       }
       return Right(CompanyPricesFormData(
-        vehicleBrands: vehicleBrandsResponse.vehicleBrands
+        vehicleTypes: vehicleTypesResponse.vehicleTypes
                 ?.map((e) => e.toDomain())
                 .toList() ??
             [],

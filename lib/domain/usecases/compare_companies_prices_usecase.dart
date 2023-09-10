@@ -19,6 +19,8 @@ class CompareCompaniesPricesUsecase
       insuranceTypeId: input.insuranceTypeId,
       horsePower: input.horsePower,
       maxPassengers: input.maxPassengers,
+      weight: input.weight,
+      withAttachment: input.withAttachment,
       isSortByMinimum: input.isSortByMinimum,
     ));
   }
@@ -26,13 +28,17 @@ class CompareCompaniesPricesUsecase
 
 class CompareCompaniesPricesUsecaseInput {
   final int insuranceTypeId;
-  final int horsePower;
-  final int maxPassengers;
+  final String? horsePower;
+  final String? maxPassengers;
+  final String? weight;
+  final bool? withAttachment;
   final bool isSortByMinimum;
   CompareCompaniesPricesUsecaseInput({
     required this.insuranceTypeId,
-    required this.horsePower,
-    required this.maxPassengers,
+    this.horsePower,
+    this.maxPassengers,
+    this.weight,
+    this.withAttachment,
     required this.isSortByMinimum,
   });
 }

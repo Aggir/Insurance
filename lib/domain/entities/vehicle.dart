@@ -6,7 +6,6 @@ import 'package:insurance_app/domain/entities/vehicle_brand.dart';
 import 'package:insurance_app/domain/entities/vehicle_country.dart';
 import 'package:insurance_app/domain/entities/vehicle_insurance.dart';
 import 'package:insurance_app/domain/entities/vehicle_model.dart';
-import 'package:insurance_app/domain/entities/vehicle_ownership_type.dart';
 import 'package:insurance_app/domain/entities/vehicle_type.dart';
 
 import '../../app/constants.dart';
@@ -24,7 +23,6 @@ class VehicleEntity extends Equatable {
   final VehicleBrandEntity brand;
   final VehicleModelEntity model;
   final VehicleCountryEntity country;
-  final VehicleOwnershipTypeEntity ownershipType;
   final CityEntity city;
   final VehicleTypeEntity type;
 
@@ -46,8 +44,6 @@ class VehicleEntity extends Equatable {
             vehicleBrandId: Constants.zero),
         country: const VehicleCountryEntity(
             id: Constants.zero, name: Constants.empty, icon: Constants.empty),
-        ownershipType: const VehicleOwnershipTypeEntity(
-            id: Constants.zero, name: Constants.empty),
         city: CityEntity.empty(),
         type:
             const VehicleTypeEntity(id: Constants.zero, name: Constants.empty),
@@ -66,7 +62,6 @@ class VehicleEntity extends Equatable {
     required this.brand,
     required this.model,
     required this.country,
-    required this.ownershipType,
     required this.city,
     required this.type,
   });
@@ -86,7 +81,6 @@ class VehicleEntity extends Equatable {
       brand,
       model,
       country,
-      ownershipType,
       city,
       type,
     ];

@@ -16,9 +16,8 @@ class CompaniesState extends Equatable {
   final String? calculatePriceErrorMessage;
   final String? price;
   final int? insuranceTypeId;
-  final int? vehicleBrandId;
-  final int? horsePower;
-  final int? seatsCount;
+  final int? vehicleTypeId;
+  final bool? withAttachment;
 
   const CompaniesState({
     this.fetchCompaniesStatus = Status.initial,
@@ -36,9 +35,8 @@ class CompaniesState extends Equatable {
     this.calculatePriceErrorMessage,
     this.price,
     this.insuranceTypeId,
-    this.vehicleBrandId,
-    this.horsePower,
-    this.seatsCount,
+    this.vehicleTypeId,
+    this.withAttachment,
   });
 
   @override
@@ -58,7 +56,8 @@ class CompaniesState extends Equatable {
         calculatePriceErrorMessage,
         price,
         insuranceTypeId,
-        vehicleBrandId,
+        vehicleTypeId,
+        withAttachment,
       ];
 
   CompaniesState copyWith({
@@ -77,9 +76,9 @@ class CompaniesState extends Equatable {
     String? calculatePriceErrorMessage,
     String? price,
     int? insuranceTypeId,
-    int? vehicleBrandId,
-    int? horsePower,
-    int? seatsCount,
+    int? vehicleTypeId,
+    bool? withAttachment,
+    bool clearPricesFilter = false,
   }) {
     return CompaniesState(
       fetchCompaniesStatus: fetchCompaniesStatus ?? this.fetchCompaniesStatus,
@@ -99,12 +98,19 @@ class CompaniesState extends Equatable {
           this.fetchPricesFormDataErrorMessage,
       companyPricesFormData:
           companyPricesFormData ?? this.companyPricesFormData,
-      calculatePriceStatus: calculatePriceStatus ?? this.calculatePriceStatus,
-      calculatePriceErrorMessage:
-          calculatePriceErrorMessage ?? this.calculatePriceErrorMessage,
-      price: price ?? this.price,
-      insuranceTypeId: insuranceTypeId ?? this.insuranceTypeId,
-      vehicleBrandId: vehicleBrandId ?? this.vehicleBrandId,
+      calculatePriceStatus: clearPricesFilter
+          ? Status.initial
+          : calculatePriceStatus ?? this.calculatePriceStatus,
+      calculatePriceErrorMessage: clearPricesFilter
+          ? null
+          : calculatePriceErrorMessage ?? this.calculatePriceErrorMessage,
+      price: clearPricesFilter ? null : price ?? this.price,
+      insuranceTypeId:
+          clearPricesFilter ? null : insuranceTypeId ?? this.insuranceTypeId,
+      vehicleTypeId:
+          clearPricesFilter ? null : vehicleTypeId ?? this.vehicleTypeId,
+      withAttachment:
+          clearPricesFilter ? null : withAttachment ?? this.withAttachment,
     );
   }
 

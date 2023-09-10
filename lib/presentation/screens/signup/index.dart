@@ -4,3 +4,4 @@ export 'pages/password_step_page.dart';
 export 'pages/select_proof_type_page.dart';
 export 'pages/user_info_step_page.dart';
 export 'pages/proof_info_step_page.dart';
+export 'pages/otp_step_page.dart';

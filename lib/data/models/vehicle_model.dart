@@ -2,7 +2,6 @@ import 'package:insurance_app/data/models/vehicle_brand_model.dart';
 import 'package:insurance_app/data/models/vehicle_country_model.dart';
 import 'package:insurance_app/data/models/vehicle_insurance_model.dart';
 import 'package:insurance_app/data/models/vehicle_model_model.dart';
-import 'package:insurance_app/data/models/vehicle_ownership_type_model.dart';
 import 'package:insurance_app/data/models/vehicle_type_model.dart';
 
 import 'city_model.dart';
@@ -15,6 +14,8 @@ class VehicleModel {
   final int? makingYear;
   final String? horsePower;
   final String? engineNumber;
+  final bool? withAttachment;
+  final double? weight;
   final int? maxPassengers;
   final String? photo;
   final String? licensePlate;
@@ -29,7 +30,6 @@ class VehicleModel {
   final VehicleBrandModel? brand;
   final VehicleModelModel? model;
   final VehicleCountryModel? country;
-  final VehicleOwnershipTypeModel? ownershipType;
   final CityModel? city;
   final ColorModel? color;
   final VehicleTypeModel? type;
@@ -41,6 +41,8 @@ class VehicleModel {
     this.makingYear,
     this.horsePower,
     this.engineNumber,
+    this.withAttachment,
+    this.weight,
     this.maxPassengers,
     this.photo,
     this.licensePlate,
@@ -55,7 +57,6 @@ class VehicleModel {
     this.model,
     this.isHidden,
     this.country,
-    this.ownershipType,
     this.city,
     this.color,
     this.type,
@@ -70,6 +71,8 @@ class VehicleModel {
       'horse_power': horsePower,
       'engine_number': engineNumber,
       'max_passengers': maxPassengers,
+      'weight': weight,
+      'with_attachment': withAttachment,
       'photo': photo,
       'license_plate': licensePlate,
       'owner_first_name': ownerFirstName,
@@ -83,7 +86,6 @@ class VehicleModel {
       'brand': brand?.toMap(),
       'model': model?.toMap(),
       'country': country?.toMap(),
-      'ownership': ownershipType?.toMap(),
       'city': city?.toMap(),
       'color': color?.toMap(),
       'type': type?.toMap(),
@@ -98,6 +100,8 @@ class VehicleModel {
       makingYear: map['making_year']?.toInt(),
       horsePower: map['horse_power'],
       engineNumber: map['engine_number'],
+      weight: map['weight'],
+      withAttachment: map['with_attachment'],
       maxPassengers: map['max_passengers']?.toInt(),
       photo: map['photo'],
       licensePlate: map['license_plate'],
@@ -119,9 +123,6 @@ class VehicleModel {
           : null,
       country: map['country'] != null
           ? VehicleCountryModel.fromMap(map['country'])
-          : null,
-      ownershipType: map['ownership'] != null
-          ? VehicleOwnershipTypeModel.fromMap(map['ownership'])
           : null,
       city: map['city'] != null ? CityModel.fromMap(map['city']) : null,
       color: map['color'] != null ? ColorModel.fromMap(map['color']) : null,

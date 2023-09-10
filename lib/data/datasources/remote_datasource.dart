@@ -35,6 +35,8 @@ abstract class RemoteDataSource {
 
   Future<BasicResponse> checkProofId(String proofId);
 
+  Future<BasicResponse> checkNationalId(String nationalId);
+
   Future<UserResponse> editProfile(EditProfileRequest request);
 
   Future<BasicResponse> changePassword(ChangePasswordRequest request);
@@ -64,6 +66,9 @@ abstract class RemoteDataSource {
   Future<BranchesResponse> getCompanyBranches(int? companyId);
 
   Future<InsuranceTypesResponse> getInsuranceTypes();
+
+  Future<BasicResponse> calculateInsurancePriceByVehicle(
+      CalculateInsurancePriceByVehicleRequest request);
 
   Future<BasicResponse> calculateInsurancePrice(
       CalculateInsurancePriceRequest request);
@@ -99,4 +104,6 @@ abstract class RemoteDataSource {
 
   Future<CompaniesPricesResponse> getCompaniesPrices(
       CompaniesPricesRequest request);
+
+  Future<BasicResponse> sendVerifyPhoneOtp(String phone);
 }

@@ -78,7 +78,7 @@ class InsurancesTab extends StatelessWidget {
     final List<Map<String, dynamic>> insuranceServices = [
       {
         'svgPath': SvgAssets.carFilled,
-        'title': AppStrings.carsInsurance.tr(),
+        'title': AppStrings.vehiclesInsurance.tr(),
         'isAvailable': true,
       },
       {

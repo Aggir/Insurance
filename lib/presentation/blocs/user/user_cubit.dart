@@ -40,15 +40,17 @@ class UserCubit extends Cubit<UserState> {
   }
 
   void signUp(SignUpUserInfo userInfo, String password, bool isLibyan,
-      ProofDocument proofDocument,
+      ProofDocument proofDocument, String otp,
       {NationalDocument? nationalDocument}) async {
     emit(state.copyWith(authStatus: Status.loading));
     initSignUp();
+
     (await instance<SignUpUsecase>().execute(SignUpUsecaseInput(
       userInfo: userInfo,
       password: password,
       isLibyan: isLibyan,
       proofDocument: proofDocument,
+      otp: otp,
       nationalDocument: nationalDocument,
     )))
         .fold(

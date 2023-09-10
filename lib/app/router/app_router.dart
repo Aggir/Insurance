@@ -41,7 +41,7 @@ class AppRouter {
           AppRoutes.insuranceDocument,
           AppRoutes.notifications,
           AppRoutes.companies,
-          AppRoutes.carsInsurance,
+          AppRoutes.vehiclesInsurance,
           AppRoutes.comparePrices,
           AppRoutes.signUp,
           AppRoutes.addMyVehicle,

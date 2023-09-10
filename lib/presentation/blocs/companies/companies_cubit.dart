@@ -18,16 +18,32 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   final ScrollController scrollController = ScrollController();
   final TextEditingController searchController = TextEditingController();
   final searchFocusNode = FocusNode();
+  final GlobalKey<FormState> modalForm = GlobalKey();
+  final TextEditingController horsepowerController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  final TextEditingController maxPassengerController = TextEditingController();
+
   bool isDisposed = false;
 
   selectCompany(CompanyEntity company) {
     emit(state.copyWith(selectedCompany: company));
   }
 
+  void toggleWithAttachment() {
+    emit(state.copyWith(
+        withAttachment: !(state.withAttachment ?? false),
+        calculatePriceStatus: Status.initial,
+        price: ''));
+  }
+
   clearSearch() {
     searchController.clear();
     searchFocusNode.unfocus();
     emit(state.copyWith(filteredCompanies: state.companies));
+  }
+
+  clearFetchedPrice() {
+    emit(state.copyWith(calculatePriceStatus: Status.initial, price: ''));
   }
 
   fetchPricesFormData() async {
@@ -47,11 +63,16 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   calculatePrice() async {
     emit(state.copyWith(calculatePriceStatus: Status.loading));
     initCalculateInsurancePrice();
-    (await instance<CalculateInsurancePriceUsecase>().execute(
-            CalculateInsurancePriceUsecaseInput(
-                companyId: state.selectedCompany!.id,
-                insuranceTypeId: state.insuranceTypeId!,
-                vehicleId: state.insuranceTypeId!)))
+    (await instance<CalculateInsurancePriceUsecase>()
+            .execute(CalculateInsurancePriceUsecaseInput(
+      companyId: state.selectedCompany!.id,
+      insuranceTypeId: state.insuranceTypeId!,
+      vehicleTypeId: state.vehicleTypeId!,
+      horsepower: horsepowerController.text.trim(),
+      maxPassengers: maxPassengerController.text.trim(),
+      weight: weightController.text.trim(),
+      withAttachment: state.withAttachment,
+    )))
         .fold(
             (failure) => emit(state.copyWith(
                 calculatePriceStatus: Status.failure,
@@ -60,9 +81,9 @@ class CompaniesCubit extends Cubit<CompaniesState> {
                 calculatePriceStatus: Status.success, price: data)));
   }
 
-  selectVehicleBrand(int vehicleBrandId) {
+  selectVehicleType(int vehicleTypeId) {
     emit(state.copyWith(
-      vehicleBrandId: vehicleBrandId,
+      vehicleTypeId: vehicleTypeId,
       calculatePriceStatus: Status.initial,
     ));
   }
@@ -70,20 +91,6 @@ class CompaniesCubit extends Cubit<CompaniesState> {
   selectInsuranceType(int insuranceTypeId) {
     emit(state.copyWith(
       insuranceTypeId: insuranceTypeId,
-      calculatePriceStatus: Status.initial,
-    ));
-  }
-
-  selectSeatsCount(int seatsCount) {
-    emit(state.copyWith(
-      seatsCount: seatsCount,
-      calculatePriceStatus: Status.initial,
-    ));
-  }
-
-  selectHorsePower(int horsePower) {
-    emit(state.copyWith(
-      horsePower: horsePower,
       calculatePriceStatus: Status.initial,
     ));
   }
@@ -146,6 +153,13 @@ class CompaniesCubit extends Cubit<CompaniesState> {
             .toList() ??
         [];
     emit(state.copyWith(filteredCompanies: filteredCompanies));
+  }
+
+  clearPricesFilter() {
+    horsepowerController.clear();
+    maxPassengerController.clear();
+    weightController.clear();
+    emit(state.copyWith(clearPricesFilter: true));
   }
 
   @override

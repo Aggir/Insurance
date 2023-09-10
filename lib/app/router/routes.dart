@@ -8,6 +8,7 @@ enum AppScreen {
   signupSelectProofTypeStep,
   signupProofInfoStep,
   signupNationalInfoStep,
+  signupOtpStep,
   forgotPassword,
   forgotPasswordVerifyOtpStep,
   forgotPasswordResetStep,
@@ -30,7 +31,7 @@ enum AppScreen {
   companyDetails,
   companyBranches,
   notifications,
-  carsInsurance,
+  vehiclesInsurance,
   noConnection,
   home,
   myVehicles,
@@ -62,6 +63,8 @@ extension AppScreenExtension on AppScreen {
         return "/signup-proof-info-step";
       case AppScreen.signupNationalInfoStep:
         return "/signup-national-info-step";
+      case AppScreen.signupOtpStep:
+        return "/signup-otp-step";
       case AppScreen.forgotPassword:
         return "/forgot-password";
       case AppScreen.forgotPasswordVerifyOtpStep:
@@ -104,7 +107,7 @@ extension AppScreenExtension on AppScreen {
         return "/companies/company";
       case AppScreen.notifications:
         return "/notifications";
-      case AppScreen.carsInsurance:
+      case AppScreen.vehiclesInsurance:
         return "/cars-insurance";
       case AppScreen.noConnection:
         return "/no-connection";
@@ -147,6 +150,8 @@ extension AppScreenExtension on AppScreen {
         return "SIGNUP PROOF INFO STEP";
       case AppScreen.signupNationalInfoStep:
         return "SIGNUP NATIONAL INFO STEP";
+      case AppScreen.signupOtpStep:
+        return "SIGNUP OTP STEP";
       case AppScreen.forgotPassword:
         return "FORGOT PASSWORD";
       case AppScreen.forgotPasswordVerifyOtpStep:
@@ -191,7 +196,7 @@ extension AppScreenExtension on AppScreen {
         return "COMPANY BRANCHES";
       case AppScreen.notifications:
         return "NOTIFICATIONS";
-      case AppScreen.carsInsurance:
+      case AppScreen.vehiclesInsurance:
         return "CARS INSURANCE";
       case AppScreen.noConnection:
         return "NO CONNECTION";

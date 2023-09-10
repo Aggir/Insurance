@@ -5,7 +5,7 @@ import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/language_manager.dart';
 import 'package:insurance_app/domain/data_classes/issue_insurance_form_data.dart';
-import 'package:insurance_app/domain/usecases/calculate_insurance_price_usecase.dart';
+import 'package:insurance_app/domain/usecases/calculate_insurance_price_by_vehicle_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
 import 'package:insurance_app/domain/usecases/issue_insurance_usecase.dart';
 import 'package:intl/intl.dart';
@@ -33,9 +33,9 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
 
   calculateInsurancePrice() async {
     emit(state.copyWith(calculateInsurancePriceStatus: Status.loading));
-    initCalculateInsurancePrice();
-    (await instance<CalculateInsurancePriceUsecase>()
-            .execute(CalculateInsurancePriceUsecaseInput(
+    initCalculateInsurancePriceByVehicle();
+    (await instance<CalculateInsurancePriceByVehicleUsecase>()
+            .execute(CalculateInsurancePriceByVehicleUsecaseInput(
       companyId: state.selectedCompanyId!,
       insuranceTypeId: state.selectedTypeId!,
       vehicleId: state.selectedVehicleId!,

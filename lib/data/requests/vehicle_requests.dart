@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:insurance_app/app/extensions.dart';
 import 'package:insurance_app/data/requests/base_request.dart';
 
 class AddVehicleRequest implements BaseRequest {
@@ -16,16 +17,17 @@ class AddVehicleRequest implements BaseRequest {
   final int modelId;
   final int countryId;
   final int makingYear;
-  final String horsePower;
+  final String? horsePower;
   final String engineNumber;
   final String chassisNumber;
   final int colorId;
-  final String maxPassengers;
+  final String? maxPassengers;
+  final String? weight;
+  final bool? withAttachment;
   final File pictureFile;
   final String? alias;
   final String licensePlateNumber;
   final int cityId;
-  final int ownership;
   AddVehicleRequest({
     required this.ownerFirstName,
     required this.ownerFatherName,
@@ -39,6 +41,8 @@ class AddVehicleRequest implements BaseRequest {
     required this.countryId,
     required this.makingYear,
     required this.horsePower,
+    required this.weight,
+    required this.withAttachment,
     required this.engineNumber,
     required this.chassisNumber,
     required this.colorId,
@@ -47,7 +51,6 @@ class AddVehicleRequest implements BaseRequest {
     this.alias,
     required this.licensePlateNumber,
     required this.cityId,
-    required this.ownership,
   });
 
   Future<Map<String, dynamic>> toMap() async {
@@ -65,6 +68,9 @@ class AddVehicleRequest implements BaseRequest {
       'vehicle_country_id': countryId,
       'making_year': makingYear,
       'horse_power': horsePower,
+      'with_attachment':
+          withAttachment == null ? null : withAttachment!.asString,
+      'weight': weight,
       'engine_number': engineNumber,
       'chassisNumber': chassisNumber,
       'color_id': colorId,
@@ -73,7 +79,6 @@ class AddVehicleRequest implements BaseRequest {
       'alias': alias,
       'license_plate': licensePlateNumber,
       'city_id': cityId,
-      'vehicle_ownership_type_id': ownership,
     };
   }
 

@@ -11,12 +11,12 @@ import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
+import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialog_service.dart';
@@ -121,22 +121,64 @@ class _AddMyVehicleDetailsStepTwoPageState
       // Todo: Add onChanged to check if the form is empty
       key: cubit.vehicleDetailsTwoForm,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CustomDropDownField(
-          onChanged: (value) => cubit.setVehicleHorsePower(int.parse(value)),
-          hintText: AppStrings.selectTheHorsepowerOfTheEngine.tr(),
-          items: DUMMY.horsePower
-              .map(
-                (value) => DropdownMenuItem(
-                  value: value.toString(),
-                  child: Text(
-                    value.toString(),
-                    style: bodyStyle(),
+        BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(
+          builder: (context, state) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (state.selectedVehicleTypeId == 1) ...[
+                  CustomTextFormField(
+                    controller: cubit.vehicleHorsePowerController,
+                    hintText: AppStrings.horsepower.tr(),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      if (value != null && value.isNotEmpty) {
+                        int.parse(value) > 80
+                            ? cubit.vehicleHorsePowerController.text = '80'
+                            : null;
+                      }
+                    },
                   ),
-                ),
-              )
-              .toList(),
+                  CustomSpacers.medium(),
+                ],
+                if ((state.selectedVehicleTypeId ?? 0) >= 1 &&
+                    (state.selectedVehicleTypeId ?? 0) <= 5) ...[
+                  CustomTextFormField(
+                    controller: cubit.vehicleMaxPassengerController,
+                    hintText: AppStrings.maxPassengers.tr(),
+                    keyboardType: TextInputType.number,
+                    onChanged: (value) {
+                      if (value != null && value.isNotEmpty) {
+                        int.parse(value) > 100
+                            ? cubit.vehicleMaxPassengerController.text = '100'
+                            : null;
+                      }
+                    },
+                  ),
+                  if (state.selectedVehicleTypeId != 1) CustomSpacers.medium(),
+                ],
+                if (state.selectedVehicleTypeId == 5 ||
+                    state.selectedVehicleTypeId == 8) ...[
+                  CustomTextFormField(
+                    controller: cubit.vehicleWeightController,
+                    hintText: AppStrings.weight.tr(),
+                    keyboardType: TextInputType.number,
+                    acceptsDot: true,
+                  ),
+                  CustomSpacers.medium(),
+                ],
+                if (state.selectedVehicleTypeId == 1 ||
+                    state.selectedVehicleTypeId == 9) ...[
+                  CupertinoSwitchTile(
+                      value: state.selectedVehicleWithAttachment ?? false,
+                      onTap: (_) => cubit.toggleVehicleWithAttachment(),
+                      text: AppStrings.withAttachment.tr()),
+                ],
+              ],
+            );
+          },
         ),
-        CustomSpacers.medium(),
         CustomTextFormField(
           controller: cubit.vehicleEngineNumberController,
           hintText: AppStrings.engineSerialNumber.tr(),
@@ -177,22 +219,6 @@ class _AddMyVehicleDetailsStepTwoPageState
                       .toList(),
             );
           },
-        ),
-        CustomSpacers.medium(),
-        CustomDropDownField(
-          onChanged: (value) => cubit.setVehicleSeats((int.parse(value))),
-          hintText: AppStrings.seatsWithoutTheDriver.tr(),
-          items: DUMMY.seatsNumberWithoutTheDriver
-              .map(
-                (value) => DropdownMenuItem(
-                  value: value.toString(),
-                  child: Text(
-                    value.toString(),
-                    style: bodyStyle(),
-                  ),
-                ),
-              )
-              .toList(),
         ),
       ]),
     );

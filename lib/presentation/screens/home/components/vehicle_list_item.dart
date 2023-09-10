@@ -175,19 +175,6 @@ class VehicleListItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.usage.tr(),
-                        style: extraSmallDarkGrayBodyStyle(),
-                      ),
-                      Text(
-                        vehicle.ownershipType.name,
-                        style: extraSmallHeadlineStyle(),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
                         AppStrings.countryOfManufacture.tr(),
                         style: extraSmallDarkGrayBodyStyle(),
                       ),

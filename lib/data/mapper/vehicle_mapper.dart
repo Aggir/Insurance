@@ -4,13 +4,11 @@ import 'package:insurance_app/data/mapper/vehicle_brand_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_country_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_insurance_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_model_mapper.dart';
-import 'package:insurance_app/data/mapper/vehicle_ownership_type_mapper.dart';
 import 'package:insurance_app/data/mapper/vehicle_type_mapper.dart';
 import 'package:insurance_app/domain/entities/city.dart';
 import 'package:insurance_app/domain/entities/vehicle_brand.dart';
 import 'package:insurance_app/domain/entities/vehicle_country.dart';
 import 'package:insurance_app/domain/entities/vehicle_model.dart';
-import 'package:insurance_app/domain/entities/vehicle_ownership_type.dart';
 import 'package:insurance_app/domain/entities/vehicle_type.dart';
 
 import '../../domain/entities/vehicle.dart';
@@ -44,9 +42,6 @@ extension VehicleModelExtension on VehicleModel? {
                   id: Constants.zero,
                   name: Constants.empty,
                   icon: Constants.empty),
-          ownershipType: this?.ownershipType?.toDomain() ??
-              const VehicleOwnershipTypeEntity(
-                  id: Constants.zero, name: Constants.empty),
           city: this?.city?.toDomain() ?? CityEntity.empty(),
           type: this?.type?.toDomain() ??
               const VehicleTypeEntity(

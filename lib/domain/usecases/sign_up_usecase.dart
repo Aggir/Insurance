@@ -32,6 +32,7 @@ class SignUpUsecase implements BaseUsecase<SignUpUsecaseInput, UserEntity> {
       proofIssuePlace: input.proofDocument.issuePlace,
       proofIssueDate: input.proofDocument.issueDate,
       proofExpirationDate: input.proofDocument.expirationDate,
+      otp: input.otp,
       nationalId: input.nationalDocument?.nationalId,
       nationalFile: input.nationalDocument?.nationalFile,
     ));
@@ -43,6 +44,7 @@ class SignUpUsecaseInput {
   final String password;
   final bool isLibyan;
   final ProofDocument proofDocument;
+  final String otp;
   final NationalDocument? nationalDocument;
 
   const SignUpUsecaseInput({
@@ -50,6 +52,7 @@ class SignUpUsecaseInput {
     required this.password,
     required this.isLibyan,
     required this.proofDocument,
+    required this.otp,
     this.nationalDocument,
   });
 }

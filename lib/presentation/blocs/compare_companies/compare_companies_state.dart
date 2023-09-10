@@ -4,9 +4,8 @@ class CompareCompaniesState extends Equatable {
   final Status fetchInsuranceTypesStatus;
   final String? fetchInsuranceTypesErrorMessage;
   final List<InsuranceTypeEntity>? insuranceTypes;
-  final int? insuranceTypeId;
-  final int? horsePower;
-  final int? maxPassengers;
+  final int? selectedInsuranceTypeId;
+  final bool? withAttachment;
   final bool isSortByMinimum;
   final Status fetchCompaniesPricesStatus;
   final String? fetchCompaniesPricesErrorMessage;
@@ -17,9 +16,8 @@ class CompareCompaniesState extends Equatable {
     this.fetchInsuranceTypesStatus = Status.initial,
     this.fetchInsuranceTypesErrorMessage,
     this.insuranceTypes,
-    this.insuranceTypeId,
-    this.horsePower,
-    this.maxPassengers,
+    this.selectedInsuranceTypeId,
+    this.withAttachment,
     this.isSortByMinimum = true,
     this.fetchCompaniesPricesStatus = Status.initial,
     this.fetchCompaniesPricesErrorMessage,
@@ -31,9 +29,8 @@ class CompareCompaniesState extends Equatable {
     Status? fetchInsuranceTypesStatus,
     String? fetchInsuranceTypesErrorMessage,
     List<InsuranceTypeEntity>? insuranceTypes,
-    int? insuranceTypeId,
-    int? horsePower,
-    int? maxPassengers,
+    int? selectedInsuranceTypeId,
+    bool? withAttachment,
     bool? isSortByMinimum,
     Status? fetchCompaniesPricesStatus,
     String? fetchCompaniesPricesErrorMessage,
@@ -46,9 +43,9 @@ class CompareCompaniesState extends Equatable {
       fetchInsuranceTypesErrorMessage: fetchInsuranceTypesErrorMessage ??
           this.fetchInsuranceTypesErrorMessage,
       insuranceTypes: insuranceTypes ?? this.insuranceTypes,
-      insuranceTypeId: insuranceTypeId ?? this.insuranceTypeId,
-      horsePower: horsePower ?? this.horsePower,
-      maxPassengers: maxPassengers ?? this.maxPassengers,
+      selectedInsuranceTypeId:
+          selectedInsuranceTypeId ?? this.selectedInsuranceTypeId,
+      withAttachment: withAttachment ?? this.withAttachment,
       isSortByMinimum: isSortByMinimum ?? this.isSortByMinimum,
       fetchCompaniesPricesStatus:
           fetchCompaniesPricesStatus ?? this.fetchCompaniesPricesStatus,
@@ -66,19 +63,13 @@ class CompareCompaniesState extends Equatable {
       fetchInsuranceTypesStatus,
       fetchInsuranceTypesErrorMessage,
       insuranceTypes,
-      insuranceTypeId,
-      horsePower,
-      maxPassengers,
+      selectedInsuranceTypeId,
+      withAttachment,
       isSortByMinimum,
       fetchCompaniesPricesStatus,
       fetchCompaniesPricesErrorMessage,
       companiesPrices,
       filteredCompaniesPrices,
     ];
-  }
-
-  @override
-  String toString() {
-    return 'CompareCompaniesState(fetchInsuranceTypesStatus: $fetchInsuranceTypesStatus, fetchInsuranceTypesErrorMessage: $fetchInsuranceTypesErrorMessage, insuranceTypes: $insuranceTypes, insuranceTypeId: $insuranceTypeId, horsePower: $horsePower, maxPassengers: $maxPassengers, isSortByMinimum: $isSortByMinimum, fetchCompaniesPricesStatus: $fetchCompaniesPricesStatus, fetchCompaniesPricesErrorMessage: $fetchCompaniesPricesErrorMessage, companiesPrices: $companiesPrices, filteredCompaniesPrices: $filteredCompaniesPrices)';
   }
 }

@@ -17,7 +17,7 @@ import '../../../theme/text_style_manager.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/custom_text_form_field.dart';
 
-class CarBrandModal extends StatelessWidget {
+class CarBrandModal extends StatefulWidget {
   const CarBrandModal({
     Key? key,
     required this.vehicleBrands,
@@ -25,46 +25,77 @@ class CarBrandModal extends StatelessWidget {
   final List<VehicleBrandEntity> vehicleBrands;
 
   @override
+  State<CarBrandModal> createState() => _CarBrandModalState();
+}
+
+class _CarBrandModalState extends State<CarBrandModal> {
+  final TextEditingController searchController = TextEditingController();
+  final FocusNode searchFocusNode = FocusNode();
+
+  late List<VehicleBrandEntity> filteredVehicleBrands;
+  @override
+  void initState() {
+    super.initState();
+    filteredVehicleBrands = widget.vehicleBrands;
+  }
+
+  void _setFilteredVehicleBrands() {
+    setState(() {
+      filteredVehicleBrands = widget.vehicleBrands
+          .where((brand) => brand.name.contains(searchController.text))
+          .toList();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      padding: const EdgeInsets.only(
-        top: AppValues.extraLarge,
-        left: AppValues.mediumLarge,
-        right: AppValues.mediumLarge,
-        bottom: AppValues.mediumLarge,
-      ).r,
-      children: [
-        Text(
-          AppStrings.selectOrSearchForYourVehicleType.tr(),
-          style: largeHeadlineStyle(),
-          textAlign: TextAlign.center,
-        ),
-        CustomSpacers.medium(),
-        CustomTextFormField(
-          hintText: AppStrings.search.tr(),
-          prefixIcon: SvgPicture.asset(
-            SvgAssets.search,
-            height: AppSizes.s24.r,
-            width: AppSizes.s24.r,
-            fit: BoxFit.fill,
+    return GestureDetector(
+      onTap: () {
+        searchFocusNode.unfocus();
+      },
+      child: ListView(
+        shrinkWrap: true,
+        padding: const EdgeInsets.only(
+          top: AppValues.extraLarge,
+          left: AppValues.mediumLarge,
+          right: AppValues.mediumLarge,
+          bottom: AppValues.mediumLarge,
+        ).r,
+        children: [
+          Text(
+            AppStrings.selectOrSearchForYourVehicleType.tr(),
+            style: largeHeadlineStyle(),
+            textAlign: TextAlign.center,
           ),
-        ),
-        CustomSpacers.extraLarge(),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: AppSizes.s80.r / AppSizes.s104.r,
-            mainAxisSpacing: AppValues.mediumSmall.r,
-            crossAxisSpacing: AppValues.mediumSmall.r,
+          CustomSpacers.medium(),
+          CustomTextFormField(
+            controller: searchController,
+            focusNode: searchFocusNode,
+            onChanged: (_) => _setFilteredVehicleBrands(),
+            hintText: AppStrings.search.tr(),
+            prefixIcon: SvgPicture.asset(
+              SvgAssets.search,
+              height: AppSizes.s24.r,
+              width: AppSizes.s24.r,
+              fit: BoxFit.fill,
+            ),
           ),
-          itemCount: vehicleBrands.length,
-          itemBuilder: (context, index) =>
-              _gridViewItem(vehicleBrands[index], context),
-        )
-      ],
+          CustomSpacers.extraLarge(),
+          GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: AppSizes.s80.r / AppSizes.s104.r,
+              mainAxisSpacing: AppValues.mediumSmall.r,
+              crossAxisSpacing: AppValues.mediumSmall.r,
+            ),
+            itemCount: filteredVehicleBrands.length,
+            itemBuilder: (context, index) =>
+                _gridViewItem(filteredVehicleBrands[index], context),
+          )
+        ],
+      ),
     );
   }
 

@@ -10,7 +10,7 @@ import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/domain/entities/company_price.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
@@ -31,7 +31,7 @@ class ComparePricesScreen extends StatelessWidget {
   }
 
   void goBack(BuildContext context) {
-    context.go(AppScreen.carsInsurance.toPath);
+    context.go(AppScreen.vehiclesInsurance.toPath);
   }
 
   @override

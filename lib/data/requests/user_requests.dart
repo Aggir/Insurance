@@ -45,6 +45,7 @@ class SignUpRequest implements BaseRequest {
   final String proofIssuePlace;
   final String proofIssueDate;
   final String proofExpirationDate;
+  final String otp;
   final String? nationalId;
   final File? nationalFile;
 
@@ -65,11 +66,13 @@ class SignUpRequest implements BaseRequest {
     required this.proofIssuePlace,
     required this.proofIssueDate,
     required this.proofExpirationDate,
+    required this.otp,
     this.nationalId,
     this.nationalFile,
   });
 
   Future<Map<String, dynamic>> toMap() async {
+    print('ee');
     return {
       'first_name': firstName,
       'father_name': middleName,
@@ -88,6 +91,7 @@ class SignUpRequest implements BaseRequest {
       'proof_issue_place': proofIssuePlace,
       'proof_issue_date': proofIssueDate,
       'proof_expiration_date': proofExpirationDate,
+      'phone_otp': int.parse(otp),
       'national_id': nationalId,
       'national_file': nationalFile != null
           ? await MultipartFile.fromFile(nationalFile!.path)

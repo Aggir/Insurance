@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/router/routes.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/cubit/compare_companies_cubit.dart';
+import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
 import 'package:insurance_app/presentation/screens/compare_companies/components/filter_insurance_companies_modal.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
@@ -17,8 +17,8 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import '../../../app/assets_manager.dart';
 import '../../theme/app_colors.dart';
 
-class CarsInsuranceScreen extends StatelessWidget {
-  const CarsInsuranceScreen({super.key});
+class VehiclesInsuranceScreen extends StatelessWidget {
+  const VehiclesInsuranceScreen({super.key});
 
   void _issueCarInsurance(BuildContext context) {
     context.go(AppScreen.issueInsurance.toPath);
@@ -54,7 +54,7 @@ class CarsInsuranceScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: CustomAppBar.basic(
-          title: AppStrings.carsInsurance.tr(),
+          title: AppStrings.vehiclesInsurance.tr(),
           backButton: () => context.go(AppScreen.home.toPath),
         ),
         body: ListView(

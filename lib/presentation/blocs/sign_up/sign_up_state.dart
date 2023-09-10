@@ -9,7 +9,6 @@ class SignUpState extends Equatable {
   final String? checkUserInfoErrorMessage;
   final String? password;
   final bool isLibyan;
-  // Todo: Change `verificationType` from String to enum.
   final ProofType? proofType;
   final Status proofStatus;
   final File? proofFile;
@@ -21,6 +20,10 @@ class SignUpState extends Equatable {
   final File? nationalFile;
   final String? nationalFileName;
   final NationalDocument? nationalDocumentInfo;
+  final Status checkNationalIdStatus;
+  final String? checkNationalIdErrorMessage;
+  final Status sendVerifyPhoneOtpStatus;
+  final String? sendVerifyPhoneOtpErrorMessage;
   const SignUpState({
     this.gender = Gender.male,
     this.userInfo,
@@ -40,6 +43,10 @@ class SignUpState extends Equatable {
     this.nationalFile,
     this.nationalFileName,
     this.nationalDocumentInfo,
+    this.checkNationalIdStatus = Status.initial,
+    this.checkNationalIdErrorMessage,
+    this.sendVerifyPhoneOtpStatus = Status.initial,
+    this.sendVerifyPhoneOtpErrorMessage,
   });
 
   @override
@@ -63,6 +70,10 @@ class SignUpState extends Equatable {
       nationalFile,
       nationalFileName,
       nationalDocumentInfo,
+      checkNationalIdStatus,
+      checkNationalIdErrorMessage,
+      sendVerifyPhoneOtpStatus,
+      sendVerifyPhoneOtpErrorMessage,
     ];
   }
 
@@ -87,6 +98,10 @@ class SignUpState extends Equatable {
     NationalDocument? nationalDocumentInfo,
     bool removeProofFile = false,
     bool removeNationalFile = false,
+    Status? checkNationalIdStatus,
+    String? checkNationalIdErrorMessage,
+    Status? sendVerifyPhoneOtpStatus,
+    String? sendVerifyPhoneOtpErrorMessage,
   }) {
     return SignUpState(
       gender: gender ?? this.gender,
@@ -111,6 +126,14 @@ class SignUpState extends Equatable {
       nationalFileName:
           removeProofFile ? null : nationalFileName ?? this.nationalFileName,
       nationalDocumentInfo: nationalDocumentInfo ?? this.nationalDocumentInfo,
+      checkNationalIdStatus:
+          checkNationalIdStatus ?? this.checkNationalIdStatus,
+      checkNationalIdErrorMessage:
+          checkNationalIdErrorMessage ?? this.checkNationalIdErrorMessage,
+      sendVerifyPhoneOtpStatus:
+          sendVerifyPhoneOtpStatus ?? this.sendVerifyPhoneOtpStatus,
+      sendVerifyPhoneOtpErrorMessage:
+          sendVerifyPhoneOtpErrorMessage ?? this.sendVerifyPhoneOtpErrorMessage,
     );
   }
 

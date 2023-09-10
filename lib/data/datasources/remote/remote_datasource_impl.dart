@@ -53,9 +53,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   void _checkTokenValidation(DioException error) {
-    final String? message = error.response?.data['message'];
-    if (message != null && message.contains('Unauthenticated.')) {
-      instance<UserCubit>().logout();
+    if (error.response?.data is Map &&
+        error.response?.data['message'] is String) {
+      final String? message = error.response?.data['message'];
+      if (message != null && message.contains('Unauthenticated.')) {
+        instance<UserCubit>().logout();
+      }
     }
   }
 
@@ -139,6 +142,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UserResponse> signUp(SignUpRequest request) async {
     try {
       final body = await request.toMap();
+      print(body);
       Response response = await _dio.post(
         ApiConstants.signup,
         data: FormData.fromMap(body),
@@ -156,11 +160,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       _appService.token = userResponse.token ?? Constants.empty;
       return (userResponse);
     } on DioException catch (error) {
+      print(error.response?.data);
       _checkTokenValidation(error);
       return UserResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
     } catch (err) {
+      print(err);
       return UserResponse(message: AppStrings.genericError.tr());
     }
   }
@@ -336,6 +342,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BasicResponse> addVehicle(AddVehicleRequest request) async {
     try {
       final body = await request.toMap();
+      print(body);
       var response = await _dio.post(ApiConstants.vehicles,
           data: FormData.fromMap(body),
           options: _bearerToken(_appService.token, header: {
@@ -469,12 +476,13 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<BasicResponse> calculateInsurancePrice(
-      CalculateInsurancePriceRequest request) async {
+  Future<BasicResponse> calculateInsurancePriceByVehicle(
+      CalculateInsurancePriceByVehicleRequest request) async {
     final body = request.toMap();
+    print(body);
     try {
       var response = await _dio.get(
-        ApiConstants.calculateInsurancePrice,
+        ApiConstants.calculateInsurancePriceByVehicle,
         data: body,
         options: _bearerToken(_appService.token),
       );
@@ -764,24 +772,78 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<CompaniesPricesResponse> getCompaniesPrices(
       CompaniesPricesRequest request) async {
-    print(request.toMap());
     try {
       Response response = await _dio.get(
         ApiConstants.companiesPrices,
         options: _bearerToken(_appService.token),
         queryParameters: request.toMap(),
       );
-      print(response);
       return CompaniesPricesResponse.fromMap(
           {'companiesPrices': response.data});
     } on DioException catch (error) {
-      print(error.response);
       _checkTokenValidation(error);
       return CompaniesPricesResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return CompaniesPricesResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> sendVerifyPhoneOtp(String phone) async {
+    try {
+      Response response = await _dio.get(
+        '${ApiConstants.sendPhoneOtp}/$phone',
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<BasicResponse> checkNationalId(String nationalId) async {
+    try {
+      final body = {'national_id': nationalId};
+      var response = await _dio.post(
+        ApiConstants.checkNational,
+        data: body,
+      );
+      return BasicResponse(data: response.data == '1');
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.auth(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
+    }
+  }
+
+  @override
+  Future<BasicResponse> calculateInsurancePrice(
+      CalculateInsurancePriceRequest request) async {
+    try {
+      var response = await _dio.post(
+        ApiConstants.calculateInsurancePrice,
+        data: request.toBody(),
+        queryParameters: request.toQueryParams(),
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
     }
   }
 }
