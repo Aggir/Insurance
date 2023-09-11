@@ -10,6 +10,7 @@ class InsuranceModel {
   final String? endDate;
   final String? cost;
   final String? file;
+  final String? ref;
   final bool? isPaid;
   final String? status;
   final InsuranceVehicleModel? vehicle;
@@ -24,6 +25,7 @@ class InsuranceModel {
     this.endDate,
     this.cost,
     this.file,
+    this.ref,
     this.isPaid,
     this.status,
     this.vehicle,
@@ -40,6 +42,7 @@ class InsuranceModel {
       endDate: map['end_date'],
       cost: map['cost'],
       file: map['file'],
+      ref: map['ref'],
       isPaid: map['is_paid'],
       status: map['status'],
       vehicle: map['vehicle'] != null

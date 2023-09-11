@@ -54,10 +54,11 @@ class InsuranceListItem extends StatelessWidget {
                           insurance.insuranceType.name,
                           style: mediumSmallHeadlineStyle(),
                         ),
-                        Text(
-                          insurance.referenceNumber.toString(),
-                          style: smallGrayBodyStyle(),
-                        ),
+                        if (insurance.ref.isNotEmpty)
+                          Text(
+                            insurance.ref,
+                            style: smallGrayBodyStyle(),
+                          ),
                         Row(
                           children: [
                             SvgPicture.asset(
@@ -220,10 +221,8 @@ class InsuranceListItem extends StatelessWidget {
       };
     } else if (insurance.insuranceTypeStatus.isIssued) {
       onPressed = () {
-        context.go(
-            "${AppScreen.insuranceDocument.toPath}${insurance.referenceNumber}",
-            extra: InsuranceDocumentParameters(
-                insurance.referenceNumber, insurance.file));
+        context.go("${AppScreen.insuranceDocument.toPath}${insurance.ref}",
+            extra: InsuranceDocumentParameters(insurance.ref, insurance.file));
       };
     }
     if (insurance.insuranceTypeStatus.isUnderProcessing) {

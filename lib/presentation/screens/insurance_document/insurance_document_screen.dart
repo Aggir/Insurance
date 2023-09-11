@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
+import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
@@ -146,6 +148,10 @@ class _InsuranceDocumentState extends State<InsuranceDocument> {
                   ],
                 ),
               ),
+              CustomSpacers.large(),
+              CachedNetworkImage(
+                  imageUrl:
+                      'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${widget.params.fileUrl}'),
               const Spacer(),
               PrimaryButton.fullWidth(
                   child: Text(

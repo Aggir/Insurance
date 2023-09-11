@@ -18,7 +18,7 @@ class InsuranceEntity extends Equatable {
   final InsuranceVehicleEntity vehicle;
   final InsuranceTypeEntity insuranceType;
   final CompanyEntity company;
-  final int referenceNumber;
+  final String ref;
   final InsuranceTypeStatus insuranceTypeStatus;
   const InsuranceEntity({
     required this.id,
@@ -31,7 +31,7 @@ class InsuranceEntity extends Equatable {
     required this.vehicle,
     required this.insuranceType,
     required this.company,
-    required this.referenceNumber,
+    required this.ref,
     required this.insuranceTypeStatus,
   });
 
@@ -48,7 +48,7 @@ class InsuranceEntity extends Equatable {
       vehicle,
       insuranceType,
       company,
-      referenceNumber,
+      ref,
       insuranceTypeStatus,
     ];
   }
@@ -64,7 +64,7 @@ class InsuranceEntity extends Equatable {
         vehicle: InsuranceVehicleEntity.empty(),
         insuranceType: InsuranceTypeEntity.empty(),
         company: CompanyEntity.empty(),
-        referenceNumber: Constants.zero,
+        ref: Constants.empty,
         insuranceTypeStatus: InsuranceTypeStatus.underProcessing,
       );
 
@@ -79,7 +79,7 @@ class InsuranceEntity extends Equatable {
     InsuranceVehicleEntity? vehicle,
     InsuranceTypeEntity? insuranceType,
     CompanyEntity? company,
-    int? referenceNumber,
+    String? ref,
     InsuranceTypeStatus? insuranceTypeStatus,
   }) {
     return InsuranceEntity(
@@ -93,7 +93,7 @@ class InsuranceEntity extends Equatable {
       vehicle: vehicle ?? this.vehicle,
       insuranceType: insuranceType ?? this.insuranceType,
       company: company ?? this.company,
-      referenceNumber: referenceNumber ?? this.referenceNumber,
+      ref: ref ?? this.ref,
       insuranceTypeStatus: insuranceTypeStatus ?? this.insuranceTypeStatus,
     );
   }

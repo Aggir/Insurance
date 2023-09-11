@@ -32,7 +32,7 @@ import 'package:insurance_app/data/responses/vehicle_types_response.dart';
 import 'package:insurance_app/data/responses/vehicles_response.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
-//TODO: REFACTOR IT.
+//TODO: REFACTOR IT ASAP.
 class RemoteDataSourceImpl implements RemoteDataSource {
   final Dio _dio;
   final AppService _appService;
@@ -506,10 +506,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         data: body,
         options: _bearerToken(_appService.token),
       );
-      print(response.data);
       return BasicResponse(data: int.parse(response.data));
     } on DioException catch (error) {
-      print(error.response);
       _checkTokenValidation(error);
       return BasicResponse(
           code: error.response?.statusCode,

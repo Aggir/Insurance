@@ -40,7 +40,7 @@ extension InsuranceModelExtension on InsuranceModel? {
           insuranceType:
               this?.insuranceType.toDomain() ?? InsuranceTypeEntity.empty(),
           company: this?.company.toDomain() ?? CompanyEntity.empty(),
-          referenceNumber: (((this?.id ?? Constants.zero) * 8447) % 100000),
+          ref: this?.ref ?? Constants.empty,
           insuranceTypeStatus:
               _getInsuranceTypeStatus(this?.status, this?.isPaid ?? false));
 }
