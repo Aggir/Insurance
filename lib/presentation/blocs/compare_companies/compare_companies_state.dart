@@ -1,10 +1,11 @@
 part of 'compare_companies_cubit.dart';
 
 class CompareCompaniesState extends Equatable {
-  final Status fetchInsuranceTypesStatus;
-  final String? fetchInsuranceTypesErrorMessage;
-  final List<InsuranceTypeEntity>? insuranceTypes;
+  final Status fetchPricesFormDataStatus;
+  final String? fetchPricesFormDataErrorMessage;
+  final CompanyPricesFormData? companyPricesFormData;
   final int? selectedInsuranceTypeId;
+  final int? selectedVehicleTypeId;
   final bool? withAttachment;
   final bool isSortByMinimum;
   final Status fetchCompaniesPricesStatus;
@@ -13,10 +14,11 @@ class CompareCompaniesState extends Equatable {
   final List<CompanyPriceEntity>? filteredCompaniesPrices;
 
   const CompareCompaniesState({
-    this.fetchInsuranceTypesStatus = Status.initial,
-    this.fetchInsuranceTypesErrorMessage,
-    this.insuranceTypes,
+    this.fetchPricesFormDataStatus = Status.initial,
+    this.fetchPricesFormDataErrorMessage,
+    this.companyPricesFormData,
     this.selectedInsuranceTypeId,
+    this.selectedVehicleTypeId,
     this.withAttachment,
     this.isSortByMinimum = true,
     this.fetchCompaniesPricesStatus = Status.initial,
@@ -26,27 +28,36 @@ class CompareCompaniesState extends Equatable {
   });
 
   CompareCompaniesState copyWith({
-    Status? fetchInsuranceTypesStatus,
-    String? fetchInsuranceTypesErrorMessage,
-    List<InsuranceTypeEntity>? insuranceTypes,
+    Status? fetchPricesFormDataStatus,
+    String? fetchPricesFormDataErrorMessage,
+    CompanyPricesFormData? companyPricesFormData,
     int? selectedInsuranceTypeId,
+    int? selectedVehicleTypeId,
     bool? withAttachment,
     bool? isSortByMinimum,
+    bool clearFilter = false,
     Status? fetchCompaniesPricesStatus,
     String? fetchCompaniesPricesErrorMessage,
     List<CompanyPriceEntity>? companiesPrices,
     List<CompanyPriceEntity>? filteredCompaniesPrices,
   }) {
     return CompareCompaniesState(
-      fetchInsuranceTypesStatus:
-          fetchInsuranceTypesStatus ?? this.fetchInsuranceTypesStatus,
-      fetchInsuranceTypesErrorMessage: fetchInsuranceTypesErrorMessage ??
-          this.fetchInsuranceTypesErrorMessage,
-      insuranceTypes: insuranceTypes ?? this.insuranceTypes,
-      selectedInsuranceTypeId:
-          selectedInsuranceTypeId ?? this.selectedInsuranceTypeId,
-      withAttachment: withAttachment ?? this.withAttachment,
-      isSortByMinimum: isSortByMinimum ?? this.isSortByMinimum,
+      fetchPricesFormDataStatus:
+          fetchPricesFormDataStatus ?? this.fetchPricesFormDataStatus,
+      fetchPricesFormDataErrorMessage: fetchPricesFormDataErrorMessage ??
+          this.fetchPricesFormDataErrorMessage,
+      companyPricesFormData:
+          companyPricesFormData ?? this.companyPricesFormData,
+      selectedInsuranceTypeId: clearFilter
+          ? null
+          : selectedInsuranceTypeId ?? this.selectedInsuranceTypeId,
+      selectedVehicleTypeId: clearFilter
+          ? null
+          : selectedVehicleTypeId ?? this.selectedVehicleTypeId,
+      withAttachment:
+          clearFilter ? null : withAttachment ?? this.withAttachment,
+      isSortByMinimum:
+          clearFilter ? true : (isSortByMinimum ?? this.isSortByMinimum),
       fetchCompaniesPricesStatus:
           fetchCompaniesPricesStatus ?? this.fetchCompaniesPricesStatus,
       fetchCompaniesPricesErrorMessage: fetchCompaniesPricesErrorMessage ??
@@ -60,10 +71,11 @@ class CompareCompaniesState extends Equatable {
   @override
   List<Object?> get props {
     return [
-      fetchInsuranceTypesStatus,
-      fetchInsuranceTypesErrorMessage,
-      insuranceTypes,
+      fetchPricesFormDataStatus,
+      fetchPricesFormDataErrorMessage,
+      companyPricesFormData,
       selectedInsuranceTypeId,
+      selectedVehicleTypeId,
       withAttachment,
       isSortByMinimum,
       fetchCompaniesPricesStatus,

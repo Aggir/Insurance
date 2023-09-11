@@ -846,4 +846,22 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       return BasicResponse(message: AppStrings.genericError);
     }
   }
+
+  @override
+  Future<BasicResponse> countCompanies() async {
+    try {
+      Response response = await _dio.get(
+        ApiConstants.companiesCount,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError);
+    }
+  }
 }

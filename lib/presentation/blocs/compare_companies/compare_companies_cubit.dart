@@ -3,10 +3,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/domain/data_classes/company_prices_form_data.dart';
 import 'package:insurance_app/domain/entities/company_price.dart';
-import 'package:insurance_app/domain/entities/insurance_type.dart';
 import 'package:insurance_app/domain/usecases/compare_companies_prices_usecase.dart';
-import 'package:insurance_app/domain/usecases/get_insurance_types_usecase.dart';
+import 'package:insurance_app/domain/usecases/get_company_prices_form_usecase.dart';
 
 part 'compare_companies_state.dart';
 
@@ -23,17 +23,16 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
 
   bool isDisposed = false;
 
-  fetchInsuranceTypes() async {
-    emit(state.copyWith(fetchInsuranceTypesStatus: Status.loading));
-    initGetInsuranceTypes();
-    (await instance<GetInsuranceTypesUsecase>().execute(null)).fold(
+  fetchCompareCompaniesFormData() async {
+    emit(state.copyWith(fetchPricesFormDataStatus: Status.loading));
+    initGetCompanyPricesFormData();
+    (await instance<GetCompanyPricesFormUsecase>().execute(null)).fold(
         (failure) => emit(state.copyWith(
-            fetchInsuranceTypesStatus: Status.failure,
-            fetchInsuranceTypesErrorMessage: failure.message)),
+            fetchPricesFormDataStatus: Status.failure,
+            fetchPricesFormDataErrorMessage: failure.message)),
         (data) => emit(state.copyWith(
-              fetchInsuranceTypesStatus: Status.success,
-              insuranceTypes: data,
-            )));
+            fetchPricesFormDataStatus: Status.success,
+            companyPricesFormData: data)));
   }
 
   toggleWithAttachment() {
@@ -44,8 +43,19 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
     emit(state.copyWith(selectedInsuranceTypeId: insuranceTypeId));
   }
 
+  selectVehicleType(int vehicleTypeId) {
+    emit(state.copyWith(selectedVehicleTypeId: vehicleTypeId));
+  }
+
   setIsSortByMinimum(bool value) {
     emit(state.copyWith(isSortByMinimum: value));
+  }
+
+  clearFilter() {
+    horsepowerController.clear();
+    weightController.clear();
+    maxPassengersController.clear();
+    emit(state.copyWith(clearFilter: true));
   }
 
   clear() {
@@ -62,6 +72,9 @@ class CompareCompaniesCubit extends Cubit<CompareCompaniesState> {
       horsePower: horsepowerController.text.trim(),
       maxPassengers: maxPassengersController.text.trim(),
       isSortByMinimum: state.isSortByMinimum,
+      vehicleTypeId: state.selectedVehicleTypeId!,
+      weight: weightController.text.trim(),
+      withAttachment: state.withAttachment,
     )))
         .fold(
       (failure) => emit(state.copyWith(

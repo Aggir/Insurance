@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/app_routes.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
 import 'package:insurance_app/presentation/blocs/internet/internet_bloc.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
@@ -53,8 +54,13 @@ class AppRouter {
           AppRoutes.payment,
           AppRoutes.myAlarms,
         ],
-        builder: (context, state, child) => BlocProvider(
-          create: (context) => CompaniesCubit(),
+        builder: (context, state, child) => MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => HomeCubit()),
+            BlocProvider(
+              create: (context) => CompaniesCubit(),
+            )
+          ],
           child: Builder(builder: (context) {
             return BlocConsumer<InternetBloc, InternetState>(
               listener: (context, state) {

@@ -17,6 +17,7 @@ class CompareCompaniesPricesUsecase
       CompareCompaniesPricesUsecaseInput input) async {
     return await _repository.getCompaniesPrices(CompaniesPricesRequest(
       insuranceTypeId: input.insuranceTypeId,
+      vehicleTypeId: input.vehicleTypeId,
       horsePower: input.horsePower,
       maxPassengers: input.maxPassengers,
       weight: input.weight,
@@ -28,6 +29,7 @@ class CompareCompaniesPricesUsecase
 
 class CompareCompaniesPricesUsecaseInput {
   final int insuranceTypeId;
+  final int vehicleTypeId;
   final String? horsePower;
   final String? maxPassengers;
   final String? weight;
@@ -35,6 +37,7 @@ class CompareCompaniesPricesUsecaseInput {
   final bool isSortByMinimum;
   CompareCompaniesPricesUsecaseInput({
     required this.insuranceTypeId,
+    required this.vehicleTypeId,
     this.horsePower,
     this.maxPassengers,
     this.weight,

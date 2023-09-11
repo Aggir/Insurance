@@ -83,6 +83,7 @@ class IssueInsuranceRequest implements BaseRequest {
 
 class CompaniesPricesRequest implements BaseRequest {
   final int insuranceTypeId;
+  final int vehicleTypeId;
   final String? horsePower;
   final String? maxPassengers;
   final String? weight;
@@ -90,6 +91,7 @@ class CompaniesPricesRequest implements BaseRequest {
   final bool isSortByMinimum;
   CompaniesPricesRequest({
     required this.insuranceTypeId,
+    required this.vehicleTypeId,
     required this.horsePower,
     required this.maxPassengers,
     required this.weight,
@@ -100,6 +102,7 @@ class CompaniesPricesRequest implements BaseRequest {
   Map<String, dynamic> toMap() {
     return {
       'insurance_type_id': insuranceTypeId,
+      'vehicle_type_id': vehicleTypeId,
       'horse_power': horsePower,
       'max_passengers': maxPassengers,
       'weight': weight,

@@ -181,4 +181,19 @@ class RepositoryImpl extends Repository {
       return Right(int.parse(response.data));
     }
   }
+
+  @override
+  Future<Either<Failure, int>> countCompanies() async {
+    final response = await _remoteDataSource.countCompanies();
+    if (response.message != null) {
+      return Left(
+        Failure(
+          response.code ?? 0,
+          response.message ?? AppStrings.genericError.tr(),
+        ),
+      );
+    } else {
+      return Right(int.parse(response.data));
+    }
+  }
 }

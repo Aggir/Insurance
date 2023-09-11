@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
+import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
 
@@ -22,6 +23,7 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackBars.dart';
 
 import '../../../../app/router/routes.dart';
 import '../../../blocs/user/user_cubit.dart';
@@ -266,7 +268,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _vehicleInsuranceCard(BuildContext context) {
-    int companies = 32;
     // Todo: Edit this widget incase if the app changed to English language or any other ltr language
     final BorderRadius borderRadius =
         BorderRadius.circular(AppValues.largeRadius.r);
@@ -303,10 +304,32 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Row(
                 children: [
-                  Text('$companies ',
-                      style: getExtraBoldStyle(
-                          color: AppColors.primary, fontSize: FontSize.s14)),
-                  Text(AppStrings.company.tr(), style: primaryBodyStyle())
+                  BlocConsumer<HomeCubit, HomeState>(
+                    listener: (context, state) {
+                      if (state.fetchCompaniesCountStatus.isFailure) {
+                        SnackBars.error(
+                            context, state.fetchCompaniesCountErrorMessage!);
+                      }
+                    },
+                    builder: (context, state) {
+                      if (!state.fetchCompaniesCountStatus.isFailure &&
+                          state.companiesCount == null) {
+                        return SizedBox(
+                          width: AppSizes.s10.r,
+                          height: AppSizes.s10.r,
+                          child: CircularProgressIndicator(
+                            strokeWidth: AppSizes.s2.r,
+                          ),
+                        );
+                      }
+                      return Text(
+                        '${state.companiesCount ?? 0}',
+                        style: getExtraBoldStyle(
+                            color: AppColors.primary, fontSize: FontSize.s14),
+                      );
+                    },
+                  ),
+                  Text(' ${AppStrings.company.tr()}', style: primaryBodyStyle())
                 ],
               ),
             )

@@ -1,11 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/router/routes.dart';
+import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -20,6 +22,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<HomeCubit>(context).init();
+    super.initState();
+  }
+
   final List<Map<String, String>> _navBarItems = [
     {
       'label': AppStrings.home.tr(),

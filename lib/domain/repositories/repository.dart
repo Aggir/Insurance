@@ -26,4 +26,6 @@ abstract class Repository {
   Future<Either<Failure, void>> toggleNotificationIsRead(int id);
 
   Future<Either<Failure, int>> countUnseenNotifications();
+
+  Future<Either<Failure, int>> countCompanies();
 }

@@ -72,7 +72,6 @@ class SignUpRequest implements BaseRequest {
   });
 
   Future<Map<String, dynamic>> toMap() async {
-    print('ee');
     return {
       'first_name': firstName,
       'father_name': middleName,

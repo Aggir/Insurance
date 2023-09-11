@@ -106,4 +106,6 @@ abstract class RemoteDataSource {
       CompaniesPricesRequest request);
 
   Future<BasicResponse> sendVerifyPhoneOtp(String phone);
+
+  Future<BasicResponse> countCompanies();
 }
