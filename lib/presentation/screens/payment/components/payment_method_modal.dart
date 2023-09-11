@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
+import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -15,13 +16,13 @@ import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 import '../../../../app/router/routes.dart';
 
 class PaymentMethodModal extends StatelessWidget {
-  const PaymentMethodModal(this.insuranceId, {super.key});
-  final int insuranceId;
+  const PaymentMethodModal(this.insurance, {super.key});
+  final InsuranceEntity insurance;
 
   void _selectPaymentMethodFunction(BuildContext context, method) {
     context.go(AppScreen.payment.toPath,
-        extra: PaymentStepParameters(
-            paymentMethod: method, insuranceId: insuranceId));
+        extra:
+            PaymentStepParameters(paymentMethod: method, insurance: insurance));
   }
 
   @override

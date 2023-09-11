@@ -1,5 +1,6 @@
 class ApiConstants {
-  static const String baseUrl = 'https://insurance-api-mf0n.onrender.com/api';
+  static const String baseUrl =
+      'https://insurance-api-wassel-322a2dab356d.herokuapp.com/api';
 
   static const String notifications = '/notification';
   static const String notificationToggleSeen = '/notification/toggleSeen';
@@ -42,6 +43,7 @@ class ApiConstants {
   static const String calculateInsurancePrice =
       '/insurances/calculateVehiclePrice';
   static const String toggleInsurance = '/insurances/toggleInsurance';
+  static const String getInsuranceInstallments = '/insurances/getInstallments';
   // Alarms
   static const String alarmTypes = '/alarm_types';
   static const String alarms = '/alarms';

@@ -2,17 +2,19 @@ import 'package:dartz/dartz.dart';
 
 import 'package:insurance_app/app/failure.dart';
 import 'package:insurance_app/data/requests/insurance_requests.dart';
+import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/usecases/base_usecase.dart';
 
 import '../repositories/insurance_repository.dart';
 
 class IssueInsuranceUsecase
-    implements BaseUsecase<IssueInsuranceUsecaseInput, int> {
+    implements BaseUsecase<IssueInsuranceUsecaseInput, InsuranceEntity> {
   final InsuranceRepository _repository;
 
   IssueInsuranceUsecase(this._repository);
   @override
-  Future<Either<Failure, int>> execute(IssueInsuranceUsecaseInput input) async {
+  Future<Either<Failure, InsuranceEntity>> execute(
+      IssueInsuranceUsecaseInput input) async {
     return await _repository.issueInsurance(IssueInsuranceRequest(
       companyId: input.companyId,
       insuranceTypeId: input.insuranceTypeId,

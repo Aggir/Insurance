@@ -34,6 +34,7 @@ import 'package:insurance_app/domain/usecases/get_companies_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_branches_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_company_prices_form_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_form_data.dart';
+import 'package:insurance_app/domain/usecases/get_insurance_installments_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_types_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_alarms_usecase.dart';
 import 'package:insurance_app/domain/usecases/get_my_insurances_usecase.dart';
@@ -400,5 +401,12 @@ void initSignUpSendVerifyPhoneOtp() async {
   if (!GetIt.I.isRegistered<SendVerifyPhoneOtpUsecase>()) {
     instance.registerFactory<SendVerifyPhoneOtpUsecase>(
         () => SendVerifyPhoneOtpUsecase(instance<UserRepository>()));
+  }
+}
+
+void initGetInsuranceInstallments() async {
+  if (!GetIt.I.isRegistered<GetInsuranceInstallmentsUsecase>()) {
+    instance.registerFactory<GetInsuranceInstallmentsUsecase>(
+        () => GetInsuranceInstallmentsUsecase(instance<InsuranceRepository>()));
   }
 }

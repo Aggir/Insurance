@@ -20,8 +20,10 @@ import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
 import 'package:insurance_app/data/responses/companies_prices_response.dart';
 import 'package:insurance_app/data/responses/companies_response.dart';
+import 'package:insurance_app/data/responses/installments_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/insurances_response.dart';
+import 'package:insurance_app/data/responses/issue_insurance_response.dart';
 import 'package:insurance_app/data/responses/notifications_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
@@ -498,7 +500,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<BasicResponse> issueInsurance(IssueInsuranceRequest request) async {
+  Future<IssueInsuranceResponse> issueInsurance(
+      IssueInsuranceRequest request) async {
     final body = request.toMap();
     try {
       var response = await _dio.post(
@@ -506,14 +509,14 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         data: body,
         options: _bearerToken(_appService.token),
       );
-      return BasicResponse(data: int.parse(response.data));
+      return IssueInsuranceResponse.fromMap(response.data);
     } on DioException catch (error) {
       _checkTokenValidation(error);
-      return BasicResponse(
+      return IssueInsuranceResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.generic(error));
     } catch (error) {
-      return BasicResponse(message: AppStrings.genericError);
+      return IssueInsuranceResponse(message: AppStrings.genericError.tr());
     }
   }
 
@@ -860,6 +863,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return BasicResponse(message: AppStrings.genericError);
+    }
+  }
+
+  @override
+  Future<InstallmentsResponse> getInsuranceInstallments(
+      GetInsuranceInstallmentsRequest request) async {
+    try {
+      Response response = await _dio.post(
+        ApiConstants.getInsuranceInstallments,
+        options: _bearerToken(_appService.token),
+        data: request.toMap(),
+      );
+      return InstallmentsResponse.fromMap(response.data);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return InstallmentsResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return InstallmentsResponse(message: AppStrings.genericError.tr());
     }
   }
 }

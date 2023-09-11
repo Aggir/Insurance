@@ -68,8 +68,7 @@ class AddVehicleRequest implements BaseRequest {
       'vehicle_country_id': countryId,
       'making_year': makingYear,
       'horse_power': horsePower,
-      'with_attachment':
-          withAttachment == null ? null : withAttachment!.asString,
+      'with_attachment': withAttachment?.asString ?? false.asString,
       'weight': weight,
       'engine_number': engineNumber,
       'chassisNumber': chassisNumber,

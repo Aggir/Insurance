@@ -40,7 +40,7 @@ class InsuranceModel {
       updatedAt: map['updated_at'],
       startDate: map['start_date'],
       endDate: map['end_date'],
-      cost: map['cost'],
+      cost: map['cost'].toString(),
       file: map['file'],
       ref: map['ref'],
       isPaid: map['is_paid'],

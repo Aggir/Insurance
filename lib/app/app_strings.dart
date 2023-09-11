@@ -350,6 +350,7 @@ class AppStrings {
       'choose_the_number_of_monthly_installments_that_suit_you';
   static const chooseTheNumberOfMonthlyInstallments =
       'choose_the_number_of_monthly_installments';
+  static const installmentsCount = 'installments_count';
   static const monthlyInstallment = 'monthly_installment';
   static const payInstallmentsViaTheBankingApplication =
       'pay_installments_via_the_banking_application';

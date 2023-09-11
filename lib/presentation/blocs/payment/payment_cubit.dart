@@ -6,7 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
+import 'package:insurance_app/domain/entities/insurance.dart';
+import 'package:insurance_app/domain/entities/insurance_installments.dart';
 import 'package:insurance_app/domain/entities/payment_method.dart';
+import 'package:insurance_app/domain/usecases/get_insurance_installments_usecase.dart';
 import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 
 part 'payment_state.dart';
@@ -17,7 +20,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   setPaymentStepParams(PaymentStepParameters paymentParams) {
     emit(state.copyWith(
       paymentMethod: paymentParams.paymentMethod,
-      insuranceId: paymentParams.insuranceId,
+      insurance: paymentParams.insurance,
     ));
   }
 
@@ -50,6 +53,35 @@ class PaymentCubit extends Cubit<PaymentState> {
           ));
         }
       },
+    );
+  }
+
+  getInsuranceInstallments(
+      {required int userId, required InsuranceEntity insurance}) async {
+    emit(state.copyWith(getInsuranceInstallmentsStatus: Status.loading));
+    initGetInsuranceInstallments();
+    (await instance<GetInsuranceInstallmentsUsecase>().execute(
+      GetInsuranceInstallmentsUsecaseInput(
+        companyId: insurance.company.id,
+        serviceId: 1,
+        subServiceId: 1,
+        userId: userId,
+        value: double.parse(insurance.cost),
+      ),
+    ))
+        .fold(
+      (failure) => emit(
+        state.copyWith(
+          getInsuranceInstallmentsStatus: Status.failure,
+          getInsuranceInstallmentsErrorMessage: failure.message,
+        ),
+      ),
+      (data) => emit(
+        state.copyWith(
+          getInsuranceInstallmentsStatus: Status.success,
+          insuranceInstallments: data,
+        ),
+      ),
     );
   }
 
@@ -88,7 +120,7 @@ class PaymentCubit extends Cubit<PaymentState> {
     //TODO: DELETE THIS FUNCTION!!
     emit(state.copyWith(paymentStatus: Status.loading));
     initPay();
-    (await instance<PayUsecase>().execute(state.insuranceId!)).fold(
+    (await instance<PayUsecase>().execute(state.insurance!.id)).fold(
       (failure) => emit(state.copyWith(
           paymentStatus: Status.failure, paymentErrorMessage: failure.message)),
       (_) {

@@ -111,3 +111,29 @@ class CompaniesPricesRequest implements BaseRequest {
     };
   }
 }
+
+class GetInsuranceInstallmentsRequest implements BaseRequest {
+  final int companyId;
+  final int serviceId;
+  final int subServiceId;
+  final int userId;
+  final double value;
+
+  GetInsuranceInstallmentsRequest({
+    required this.companyId,
+    required this.serviceId,
+    required this.subServiceId,
+    required this.userId,
+    required this.value,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'company_id': companyId,
+      'service_id': serviceId,
+      'sub_service_id': subServiceId,
+      'user_id': userId,
+      'value': value,
+    };
+  }
+}

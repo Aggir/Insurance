@@ -70,11 +70,14 @@ class _InstallmentDetailsStepPageState
                 if (isPayLater) {
                   context.go(AppScreen.myVehicles.toPath, extra: true);
                 } else {
-                  context.go(AppScreen.myInsurances.toPath,
-                      extra: MyInsurancesPageParameters(
-                          pageIndex: 2,
-                          isPaymentModalShown: true,
-                          selectedInsuranceId: state.insuranceId));
+                  context.go(
+                    AppScreen.myInsurances.toPath,
+                    extra: MyInsurancesPageParameters(
+                      pageIndex: 2,
+                      isPaymentModalShown: true,
+                      selectedInsurance: state.insurance,
+                    ),
+                  );
                 }
               }
             },

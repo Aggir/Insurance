@@ -28,11 +28,11 @@ class MyInsurancesPage extends StatefulWidget {
   const MyInsurancesPage(
       {this.pageIndex,
       this.isPaymentModelShown = false,
-      this.selectedInsuranceId,
+      this.selectedInsurance,
       super.key});
   final int? pageIndex;
   final bool? isPaymentModelShown;
-  final int? selectedInsuranceId;
+  final InsuranceEntity? selectedInsurance;
   @override
   State<MyInsurancesPage> createState() => _MyInsurancesPageState();
 }
@@ -60,7 +60,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
                 shape: AppValues.modalShape,
                 isScrollControlled: true,
                 builder: (context) =>
-                    PaymentMethodModal(widget.selectedInsuranceId ?? 1),
+                    PaymentMethodModal(widget.selectedInsurance!),
               ));
     }
   }

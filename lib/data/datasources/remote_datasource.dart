@@ -7,8 +7,10 @@ import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/branches_response.dart';
 import 'package:insurance_app/data/responses/cities_response.dart';
 import 'package:insurance_app/data/responses/companies_prices_response.dart';
+import 'package:insurance_app/data/responses/installments_response.dart';
 import 'package:insurance_app/data/responses/insurance_types_response.dart';
 import 'package:insurance_app/data/responses/insurances_response.dart';
+import 'package:insurance_app/data/responses/issue_insurance_response.dart';
 import 'package:insurance_app/data/responses/notifications_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 import 'package:insurance_app/data/responses/colors_response.dart';
@@ -73,7 +75,7 @@ abstract class RemoteDataSource {
   Future<BasicResponse> calculateInsurancePrice(
       CalculateInsurancePriceRequest request);
 
-  Future<BasicResponse> issueInsurance(IssueInsuranceRequest request);
+  Future<IssueInsuranceResponse> issueInsurance(IssueInsuranceRequest request);
 
   Future<BasicResponse> deactivate();
 
@@ -108,4 +110,7 @@ abstract class RemoteDataSource {
   Future<BasicResponse> sendVerifyPhoneOtp(String phone);
 
   Future<BasicResponse> countCompanies();
+
+  Future<InstallmentsResponse> getInsuranceInstallments(
+      GetInsuranceInstallmentsRequest request);
 }

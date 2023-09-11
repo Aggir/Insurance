@@ -2,7 +2,7 @@ part of 'payment_cubit.dart';
 
 class PaymentState extends Equatable {
   final PaymentMethod? paymentMethod;
-  final int? insuranceId;
+  final InsuranceEntity? insurance;
 
   final String? phoneNumber;
   final Status sendOtpStatus;
@@ -13,9 +13,12 @@ class PaymentState extends Equatable {
   final bool isResendButtonActive;
   final Status paymentStatus;
   final String? paymentErrorMessage;
+  final Status getInsuranceInstallmentsStatus;
+  final String? getInsuranceInstallmentsErrorMessage;
+  final InsuranceInstallmentsEntity? insuranceInstallments;
   const PaymentState({
     this.paymentMethod,
-    this.insuranceId,
+    this.insurance,
     this.phoneNumber,
     this.sendOtpStatus = Status.initial,
     this.sendOtpError,
@@ -25,11 +28,14 @@ class PaymentState extends Equatable {
     this.isResendButtonActive = false,
     this.paymentStatus = Status.initial,
     this.paymentErrorMessage,
+    this.getInsuranceInstallmentsStatus = Status.initial,
+    this.getInsuranceInstallmentsErrorMessage,
+    this.insuranceInstallments,
   });
 
   PaymentState copyWith({
     PaymentMethod? paymentMethod,
-    int? insuranceId,
+    InsuranceEntity? insurance,
     String? phoneNumber,
     Status? sendOtpStatus,
     String? sendOtpError,
@@ -39,10 +45,13 @@ class PaymentState extends Equatable {
     bool? isResendButtonActive,
     Status? paymentStatus,
     String? paymentErrorMessage,
+    Status? getInsuranceInstallmentsStatus,
+    String? getInsuranceInstallmentsErrorMessage,
+    InsuranceInstallmentsEntity? insuranceInstallments,
   }) {
     return PaymentState(
       paymentMethod: paymentMethod ?? this.paymentMethod,
-      insuranceId: insuranceId ?? this.insuranceId,
+      insurance: insurance ?? this.insurance,
       phoneNumber: phoneNumber ?? this.phoneNumber,
       sendOtpStatus: sendOtpStatus ?? this.sendOtpStatus,
       sendOtpError: sendOtpError ?? this.sendOtpError,
@@ -53,6 +62,13 @@ class PaymentState extends Equatable {
       isResendButtonActive: isResendButtonActive ?? this.isResendButtonActive,
       paymentStatus: paymentStatus ?? this.paymentStatus,
       paymentErrorMessage: paymentErrorMessage ?? this.paymentErrorMessage,
+      getInsuranceInstallmentsStatus:
+          getInsuranceInstallmentsStatus ?? this.getInsuranceInstallmentsStatus,
+      getInsuranceInstallmentsErrorMessage:
+          getInsuranceInstallmentsErrorMessage ??
+              this.getInsuranceInstallmentsErrorMessage,
+      insuranceInstallments:
+          insuranceInstallments ?? this.insuranceInstallments,
     );
   }
 
@@ -60,7 +76,7 @@ class PaymentState extends Equatable {
   List<Object?> get props {
     return [
       paymentMethod,
-      insuranceId,
+      insurance,
       phoneNumber,
       sendOtpStatus,
       sendOtpError,
@@ -70,6 +86,9 @@ class PaymentState extends Equatable {
       isResendButtonActive,
       paymentStatus,
       paymentErrorMessage,
+      getInsuranceInstallmentsStatus,
+      getInsuranceInstallmentsErrorMessage,
+      insuranceInstallments,
     ];
   }
 }

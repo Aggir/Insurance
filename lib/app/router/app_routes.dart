@@ -465,7 +465,7 @@ class AppRoutes {
       return MyInsurancesPage(
         pageIndex: extraParams?.pageIndex,
         isPaymentModelShown: extraParams?.isPaymentModalShown,
-        selectedInsuranceId: extraParams?.selectedInsuranceId,
+        selectedInsurance: extraParams?.selectedInsurance,
       );
     },
   );

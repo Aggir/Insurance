@@ -216,13 +216,15 @@ class InsuranceListItem extends StatelessWidget {
           context: context,
           shape: AppValues.modalShape,
           isScrollControlled: true,
-          builder: (context) => PaymentMethodModal(insurance.id),
+          builder: (context) => PaymentMethodModal(insurance),
         );
       };
     } else if (insurance.insuranceTypeStatus.isIssued) {
       onPressed = () {
-        context.go("${AppScreen.insuranceDocument.toPath}${insurance.ref}",
-            extra: InsuranceDocumentParameters(insurance.ref, insurance.file));
+        context.go(
+            "${AppScreen.insuranceDocument.toPath}${insurance.ref.isEmpty ? "1" : insurance.ref}",
+            extra: InsuranceDocumentParameters(
+                insurance.ref.isEmpty ? '1' : insurance.ref, insurance.file));
       };
     }
     if (insurance.insuranceTypeStatus.isUnderProcessing) {
