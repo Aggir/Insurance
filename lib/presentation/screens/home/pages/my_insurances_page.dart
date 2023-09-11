@@ -78,7 +78,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-            onWillPop: () async {
+      onWillPop: () async {
         context.go(AppScreen.home.toPath);
         return false;
       },
@@ -140,7 +140,8 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _underProcessing(MyInsurancesState state) {
-    if (state.fetchInsurancesStatus.isLoading) {
+    if (state.fetchInsurancesStatus.isLoading &&
+        state.processingInsurances == null) {
       return Center(
         child: CircularProgressIndicator(
           color: AppColors.primary,
@@ -158,7 +159,8 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _issued(MyInsurancesState state) {
-    if (state.fetchInsurancesStatus.isLoading) {
+    if (state.fetchInsurancesStatus.isLoading &&
+        state.activeInsurances == null) {
       return Center(
         child: CircularProgressIndicator(
           color: AppColors.primary,
@@ -175,7 +177,8 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _notPaid(MyInsurancesState state) {
-    if (state.fetchInsurancesStatus.isLoading) {
+    if (state.fetchInsurancesStatus.isLoading &&
+        state.notPaidInsurances == null) {
       return Center(
         child: CircularProgressIndicator(
           color: AppColors.primary,
@@ -192,7 +195,8 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
   }
 
   Widget _expired(MyInsurancesState state) {
-    if (state.fetchInsurancesStatus.isLoading) {
+    if (state.fetchInsurancesStatus.isLoading &&
+        state.expiredInsurances == null) {
       return Center(
         child: CircularProgressIndicator(
           color: AppColors.primary,

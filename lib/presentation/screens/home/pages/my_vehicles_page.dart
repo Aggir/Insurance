@@ -93,14 +93,13 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
     final cubit = BlocProvider.of<MyVehiclesCubit>(context);
     return BlocBuilder<MyVehiclesCubit, MyVehiclesState>(
       builder: (context, state) {
-        if (state.fetchMyVehiclesStatus.isLoading) {
+        if (state.fetchMyVehiclesStatus.isLoading && state.myVehicles == null) {
           return Center(
             child: CircularProgressIndicator(
               color: AppColors.primary,
             ),
           );
-        } else if (state.fetchMyVehiclesStatus.isSuccess &&
-            state.myVehicles!.isNotEmpty) {
+        } else if (state.myVehicles!.isNotEmpty) {
           return Stack(
             children: [
               ListView.separated(

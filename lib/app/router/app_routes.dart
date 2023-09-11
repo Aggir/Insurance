@@ -462,7 +462,6 @@ class AppRoutes {
           state.extra is MyInsurancesPageParameters
               ? state.extra as MyInsurancesPageParameters
               : null;
-
       return MyInsurancesPage(
         pageIndex: extraParams?.pageIndex,
         isPaymentModelShown: extraParams?.isPaymentModalShown,

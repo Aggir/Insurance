@@ -8,6 +8,8 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
+import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
+import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -69,9 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
           onTap: (value) {
             if (value == 0) {
               context.go(AppScreen.home.toPath);
-            } else {
-              widget.child.goBranch(value);
+              return;
+            } else if (value == 1) {
+              BlocProvider.of<MyVehiclesCubit>(context).init();
+            } else if (value == 2) {
+              BlocProvider.of<MyInsurancesCubit>(context).init();
             }
+            widget.child.goBranch(value);
           },
           items: _navBarItems
               .map((item) => navBarItem(
