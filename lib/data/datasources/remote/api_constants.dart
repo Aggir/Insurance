@@ -27,6 +27,7 @@ class ApiConstants {
   static const String resetPassword = '/reset_password';
   static const String validateResetOtp = '/validate_reset_otp';
   static const String sendPhoneOtp = '/send_phone_otp';
+  static const String confirmEmail = '/confirm_email';
   // Vehicle
   static const String vehicleBrands = '/vehicle_brands';
   static const String vehicleCountries = '/vehicle_countries';

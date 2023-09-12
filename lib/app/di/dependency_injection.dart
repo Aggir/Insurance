@@ -21,6 +21,7 @@ import 'package:insurance_app/domain/usecases/check_national_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_proof_id_usecase.dart';
 import 'package:insurance_app/domain/usecases/check_user_info.dart';
 import 'package:insurance_app/domain/usecases/compare_companies_prices_usecase.dart';
+import 'package:insurance_app/domain/usecases/confirm_email_usecase.dart';
 import 'package:insurance_app/domain/usecases/count_unseen_notifications_usecase.dart';
 import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
@@ -408,5 +409,12 @@ void initGetInsuranceInstallments() async {
   if (!GetIt.I.isRegistered<GetInsuranceInstallmentsUsecase>()) {
     instance.registerFactory<GetInsuranceInstallmentsUsecase>(
         () => GetInsuranceInstallmentsUsecase(instance<InsuranceRepository>()));
+  }
+}
+
+void initConfirmEmail() async {
+  if (!GetIt.I.isRegistered<ConfirmEmailUsecase>()) {
+    instance.registerFactory<ConfirmEmailUsecase>(
+        () => ConfirmEmailUsecase(instance<UserRepository>()));
   }
 }

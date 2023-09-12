@@ -90,27 +90,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height -
-                AppValues.appBarHeight.r -
-                AppSizes.s30.r,
-            padding: const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
-            width: double.infinity,
-            child: Column(children: [
-              CustomSpacers.large(),
-              _profileMainInfo(),
-              CustomSpacers.extraLarge(),
-              BlocBuilder<ProfileCubit, ProfileState>(
-                builder: (context, state) {
-                  if (state.isEditing) {
-                    return const ProfileEditingState();
-                  } else {
-                    return const ProfileDetailsState();
-                  }
-                },
-              )
-            ]),
+        body: RefreshIndicator(
+          onRefresh: () =>
+              BlocProvider.of<UserCubit>(context).refreshUserData(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Container(
+              height: MediaQuery.of(context).size.height -
+                  AppValues.appBarHeight.r -
+                  AppSizes.s30.r,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: AppValues.medium).r,
+              width: double.infinity,
+              child: Column(children: [
+                CustomSpacers.large(),
+                _profileMainInfo(),
+                CustomSpacers.extraLarge(),
+                BlocBuilder<ProfileCubit, ProfileState>(
+                  builder: (context, state) {
+                    if (state.isEditing) {
+                      return const ProfileEditingState();
+                    } else {
+                      return const ProfileDetailsState();
+                    }
+                  },
+                )
+              ]),
+            ),
           ),
         ),
       ),

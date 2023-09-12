@@ -113,4 +113,6 @@ abstract class RemoteDataSource {
 
   Future<InstallmentsResponse> getInsuranceInstallments(
       GetInsuranceInstallmentsRequest request);
+
+  Future<BasicResponse> confirmEmail();
 }

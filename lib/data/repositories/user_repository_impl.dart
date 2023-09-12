@@ -179,4 +179,17 @@ class UserRepositoryImpl extends UserRepository {
       return const Right(null);
     }
   }
+
+  @override
+  Future<Either<Failure, void>> confirmEmail() async {
+    final response = await _remoteDataSource.confirmEmail();
+    if (response.data == null) {
+      return Left(Failure(
+        response.code ?? 0,
+        response.message ?? AppStrings.genericError.tr(),
+      ));
+    } else {
+      return const Right(null);
+    }
+  }
 }

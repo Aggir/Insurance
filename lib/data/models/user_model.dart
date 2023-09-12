@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'package:insurance_app/app/constants.dart';
 
 class UserModel extends Equatable {
@@ -145,6 +146,6 @@ class UserModel extends Equatable {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, firstName: $firstName, fatherName: $fatherName, lastName: $lastName, email: $email, phone: $phone, photo: $photo, dateOfBirth: $dateOfBirth, gender: $gender, proofType: $proofType, isActive: $isActive, isLibyan: $isLibyan, proofFile: $proofFile, proofId: $proofId, proofIssuePlace: $proofIssuePlace, proofIssueDate: $proofIssueDate, proofExpirationDate: $proofExpirationDate, nationalId: $nationalId, nationalFile: $nationalFile, emailVerifiedAt: $emailVerifiedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(id: $id, uniqueId: $uniqueId, firstName: $firstName, fatherName: $fatherName, lastName: $lastName, email: $email, phone: $phone, phoneCode: $phoneCode, photo: $photo, dateOfBirth: $dateOfBirth, gender: $gender, proofType: $proofType, isActive: $isActive, isLibyan: $isLibyan, proofFile: $proofFile, proofId: $proofId, proofIssuePlace: $proofIssuePlace, proofIssueDate: $proofIssueDate, proofExpirationDate: $proofExpirationDate, nationalId: $nationalId, nationalFile: $nationalFile, emailVerifiedAt: $emailVerifiedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }

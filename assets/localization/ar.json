@@ -312,5 +312,10 @@
     "unauthenticated": "تم تسجيل خروجك.",
     "wrong_otp": "رقم التحقق غير صحيح٫",
     "otp_sent_successfully": "تم إعادة ارسال رقم التحقق بنجاح٫",
-    "invalid_email": "الرجاء ادخال بريد الكتروني صحيح"
+    "invalid_email": "الرجاء ادخال بريد الكتروني صحيح",
+    "your_email_address_has_not_been_verified" : "لم يتم تأكيد بريدك الإلكتروني بعد.",
+    "we_have_sent_you_an_email_with_link_to_verify_your_email": "لقد ارسلنا رسالة على البريد الالكتروني تحتوي إلى رابط التأكيد، الرجاء التحقق من بريدك الإلكتروني.",
+    "did_not_receive_the_confirmation_link": "لم تستلم رابط التأكيد بعد؟",
+    "send_again": "إعادة الإرسال",
+    "send_email_confirmation_link_success": "تم ارسال رابط التأكيد الى بريدك الإلكتروني بنجاح."
 }

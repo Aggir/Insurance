@@ -10,6 +10,7 @@ import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
+import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
@@ -76,6 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
               BlocProvider.of<MyVehiclesCubit>(context).init();
             } else if (value == 2) {
               BlocProvider.of<MyInsurancesCubit>(context).init();
+            } else if (value == 3) {
+              final cubit = BlocProvider.of<UserCubit>(context);
+              if (cubit.state.user?.emailVerifiedAt.isEmpty ?? true) {
+                cubit.refreshUserData();
+              }
             }
             widget.child.goBranch(value);
           },

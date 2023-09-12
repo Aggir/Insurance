@@ -148,6 +148,16 @@ class AppStrings {
   static const userId = 'user_id';
   static const nationality = 'nationality';
 
+  static const yourEmailAddressHasNotBeenVerified =
+      'your_email_address_has_not_been_verified';
+  static const weHaveSentYouAnEmailWithLinkToVerifyYourEmail =
+      'we_have_sent_you_an_email_with_link_to_verify_your_email';
+  static const didNotReceiveTheConfirmationLink =
+      'did_not_receive_the_confirmation_link';
+  static const sendAgain = 'send_again';
+  static const sendEmailConfirmationLinkSuccess =
+      'send_email_confirmation_link_success';
+
   static const editMyAccount = 'edit_my_account';
   static const save = 'save';
 

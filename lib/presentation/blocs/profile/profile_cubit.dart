@@ -47,7 +47,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   selectPhoneCode(String phoneCode) {
-    print(phoneCode);
     emit(state.copyWith(phoneCode: phoneCode));
   }
 

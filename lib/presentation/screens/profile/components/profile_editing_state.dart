@@ -90,6 +90,7 @@ class ProfileEditingState extends StatelessWidget {
                   CustomTextFormField(
                     hintText: AppStrings.emailAddress.tr(),
                     controller: cubit.emailController,
+                    enabled: false,
                   ),
                   CustomSpacers.medium(),
                   BlocBuilder<ProfileCubit, ProfileState>(

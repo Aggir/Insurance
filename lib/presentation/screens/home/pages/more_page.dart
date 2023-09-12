@@ -21,9 +21,14 @@ import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 import '../../../../app/router/routes.dart';
 import '../../../widgets/snackBars.dart';
 
-class MorePage extends StatelessWidget {
+class MorePage extends StatefulWidget {
   const MorePage({super.key});
 
+  @override
+  State<MorePage> createState() => _MorePageState();
+}
+
+class _MorePageState extends State<MorePage> {
   void _profileWidgetFunction(BuildContext context) {
     context.go(AppScreen.profile.toPath);
   }
@@ -44,6 +49,15 @@ class MorePage extends StatelessWidget {
     final cubit = BlocProvider.of<UserCubit>(context);
     DialogService.loadLoadingDialog(context);
     cubit.logout();
+  }
+
+  @override
+  void initState() {
+    final cubit = BlocProvider.of<UserCubit>(context);
+    if (cubit.state.user?.emailVerifiedAt.isEmpty ?? true) {
+      cubit.refreshUserData();
+    }
+    super.initState();
   }
 
   @override
@@ -152,70 +166,113 @@ class MorePage extends StatelessWidget {
                 .r,
             child: BlocBuilder<UserCubit, UserState>(
               builder: (context, state) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                          height: AppSizes.s64.r,
-                          width: AppSizes.s64.r,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryLight,
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          clipBehavior: Clip.antiAlias,
-                          child: state.user != null
-                              ? state.user!.imageUrl.isNotEmpty
-                                  ? CachedNetworkImage(
-                                      cacheKey: state.user?.updatedAt,
-                                      imageUrl: state.user!.imageUrl,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Center(
-                                      child: Text(
-                                        state.user!.firstName[0],
-                                        style: boldBlackLargeStyle(),
-                                      ),
-                                    )
-                              : Container(),
-                        ),
-                        CustomSpacers.medium(),
-                        SizedBox(
-                          width: AppSizes.s200.r,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${state.user?.firstName} ${state.user?.fatherName} ${state.user?.lastName}',
-                                style: smallHeadlineStyle(),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
+                        Row(
+                          children: [
+                            Stack(
+                              children: [
+                                Container(
+                                  height: AppSizes.s64.r,
+                                  width: AppSizes.s64.r,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primaryLight,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  clipBehavior: Clip.antiAlias,
+                                  child: state.user != null
+                                      ? state.user!.imageUrl.isNotEmpty
+                                          ? CachedNetworkImage(
+                                              cacheKey: state.user?.updatedAt,
+                                              imageUrl: state.user!.imageUrl,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Center(
+                                              child: Text(
+                                                state.user!.firstName[0],
+                                                style: boldBlackLargeStyle(),
+                                              ),
+                                            )
+                                      : Container(),
+                                ),
+                                Positioned.directional(
+                                  textDirection: Directionality.of(context),
+                                  start: AppSizes.s2.r,
+                                  bottom: AppSizes.s2.r,
+                                  child: Container(
+                                    height: AppSizes.s16.r,
+                                    width: AppSizes.s16.r,
+                                    decoration: BoxDecoration(
+                                      color: (state.user?.emailVerifiedAt
+                                                  .isEmpty ??
+                                              true)
+                                          ? AppColors.primary
+                                          : AppColors.secondary,
+                                      borderRadius: BorderRadius.circular(100),
+                                    ),
+                                    child: Icon(
+                                      (state.user?.emailVerifiedAt.isEmpty ??
+                                              true)
+                                          ? Icons.priority_high_rounded
+                                          : Icons.check,
+                                      size: AppSizes.s12.r,
+                                      color: AppColors.white,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                            CustomSpacers.medium(),
+                            SizedBox(
+                              width: AppSizes.s200.r,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    AppStrings.userId.tr(),
-                                    style: smallGrayBodyStyle(),
+                                    '${state.user?.firstName} ${state.user?.fatherName} ${state.user?.lastName}',
+                                    style: smallHeadlineStyle(),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  Text(
-                                    state.user?.uniqueId.toString() ??
-                                        Constants.empty,
-                                    style: extraSmallHeadlineStyle(),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        AppStrings.userId.tr(),
+                                        style: smallGrayBodyStyle(),
+                                      ),
+                                      Text(
+                                        state.user?.uniqueId.toString() ??
+                                            Constants.empty,
+                                        style: extraSmallHeadlineStyle(),
+                                      ),
+                                    ],
                                   ),
+                                  if (state.user?.emailVerifiedAt.isEmpty ??
+                                      true)
+                                    Text(
+                                      AppStrings
+                                          .yourEmailAddressHasNotBeenVerified
+                                          .tr(),
+                                      style: smallGrayBodyStyle()
+                                          .copyWith(color: AppColors.danger),
+                                    ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
+                        SvgPicture.asset(
+                          SvgAssets.chevronLeft,
+                          height: AppSizes.s22.r,
+                          width: AppSizes.s22.r,
+                          colorFilter:
+                              ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                         ),
                       ],
-                    ),
-                    SvgPicture.asset(
-                      SvgAssets.chevronLeft,
-                      height: AppSizes.s22.r,
-                      width: AppSizes.s22.r,
-                      colorFilter:
-                          ColorFilter.mode(AppColors.gray, BlendMode.srcIn),
                     ),
                   ],
                 );

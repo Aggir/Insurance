@@ -35,5 +35,6 @@ extension UserModelExtension on UserModel? {
           dateOfBirth: this!.dateOfBirth ?? Constants.empty,
           gender: this!.gender.toGender(),
           updatedAt: this!.updatedAt ?? Constants.empty,
+          emailVerifiedAt: this!.emailVerifiedAt ?? Constants.empty,
         );
 }

@@ -9,6 +9,7 @@ import 'package:insurance_app/domain/data_classes/national_document.dart';
 import 'package:insurance_app/domain/data_classes/proof_document.dart';
 import 'package:insurance_app/domain/entities/signup_user_info.dart';
 import 'package:insurance_app/domain/entities/user.dart';
+import 'package:insurance_app/domain/usecases/confirm_email_usecase.dart';
 import 'package:insurance_app/domain/usecases/deactivate_usecase.dart';
 import 'package:insurance_app/domain/usecases/edit_profile_usecase.dart';
 import 'package:insurance_app/domain/usecases/is_logged_in_usecase.dart';
@@ -160,6 +161,42 @@ class UserCubit extends Cubit<UserState> {
       },
       (data) {
         emit(const UserState());
+      },
+    );
+  }
+
+  void confirmEmail() async {
+    emit(state.copyWith(confirmEmailStatus: Status.loading));
+    initConfirmEmail();
+    (await instance<ConfirmEmailUsecase>().execute(null)).fold(
+      (failure) {
+        emit(state.copyWith(
+          confirmEmailStatus: Status.failure,
+          confirmEmailErrorMessage: failure.message,
+        ));
+      },
+      (data) {
+        emit(state.copyWith(confirmEmailStatus: Status.success));
+      },
+    );
+  }
+
+  refreshUserData() async {
+    emit(state.copyWith(
+      refreshUserDataStatus: Status.loading,
+    ));
+    initIsLoggedIn();
+    (await instance<IsLoggedInUsecase>().execute(null)).fold(
+      (failure) {
+        emit(state.copyWith(
+            refreshUserDataStatus: Status.failure,
+            refreshUserDataErrorMessage: failure.message));
+      },
+      (data) {
+        emit(state.copyWith(
+          refreshUserDataStatus: Status.success,
+          user: data,
+        ));
       },
     );
   }

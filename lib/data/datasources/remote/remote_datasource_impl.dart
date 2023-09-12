@@ -144,7 +144,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<UserResponse> signUp(SignUpRequest request) async {
     try {
       final body = await request.toMap();
-      print(body);
       Response response = await _dio.post(
         ApiConstants.signup,
         data: FormData.fromMap(body),
@@ -155,20 +154,16 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
-      print(response.data);
-
       final userResponse =
           UserResponse.fromMap(response.data as Map<String, dynamic>);
       _appService.token = userResponse.token ?? Constants.empty;
       return (userResponse);
     } on DioException catch (error) {
-      print(error.response?.data);
       _checkTokenValidation(error);
       return UserResponse(
           code: error.response?.statusCode,
           message: ApiErrorHandler.auth(error));
     } catch (err) {
-      print(err);
       return UserResponse(message: AppStrings.genericError.tr());
     }
   }
@@ -344,7 +339,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BasicResponse> addVehicle(AddVehicleRequest request) async {
     try {
       final body = await request.toMap();
-      print(body);
       var response = await _dio.post(ApiConstants.vehicles,
           data: FormData.fromMap(body),
           options: _bearerToken(_appService.token, header: {
@@ -375,7 +369,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           },
         ),
       );
-      print(response.data);
       final userResponse = UserResponse.fromMap({'user': response.data});
       return userResponse;
     } on DioException catch (error) {
@@ -481,7 +474,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BasicResponse> calculateInsurancePriceByVehicle(
       CalculateInsurancePriceByVehicleRequest request) async {
     final body = request.toMap();
-    print(body);
     try {
       var response = await _dio.get(
         ApiConstants.calculateInsurancePriceByVehicle,
@@ -883,6 +875,24 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           message: ApiErrorHandler.generic(error));
     } catch (error) {
       return InstallmentsResponse(message: AppStrings.genericError.tr());
+    }
+  }
+
+  @override
+  Future<BasicResponse> confirmEmail() async {
+    try {
+      final response = await _dio.get(
+        ApiConstants.confirmEmail,
+        options: _bearerToken(_appService.token),
+      );
+      return BasicResponse(data: response);
+    } on DioException catch (error) {
+      _checkTokenValidation(error);
+      return BasicResponse(
+          code: error.response?.statusCode,
+          message: ApiErrorHandler.generic(error));
+    } catch (error) {
+      return BasicResponse(message: AppStrings.genericError.tr());
     }
   }
 }

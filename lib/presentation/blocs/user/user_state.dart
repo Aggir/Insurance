@@ -13,6 +13,10 @@ class UserState extends Equatable {
   final Status deactivateStatus;
   final String? deactivateErrorMessage;
   final bool isFirstLogin;
+  final Status confirmEmailStatus;
+  final String? confirmEmailErrorMessage;
+  final Status refreshUserDataStatus;
+  final String? refreshUserDataErrorMessage;
 
   const UserState({
     this.user,
@@ -27,6 +31,10 @@ class UserState extends Equatable {
     this.deactivateStatus = Status.initial,
     this.deactivateErrorMessage,
     this.isFirstLogin = false,
+    this.confirmEmailStatus = Status.initial,
+    this.confirmEmailErrorMessage,
+    this.refreshUserDataStatus = Status.initial,
+    this.refreshUserDataErrorMessage,
   });
 
   @override
@@ -43,6 +51,10 @@ class UserState extends Equatable {
         deactivateStatus,
         deactivateErrorMessage,
         isFirstLogin,
+        confirmEmailStatus,
+        confirmEmailErrorMessage,
+        refreshUserDataStatus,
+        refreshUserDataErrorMessage,
       ];
 
   UserState copyWith({
@@ -58,6 +70,10 @@ class UserState extends Equatable {
     Status? deactivateStatus,
     String? deactivateErrorMessage,
     bool? isFirstLogin,
+    Status? confirmEmailStatus,
+    String? confirmEmailErrorMessage,
+    Status? refreshUserDataStatus,
+    String? refreshUserDataErrorMessage,
   }) {
     return UserState(
       user: user ?? this.user,
@@ -75,6 +91,18 @@ class UserState extends Equatable {
       editProfileErrorMessage:
           editProfileErrorMessage ?? this.editProfileErrorMessage,
       isFirstLogin: isFirstLogin ?? this.isFirstLogin,
+      confirmEmailStatus: confirmEmailStatus ?? this.confirmEmailStatus,
+      confirmEmailErrorMessage:
+          confirmEmailErrorMessage ?? this.confirmEmailErrorMessage,
+      refreshUserDataStatus:
+          refreshUserDataStatus ?? this.refreshUserDataStatus,
+      refreshUserDataErrorMessage:
+          refreshUserDataErrorMessage ?? this.refreshUserDataErrorMessage,
     );
+  }
+
+  @override
+  String toString() {
+    return 'UserState(user: ${user != null}, authStatus: $authStatus, authErrorMessage: $authErrorMessage, checkTokenStatus: $checkTokenStatus, checkTokenErrorMessage: $checkTokenErrorMessage, logoutStatus: $logoutStatus, logoutErrorMessage: $logoutErrorMessage, editProfileStatus: $editProfileStatus, editProfileErrorMessage: $editProfileErrorMessage, deactivateStatus: $deactivateStatus, deactivateErrorMessage: $deactivateErrorMessage, isFirstLogin: $isFirstLogin, confirmEmailStatus: $confirmEmailStatus, confirmEmailErrorMessage: $confirmEmailErrorMessage, refreshUserDataStatus: $refreshUserDataStatus, refreshUserDataErrorMessage: $refreshUserDataErrorMessage)';
   }
 }

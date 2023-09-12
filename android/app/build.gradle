@@ -69,4 +69,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//    implementation files('libs/Numo-Android-SDK-main')
+    // implementation 'com.github.payskyCompany:NUMO-PayButton-SDK-android:1.0.8'
 }
+// repositories {
+//     flatDir {
+// dirs 'libs' }
+// }

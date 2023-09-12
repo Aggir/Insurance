@@ -17,6 +17,7 @@ class UserEntity extends Equatable {
   final String dateOfBirth;
   final Gender gender;
   final String updatedAt;
+  final String emailVerifiedAt;
 
   const UserEntity({
     required this.userId,
@@ -32,6 +33,7 @@ class UserEntity extends Equatable {
     required this.dateOfBirth,
     required this.gender,
     required this.updatedAt,
+    required this.emailVerifiedAt,
   });
 
   factory UserEntity.empty() => const UserEntity(
@@ -48,6 +50,7 @@ class UserEntity extends Equatable {
         isLibyan: true,
         gender: Gender.male,
         updatedAt: Constants.empty,
+        emailVerifiedAt: Constants.empty,
       );
 
   @override
@@ -65,6 +68,7 @@ class UserEntity extends Equatable {
         dateOfBirth,
         gender,
         updatedAt,
+        emailVerifiedAt,
       ];
 
   @override

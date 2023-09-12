@@ -33,4 +33,6 @@ abstract class UserRepository {
   Future<Either<Failure, void>> resetPassword(ResetPasswordRequest input);
 
   Future<Either<Failure, void>> sendVerifyPhoneOtp(String phone);
+
+  Future<Either<Failure, void>> confirmEmail();
 }
