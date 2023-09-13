@@ -72,7 +72,7 @@ class _InstallmentsAmountState extends State<InstallmentsAmountModal> {
                   DialogService.loadLoadingDialog(context);
                   BlocProvider.of<PaymentCubit>(context).pay();
                 },
-                child: Text(AppStrings.next.tr()),
+                child: Text(AppStrings.pay.tr()),
               ),
               CustomSpacers.large(),
             ]

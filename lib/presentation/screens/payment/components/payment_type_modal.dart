@@ -10,7 +10,7 @@ import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 import 'package:insurance_app/presentation/screens/payment/components/installments_amount_modal.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../theme/app_colors.dart';

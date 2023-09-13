@@ -21,7 +21,7 @@ import '../../../widgets/identity_verification_image.dart';
 import '../../../widgets/page_content_padding.dart';
 import '../../../widgets/primary_button.dart';
 import '../../../widgets/select_document.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class AddMyVehiclePictureStepPage extends StatefulWidget {
   const AddMyVehiclePictureStepPage({super.key});

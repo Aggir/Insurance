@@ -19,7 +19,7 @@ import '../../../widgets/custom_text_form_field.dart';
 import '../../../widgets/dialog_service.dart';
 import '../../../widgets/primary_button.dart';
 import '../../../widgets/identity_verification_image.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 import '../components/signup_footer_row.dart';
 import '../../../widgets/select_document.dart';
 

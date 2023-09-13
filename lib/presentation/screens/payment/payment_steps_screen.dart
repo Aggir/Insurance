@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/enums/payment_method_enum.dart';
 import 'package:insurance_app/app/router/app_routes.dart';
 import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
 
@@ -39,13 +40,22 @@ class _PaymentStepsScreenState extends State<PaymentStepsScreen> {
         goBack();
         return false;
       },
-      child: Scaffold(
-        appBar: CustomAppBar.steps(
-          currentIndex: widget.child.currentIndex,
-          pageCount: AppRoutes.paymentBranchesCount,
-          backButton: CustomBackButton(onTap: goBack),
-        ),
-        body: widget.child,
+      child: BlocBuilder<PaymentCubit, PaymentState>(
+        builder: (context, state) {
+          return Scaffold(
+            appBar: (state.paymentMethod?.isMoamalat ?? false)
+                ? CustomAppBar.basic(
+                    title: '',
+                    backButton: goBack,
+                  )
+                : CustomAppBar.steps(
+                    currentIndex: widget.child.currentIndex,
+                    pageCount: AppRoutes.paymentBranchesCount,
+                    backButton: CustomBackButton(onTap: goBack),
+                  ),
+            body: widget.child,
+          );
+        },
       ),
     );
   }

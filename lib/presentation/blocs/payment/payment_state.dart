@@ -1,7 +1,7 @@
 part of 'payment_cubit.dart';
 
 class PaymentState extends Equatable {
-  final PaymentMethod? paymentMethod;
+  final PaymentMethodEnum? paymentMethod;
   final InsuranceEntity? insurance;
 
   final String? phoneNumber;
@@ -34,7 +34,7 @@ class PaymentState extends Equatable {
   });
 
   PaymentState copyWith({
-    PaymentMethod? paymentMethod,
+    PaymentMethodEnum? paymentMethod,
     InsuranceEntity? insurance,
     String? phoneNumber,
     Status? sendOtpStatus,

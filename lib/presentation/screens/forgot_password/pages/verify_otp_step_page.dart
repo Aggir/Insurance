@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 import 'package:pinput/pinput.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:insurance_app/app/enums/payment_method_enum.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 
 import 'package:insurance_app/presentation/blocs/payment/payment_cubit.dart';
+import 'package:insurance_app/presentation/screens/payment/components/moamalat_pyament.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 
@@ -57,54 +59,59 @@ class _PaymentSendOtpPageState extends State<PaymentSendOtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height -
-              AppValues.appBarHeight.r -
-              AppSizes.s30.r,
-          child: PageContentPadding(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // CustomSpacers.large(),
-                BlocBuilder<PaymentCubit, PaymentState>(
-                  builder: (context, state) {
-                    return Container(
-                      height: AppSizes.s104.r,
-                      width: AppSizes.s104.r,
-                      padding: const EdgeInsets.all(AppValues.medium).r,
-                      decoration: BoxDecoration(
-                        color: AppColors.lightest,
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: AppColors.grayLight),
-                      ),
-                      clipBehavior: Clip.antiAlias,
-                      child: Image.asset(
-                        state.paymentMethod!.imagePath,
-                      ),
-                    );
-                  },
-                ),
-                CustomSpacers.medium(),
-                CustomSpacers.small(),
-                _headlineTextWidget(),
-                CustomSpacers.medium(),
-                _bodyTextWidget(),
-                CustomSpacers.large(),
-                _form(context),
-                const Spacer(),
-                _nextButton(context),
-                CustomSpacers.medium(),
-              ],
+    return BlocBuilder<PaymentCubit, PaymentState>(builder: (context, state) {
+      if (state.paymentMethod != null && state.paymentMethod!.isMoamalat) {
+        return const MoamalatPaymentMethod();
+      }
+      return GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height -
+                AppValues.appBarHeight.r -
+                AppSizes.s30.r,
+            child: PageContentPadding(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // CustomSpacers.large(),
+
+                  Container(
+                    height: AppSizes.s104.r,
+                    width: AppSizes.s104.r,
+                    padding: const EdgeInsets.all(AppValues.medium).r,
+                    decoration: BoxDecoration(
+                      color: AppColors.lightest,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: AppColors.grayLight),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: Image.asset(
+                      state.paymentMethod!.imagePath,
+                    ),
+                  ),
+
+                  CustomSpacers.medium(),
+                  CustomSpacers.small(),
+                  _headlineTextWidget(),
+                  CustomSpacers.medium(),
+                  _bodyTextWidget(),
+                  CustomSpacers.large(),
+                  _form(context),
+                  CustomSpacers.mediumLarge(),
+                  // Text(AppStrings.underProcessing.tr()),
+                  const Spacer(),
+                  _nextButton(context),
+                  CustomSpacers.medium(),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _headlineTextWidget() {
@@ -119,7 +126,7 @@ class _PaymentSendOtpPageState extends State<PaymentSendOtpPage> {
       builder: (context, state) {
         return Text(
           AppStrings.youHaveChosenThisPaymentMethod.tr() +
-              state.paymentMethod!.name,
+              state.paymentMethod!.toName,
           style: darkGrayBodyStyle(),
         );
       },

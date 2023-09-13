@@ -9,7 +9,7 @@ import 'package:insurance_app/presentation/blocs/change_password/change_password
 import 'package:insurance_app/presentation/screens/change_password/components/change_password_dialog.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../app/assets_manager.dart';
 import '../../theme/app_colors.dart';

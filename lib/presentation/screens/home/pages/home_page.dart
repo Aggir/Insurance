@@ -9,7 +9,6 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/app/services/moamalat_payment.dart';
 import 'package:insurance_app/presentation/blocs/home/home_cubit.dart';
 import 'package:insurance_app/presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
 import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
@@ -24,7 +23,7 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/router/routes.dart';
 import '../../../blocs/user/user_cubit.dart';
@@ -418,36 +417,31 @@ class _HomePageState extends State<HomePage> {
     String svgPath,
     String title,
   ) {
-    return InkWell(
-      onTap: () {
-        MoamalatPayment.getBatteryLevel();
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.lightGray,
-          boxShadow: [AppValues.innerShadow],
-          borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              svgPath,
-              height: AppSizes.s28.r,
-              width: AppSizes.s28.r,
-            ),
-            CustomSpacers.extraSmall(),
-            Text(
-              title,
-              style: smallGrayBodyStyle(),
-            ),
-            CustomSpacers.extraSmall(),
-            Text(
-              AppStrings.soon.tr(),
-              style: smallGrayBodyStyle(),
-            )
-          ],
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: AppColors.lightGray,
+        boxShadow: [AppValues.innerShadow],
+        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            svgPath,
+            height: AppSizes.s28.r,
+            width: AppSizes.s28.r,
+          ),
+          CustomSpacers.extraSmall(),
+          Text(
+            title,
+            style: smallGrayBodyStyle(),
+          ),
+          CustomSpacers.extraSmall(),
+          Text(
+            AppStrings.soon.tr(),
+            style: smallGrayBodyStyle(),
+          )
+        ],
       ),
     );
   }

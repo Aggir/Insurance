@@ -20,7 +20,7 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialog_service.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class AddMyVehicleDetailsStepTwoPage extends StatefulWidget {
   const AddMyVehicleDetailsStepTwoPage({super.key});

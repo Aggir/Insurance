@@ -10,7 +10,7 @@ import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';

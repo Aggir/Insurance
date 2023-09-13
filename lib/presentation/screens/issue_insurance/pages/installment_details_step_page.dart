@@ -13,7 +13,7 @@ import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'package:insurance_app/presentation/theme/styles_manager.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/router/routes.dart';

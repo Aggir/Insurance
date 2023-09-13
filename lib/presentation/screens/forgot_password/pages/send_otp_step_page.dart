@@ -9,7 +9,7 @@ import 'package:insurance_app/presentation/blocs/forgot_password/forgot_password
 import 'package:insurance_app/presentation/screens/forgot_password/components/forgot_password_footer_row.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';

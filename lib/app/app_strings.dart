@@ -220,6 +220,11 @@ class AppStrings {
       'choose_the_appropriate_payment_method';
   static const chooseThePaymentMethodThatSuitsYou =
       'choose_the_payment_method_that_suits_you';
+  static const mobicash = 'mobicash';
+  static const moamalat = 'moamalat';
+  static const tadawul = 'tadawul';
+  static const nab4pay = 'nab4pay';
+  static const sadad = 'sadad';
   static const paymentBy = 'payment_by';
   static const enterPhoneNumber = 'enter_phone_number';
   static const enterIdNumber = 'enter_id_number';
@@ -267,6 +272,8 @@ class AppStrings {
   static const selectTheVehicle = 'select_the_vehicle';
   static const startDate = 'start_date';
   static const endDate = 'end_date';
+  static const youDoNotHaveAnyUninsuredVehicles =
+      'you_do_not_have_any_uninsured_vehicles';
   static const installmentDetails = 'installment_details';
   static const netInstallment = 'net_installment';
   static const tax = 'tax';
@@ -367,6 +374,7 @@ class AppStrings {
   static const theInstallmentsWillBePaidThroughTheBankingApplication =
       'the_installments_will_be_paid_through_the_banking_application';
   static const ok = 'ok';
+  static const pay = 'pay';
 
   static const gender = 'gender';
   static const male = 'male';

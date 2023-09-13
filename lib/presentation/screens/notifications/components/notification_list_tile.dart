@@ -14,7 +14,7 @@ import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 class NotificationListTile extends StatelessWidget {
   const NotificationListTile(this.notification, {super.key});

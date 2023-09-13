@@ -20,7 +20,7 @@ import 'package:insurance_app/presentation/widgets/primary_button.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/custom_drop_down_field.dart';
 import '../../../widgets/dialog_service.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class AddMyVehicleUserInfoStepPage extends StatefulWidget {
   const AddMyVehicleUserInfoStepPage({super.key});

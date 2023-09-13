@@ -7,7 +7,7 @@ import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'package:insurance_app/presentation/widgets/pressable_text.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 import 'dart:ui' as ui;
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';
@@ -35,7 +35,7 @@ class ProfileDetailsState extends StatelessWidget {
               SvgAssets.envelope,
               AppStrings.emailAddress.tr(),
               state.user?.email ?? Constants.empty,
-              isEmailValid: state.user?.emailVerifiedAt.isNotEmpty ?? false,
+              isValid: state.user?.emailVerifiedAt.isNotEmpty ?? false,
             ),
             CustomSpacers.medium(),
             _infoCardWidget(
@@ -44,6 +44,7 @@ class ProfileDetailsState extends StatelessWidget {
               AppStrings.phoneNumber.tr(),
               '${state.user?.phoneCode}${state.user?.phone}',
               isLTR: true,
+              // isValid: true,
             ),
             CustomSpacers.medium(),
             _infoCardWidget(
@@ -70,11 +71,11 @@ class ProfileDetailsState extends StatelessWidget {
 
   Widget _infoCardWidget(
       BuildContext context, String svgPath, String title, String text,
-      {bool? isLTR, bool? isEmailValid}) {
+      {bool? isLTR, bool? isValid}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (isEmailValid != null && !isEmailValid) ...[
+        if (isValid != null && !isValid) ...[
           Text.rich(
             TextSpan(
               text: '${AppStrings.yourEmailAddressHasNotBeenVerified.tr()} ',
@@ -139,18 +140,16 @@ class ProfileDetailsState extends StatelessWidget {
                   ],
                 ),
               ),
-              if (isEmailValid != null)
+              if (isValid != null)
                 Container(
                   height: AppSizes.s16.r,
                   width: AppSizes.s16.r,
                   decoration: BoxDecoration(
-                    color: (!isEmailValid)
-                        ? AppColors.primary
-                        : AppColors.secondary,
+                    color: (!isValid) ? AppColors.primary : AppColors.secondary,
                     borderRadius: BorderRadius.circular(100),
                   ),
                   child: Icon(
-                    (!isEmailValid) ? Icons.priority_high_rounded : Icons.check,
+                    (!isValid) ? Icons.priority_high_rounded : Icons.check,
                     size: AppSizes.s12.r,
                     color: AppColors.white,
                   ),
@@ -158,7 +157,7 @@ class ProfileDetailsState extends StatelessWidget {
             ],
           ),
         ),
-        if (isEmailValid != null && !isEmailValid) ...[
+        if (isValid != null && !isValid) ...[
           CustomSpacers.small(),
           Row(
             children: [

@@ -8,7 +8,7 @@ import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../../app/assets_manager.dart';

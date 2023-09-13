@@ -14,7 +14,7 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 import 'package:pinput/pinput.dart';
 
 class SignUpOtpStepPage extends StatelessWidget {

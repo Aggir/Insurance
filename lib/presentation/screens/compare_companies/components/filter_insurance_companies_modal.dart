@@ -11,7 +11,7 @@ import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 import '../../../../app/app_strings.dart';
 import '../../../theme/app_theme.dart';
 import '../../../theme/text_style_manager.dart';

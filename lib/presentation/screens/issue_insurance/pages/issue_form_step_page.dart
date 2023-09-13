@@ -13,7 +13,7 @@ import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/presentation/widgets/custom_form_field_date_picker.dart';
 import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/assets_manager.dart';
 import '../../../../app/router/routes.dart';
@@ -39,58 +39,64 @@ class IssueFormStepPage extends StatelessWidget {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: SingleChildScrollView(
-        child: SizedBox(
-          height: MediaQuery.of(context).size.height -
-              AppValues.appBarHeight.r -
-              AppSizes.s30.r,
-          child: BlocListener<IssueInsuranceCubit, IssueInsuranceState>(
-            listenWhen: (previous, current) =>
-                previous.calculateInsurancePriceStatus !=
-                current.calculateInsurancePriceStatus,
-            listener: (context, state) {
-              if (state.calculateInsurancePriceStatus.isFailure) {
-                DialogService.dispose();
-                SnackBars.error(
-                    context, state.calculateInsurancePriceErrorMessage!);
-              } else if (state.calculateInsurancePriceStatus.isSuccess) {
-                DialogService.dispose();
-                context.go(AppScreen.issueInstallmentDetails.toPath);
-              }
-            },
-            child: PageContentPadding(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: AppSizes.s104.r,
-                    width: AppSizes.s104.r,
-                    decoration: BoxDecoration(
-                        color: AppColors.primaryLight,
-                        borderRadius: BorderRadius.circular(100),
-                        image: const DecorationImage(
-                            image: AssetImage(ImageAssets.issuing))),
+      child: LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: constraints.copyWith(
+              minHeight: constraints.maxHeight,
+              maxHeight: double.infinity,
+            ),
+            child: BlocListener<IssueInsuranceCubit, IssueInsuranceState>(
+              listenWhen: (previous, current) =>
+                  previous.calculateInsurancePriceStatus !=
+                  current.calculateInsurancePriceStatus,
+              listener: (context, state) {
+                if (state.calculateInsurancePriceStatus.isFailure) {
+                  DialogService.dispose();
+                  SnackBars.error(
+                      context, state.calculateInsurancePriceErrorMessage!);
+                } else if (state.calculateInsurancePriceStatus.isSuccess) {
+                  DialogService.dispose();
+                  context.go(AppScreen.issueInstallmentDetails.toPath);
+                }
+              },
+              child: PageContentPadding(
+                child: IntrinsicHeight(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: AppSizes.s104.r,
+                        width: AppSizes.s104.r,
+                        decoration: BoxDecoration(
+                            color: AppColors.primaryLight,
+                            borderRadius: BorderRadius.circular(100),
+                            image: const DecorationImage(
+                                image: AssetImage(ImageAssets.issuing))),
+                      ),
+                      CustomSpacers.mediumLarge(),
+                      Text(
+                        AppStrings.carsInsurancePolicy.tr(),
+                        style: largeHeadlineStyle(),
+                        textAlign: TextAlign.center,
+                      ),
+                      CustomSpacers.medium(),
+                      Text(
+                        AppStrings.carsInsurancePolicyDescription.tr(),
+                        style: darkGrayBodyStyle(),
+                        textAlign: TextAlign.center,
+                      ),
+                      CustomSpacers.extraLarge(),
+                      _formWidget(context),
+                      const Spacer(),
+                      CustomSpacers.medium(),
+                      PrimaryButton.fullWidth(
+                        onPressed: () => _nextButton(context),
+                        child: Text(AppStrings.next.tr()),
+                      )
+                    ],
                   ),
-                  CustomSpacers.mediumLarge(),
-                  Text(
-                    AppStrings.carsInsurancePolicy.tr(),
-                    style: largeHeadlineStyle(),
-                    textAlign: TextAlign.center,
-                  ),
-                  CustomSpacers.medium(),
-                  Text(
-                    AppStrings.carsInsurancePolicyDescription.tr(),
-                    style: darkGrayBodyStyle(),
-                    textAlign: TextAlign.center,
-                  ),
-                  CustomSpacers.extraLarge(),
-                  _formWidget(context),
-                  const Spacer(),
-                  PrimaryButton.fullWidth(
-                    onPressed: () => _nextButton(context),
-                    child: Text(AppStrings.next.tr()),
-                  )
-                ],
+                ),
               ),
             ),
           ),
@@ -152,6 +158,9 @@ class IssueFormStepPage extends StatelessWidget {
                     cubit.setSelectedVehicle(int.parse(value));
                   },
                   hintText: AppStrings.selectTheVehicle.tr(),
+                  disabledHint: state.fetchInsuranceFormDataStatus.isSuccess
+                      ? AppStrings.youDoNotHaveAnyUninsuredVehicles.tr()
+                      : null,
                   items: state.insuranceFormData == null
                       ? []
                       : state.insuranceFormData!.vehicles

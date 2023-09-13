@@ -7,7 +7,7 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/app/router/app_routes.dart';
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../app/router/routes.dart';
 import '../../widgets/custom_app_bar.dart';

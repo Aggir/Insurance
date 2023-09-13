@@ -14,7 +14,7 @@ import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_app_bar.dart';
 import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../widgets/dialog_service.dart';

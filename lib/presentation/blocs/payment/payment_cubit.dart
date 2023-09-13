@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
+import 'package:insurance_app/app/enums/payment_method_enum.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
 import 'package:insurance_app/domain/entities/insurance_installments.dart';
-import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/domain/usecases/get_insurance_installments_usecase.dart';
 import 'package:insurance_app/domain/usecases/pay_usecase.dart';
 

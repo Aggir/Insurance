@@ -10,7 +10,7 @@ import 'package:insurance_app/presentation/blocs/companies/companies_cubit.dart'
 import 'package:insurance_app/presentation/widgets/cupertino_switch_tile.dart';
 import 'package:insurance_app/presentation/widgets/custom_divider.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
-import 'package:insurance_app/presentation/widgets/snackBars.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/app_strings.dart';
 import '../../../theme/app_theme.dart';

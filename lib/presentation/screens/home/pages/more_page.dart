@@ -19,7 +19,7 @@ import 'package:insurance_app/presentation/widgets/dialog_service.dart';
 import 'package:insurance_app/presentation/widgets/secondary_button.dart';
 
 import '../../../../app/router/routes.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class MorePage extends StatefulWidget {
   const MorePage({super.key});

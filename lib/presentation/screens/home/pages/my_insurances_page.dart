@@ -49,7 +49,7 @@ class _MyInsurancesPageState extends State<MyInsurancesPage>
       length: 4,
       vsync: this,
     );
-    _currentIndex = ValueNotifier<String>(widget.pageIndex.toString());
+    _currentIndex = ValueNotifier<String>((widget.pageIndex ?? 0).toString());
     _currentIndex.addListener(() {
       _tabController.animateTo(int.parse(_currentIndex.value));
     });

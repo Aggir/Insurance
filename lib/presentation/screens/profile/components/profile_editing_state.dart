@@ -12,7 +12,7 @@ import '../../../widgets/custom_form_field_date_picker.dart';
 import '../../../widgets/custom_phone_form_field.dart';
 import '../../../widgets/custom_spacers.dart';
 import '../../../widgets/custom_text_form_field.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class ProfileEditingState extends StatelessWidget {
   const ProfileEditingState({super.key});

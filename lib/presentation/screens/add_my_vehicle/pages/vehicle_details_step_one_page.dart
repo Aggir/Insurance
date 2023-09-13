@@ -24,7 +24,7 @@ import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialog_service.dart';
-import '../../../widgets/snackBars.dart';
+import '../../../widgets/snackbars.dart';
 
 class AddMyVehicleDetailsStepOnePage extends StatefulWidget {
   const AddMyVehicleDetailsStepOnePage({super.key});

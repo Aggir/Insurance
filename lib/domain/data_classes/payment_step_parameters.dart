@@ -1,8 +1,8 @@
+import 'package:insurance_app/app/enums/payment_method_enum.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
-import 'package:insurance_app/domain/entities/payment_method.dart';
 
 class PaymentStepParameters {
-  final PaymentMethod paymentMethod;
+  final PaymentMethodEnum paymentMethod;
   final InsuranceEntity insurance;
   PaymentStepParameters({
     required this.paymentMethod,

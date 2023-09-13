@@ -4,28 +4,30 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
 import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 
 class CustomDropDownField extends StatefulWidget {
-  const CustomDropDownField({
-    Key? key,
-    this.items,
-    this.validator,
-    this.onChanged,
-    this.enabled = true,
-    this.defaultValidator = true,
-    this.hintText,
-    this.onTap,
-    this.initialValue,
-    this.value,
-    this.focusedStyleEnabled = true,
-    this.hideErrorMessage = false,
-    this.isLoading = false,
-    this.selectedItemBuilder,
-  }) : super(key: key);
+  const CustomDropDownField(
+      {Key? key,
+      this.items,
+      this.validator,
+      this.onChanged,
+      this.enabled = true,
+      this.defaultValidator = true,
+      this.hintText,
+      this.onTap,
+      this.initialValue,
+      this.value,
+      this.focusedStyleEnabled = true,
+      this.hideErrorMessage = false,
+      this.isLoading = false,
+      this.selectedItemBuilder,
+      this.disabledHint})
+      : super(key: key);
   final List<DropdownMenuItem>? items;
   final void Function(dynamic)? onChanged;
   final void Function()? onTap;
@@ -39,6 +41,7 @@ class CustomDropDownField extends StatefulWidget {
   final bool hideErrorMessage;
   final bool isLoading;
   final List<Widget> Function(BuildContext context)? selectedItemBuilder;
+  final String? disabledHint;
 
   @override
   State<CustomDropDownField> createState() => _CustomDropDownFieldState();
@@ -89,6 +92,12 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
                 selectedValue = value;
               });
             },
+            disabledHint: widget.hintText != null
+                ? Text(
+                    widget.hintText!,
+                    style: grayBodyStyle(),
+                  )
+                : null,
             selectedItemBuilder: widget.selectedItemBuilder,
             isExpanded: true,
             decoration: InputDecoration(
@@ -123,7 +132,15 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
               _errorMessage,
               style: textFieldErrorMessageStyle(),
             ),
-          )
+          ),
+        if (widget.disabledHint != null && (widget.items?.isEmpty ?? true))
+          Padding(
+            padding: const EdgeInsets.only(top: AppValues.extraSmall).r,
+            child: Text(
+              widget.disabledHint ?? Constants.empty,
+              style: textFieldErrorMessageStyle(),
+            ),
+          ),
       ],
     );
   }

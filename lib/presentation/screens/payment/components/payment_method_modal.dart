@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/enums/payment_method_enum.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
 import 'package:insurance_app/domain/entities/insurance.dart';
-import 'package:insurance_app/domain/entities/payment_method.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 import '../../../../app/router/routes.dart';
 
@@ -19,14 +19,26 @@ class PaymentMethodModal extends StatelessWidget {
   const PaymentMethodModal(this.insurance, {super.key});
   final InsuranceEntity insurance;
 
-  void _selectPaymentMethodFunction(BuildContext context, method) {
-    context.go(AppScreen.payment.toPath,
-        extra:
-            PaymentStepParameters(paymentMethod: method, insurance: insurance));
+  void _selectPaymentMethodFunction(
+      BuildContext context, PaymentMethodEnum method) {
+    if (method.isMoamalat || method.isMobicash) {
+      context.go(AppScreen.payment.toPath,
+          extra: PaymentStepParameters(
+              paymentMethod: method, insurance: insurance));
+    } else {
+      SnackBars.info(context, AppStrings.soon.tr());
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<PaymentMethodEnum> paymentMethods = [
+      PaymentMethodEnum.moamalat,
+      PaymentMethodEnum.mobicash,
+      PaymentMethodEnum.nab4pay,
+      PaymentMethodEnum.tadawul,
+      PaymentMethodEnum.sadad,
+    ];
     return ListView(
       padding: const EdgeInsets.only(
         top: AppValues.extraLarge,
@@ -45,7 +57,7 @@ class PaymentMethodModal extends StatelessWidget {
           style: smallDarkGrayBodyStyle(),
         ),
         CustomSpacers.large(),
-        ...DUMMY.paymentMethods
+        ...paymentMethods
             .map((method) => paymentMethodRow(
                   context,
                   method,
@@ -55,7 +67,7 @@ class PaymentMethodModal extends StatelessWidget {
     );
   }
 
-  Widget paymentMethodRow(BuildContext context, PaymentMethod method) {
+  Widget paymentMethodRow(BuildContext context, PaymentMethodEnum method) {
     return Column(
       children: [
         Stack(
@@ -89,7 +101,8 @@ class PaymentMethodModal extends StatelessWidget {
                       text: AppStrings.paymentBy.tr(),
                       style: darkGrayBodyStyle(),
                       children: [
-                        TextSpan(text: method.name, style: smallHeadlineStyle())
+                        TextSpan(
+                            text: method.toName, style: smallHeadlineStyle())
                       ],
                     ),
                   )
