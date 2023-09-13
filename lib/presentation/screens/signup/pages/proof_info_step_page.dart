@@ -40,7 +40,7 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
     if (signUpCubit.proofInfoForm.currentState?.validate() ?? false) {
       DialogService.loadLoadingDialog(context);
       bool isFormValid = await signUpCubit.confirmProofInfoForm();
-      if (isFormValid) {
+      if (isFormValid && !state.isLibyan) {
         signUpCubit.sendVerifyPhoneOtp();
       }
     }
@@ -128,6 +128,10 @@ class _SignUpProofInfoStepPageState extends State<SignUpProofInfoStepPage> {
                             DialogService.dispose();
                             SnackBars.error(
                                 context, state.checkProofIdErrorMessage!);
+                          } else if (state.isLibyan &&
+                              state.checkProofId.isSuccess) {
+                            DialogService.dispose();
+                            context.go(AppScreen.signupNationalInfoStep.toPath);
                           }
                         },
                         builder: (context, state) {

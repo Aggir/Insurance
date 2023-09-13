@@ -258,6 +258,7 @@ class SignUpCubit extends Cubit<SignUpState> {
 
   void sendVerifyPhoneOtp() async {
     emit(state.copyWith(sendVerifyPhoneOtpStatus: Status.loading));
+    // print('rreee');
     // Future.delayed(const Duration(seconds: 2)).then(
     //   (value) {
     //     emit(state.copyWith(sendVerifyPhoneOtpStatus: Status.success));
