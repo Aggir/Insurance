@@ -1,5 +1,16 @@
 import 'package:get_it/get_it.dart';
 import 'package:insurance_app/data/datasources/index.dart';
+import 'package:insurance_app/data/datasources/remote/base/base_alarm_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/base/base_generic_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/base/base_insurance_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/base/base_user_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/base/base_vehicle_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/remote_datasource_impl.dart';
+import 'package:insurance_app/data/datasources/remote/src/alarm_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/src/generic_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/src/insurance_remote_datasource.dart';
+import 'package:insurance_app/data/datasources/remote/src/user_remote_datasourse.dart';
+import 'package:insurance_app/data/datasources/remote/src/vehicle_remote_datasource.dart';
 import 'package:insurance_app/data/repositories/index.dart';
 import 'package:insurance_app/domain/repositories/index.dart';
 import 'package:insurance_app/domain/usecases/index.dart';
@@ -33,8 +44,34 @@ Future<void> initAppModule() async {
 
   instance.registerLazySingleton<Dio>(() => dio);
 
+  instance.registerLazySingleton<BaseAlarmRemoteDatasource>(
+    () => AlarmRemoteDatasource(instance<Dio>(), instance<AppService>()),
+  );
+
+  instance.registerLazySingleton<BaseGenericRemoteDatasource>(
+    () => GenericRemoteDatasource(instance<Dio>(), instance<AppService>()),
+  );
+
+  instance.registerLazySingleton<BaseInsuranceRemoteDatasource>(
+    () => InsuranceRemoteDatasource(instance<Dio>(), instance<AppService>()),
+  );
+
+  instance.registerLazySingleton<BaseUserRemoteDataSource>(
+    () => UserRemoteDatasource(instance<Dio>(), instance<AppService>()),
+  );
+
+  instance.registerLazySingleton<BaseVehicleRemoteDatasource>(
+    () => VehicleRemoteDatasource(instance<Dio>(), instance<AppService>()),
+  );
+
   instance.registerLazySingleton<RemoteDataSource>(
-    () => RemoteDataSourceImpl(instance<Dio>(), instance<AppService>()),
+    () => RemoteDataSourceImpl(
+      instance<AlarmRemoteDatasource>(),
+      instance<GenericRemoteDatasource>(),
+      instance<InsuranceRemoteDatasource>(),
+      instance<UserRemoteDatasource>(),
+      instance<VehicleRemoteDatasource>(),
+    ),
   );
 
   // Repositories
