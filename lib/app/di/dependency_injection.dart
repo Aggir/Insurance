@@ -56,7 +56,7 @@ Future<void> initAppModule() async {
     () => InsuranceRemoteDatasource(instance<Dio>(), instance<AppService>()),
   );
 
-  instance.registerLazySingleton<BaseUserRemoteDataSource>(
+  instance.registerLazySingleton<BaseUserRemoteDatasource>(
     () => UserRemoteDatasource(instance<Dio>(), instance<AppService>()),
   );
 
@@ -66,11 +66,11 @@ Future<void> initAppModule() async {
 
   instance.registerLazySingleton<RemoteDataSource>(
     () => RemoteDataSourceImpl(
-      instance<AlarmRemoteDatasource>(),
-      instance<GenericRemoteDatasource>(),
-      instance<InsuranceRemoteDatasource>(),
-      instance<UserRemoteDatasource>(),
-      instance<VehicleRemoteDatasource>(),
+      instance<BaseAlarmRemoteDatasource>(),
+      instance<BaseGenericRemoteDatasource>(),
+      instance<BaseInsuranceRemoteDatasource>(),
+      instance<BaseUserRemoteDatasource>(),
+      instance<BaseVehicleRemoteDatasource>(),
     ),
   );
 

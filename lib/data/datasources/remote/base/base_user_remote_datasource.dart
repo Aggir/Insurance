@@ -2,7 +2,7 @@ import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 
-abstract class BaseUserRemoteDataSource {
+abstract class BaseUserRemoteDatasource {
   Future<UserResponse> signIn(SignInRequest request);
 
   Future<BasicResponse> signOut();

@@ -7,7 +7,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   final BaseAlarmRemoteDatasource _alarmRemoteDatasource;
   final BaseGenericRemoteDatasource _genericRemoteDatasource;
   final BaseInsuranceRemoteDatasource _insuranceRemoteDatasource;
-  final BaseUserRemoteDataSource _userRemoteDataSource;
+  final BaseUserRemoteDatasource _userRemoteDataSource;
   final BaseVehicleRemoteDatasource _vehicleRemoteDatasource;
 
   const RemoteDataSourceImpl(
@@ -24,7 +24,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<UserResponse> signIn(SignInRequest request) async {
-    print('me');
     return await _userRemoteDataSource.signIn(request);
   }
 
