@@ -1,28 +1,5 @@
-import 'package:insurance_app/data/requests/alarm_requests.dart';
-import 'package:insurance_app/data/requests/insurance_requests.dart';
-import 'package:insurance_app/data/requests/vehicle_requests.dart';
-import 'package:insurance_app/data/responses/alarm_types_response.dart';
-import 'package:insurance_app/data/responses/alarms_response.dart';
-import 'package:insurance_app/data/responses/basic_response.dart';
-import 'package:insurance_app/data/responses/branches_response.dart';
-import 'package:insurance_app/data/responses/cities_response.dart';
-import 'package:insurance_app/data/responses/companies_prices_response.dart';
-import 'package:insurance_app/data/responses/installments_response.dart';
-import 'package:insurance_app/data/responses/insurance_types_response.dart';
-import 'package:insurance_app/data/responses/insurances_response.dart';
-import 'package:insurance_app/data/responses/issue_insurance_response.dart';
-import 'package:insurance_app/data/responses/notifications_response.dart';
-import 'package:insurance_app/data/responses/user_response.dart';
-import 'package:insurance_app/data/responses/colors_response.dart';
-import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
-import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
-import 'package:insurance_app/data/responses/vehicle_models_response.dart';
-import 'package:insurance_app/data/responses/vehicle_ownership_types_response.dart';
-import 'package:insurance_app/data/responses/vehicle_types_response.dart';
-
-import '../requests/user_requests.dart';
-import '../responses/companies_response.dart';
-import '../responses/vehicles_response.dart';
+import 'package:insurance_app/data/requests/index.dart';
+import 'package:insurance_app/data/responses/index.dart';
 
 abstract class RemoteDataSource {
   Future<UserResponse> signIn(SignInRequest request);

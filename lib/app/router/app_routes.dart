@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,26 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/router/routes.dart';
 import 'package:insurance_app/domain/data_classes/insurance_document_parameters.dart';
-import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
+import 'package:insurance_app/domain/data_classes/my_insurances_page_parameters.dart';
 import 'package:insurance_app/domain/data_classes/payment_step_parameters.dart';
-import 'package:insurance_app/presentation/blocs/company_branches/company_branches_cubit.dart';
-import 'package:insurance_app/presentation/blocs/compare_companies/compare_companies_cubit.dart';
-import 'package:insurance_app/presentation/blocs/my_alarms/my_alarms_cubit.dart';
-import 'package:insurance_app/presentation/blocs/my_insurances/my_insurances_cubit.dart';
-import 'package:insurance_app/presentation/blocs/notifications/notifications_cubit.dart';
-import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
+import 'package:insurance_app/presentation/blocs/index.dart';
 import 'package:insurance_app/presentation/screens/index.dart';
-
-import '../../presentation/blocs/add_my_vehicle/add_my_vehicle_cubit.dart';
-import '../../presentation/blocs/change_password/change_password_cubit.dart';
-import '../../presentation/blocs/forgot_password/forgot_password_cubit.dart';
-import '../../presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
-import '../../presentation/blocs/login/login_cubit.dart';
-import '../../presentation/blocs/my_vehicles/my_vehicles_cubit.dart';
-import '../../presentation/blocs/payment/payment_cubit.dart';
-import '../../presentation/blocs/profile/profile_cubit.dart';
-import '../../presentation/blocs/add_reminder/add_reminder_cubit.dart';
-import '../../presentation/blocs/sign_up/sign_up_cubit.dart';
 
 class AppRoutes {
   static final onboarding = GoRoute(

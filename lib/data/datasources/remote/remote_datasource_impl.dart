@@ -5,33 +5,9 @@ import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/di/dependency_injection.dart';
 import 'package:insurance_app/app/helpers/app_service.dart';
-import 'package:insurance_app/data/datasources/remote/api_constants.dart';
-import 'package:insurance_app/data/datasources/remote/api_error_handler.dart';
-import 'package:insurance_app/data/datasources/remote_datasource.dart';
-import 'package:insurance_app/data/requests/alarm_requests.dart';
-import 'package:insurance_app/data/requests/insurance_requests.dart';
-import 'package:insurance_app/data/requests/user_requests.dart';
-import 'package:insurance_app/data/requests/vehicle_requests.dart';
-import 'package:insurance_app/data/responses/alarm_types_response.dart';
-import 'package:insurance_app/data/responses/alarms_response.dart';
-import 'package:insurance_app/data/responses/basic_response.dart';
-import 'package:insurance_app/data/responses/branches_response.dart';
-import 'package:insurance_app/data/responses/cities_response.dart';
-import 'package:insurance_app/data/responses/colors_response.dart';
-import 'package:insurance_app/data/responses/companies_prices_response.dart';
-import 'package:insurance_app/data/responses/companies_response.dart';
-import 'package:insurance_app/data/responses/installments_response.dart';
-import 'package:insurance_app/data/responses/insurance_types_response.dart';
-import 'package:insurance_app/data/responses/insurances_response.dart';
-import 'package:insurance_app/data/responses/issue_insurance_response.dart';
-import 'package:insurance_app/data/responses/notifications_response.dart';
-import 'package:insurance_app/data/responses/user_response.dart';
-import 'package:insurance_app/data/responses/vehicle_brands_response.dart';
-import 'package:insurance_app/data/responses/vehicle_countries_response.dart';
-import 'package:insurance_app/data/responses/vehicle_models_response.dart';
-import 'package:insurance_app/data/responses/vehicle_ownership_types_response.dart';
-import 'package:insurance_app/data/responses/vehicle_types_response.dart';
-import 'package:insurance_app/data/responses/vehicles_response.dart';
+import 'package:insurance_app/data/datasources/index.dart';
+import 'package:insurance_app/data/requests/index.dart';
+import 'package:insurance_app/data/responses/index.dart';
 import 'package:insurance_app/presentation/blocs/user/user_cubit.dart';
 
 //TODO: REFACTOR IT ASAP.
@@ -42,17 +18,6 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     this._dio,
     this._appService,
   );
-
-  Options _bearerToken(String token, {Map<String, String>? header}) {
-    print(token);
-    return Options(
-      headers: header == null
-          ? {
-              'Authorization': 'Bearer $token',
-            }
-          : {'Authorization': 'Bearer $token', ...header},
-    );
-  }
 
   void _checkTokenValidation(DioException error) {
     if (error.response?.data is Map &&
@@ -72,7 +37,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (token.isNotEmpty) {
         var response = await _dio.get(
           ApiConstants.me,
-          options: _bearerToken(token),
+          options: RemoteDatasourceHelpers.bearerToken(token),
         );
         userResponse =
             UserResponse.fromMap(response.data as Map<String, dynamic>);
@@ -121,7 +86,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BasicResponse> signOut() async {
     final String token = _appService.token;
     try {
-      await _dio.get(ApiConstants.logout, options: _bearerToken(token));
+      await _dio.get(ApiConstants.logout,
+          options: RemoteDatasourceHelpers.bearerToken(token));
       _appService.token = Constants.empty;
       return (BasicResponse());
     } on DioException catch (error) {
@@ -211,7 +177,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.cities,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return CitiesResponse.fromMap({'cities': response.data});
     } on DioException catch (error) {
@@ -229,7 +195,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.colors,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return ColorsResponse.fromMap({'colors': response.data});
     } on DioException catch (error) {
@@ -247,7 +213,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.vehicleBrands,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return VehicleBrandsResponse.fromMap({'vehicleBrands': response.data});
     } on DioException catch (error) {
@@ -265,7 +231,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.vehicleCountries,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return VehicleCountriesResponse.fromMap(
           {'vehicleCountries': response.data});
@@ -284,7 +250,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         "${ApiConstants.vehicleModels}/$vehicleBrandId",
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return VehicleModelsResponse.fromMap({'vehicleModels': response.data});
     } on DioException catch (error) {
@@ -302,7 +268,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.vehicleOwnershipTypes,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return VehicleOwnershipTypesResponse.fromMap(
           {'vehicleOwnershipTypes': response.data});
@@ -322,7 +288,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.vehicleTypes,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return VehicleTypesResponse.fromMap({'vehicleTypes': response.data});
     } on DioException catch (error) {
@@ -341,7 +307,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       final body = await request.toMap();
       var response = await _dio.post(ApiConstants.vehicles,
           data: FormData.fromMap(body),
-          options: _bearerToken(_appService.token, header: {
+          options:
+              RemoteDatasourceHelpers.bearerToken(_appService.token, header: {
             'Content-Type': 'multipart/form-data',
           }));
       return BasicResponse(data: response);
@@ -362,7 +329,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       var response = await _dio.post(
         ApiConstants.updateSelf,
         data: FormData.fromMap(body),
-        options: _bearerToken(
+        options: RemoteDatasourceHelpers.bearerToken(
           _appService.token,
           header: {
             'Content-Type': 'multipart/form-data',
@@ -388,7 +355,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       Response response = await _dio.post(
         ApiConstants.changePassword,
         data: body,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response);
     } on DioException catch (error) {
@@ -407,7 +374,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(ApiConstants.vehicles,
           data: {'page': page, 'is_hidden': isHidden ? isHidden : null},
-          options: _bearerToken(_appService.token));
+          options: RemoteDatasourceHelpers.bearerToken(_appService.token));
       return VehiclesResponse.fromMap(response.data);
     } on DioException catch (error) {
       _checkTokenValidation(error);
@@ -424,7 +391,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(ApiConstants.companies,
           data: page != null ? {'page': page} : null,
-          options: _bearerToken(_appService.token));
+          options: RemoteDatasourceHelpers.bearerToken(_appService.token));
       return CompaniesResponse.fromMap(response.data);
     } on DioException catch (error) {
       _checkTokenValidation(error);
@@ -440,7 +407,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<BranchesResponse> getCompanyBranches(int? companyId) async {
     try {
       var response = await _dio.get('${ApiConstants.branches}/$companyId',
-          options: _bearerToken(_appService.token));
+          options: RemoteDatasourceHelpers.bearerToken(_appService.token));
 
       return BranchesResponse.fromMap({'branches': response.data});
     } on DioException catch (error) {
@@ -457,7 +424,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<InsuranceTypesResponse> getInsuranceTypes() async {
     try {
       var response = await _dio.get(ApiConstants.insuranceTypes,
-          options: _bearerToken(_appService.token));
+          options: RemoteDatasourceHelpers.bearerToken(_appService.token));
 
       return InsuranceTypesResponse.fromMap({'insuranceTypes': response.data});
     } on DioException catch (error) {
@@ -478,7 +445,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       var response = await _dio.get(
         ApiConstants.calculateInsurancePriceByVehicle,
         data: body,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -499,7 +466,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       var response = await _dio.post(
         ApiConstants.insurances,
         data: body,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return IssueInsuranceResponse.fromMap(response.data);
     } on DioException catch (error) {
@@ -517,7 +484,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.get(
         ApiConstants.deactivate,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       _appService.token = Constants.empty;
       return BasicResponse(data: response.data);
@@ -584,7 +551,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       var response = await _dio.get(
         ApiConstants.insurances,
         data: page != null ? {'page': page} : null,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return InsurancesResponse.fromMap(response.data);
     } on DioException catch (error) {
@@ -602,7 +569,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       var response = await _dio.put(
         '${ApiConstants.toggleInsurance}/$insuranceId',
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -620,7 +587,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.alarmTypes,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return AlarmTypesResponse.fromMap({'alarmTypes': response.data});
     } on DioException catch (error) {
@@ -641,7 +608,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       Response response = await _dio.post(
         ApiConstants.alarms,
         data: FormData.fromMap(body),
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -659,7 +626,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.put(
         '${ApiConstants.toggleIsVehicleHidden}/$vehicleId',
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -677,7 +644,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.alarms,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return AlarmsResponse.fromMap(response.data);
     } on DioException catch (error) {
@@ -695,7 +662,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.notifications,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return NotificationsResponse.fromMap(response.data);
     } on DioException catch (error) {
@@ -713,7 +680,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.notificationToggleSeen,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -731,7 +698,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         '${ApiConstants.notificationToggleRead}/$id',
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -749,7 +716,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.notificationCountUnseen,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -768,7 +735,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.companiesPrices,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
         queryParameters: request.toMap(),
       );
       return CompaniesPricesResponse.fromMap(
@@ -827,7 +794,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         ApiConstants.calculateInsurancePrice,
         data: request.toBody(),
         queryParameters: request.toQueryParams(),
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -845,7 +812,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.get(
         ApiConstants.companiesCount,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response.data);
     } on DioException catch (error) {
@@ -864,7 +831,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       Response response = await _dio.post(
         ApiConstants.getInsuranceInstallments,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
         data: request.toMap(),
       );
       return InstallmentsResponse.fromMap(response.data);
@@ -883,7 +850,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     try {
       final response = await _dio.get(
         ApiConstants.confirmEmail,
-        options: _bearerToken(_appService.token),
+        options: RemoteDatasourceHelpers.bearerToken(_appService.token),
       );
       return BasicResponse(data: response);
     } on DioException catch (error) {

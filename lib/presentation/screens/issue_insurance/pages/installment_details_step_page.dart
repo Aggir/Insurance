@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
-import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
+import 'package:insurance_app/domain/data_classes/my_insurances_page_parameters.dart';
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/font_manager.dart';

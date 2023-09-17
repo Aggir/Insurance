@@ -11,7 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
 import 'package:insurance_app/domain/data_classes/insurance_document_parameters.dart';
-import 'package:insurance_app/domain/data_classes/my_isurances_page_parameters.dart';
+import 'package:insurance_app/domain/data_classes/my_insurances_page_parameters.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';

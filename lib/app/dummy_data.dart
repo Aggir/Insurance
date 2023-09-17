@@ -1,5 +1,3 @@
-import 'package:insurance_app/app/assets_manager.dart';
-import 'package:insurance_app/domain/entities/payment_method.dart';
 import 'package:insurance_app/domain/entities/remind_me_in.dart';
 
 const List<RemindMeInEntity> remindMeOptions = [
@@ -8,10 +6,6 @@ const List<RemindMeInEntity> remindMeOptions = [
   RemindMeInEntity(id: 3, days: 7, name: 'قبل اسبوع'),
   RemindMeInEntity(id: 4, days: 14, name: 'قبل اسبوعين'),
 ];
-
-const List<int> horsePower = [8, 10, 12, 14, 16];
-
-const List<int> seatsNumberWithoutTheDriver = [1, 3, 4, 5, 6, 7];
 
 const List<Map<String, String>> vehicleYears = [
   {'id': '1', 'value': '2000'},
@@ -52,12 +46,4 @@ const List<Map<String, String>> theNumberOfMonthlyInstallments = [
   {'id': '9', 'value': '10 أشهر'},
   {'id': '10', 'value': '11 أشهر'},
   {'id': '11', 'value': 'عام'},
-];
-
-const List<PaymentMethod> paymentMethods = [
-  PaymentMethod(id: '1', name: 'موبي كاش', imagePath: ImageAssets.mobicash),
-  PaymentMethod(id: '2', name: 'ناب 4 باي', imagePath: ImageAssets.nab4pay),
-  PaymentMethod(id: '3', name: 'سداد', imagePath: ImageAssets.sadad),
-  PaymentMethod(id: '4', name: 'تداول', imagePath: ImageAssets.tadawul),
-  PaymentMethod(id: '5', name: 'معاملات', imagePath: ImageAssets.moamalat),
 ];
