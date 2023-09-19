@@ -349,6 +349,8 @@ class AppStrings {
   static const thisInformationHelpsUsToKnowYourVehicleMoreAccurately =
       'this_information_helps_us_to_know_your_vehicle_more_accurately';
   static const uploadVehiclePicture = 'upload_vehicle_picture';
+  static const uploadVehicleBookletPicture = 'upload_vehicle_booklet_picture';
+  static const vehicleBookletPicture = 'vehicle_booklet_picture';
   static const licensePlateNumber = 'license_plate_number';
   static const registeredAuthority = 'registered_authority';
   static const saveVehicleFile = 'save_vehicle_file';

@@ -33,7 +33,8 @@ class AddVehicleUsecase implements BaseUsecase<AddVehicleUsecaseInput, void> {
       maxPassengers: input.maxPassengers,
       withAttachment: input.withAttachment,
       weight: input.weight,
-      pictureFile: input.pictureFile,
+      vehiclePicture: input.vehiclePicture,
+      vehicleBookletPicture: input.vehicleBookletPicture,
       alias: input.alias,
       licensePlateNumber: input.licensePlateNumber,
       cityId: input.cityId,
@@ -60,7 +61,8 @@ class AddVehicleUsecaseInput {
   final String? maxPassengers;
   final String? weight;
   final bool? withAttachment;
-  final File pictureFile;
+  final File vehiclePicture;
+  final File vehicleBookletPicture;
   final String? alias;
   final String licensePlateNumber;
   final int cityId;
@@ -81,7 +83,8 @@ class AddVehicleUsecaseInput {
     required this.chassisNumber,
     required this.colorId,
     this.maxPassengers,
-    required this.pictureFile,
+    required this.vehiclePicture,
+    required this.vehicleBookletPicture,
     this.alias,
     this.weight,
     this.withAttachment,

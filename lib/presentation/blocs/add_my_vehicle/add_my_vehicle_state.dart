@@ -28,6 +28,9 @@ class AddMyVehicleState extends Equatable {
   final String? vehiclePictureFileName;
   final Status addVehicleStatus;
   final String? addVehicleErrorMessage;
+  final Status vehicleBookletPictureStatus;
+  final File? vehicleBookletPicture;
+  final String? vehicleBookletPictureFileName;
 
   const AddMyVehicleState({
     this.userInfo,
@@ -56,6 +59,9 @@ class AddMyVehicleState extends Equatable {
     this.cities,
     this.addVehicleStatus = Status.initial,
     this.addVehicleErrorMessage,
+    this.vehicleBookletPictureStatus = Status.initial,
+    this.vehicleBookletPicture,
+    this.vehicleBookletPictureFileName,
   });
 
   @override
@@ -86,6 +92,9 @@ class AddMyVehicleState extends Equatable {
         selectedVehicleBrand,
         addVehicleStatus,
         addVehicleErrorMessage,
+        vehicleBookletPictureStatus,
+        vehicleBookletPicture,
+        vehicleBookletPictureFileName,
       ];
 
   AddMyVehicleState copyWith({
@@ -116,50 +125,60 @@ class AddMyVehicleState extends Equatable {
     bool removeVehiclePicture = false,
     Status? addVehicleStatus,
     String? addVehicleErrorMessage,
+    Status? vehicleBookletPictureStatus,
+    File? vehicleBookletPicture,
+    String? vehicleBookletPictureFileName,
+    bool removeVehicleBooklet = false,
   }) {
     return AddMyVehicleState(
-      addVehicleStatus: addVehicleStatus ?? this.addVehicleStatus,
-      addVehicleErrorMessage:
-          addVehicleErrorMessage ?? this.addVehicleErrorMessage,
-      ownerPhoneCode: ownerPhoneCode ?? this.ownerPhoneCode,
-      vehiclePictureFile: removeVehiclePicture
-          ? null
-          : vehiclePictureFile ?? this.vehiclePictureFile,
-      selectedVehicleCityId:
-          selectedVehicleCityId ?? this.selectedVehicleCityId,
-      vehiclePictureFileName: removeVehiclePicture
-          ? null
-          : vehiclePictureFileName ?? this.vehiclePictureFileName,
-      selectedVehicleWithAttachment:
-          selectedVehicleWithAttachment ?? this.selectedVehicleWithAttachment,
-      selectedVehicleColorId:
-          selectedVehicleColorId ?? this.selectedVehicleColorId,
-      selectedVehicleTypeId:
-          selectedVehicleTypeId ?? this.selectedVehicleTypeId,
-      selectedVehicleModelId:
-          selectedVehicleModelId ?? this.selectedVehicleModelId,
-      selectedVehicleModel: selectedVehicleModel ?? this.selectedVehicleModel,
-      selectedVehicleCountryId:
-          selectedVehicleCountryId ?? this.selectedVehicleCountryId,
-      selectedVehicleYearId:
-          selectedVehicleYearId ?? this.selectedVehicleYearId,
-      userInfo: userInfo ?? this.userInfo,
-      getColorsStatus: getColorsStatus ?? this.getColorsStatus,
-      getColorsErrorMessage:
-          getColorsErrorMessage ?? this.getColorsErrorMessage,
-      colors: colors ?? this.colors,
-      vehiclePictureStatus: vehiclePictureStatus ?? this.vehiclePictureStatus,
-      getCitiesStatus: getCitiesStatus ?? this.getCitiesStatus,
-      getAddVehicleFormDataStatus:
-          getAddVehicleFormDataStatus ?? this.getAddVehicleFormDataStatus,
-      getAddVehicleFormDataErrorMessage: getAddVehicleFormDataErrorMessage ??
-          this.getAddVehicleFormDataErrorMessage,
-      addVehicleFormData: addVehicleFormData ?? this.addVehicleFormData,
-      selectedOwnerCityId: selectedOwnerCityId ?? this.selectedOwnerCityId,
-      getCitiesErrorMessage:
-          getCitiesErrorMessage ?? this.getCitiesErrorMessage,
-      cities: cities ?? this.cities,
-      selectedVehicleBrand: selectedVehicleBrand ?? this.selectedVehicleBrand,
-    );
+        addVehicleStatus: addVehicleStatus ?? this.addVehicleStatus,
+        addVehicleErrorMessage:
+            addVehicleErrorMessage ?? this.addVehicleErrorMessage,
+        ownerPhoneCode: ownerPhoneCode ?? this.ownerPhoneCode,
+        vehiclePictureFile: removeVehiclePicture
+            ? null
+            : vehiclePictureFile ?? this.vehiclePictureFile,
+        selectedVehicleCityId:
+            selectedVehicleCityId ?? this.selectedVehicleCityId,
+        vehiclePictureFileName: removeVehiclePicture
+            ? null
+            : vehiclePictureFileName ?? this.vehiclePictureFileName,
+        selectedVehicleWithAttachment:
+            selectedVehicleWithAttachment ?? this.selectedVehicleWithAttachment,
+        selectedVehicleColorId:
+            selectedVehicleColorId ?? this.selectedVehicleColorId,
+        selectedVehicleTypeId:
+            selectedVehicleTypeId ?? this.selectedVehicleTypeId,
+        selectedVehicleModelId:
+            selectedVehicleModelId ?? this.selectedVehicleModelId,
+        selectedVehicleModel: selectedVehicleModel ?? this.selectedVehicleModel,
+        selectedVehicleCountryId:
+            selectedVehicleCountryId ?? this.selectedVehicleCountryId,
+        selectedVehicleYearId:
+            selectedVehicleYearId ?? this.selectedVehicleYearId,
+        userInfo: userInfo ?? this.userInfo,
+        getColorsStatus: getColorsStatus ?? this.getColorsStatus,
+        getColorsErrorMessage:
+            getColorsErrorMessage ?? this.getColorsErrorMessage,
+        colors: colors ?? this.colors,
+        vehiclePictureStatus: vehiclePictureStatus ?? this.vehiclePictureStatus,
+        getCitiesStatus: getCitiesStatus ?? this.getCitiesStatus,
+        getAddVehicleFormDataStatus:
+            getAddVehicleFormDataStatus ?? this.getAddVehicleFormDataStatus,
+        getAddVehicleFormDataErrorMessage: getAddVehicleFormDataErrorMessage ??
+            this.getAddVehicleFormDataErrorMessage,
+        addVehicleFormData: addVehicleFormData ?? this.addVehicleFormData,
+        selectedOwnerCityId: selectedOwnerCityId ?? this.selectedOwnerCityId,
+        getCitiesErrorMessage:
+            getCitiesErrorMessage ?? this.getCitiesErrorMessage,
+        cities: cities ?? this.cities,
+        selectedVehicleBrand: selectedVehicleBrand ?? this.selectedVehicleBrand,
+        vehicleBookletPictureStatus:
+            vehicleBookletPictureStatus ?? this.vehicleBookletPictureStatus,
+        vehicleBookletPicture: removeVehicleBooklet
+            ? null
+            : vehicleBookletPicture ?? this.vehicleBookletPicture,
+        vehicleBookletPictureFileName: vehicleBookletPictureFileName ??
+            this.vehicleBookletPictureFileName);
   }
 }
