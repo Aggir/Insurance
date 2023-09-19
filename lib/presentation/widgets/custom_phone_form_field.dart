@@ -93,10 +93,11 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
         Directionality(
           textDirection: ui.TextDirection.ltr,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(children: [
                 Container(
-                  height: AppValues.textFieldHeight.r,
+                  height: (AppValues.textFieldHeight - 1).r,
                   width: flagContainerWidth.r,
                   decoration: BoxDecoration(
                     color: AppColors.lightest,
@@ -108,7 +109,7 @@ class _CustomPhoneFormFieldState extends State<CustomPhoneFormField> {
                   ),
                 ),
                 Container(
-                  height: AppValues.textFieldHeight.r,
+                  // height: AppValues.textFieldHeight.r,
                   width: flagContainerWidth.r,
                   decoration: BoxDecoration(
                     border:

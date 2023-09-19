@@ -17,6 +17,7 @@ import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/custom_text_form_field.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
+import 'package:insurance_app/presentation/widgets/select_document.dart';
 import '../../../theme/app_colors.dart';
 import '../../../widgets/custom_drop_down_field.dart';
 import '../../../widgets/dialog_service.dart';
@@ -38,6 +39,14 @@ class _AddMyVehicleUserInfoStepPageState
     if (cubit.isUserInfoValid()) {
       context.go(AppScreen.addMyVehicleDetailsStepOne.toPath);
     }
+  }
+
+  void _uploadFunction(BuildContext context) {
+    BlocProvider.of<AddMyVehicleCubit>(context).uploadVehicleBookletPicture();
+  }
+
+  void _removeFunction(BuildContext context) {
+    BlocProvider.of<AddMyVehicleCubit>(context).removeVehicleBookletPicture();
   }
 
   @override
@@ -97,17 +106,51 @@ class _AddMyVehicleUserInfoStepPageState
                         style: darkGrayBodyStyle(),
                       ),
                       CustomSpacers.extraLarge(),
-                      _userInfoForm(context),
+                      SizedBox(
+                        height: AppSizes.s350.r,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              _vehicleBooklet(context),
+                              CustomSpacers.medium(),
+                              _userInfoForm(context),
+                            ],
+                          ),
+                        ),
+                      ),
                       const Spacer(),
-                      PrimaryButton.fullWidth(
-                        onPressed: () => _nextButtonFunction(context),
-                        child: Text(AppStrings.next.tr().toUpperCase()),
+                      BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(
+                        builder: (context, state) {
+                          return PrimaryButton.fullWidth(
+                            onPressed: state.vehicleBookletPicture == null
+                                ? null
+                                : () => _nextButtonFunction(context),
+                            child: Text(AppStrings.next.tr().toUpperCase()),
+                          );
+                        },
                       ),
                     ]),
               ),
             ),
           ),
         ));
+  }
+
+  Widget _vehicleBooklet(BuildContext context) {
+    return BlocBuilder<AddMyVehicleCubit, AddMyVehicleState>(
+      builder: (context, state) {
+        return SelectDocument(
+          filename: state.vehicleBookletPictureFileName,
+          selectFileStatus: state.vehicleBookletPictureStatus,
+          selectStateText: AppStrings.uploadVehicleBookletPicture.tr(),
+          loadingAndSuccessStateText: AppStrings.vehicleBookletPicture.tr(),
+          selectedDocumentSvgPath: SvgAssets.car,
+          selectedDocumentSvgColor: AppColors.secondary,
+          uploadFunction: () => _uploadFunction(context),
+          removeFunction: () => _removeFunction(context),
+        );
+      },
+    );
   }
 
   Widget _userInfoForm(BuildContext context) {

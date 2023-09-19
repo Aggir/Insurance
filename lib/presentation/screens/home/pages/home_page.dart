@@ -141,27 +141,43 @@ class _HomePageState extends State<HomePage> {
                 Row(
                   children: [
                     Container(
-                      height: AppSizes.s48.r,
-                      width: AppSizes.s48.r,
+                      clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
-                        color: AppColors.primaryLight,
                         borderRadius: BorderRadius.circular(100),
                       ),
-                      clipBehavior: Clip.antiAlias,
-                      child: state.user != null
-                          ? state.user!.imageUrl.isNotEmpty
-                              ? CachedNetworkImage(
-                                  cacheKey: state.user?.updatedAt,
-                                  imageUrl: state.user!.imageUrl,
-                                  fit: BoxFit.cover,
-                                )
-                              : Center(
-                                  child: Text(
-                                    state.user!.firstName[0],
-                                    style: boldBlackLargeStyle(),
-                                  ),
-                                )
-                          : Container(),
+                      height: AppSizes.s48.r,
+                      width: AppSizes.s48.r,
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryLight,
+                            ),
+                            child: state.user != null
+                                ? state.user!.imageUrl.isNotEmpty
+                                    ? CachedNetworkImage(
+                                        cacheKey: state.user?.updatedAt,
+                                        imageUrl: state.user!.imageUrl,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Center(
+                                        child: Text(
+                                          state.user!.firstName[0],
+                                          style: boldBlackLargeStyle(),
+                                        ),
+                                      )
+                                : Container(),
+                          ),
+                          Material(
+                            color: AppColors.transparent,
+                            child: InkWell(
+                              onTap: () {
+                                context.go(AppScreen.more.toPath);
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                     CustomSpacers.medium(),
                     Text(

@@ -123,7 +123,8 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
       chassisNumber: vehicleChassisNumberController.text,
       colorId: state.selectedVehicleColorId!,
       maxPassengers: vehicleMaxPassengerController.text,
-      pictureFile: state.vehiclePictureFile!,
+      vehiclePicture: state.vehiclePictureFile!,
+      vehicleBookletPicture: state.vehicleBookletPicture!,
       licensePlateNumber: vehicleLicensePlateNumberController.text,
       cityId: state.selectedVehicleCityId!,
     )))
@@ -199,12 +200,35 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     } else {
       emit(state.copyWith(vehiclePictureStatus: Status.initial));
     }
-    emit(state.copyWith(vehiclePictureStatus: Status.success));
   }
 
   removeVehiclePicture() {
     emit(state.copyWith(
         vehiclePictureStatus: Status.initial, removeVehiclePicture: true));
+  }
+
+  uploadVehicleBookletPicture() async {
+    emit(state.copyWith(vehicleBookletPictureStatus: Status.loading));
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: Constants.allowedPictureExtensions,
+    );
+    if (result != null) {
+      final PlatformFile firstFile = result.files.first;
+      emit(state.copyWith(
+        vehicleBookletPictureFileName: firstFile.name,
+        vehicleBookletPictureStatus: Status.success,
+        vehicleBookletPicture: File(firstFile.path!),
+      ));
+    } else {
+      emit(state.copyWith(vehicleBookletPictureStatus: Status.initial));
+    }
+  }
+
+  removeVehicleBookletPicture() {
+    emit(state.copyWith(
+        vehicleBookletPictureStatus: Status.initial,
+        removeVehicleBooklet: true));
   }
 
   getCities() async {

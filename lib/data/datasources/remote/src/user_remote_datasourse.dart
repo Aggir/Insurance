@@ -9,7 +9,7 @@ import 'package:insurance_app/data/requests/user_requests.dart';
 import 'package:insurance_app/data/responses/basic_response.dart';
 import 'package:insurance_app/data/responses/user_response.dart';
 
-class UserRemoteDatasource implements BaseUserRemoteDataSource {
+class UserRemoteDatasource implements BaseUserRemoteDatasource {
   final Dio _dio;
   final AppService _appService;
 
