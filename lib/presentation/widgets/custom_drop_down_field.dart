@@ -52,6 +52,7 @@ class CustomDropDownField extends StatefulWidget {
 class _CustomDropDownFieldState extends State<CustomDropDownField> {
   dynamic selectedValue;
   bool _showError = false;
+
   String _errorMessage = '';
   @override
   void initState() {
@@ -63,6 +64,8 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDisabled =
+        widget.disabledHintColor != null && (widget.items ?? []).isEmpty;
     if (widget.isLoading) {
       setState(() {
         selectedValue = null;
@@ -122,6 +125,9 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
                       vertical: AppValues.small, horizontal: AppValues.small)
                   .r,
               counterText: '',
+              filled: isDisabled,
+              fillColor:
+                  isDisabled ? AppColors.grayLight.withOpacity(0.5) : null,
               hintText: widget.hintText ?? '',
               hintStyle: grayBodyStyle(),
             ),
@@ -135,7 +141,7 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
               style: textFieldErrorMessageStyle(),
             ),
           ),
-        if (widget.disabledHint != null && (widget.items?.isEmpty ?? true))
+        if (isDisabled)
           Padding(
             padding: const EdgeInsets.only(top: AppValues.extraSmall).r,
             child: Text(
