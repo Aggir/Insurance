@@ -20,3 +20,14 @@ String? extractValue(String? input, String key) {
 
   return match?.group(1)!;
 }
+
+List<int> generateYearsList() {
+  int currentYear = DateTime.now().year;
+  List<int> yearsList = [];
+
+  for (int year = 1970; year <= currentYear; year++) {
+    yearsList.add(year);
+  }
+
+  return yearsList.reversed.toList();
+}

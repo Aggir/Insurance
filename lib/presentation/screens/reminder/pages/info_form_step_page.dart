@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
 import 'package:insurance_app/app/assets_manager.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
 import 'package:insurance_app/presentation/theme/app_colors.dart';
@@ -21,7 +22,6 @@ import '../../../theme/app_theme.dart';
 import '../../../widgets/custom_drop_down_field.dart';
 import '../../../widgets/custom_form_field_date_picker.dart';
 import '../../../widgets/page_content_padding.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 class ReminderInfoFormStepPage extends StatefulWidget {
   const ReminderInfoFormStepPage({super.key});
@@ -136,7 +136,7 @@ class _ReminderInfoFormStepPageState extends State<ReminderInfoFormStepPage> {
                 cubit.setSelectedTime(int.parse(value));
               },
               hintText: AppStrings.selectTheAppropriateAlarm.tr(),
-              items: DUMMY.remindMeOptions
+              items: Constants.remindMeOptions
                   .map(
                     (type) => DropdownMenuItem(
                       value: type.days.toString(),

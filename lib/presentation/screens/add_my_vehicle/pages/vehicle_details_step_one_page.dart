@@ -20,7 +20,6 @@ import 'package:insurance_app/presentation/widgets/custom_drop_down_field.dart';
 import 'package:insurance_app/presentation/widgets/custom_spacers.dart';
 import 'package:insurance_app/presentation/widgets/page_content_padding.dart';
 import 'package:insurance_app/presentation/widgets/primary_button.dart';
-import 'package:insurance_app/app/dummy_data.dart' as DUMMY;
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/dialog_service.dart';
@@ -243,12 +242,12 @@ class _AddMyVehicleDetailsStepOnePageState
               onChanged: (vehicleYear) =>
                   cubit.setVehicleYear(int.parse(vehicleYear)),
               hintText: AppStrings.vehicleYear.tr(),
-              items: DUMMY.vehicleYears
+              items: Constants.vehicleYears
                   .map(
-                    (type) => DropdownMenuItem(
-                      value: type['value'],
+                    (value) => DropdownMenuItem(
+                      value: value.toString(),
                       child: Text(
-                        type['value'] ?? '',
+                        '$value',
                         style: bodyStyle(),
                       ),
                     ),
