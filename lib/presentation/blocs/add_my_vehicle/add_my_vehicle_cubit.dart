@@ -49,6 +49,8 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
       TextEditingController();
   final TextEditingController vehicleChassisNumberController =
       TextEditingController();
+  final TextEditingController vehicleColorNameController =
+      TextEditingController();
 
   final GlobalKey<FormState> vehiclePictureForm = GlobalKey<FormState>();
   final TextEditingController vehicleLicensePlateNumberController =
@@ -104,28 +106,29 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     ));
     initAddVehicle();
     (await instance<AddVehicleUsecase>().execute(AddVehicleUsecaseInput(
-      ownerFirstName: firstNameController.text,
+      ownerFirstName: firstNameController.text.trim(),
       ownerPhoneCode: state.ownerPhoneCode!,
-      alias: vehicleAliasController.text,
-      ownerFatherName: middleNameController.text,
-      ownerLastName: lastNameController.text,
-      ownerPhoneNumber: phoneNumberController.text,
+      alias: vehicleAliasController.text.trim(),
+      ownerFatherName: middleNameController.text.trim(),
+      ownerLastName: lastNameController.text.trim(),
+      ownerPhoneNumber: phoneNumberController.text.trim(),
       ownerLocation: state.selectedOwnerCityId!,
       typeId: state.selectedVehicleTypeId!,
       brandId: state.selectedVehicleBrand!.id,
       modelId: state.selectedVehicleModelId!,
       countryId: state.selectedVehicleCountryId!,
       makingYear: state.selectedVehicleYearId!,
-      weight: vehicleWeightController.text,
-      horsePower: vehicleHorsePowerController.text,
+      weight: vehicleWeightController.text.trim(),
+      horsePower: vehicleHorsePowerController.text.trim(),
       withAttachment: state.selectedVehicleWithAttachment,
-      engineNumber: vehicleEngineNumberController.text,
-      chassisNumber: vehicleChassisNumberController.text,
-      colorId: state.selectedVehicleColorId!,
-      maxPassengers: vehicleMaxPassengerController.text,
+      engineNumber: vehicleEngineNumberController.text.trim(),
+      chassisNumber: vehicleChassisNumberController.text.trim(),
+      colorId: state.selectedVehicleColorId,
+      colorName: vehicleColorNameController.text.trim(),
+      maxPassengers: vehicleMaxPassengerController.text.trim(),
       vehiclePicture: state.vehiclePictureFile!,
       vehicleBookletPicture: state.vehicleBookletPicture!,
-      licensePlateNumber: vehicleLicensePlateNumberController.text,
+      licensePlateNumber: vehicleLicensePlateNumberController.text.trim(),
       cityId: state.selectedVehicleCityId!,
     )))
         .fold(

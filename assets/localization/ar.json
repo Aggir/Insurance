@@ -270,6 +270,7 @@
     "engine_serial_number": "رقم المحرك",
     "chassis_number": "رقم الهيكل \\ الشاسيه",
     "car_color": "لون السيارة",
+    "vehicle_color_name": "لون المركبة في الكتيب",
     "seats_without_the_driver": "عدد الركاب المصرح لهم بخلاف السائق",
     "vehicle_picture": "صورة المركبة",
     "this_information_helps_us_to_know_your_vehicle_more_accurately": "تساعدنا هذه المعلومات من معرفة مركبتك بشكل أدق.",

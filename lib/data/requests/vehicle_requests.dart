@@ -20,7 +20,8 @@ class AddVehicleRequest implements BaseRequest {
   final String? horsePower;
   final String engineNumber;
   final String chassisNumber;
-  final int colorId;
+  final int? colorId;
+  final String colorName;
   final String? maxPassengers;
   final String? weight;
   final bool? withAttachment;
@@ -47,10 +48,11 @@ class AddVehicleRequest implements BaseRequest {
     required this.engineNumber,
     required this.chassisNumber,
     required this.colorId,
+    required this.colorName,
     required this.maxPassengers,
     required this.vehiclePicture,
     required this.vehicleBookletPicture,
-    this.alias,
+    required this.alias,
     required this.licensePlateNumber,
     required this.cityId,
   });
@@ -75,6 +77,7 @@ class AddVehicleRequest implements BaseRequest {
       'engine_number': engineNumber,
       'chassisNumber': chassisNumber,
       'color_id': colorId,
+      'color_name': colorName,
       'max_passengers': maxPassengers,
       'photo': await MultipartFile.fromFile(vehiclePicture.path),
       'booklet_photo': await MultipartFile.fromFile(vehicleBookletPicture.path),

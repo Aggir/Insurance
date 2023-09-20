@@ -344,6 +344,7 @@ class AppStrings {
   static const engineSerialNumber = 'engine_serial_number';
   static const chassisNumber = 'chassis_number';
   static const carColor = 'car_color';
+  static const vehicleColorName = 'vehicle_color_name';
   static const seatsWithoutTheDriver = 'seats_without_the_driver';
   static const vehiclePicture = 'vehicle_picture';
   static const thisInformationHelpsUsToKnowYourVehicleMoreAccurately =
