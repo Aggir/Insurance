@@ -99,7 +99,7 @@ class _MyVehiclesPageState extends State<MyVehiclesPage> {
               color: AppColors.primary,
             ),
           );
-        } else if (state.myVehicles!.isNotEmpty) {
+        } else if (state.myVehicles?.isNotEmpty ?? false) {
           return Stack(
             children: [
               ListView.separated(
