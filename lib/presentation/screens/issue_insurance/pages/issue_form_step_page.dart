@@ -69,10 +69,12 @@ class IssueFormStepPage extends StatelessWidget {
                         height: AppSizes.s104.r,
                         width: AppSizes.s104.r,
                         decoration: BoxDecoration(
-                            color: AppColors.primaryLight,
-                            borderRadius: BorderRadius.circular(100),
-                            image: const DecorationImage(
-                                image: AssetImage(ImageAssets.issuing))),
+                          color: AppColors.primaryLight,
+                          borderRadius: BorderRadius.circular(100),
+                          image: const DecorationImage(
+                            image: AssetImage(ImageAssets.issuing),
+                          ),
+                        ),
                       ),
                       CustomSpacers.mediumLarge(),
                       Text(
@@ -106,125 +108,134 @@ class IssueFormStepPage extends StatelessWidget {
   }
 
   Widget _formWidget(BuildContext context) {
+    final DateTime today = DateTime.now();
+    final DateTime firstDate = DateTime(today.year, today.month, today.day + 1);
     final cubit = BlocProvider.of<IssueInsuranceCubit>(context);
     return Form(
-        key: cubit.formKey,
-        child: BlocBuilder<IssueInsuranceCubit, IssueInsuranceState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                CustomDropDownField(
-                  onChanged: (value) {
-                    cubit.setSelectedCompany(int.parse(value));
-                  },
-                  hintText: AppStrings.selectTheInsuranceCompany.tr(),
-                  items: state.insuranceFormData == null
-                      ? []
-                      : state.insuranceFormData!.companies
-                          .map(
-                            (company) => DropdownMenuItem(
-                              value: company.id.toString(),
-                              child: Text(
-                                company.name,
-                                style: bodyStyle(),
-                              ),
+      key: cubit.formKey,
+      child: BlocBuilder<IssueInsuranceCubit, IssueInsuranceState>(
+        builder: (context, state) {
+          return Column(
+            children: [
+              CustomDropDownField(
+                onChanged: (value) {
+                  cubit.setSelectedCompany(int.parse(value));
+                },
+                hintText: AppStrings.selectTheInsuranceCompany.tr(),
+                items: state.insuranceFormData == null
+                    ? []
+                    : state.insuranceFormData!.companies
+                        .map(
+                          (company) => DropdownMenuItem(
+                            value: company.id.toString(),
+                            child: Text(
+                              company.name,
+                              style: bodyStyle(),
                             ),
-                          )
-                          .toList(),
-                ),
-                CustomSpacers.medium(),
-                CustomDropDownField(
-                  onChanged: (value) {
-                    cubit.setSelectedType(int.parse(value));
-                  },
-                  hintText: AppStrings.selectInsuranceType.tr(),
-                  items: state.insuranceFormData == null
-                      ? []
-                      : state.insuranceFormData!.insuranceTypes
-                          .map(
-                            (type) => DropdownMenuItem(
-                              value: type.id.toString(),
-                              child: Text(
-                                type.name,
-                                style: bodyStyle(),
-                              ),
+                          ),
+                        )
+                        .toList(),
+              ),
+              CustomSpacers.medium(),
+              CustomDropDownField(
+                onChanged: (value) {
+                  cubit.setSelectedType(int.parse(value));
+                },
+                hintText: AppStrings.selectInsuranceType.tr(),
+                items: state.insuranceFormData == null
+                    ? []
+                    : state.insuranceFormData!.insuranceTypes
+                        .map(
+                          (type) => DropdownMenuItem(
+                            value: type.id.toString(),
+                            child: Text(
+                              type.name,
+                              style: bodyStyle(),
                             ),
-                          )
-                          .toList(),
-                ),
-                CustomSpacers.medium(),
-                CustomDropDownField(
-                  onChanged: (value) {
-                    cubit.setSelectedVehicle(int.parse(value));
-                  },
-                  hintText: AppStrings.selectTheVehicle.tr(),
-                  disabledHint: state.fetchInsuranceFormDataStatus.isSuccess
-                      ? AppStrings.youDoNotHaveAnyUninsuredVehicles.tr()
-                      : null,
-                  items: state.insuranceFormData == null
-                      ? []
-                      : state.insuranceFormData!.vehicles
-                          .where((vehicle) => vehicle.insurance == null)
-                          .map(
-                            (type) => DropdownMenuItem(
-                              value: type.id.toString(),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding:
-                                        const EdgeInsets.all(AppSizes.s2).r,
-                                    height: AppSizes.s40.r,
-                                    width: AppSizes.s40.r,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.lightest,
-                                        border: Border.all(
-                                            color: AppColors.lightGray),
-                                        borderRadius: BorderRadius.circular(
-                                            AppValues.smallRadius.r)),
-                                    child: CachedNetworkImage(
-                                      imageUrl: type.brand.icon,
-                                      fit: BoxFit.fitWidth,
-                                    ),
+                          ),
+                        )
+                        .toList(),
+              ),
+              CustomSpacers.medium(),
+              CustomDropDownField(
+                onChanged: (value) {
+                  cubit.setSelectedVehicle(int.parse(value));
+                },
+                hintText: AppStrings.selectTheVehicle.tr(),
+                disabledHint: state.fetchInsuranceFormDataStatus.isSuccess
+                    ? AppStrings.youDoNotHaveAnyUninsuredVehicles.tr()
+                    : null,
+                items: state.insuranceFormData == null
+                    ? []
+                    : state.insuranceFormData!.vehicles
+                        .where((vehicle) => vehicle.insurance == null)
+                        .map(
+                          (type) => DropdownMenuItem(
+                            value: type.id.toString(),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(AppSizes.s2).r,
+                                  height: AppSizes.s40.r,
+                                  width: AppSizes.s40.r,
+                                  decoration: BoxDecoration(
+                                      color: AppColors.lightest,
+                                      border: Border.all(
+                                          color: AppColors.lightGray),
+                                      borderRadius: BorderRadius.circular(
+                                          AppValues.smallRadius.r)),
+                                  child: CachedNetworkImage(
+                                    imageUrl: type.brand.icon,
+                                    fit: BoxFit.fitWidth,
                                   ),
-                                  CustomSpacers.small(),
-                                  Text(
-                                    type.alias.isEmpty
-                                        ? "${type.brand.name} ${type.model.name} - ${type.makingYear}"
-                                        : type.alias,
-                                    style: bodyStyle(),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                CustomSpacers.small(),
+                                Text(
+                                  type.alias.isEmpty
+                                      ? "${type.brand.name} ${type.model.name} - ${type.makingYear}"
+                                      : type.alias,
+                                  style: bodyStyle(),
+                                ),
+                              ],
                             ),
-                          )
-                          .toList(),
-                ),
-                CustomSpacers.medium(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                        child: CustomFormFieldDatePicker(
+                          ),
+                        )
+                        .toList(),
+              ),
+              CustomSpacers.medium(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Flexible(
+                    child: CustomFormFieldDatePicker(
                       onChanged: (_) {
                         cubit.setEndDate();
                       },
                       controller: cubit.startDateController,
                       hintText: AppStrings.startDate.tr(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(DateTime.now().year + 10),
-                    )),
-                    CustomSpacers.medium(),
-                    Flexible(
-                        child: CustomFormFieldDatePicker(
+                      initialDate: firstDate,
+                      firstDate: firstDate,
+                      lastDate: DateTime(
+                        DateTime.now().year + 10,
+                        today.month,
+                        today.day,
+                      ),
+                    ),
+                  ),
+                  CustomSpacers.medium(),
+                  Flexible(
+                    child: CustomFormFieldDatePicker(
                       controller: cubit.endDateController,
                       enabled: false,
                       hintText: AppStrings.endDate.tr(),
-                    )),
-                  ],
-                )
-              ],
-            );
-          },
-        ));
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      ),
+    );
   }
 }

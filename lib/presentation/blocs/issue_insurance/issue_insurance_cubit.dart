@@ -89,12 +89,16 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
 
   setEndDate() {
     DateTime startDateTime = Intl.withLocale(
-        LanguageType.english.getLocale().countryCode,
-        () => DateFormat('yyyy-MM-dd').parse(startDateController.text));
+      LanguageType.english.getLocale().countryCode,
+      () => DateFormat('yyyy-MM-dd').parse(startDateController.text),
+    );
     endDateController.text = Intl.withLocale(
-        LanguageType.english.getLocale().countryCode,
-        () => DateFormat('yyyy-MM-dd').format(DateTime(
-            startDateTime.year + 1, startDateTime.month, startDateTime.day)));
+      LanguageType.english.getLocale().countryCode,
+      () => DateFormat('yyyy-MM-dd').format(
+        DateTime(
+            startDateTime.year + 1, startDateTime.month, startDateTime.day + 1),
+      ),
+    );
   }
 
   confirmStepOne() => formKey.currentState!.validate();
