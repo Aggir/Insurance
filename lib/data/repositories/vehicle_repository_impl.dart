@@ -58,10 +58,10 @@ class VehicleRepositoryImpl extends VehicleRepository {
                   ?.map((e) => e.toDomain())
                   .toList() ??
               [],
-          vehicleModels: vehicleModelsResponse.vehicleModels
-                  ?.map((e) => e.toDomain())
-                  .toList() ??
-              [],
+          // vehicleModels: vehicleModelsResponse.vehicleModels
+          //         ?.map((e) => e.toDomain())
+          //         .toList() ??
+          //     [],
           vehicleCountries: vehicleCountriesResponse.vehicleCountries
                   ?.map((e) => e.toDomain())
                   .toList() ??

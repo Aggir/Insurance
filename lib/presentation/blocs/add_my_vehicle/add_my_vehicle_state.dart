@@ -129,6 +129,7 @@ class AddMyVehicleState extends Equatable {
     File? vehicleBookletPicture,
     String? vehicleBookletPictureFileName,
     bool removeVehicleBooklet = false,
+    bool removeSelectedVehicleBrand = false,
   }) {
     return AddMyVehicleState(
         addVehicleStatus: addVehicleStatus ?? this.addVehicleStatus,
@@ -172,7 +173,9 @@ class AddMyVehicleState extends Equatable {
         getCitiesErrorMessage:
             getCitiesErrorMessage ?? this.getCitiesErrorMessage,
         cities: cities ?? this.cities,
-        selectedVehicleBrand: selectedVehicleBrand ?? this.selectedVehicleBrand,
+        selectedVehicleBrand: removeSelectedVehicleBrand
+            ? null
+            : selectedVehicleBrand ?? this.selectedVehicleBrand,
         vehicleBookletPictureStatus:
             vehicleBookletPictureStatus ?? this.vehicleBookletPictureStatus,
         vehicleBookletPicture: removeVehicleBooklet

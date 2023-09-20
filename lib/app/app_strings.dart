@@ -208,6 +208,7 @@ class AppStrings {
   static const vehicleType = 'vehicle_type';
   static const vehicleBrand = 'vehicle_brand';
   static const vehicleModel = 'vehicle_model';
+  static const pleaseSelectColorBrandFirst = 'please_select_color_brand_first';
   static const vehicleCountry = 'vehicle_country';
   static const vehicleYear = 'vehicle_year';
   static const libyan = 'libyan';

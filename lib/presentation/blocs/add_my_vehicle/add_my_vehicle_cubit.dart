@@ -273,7 +273,10 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
   }
 
   getAddVehicleFormData() async {
-    emit(state.copyWith(getAddVehicleFormDataStatus: Status.loading));
+    emit(state.copyWith(
+      getAddVehicleFormDataStatus: Status.loading,
+      removeSelectedVehicleBrand: true,
+    ));
     initGetAddVehicleFormData();
     (await instance<GetAddVehicleFormDataUsecase>().execute(null)).fold(
       (failure) {

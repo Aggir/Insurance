@@ -11,23 +11,24 @@ import '../theme/app_colors.dart';
 import '../theme/app_theme.dart';
 
 class CustomDropDownField extends StatefulWidget {
-  const CustomDropDownField(
-      {Key? key,
-      this.items,
-      this.validator,
-      this.onChanged,
-      this.enabled = true,
-      this.defaultValidator = true,
-      this.hintText,
-      this.onTap,
-      this.initialValue,
-      this.value,
-      this.focusedStyleEnabled = true,
-      this.hideErrorMessage = false,
-      this.isLoading = false,
-      this.selectedItemBuilder,
-      this.disabledHint})
-      : super(key: key);
+  const CustomDropDownField({
+    Key? key,
+    this.items,
+    this.validator,
+    this.onChanged,
+    this.enabled = true,
+    this.defaultValidator = true,
+    this.hintText,
+    this.onTap,
+    this.initialValue,
+    this.value,
+    this.focusedStyleEnabled = true,
+    this.hideErrorMessage = false,
+    this.isLoading = false,
+    this.selectedItemBuilder,
+    this.disabledHint,
+    this.disabledHintColor,
+  }) : super(key: key);
   final List<DropdownMenuItem>? items;
   final void Function(dynamic)? onChanged;
   final void Function()? onTap;
@@ -42,6 +43,7 @@ class CustomDropDownField extends StatefulWidget {
   final bool isLoading;
   final List<Widget> Function(BuildContext context)? selectedItemBuilder;
   final String? disabledHint;
+  final Color? disabledHintColor;
 
   @override
   State<CustomDropDownField> createState() => _CustomDropDownFieldState();
@@ -138,7 +140,8 @@ class _CustomDropDownFieldState extends State<CustomDropDownField> {
             padding: const EdgeInsets.only(top: AppValues.extraSmall).r,
             child: Text(
               widget.disabledHint ?? Constants.empty,
-              style: textFieldErrorMessageStyle(),
+              style: textFieldErrorMessageStyle()
+                  .copyWith(color: widget.disabledHintColor),
             ),
           ),
       ],

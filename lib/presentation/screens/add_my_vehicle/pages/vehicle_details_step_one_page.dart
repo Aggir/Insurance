@@ -183,6 +183,10 @@ class _AddMyVehicleDetailsStepOnePageState
             CustomDropDownField(
               isLoading: state.getAddVehicleFormDataStatus.isLoading,
               onChanged: (vehicleModel) => cubit.setVehicleModel(vehicleModel),
+              disabledHint: state.getAddVehicleFormDataStatus.isSuccess
+                  ? AppStrings.pleaseSelectColorBrandFirst.tr()
+                  : null,
+              disabledHintColor: AppColors.gray,
               hintText: AppStrings.vehicleModel.tr(),
               defaultValidator: false,
               items: (state.addVehicleFormData?.vehicleModels == null)
