@@ -75,6 +75,13 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
     });
   }
 
+  setInsurancePeriod(int selectedInsurancePeriod) {
+    emit(state.copyWith(selectedInsurancePeriod: selectedInsurancePeriod));
+    if (startDateController.text.isNotEmpty) {
+      setEndDate();
+    }
+  }
+
   setSelectedCompany(int? selectedCompany) {
     emit(state.copyWith(selectedCompanyId: selectedCompany));
   }
@@ -96,7 +103,10 @@ class IssueInsuranceCubit extends Cubit<IssueInsuranceState> {
       LanguageType.english.getLocale().countryCode,
       () => DateFormat('yyyy-MM-dd').format(
         DateTime(
-            startDateTime.year + 1, startDateTime.month, startDateTime.day + 1),
+          startDateTime.year + (state.selectedInsurancePeriod ?? 1),
+          startDateTime.month,
+          startDateTime.day + 1,
+        ),
       ),
     );
   }

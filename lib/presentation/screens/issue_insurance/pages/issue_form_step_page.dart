@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/constants.dart';
 import 'package:insurance_app/app/enums/status_enum.dart';
 
 import 'package:insurance_app/presentation/blocs/issue_insurance/issue_insurance_cubit.dart';
@@ -109,7 +110,6 @@ class IssueFormStepPage extends StatelessWidget {
 
   Widget _formWidget(BuildContext context) {
     final DateTime today = DateTime.now();
-    final DateTime firstDate = DateTime(today.year, today.month, today.day + 1);
     final cubit = BlocProvider.of<IssueInsuranceCubit>(context);
     return Form(
       key: cubit.formKey,
@@ -203,35 +203,98 @@ class IssueFormStepPage extends StatelessWidget {
                         .toList(),
               ),
               CustomSpacers.medium(),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: CustomFormFieldDatePicker(
-                      onChanged: (_) {
-                        cubit.setEndDate();
-                      },
-                      controller: cubit.startDateController,
-                      hintText: AppStrings.startDate.tr(),
-                      initialDate: firstDate,
-                      firstDate: firstDate,
-                      lastDate: DateTime(
-                        DateTime.now().year + 10,
-                        today.month,
-                        today.day,
+              BlocBuilder<IssueInsuranceCubit, IssueInsuranceState>(
+                builder: (context, state) {
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: CustomFormFieldDatePicker(
+                          onChanged: (_) {
+                            if (state.selectedTypeId == 1) {
+                              cubit.setEndDate();
+                            }
+                          },
+                          enabled: state.selectedTypeId != null,
+                          controller: cubit.startDateController,
+                          hintText: AppStrings.startDate.tr(),
+                          initialDate: DateTime(
+                            today.year,
+                            today.month,
+                            today.day + 1,
+                          ),
+                          firstDate: DateTime(
+                            today.year,
+                            today.month,
+                            today.day + 1,
+                          ),
+                          lastDate: DateTime(
+                            DateTime.now().year + 10,
+                            today.month,
+                            today.day,
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  CustomSpacers.medium(),
-                  Flexible(
-                    child: CustomFormFieldDatePicker(
-                      controller: cubit.endDateController,
-                      enabled: false,
-                      hintText: AppStrings.endDate.tr(),
-                    ),
-                  ),
-                ],
+                      CustomSpacers.medium(),
+                      Flexible(
+                        child: CustomFormFieldDatePicker(
+                          controller: cubit.endDateController,
+                          enabled: state.selectedTypeId != null &&
+                              state.selectedTypeId != 1,
+                          hintText: AppStrings.endDate.tr(),
+                          initialDate: DateTime(
+                            today.year,
+                            today.month,
+                            today.day + 15,
+                          ),
+                          firstDate: DateTime(
+                            today.year,
+                            today.month,
+                            today.day + 15,
+                          ),
+                          lastDate: DateTime(
+                            DateTime.now().year + 10,
+                            today.month,
+                            today.day + 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
+              BlocBuilder<IssueInsuranceCubit, IssueInsuranceState>(
+                builder: (context, state) {
+                  if (state.selectedTypeId == 1) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        CustomSpacers.medium(),
+                        CustomDropDownField(
+                          onChanged: (value) {
+                            cubit.setInsurancePeriod(int.parse(value));
+                          },
+                          hintText: AppStrings.insurancePeriod.tr(),
+                          value: '1',
+                          items: Constants.insurancePeriod
+                              .map(
+                                (period) => DropdownMenuItem(
+                                  value: period['period'].toString(),
+                                  child: Text(
+                                    period['name'].toString(),
+                                    style: bodyStyle(),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              )
             ],
           );
         },

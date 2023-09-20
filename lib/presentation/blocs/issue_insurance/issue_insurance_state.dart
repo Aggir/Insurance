@@ -13,6 +13,7 @@ class IssueInsuranceState extends Equatable {
   final int? selectedTypeId;
   final int? selectedVehicleId;
   final InsuranceEntity? insurance;
+  final int? selectedInsurancePeriod;
 
   const IssueInsuranceState({
     this.fetchInsuranceFormDataStatus = Status.initial,
@@ -27,6 +28,7 @@ class IssueInsuranceState extends Equatable {
     this.selectedTypeId,
     this.selectedVehicleId,
     this.insurance,
+    this.selectedInsurancePeriod = 1,
   });
 
   @override
@@ -43,6 +45,7 @@ class IssueInsuranceState extends Equatable {
         issueInsuranceErrorMessage,
         insurancePrice,
         insurance,
+        selectedInsurancePeriod,
       ];
 
   IssueInsuranceState copyWith({
@@ -58,6 +61,7 @@ class IssueInsuranceState extends Equatable {
     int? selectedTypeId,
     int? selectedVehicleId,
     InsuranceEntity? insurance,
+    int? selectedInsurancePeriod,
   }) {
     return IssueInsuranceState(
       fetchInsuranceFormDataStatus:
@@ -78,6 +82,8 @@ class IssueInsuranceState extends Equatable {
       selectedTypeId: selectedTypeId ?? this.selectedTypeId,
       selectedVehicleId: selectedVehicleId ?? this.selectedVehicleId,
       insurance: insurance ?? this.insurance,
+      selectedInsurancePeriod:
+          selectedInsurancePeriod ?? this.selectedInsurancePeriod,
     );
   }
 

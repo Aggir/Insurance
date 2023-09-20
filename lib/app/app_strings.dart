@@ -273,6 +273,7 @@ class AppStrings {
   static const selectTheVehicle = 'select_the_vehicle';
   static const startDate = 'start_date';
   static const endDate = 'end_date';
+  static const insurancePeriod = 'insurance_period';
   static const youDoNotHaveAnyUninsuredVehicles =
       'you_do_not_have_any_uninsured_vehicles';
   static const installmentDetails = 'installment_details';

@@ -213,6 +213,7 @@
     "select_the_vehicle": "اختر  المركبة",
     "start_date": "بداية الوثيقة",
     "end_date": "نهاية الوثيقة",
+    "insurance_period": "مدة التأمين",
     "you_do_not_have_any_uninsured_vehicles": "ليس لديك مركبات غير مؤمنة",
     "installment_details": "تفاصيل القسط",
     "net_installment": "صافي القسط",
