@@ -345,6 +345,8 @@ class AppStrings {
   static const chassisNumber = 'chassis_number';
   static const carColor = 'car_color';
   static const vehicleColorName = 'vehicle_color_name';
+  static const pleaseMakeSureThatTheEnteredInfo =
+      "please_make_sure_that_the_entered_info";
   static const seatsWithoutTheDriver = 'seats_without_the_driver';
   static const vehiclePicture = 'vehicle_picture';
   static const thisInformationHelpsUsToKnowYourVehicleMoreAccurately =

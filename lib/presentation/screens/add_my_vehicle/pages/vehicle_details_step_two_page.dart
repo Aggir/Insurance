@@ -179,6 +179,12 @@ class _AddMyVehicleDetailsStepTwoPageState
           controller: cubit.vehicleColorNameController,
           hintText: AppStrings.vehicleColorName.tr(),
         ),
+        CustomSpacers.small(),
+        Text(
+          AppStrings.pleaseMakeSureThatTheEnteredInfo.tr(),
+          style: smallGrayBodyStyle(),
+        ),
+        CustomSpacers.small(),
       ]),
     );
   }

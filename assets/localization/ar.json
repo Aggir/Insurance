@@ -271,6 +271,7 @@
     "chassis_number": "رقم الهيكل \\ الشاسيه",
     "car_color": "لون السيارة",
     "vehicle_color_name": "لون المركبة في الكتيب",
+    "please_make_sure_that_the_entered_info":"الرجاء التأكد من ان البيانات المدخلة متوافقة مع بيانات المسجلة في كتيب المركبة، تفادياً للمشاكل عند التأمين.",
     "seats_without_the_driver": "عدد الركاب المصرح لهم بخلاف السائق",
     "vehicle_picture": "صورة المركبة",
     "this_information_helps_us_to_know_your_vehicle_more_accurately": "تساعدنا هذه المعلومات من معرفة مركبتك بشكل أدق.",
