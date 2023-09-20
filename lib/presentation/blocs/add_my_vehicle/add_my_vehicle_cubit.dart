@@ -214,7 +214,7 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     emit(state.copyWith(vehicleBookletPictureStatus: Status.loading));
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: Constants.allowedPictureExtensions,
+      allowedExtensions: Constants.allowedDocumentExtensions,
     );
     if (result != null) {
       final PlatformFile firstFile = result.files.first;
