@@ -289,6 +289,8 @@ class AppStrings {
       'i_accept_the_general_terms_of_the_insurance';
   static const iAgreeToPayTheFeeAsShownInTheTotal =
       'i_agree_to_pay_the_fee_as_shown_in_the_total';
+  static const iAgreeThatTheEnteredInfoAreCorrect =
+      'i_agree_that_the_entered_info_are_correct';
   static const completeTheInsurancePolicyPayment =
       'complete_the_insurance_policy_payment';
   static const issueTheInsurancePolicyAndPayLater =

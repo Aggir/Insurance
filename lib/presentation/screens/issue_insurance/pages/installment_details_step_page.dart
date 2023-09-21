@@ -49,7 +49,9 @@ class _InstallmentDetailsStepPageState
   }
 
   bool get _radiosSelected =>
-      selectedRadio.contains('1') && selectedRadio.contains('2');
+      selectedRadio.contains('1') &&
+      selectedRadio.contains('2') &&
+      selectedRadio.contains('3');
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +85,10 @@ class _InstallmentDetailsStepPageState
             },
             child: Padding(
               padding: EdgeInsets.only(
-                top: AppValues.extraLarge.h,
+                top: AppValues.large.h,
                 left: AppValues.mediumLarge.w,
                 right: AppValues.mediumLarge.w,
-                bottom: (AppValues.large + AppValues.large / 3).h,
+                bottom: (AppValues.large).h,
               ),
               child: IntrinsicHeight(
                 child: Column(
@@ -102,7 +104,7 @@ class _InstallmentDetailsStepPageState
                     ),
                     CustomSpacers.mediumLarge(),
                     _installmentDetailsWidget(context),
-                    CustomSpacers.mediumLarge(),
+                    CustomSpacers.medium(),
                     Text(
                       AppStrings.pleaseAcceptToContinue.tr(),
                       style: extraSmallHeadlineStyle(),
@@ -139,6 +141,23 @@ class _InstallmentDetailsStepPageState
                           selectedRadio.remove('2');
                         } else {
                           selectedRadio.add('2');
+                        }
+                      }),
+                    ),
+                    RadioListTile(
+                      title: Text(
+                        AppStrings.iAgreeThatTheEnteredInfoAreCorrect.tr(),
+                        style: bodyStyle(),
+                      ),
+                      contentPadding: const EdgeInsets.all(0),
+                      toggleable: true,
+                      value: '3',
+                      groupValue: selectedRadio.contains('3') ? '3' : null,
+                      onChanged: (v) => setState(() {
+                        if (selectedRadio.contains('3')) {
+                          selectedRadio.remove('3');
+                        } else {
+                          selectedRadio.add('3');
                         }
                       }),
                     ),
