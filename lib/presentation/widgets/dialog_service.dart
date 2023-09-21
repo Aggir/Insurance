@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:insurance_app/presentation/theme/app_colors.dart';
 import 'package:insurance_app/presentation/theme/app_theme.dart';
 
 import '../../app/assets_manager.dart';
@@ -34,6 +35,7 @@ class DialogService {
     BuildContext context,
   ) async {
     _current = CustomDialog(
+      removeDialogBackground: true,
       content: Image.asset(
         GifAssets.loading,
         height: AppSizes.s150.r,
@@ -48,6 +50,7 @@ class DialogService {
         onWillPop: () async => false,
         child: _current ??
             CustomDialog(
+              removeDialogBackground: true,
               content: Image.asset(
                 GifAssets.loading,
                 height: AppSizes.s150.r,
@@ -77,20 +80,29 @@ abstract class IDialog extends StatelessWidget with IDialogService {
 
 // ignore: must_be_immutable
 class CustomDialog extends IDialog {
-  CustomDialog({required this.content, this.actions, super.key});
+  CustomDialog(
+      {required this.content,
+      this.actions,
+      this.removeDialogBackground = false,
+      super.key});
   Widget content;
   List<Widget>? actions;
+  bool removeDialogBackground;
   BuildContext? _context;
 
   @override
   Widget build(BuildContext context) {
     _context = context;
     return AlertDialog(
+      backgroundColor: removeDialogBackground ? AppColors.transparent : null,
+      elevation: removeDialogBackground ? 0 : null,
       content: content,
       actions: actions,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
-      ),
+      shape: removeDialogBackground
+          ? null
+          : RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppValues.largeRadius.r),
+            ),
     );
   }
 
