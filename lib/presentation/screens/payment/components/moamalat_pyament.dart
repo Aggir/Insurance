@@ -1,5 +1,12 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:insurance_app/presentation/services/moamalat_payment/src/moamalat_payment.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:insurance_app/app/app_strings.dart';
+import 'package:insurance_app/app/services/moamalat_payment/src/moamalat_payment.dart';
+import 'package:insurance_app/presentation/blocs/index.dart';
+import 'package:insurance_app/presentation/screens/payment/components/payment_completed_dialog.dart';
+import 'package:insurance_app/presentation/widgets/dialog_service.dart';
+import 'package:insurance_app/presentation/widgets/snackbars.dart';
 
 class MoamalatPaymentMethod extends StatelessWidget {
   const MoamalatPaymentMethod({super.key});
@@ -20,11 +27,11 @@ class MoamalatPaymentMethod extends StatelessWidget {
           "39636630633731362D663963322D346362642D386531662D633963303432353936373431", //put your merchantSecretKey
       // * make sure all value's are String *
       onCompleteSuccess: (value) {
-        print(value);
+        BlocProvider.of<PaymentCubit>(context).confirmVerifyOtpForm();
+        DialogService.load(context, content: const PaymentCompletedDialog());
       },
       onError: (error) {
-        print(error);
-        // print(error.)
+        SnackBars.error(context, error.error ?? AppStrings.genericError.tr());
       },
     );
   }
