@@ -67,6 +67,7 @@ class _MoamalatPaymentState extends State<MoamalatPayment> {
     super.initState();
     checkTest();
     dateTime = getDateTimeLocalTrxnStr();
+    print(hash());
   }
 
   /// Determines the URL of the Moamalat payment script based on the `isTest` property.
