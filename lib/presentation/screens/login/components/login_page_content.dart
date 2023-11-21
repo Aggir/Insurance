@@ -96,14 +96,15 @@ class LoginPageContent extends StatelessWidget {
         children: [
           CustomTextFormField(
             focusNode: cubit.emailAndPhoneFocusNode,
-            controller: cubit.emailAndPhoneController,
+            controller: cubit.emailAndPhoneController
+              ..text = "h.sherif@wassel.ly",
             hintText: AppStrings.phoneNumberOrEmailAddress.tr(),
             textInputAction: TextInputAction.next,
           ),
           CustomSpacers.medium(),
           CustomTextFormField(
             focusNode: cubit.passwordFocusNode,
-            controller: cubit.passwordController,
+            controller: cubit.passwordController..text = "password",
             hintText: AppStrings.password.tr(),
             textInputAction: TextInputAction.done,
             isPassword: true,
