@@ -1,6 +1,6 @@
 class ApiConstants {
   static const String baseUrl =
-      'https://insurance-api-wassel-322a2dab356d.herokuapp.com/api';
+      'https://insurancetest2-9ecaabdfad49.herokuapp.com/api';
 
   static const String notifications = '/notification';
   static const String notificationToggleSeen = '/notification/toggleSeen';
