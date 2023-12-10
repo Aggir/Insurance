@@ -100,7 +100,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   @override
   Future<VehiclesResponse> getMyVehicles(
       {int? page, bool isHidden = false}) async {
-    return await _vehicleRemoteDatasource.getMyVehicles();
+    return await _vehicleRemoteDatasource.getMyVehicles(
+        page: page, isHidden: isHidden);
   }
 
   @override
