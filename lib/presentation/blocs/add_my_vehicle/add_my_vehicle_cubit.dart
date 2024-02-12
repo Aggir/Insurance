@@ -123,7 +123,7 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
       withAttachment: state.selectedVehicleWithAttachment,
       engineNumber: vehicleEngineNumberController.text.trim(),
       chassisNumber: vehicleChassisNumberController.text.trim(),
-      colorId: state.selectedVehicleColorId,
+      // colorId: state.selectedVehicleColorId,
       colorName: vehicleColorNameController.text.trim(),
       maxPassengers: vehicleMaxPassengerController.text.trim(),
       vehiclePicture: state.vehiclePictureFile!,
@@ -173,9 +173,9 @@ class AddMyVehicleCubit extends Cubit<AddMyVehicleState> {
     emit(state.copyWith(selectedVehicleYearId: vehicleYearId));
   }
 
-  setVehicleColorId(int vehicleColorId) {
-    emit(state.copyWith(selectedVehicleColorId: vehicleColorId));
-  }
+  // setVehicleColorId(int vehicleColorId) {
+  //   emit(state.copyWith(selectedVehicleColorId: vehicleColorId));
+  // }
 
   toggleVehicleWithAttachment() {
     emit(state.copyWith(
