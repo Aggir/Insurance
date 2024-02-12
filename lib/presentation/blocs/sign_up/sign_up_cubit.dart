@@ -208,14 +208,18 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (result != null) {
       final PlatformFile firstFile = result.files.first;
       String? scannedNationalId;
-      if (firstFile.extension == 'pdf') {
-        final resp = await BarcodeFinder.scanFile(path: firstFile.path!);
-        scannedNationalId = extractValue(resp, 'NID');
-      } else {
-        final resp = await Scan.parse(firstFile.path!);
-        scannedNationalId = extractValue(resp, 'NID');
+      try {
+        if (firstFile.extension == 'pdf') {
+          final resp = await BarcodeFinder.scanFile(path: firstFile.path!);
+          scannedNationalId = extractValue(resp, 'NID');
+        } else {
+          final resp = await Scan.parse(firstFile.path!);
+          scannedNationalId = extractValue(resp, 'NID');
+        }
+      } catch (e) {
+        scannedNationalId = Constants.empty;
       }
-      nationalIdNumberController.text = scannedNationalId ?? Constants.empty;
+      nationalIdNumberController.text = scannedNationalId!;
       emit(state.copyWith(
         nationalFileName: firstFile.name,
         nationalIdStatus: Status.success,
