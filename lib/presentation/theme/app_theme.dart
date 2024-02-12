@@ -6,6 +6,7 @@ import 'package:insurance_app/presentation/theme/font_manager.dart';
 import 'app_colors.dart';
 
 ThemeData appThemeData() => ThemeData(
+      useMaterial3: false,
       fontFamily: FontConstants.fontFamily,
       scaffoldBackgroundColor: AppColors.white,
       dividerTheme: DividerThemeData(color: AppColors.grayLight, thickness: 1),
