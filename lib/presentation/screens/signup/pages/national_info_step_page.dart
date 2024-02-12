@@ -91,6 +91,9 @@ class _SignUpNationalInfoPageState extends State<SignUpNationalInfoPage> {
                 SnackBars.error(context, state.checkNationalIdErrorMessage!);
               } else if (state.sendVerifyPhoneOtpStatus.isFailure &&
                   state.checkNationalIdStatus.isSuccess) {
+                // Todo: Fix this later, what I did is avoiding checking send otp function
+                context.go(AppScreen.signupOtpStep.toPath);
+
                 DialogService.dispose();
                 SnackBars.error(context, state.sendVerifyPhoneOtpErrorMessage!);
               } else if (state.sendVerifyPhoneOtpStatus.isSuccess &&
