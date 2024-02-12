@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:insurance_app/presentation/theme/text_style_manager.dart';
 
 import '../theme/app_colors.dart';
 
 class SnackBars {
+  static Text _snackBarText(String message) => Text(
+        message,
+        style: bodyStyle().copyWith(color: AppColors.white),
+      );
+
   static void error(BuildContext context, String errorMessage) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(errorMessage),
+        content: _snackBarText(errorMessage),
         backgroundColor: AppColors.danger,
         behavior: SnackBarBehavior.floating,
       ),
@@ -18,7 +24,7 @@ class SnackBars {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(successMessage),
+        content: _snackBarText(successMessage),
         backgroundColor: AppColors.secondary,
         behavior: SnackBarBehavior.floating,
       ),
@@ -31,7 +37,7 @@ class SnackBars {
       SnackBar(
         // margin: const EdgeInsets.all(AppSizes.s16),
         behavior: SnackBarBehavior.floating,
-        content: Text(infoMessage),
+        content: _snackBarText(infoMessage),
         backgroundColor: AppColors.black.withOpacity(0.7),
       ),
     );
